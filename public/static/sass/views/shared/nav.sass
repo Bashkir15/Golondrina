@@ -9,6 +9,12 @@
 	z-index: 120
 	background-color: transparent
 
+	&.nav-mobile--open
+		.nav-left
+			img
+				opacity: 0
+				transition: all .4s ease-out
+
 .nav-left
 	display: flex
 	flex-basis: 0
@@ -20,6 +26,10 @@
 
 	.nav-item
 		width: 150px
+
+		img
+			opacity: 1
+			transition: all .4s ease-out
 
 
 .nav-right

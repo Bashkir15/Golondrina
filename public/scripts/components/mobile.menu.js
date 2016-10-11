@@ -14,10 +14,14 @@ class MobileMenu {
 		mod.addClass(this.container, this.animatedClass);
 
 		if (mod.hasClass(this.container, this.animatedClass) && !mod.hasClass(this.container, this.openClass)) {
+			document.body.style.overflowY = 'hidden';
+			document.body.style.position = 'fixed';
 			mod.addClass(this.container, this.openClass);
 			this._updateNav();
 			this._addEvents();
 		} else {
+			document.body.style.overflowY = 'auto';
+			document.body.style.position = 'relative';
 			mod.removeClass(this.container, this.openClass);
 			this._updateNav();
 			this._addEvents();
