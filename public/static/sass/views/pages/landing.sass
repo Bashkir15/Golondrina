@@ -287,6 +287,8 @@
 	position: relative
 	padding: 55px 0
 	background: url("../../static/images/keyboard.jpg")
+	background-repeat: no-repeat
+	background-size: cover
 
 	h3
 		position: relative
@@ -318,6 +320,7 @@
 	margin: 0 auto
 
 	label
+		display: inline-block
 		position: absolute
 		top: 14px
 		left: 15px
@@ -360,3 +363,28 @@
 			letter-spacing: 1px
 			line-height: 24px
 			color: #f1f3f3
+
+.landing-email--focused
+	label
+		left: -50px
+		opacity: 0
+
+.landing-email--valid
+	label
+		opacity: 0
+		left: -50px
+
+.landing-email--invalid
+	label
+		opacity: 0
+		left: -50px
+
+	&.landing-email--blank
+		label
+			opacity: 1
+			left: 15px
+
+	&.landing-email--focused
+		label
+			left: -50px
+			opacity: 0
