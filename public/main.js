@@ -1,4 +1,5 @@
 import mobileMenu from './scripts/components/mobile.menu'
+import home from './scripts/pages/landing'
 
 var navTrigger = document.getElementById('nav-trigger');
 
@@ -15,3 +16,4 @@ function openMobileMenu() {
 }
 
 navTrigger.addEventListener('click', openMobileMenu, false);
+home();
