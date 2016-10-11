@@ -4,9 +4,12 @@
 		<meta charset='utf-8'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Golondrina Studio</title>
-		
+
 		<link href="https://fonts.googleapis.com/css?family=Lato:300,400|Quattrocento+Sans:400,400i" rel="stylesheet">
+		<link rel='stylesheet' href='./static/icons/style.css'>
 		<link rel='stylesheet' href='./styles/main.min.css'>
+
+
 	</head>
 
 	<body>
@@ -14,23 +17,37 @@
 
 		<div class='landing-page-content'>
 			<div class='landing-header'>
-				<p>This is going to be some content block. Can't fix it until I have a color scheme</p>
+				<div>
+					<h1>Custom Art</h1>
+					<p>From the heart of Texas</p>
+
+					<button class='landing-header-contact'>
+						<span>Contact Us</span>
+					</button>
+				</div>
 			</div>
 
 			<div class='landing-about'>
 				<div class='landing-about-columns'>
 					<div>
-						<h3>Icon and title</h3>
+						<h3>
+							<span class='icon-beaker'></span>
+							Title
+						</h3>
 						<p>This is going to be some content like text about Golondrina Studio and why you should recruit their services blah blah blah blah</p>
 					</div>
 
 					<div>
-						<h3>Icon and title</h3>
+						<h3>
+						<span class='icon-megaphone'></span>
+						Title</h3>
 						<p>This is goin to be something else about Golondrina. These will make people want to hire us</p>
 					</div>
 
 					<div>
-						<h3>Icon and Title</h3>
+						<h3>
+						<span class='icon-genius'></span>
+						Title</h3>
 						<p>A last and final thing about golondrina and why you should use their cool as balls stuff</p>
 					</div>
 				</div>
@@ -49,7 +66,58 @@
 						<p>Wow, it is amazing that I never hired GOlondrina Studio's before. They were excellent in doing stuff, stuff, and then even more stuff for me when I needed it most, lawl.</p>
 					</div>
 				</div>
+
+				<div class='landing-testimonial-button'>
+					<button>
+						<span>See The Work</span>
+					</button>
+				</div>
 			</div>
+
+			<div class='landing-latest-works'>
+				<div class='landing-work'>
+					<div></div>
+					<h3>Work for from <span>This Place</span></h3>
+					<p>Blah blah, a business that does blah blah and blah blah blah blah da blah blah blah</p>
+				</div>
+
+				<div class='landing-work'>
+					<div></div>
+					<h3>Work for from <span>This Place</span></h3>
+					<p>Blah blah, a business that does blah blah and blah blah blah blah da blah blah blah</p>
+				</div>
+
+				<div class='landing-work'>
+					<div></div>
+					<h3>Work for from <span>This Place</span></h3>
+					<p>Blah blah, a business that does blah blah and blah blah blah blah da blah blah blah</p>
+				</div>
+
+				<div class='landing-latest-button'>
+					<button>
+						<span>See More</span>
+					</button>
+				</div>
+			</div>
+
+			<div class='landing-newsletter'>
+				<div class='landing-newsletter-overlay'></div>
+				<h3>Signup to get the latest</h3>
+
+				<div class='landing-newsletter-input'>
+					<div class='landing-form-wrapper'>
+						<label for="email">
+							<span class='icon-envelope'></span>
+							Email
+						</label>
+						<input type='email' required>
+						<button>
+							<span>Start!</span>
+						</button>
+					</div>
+				</div>
+			</div>
+
 
 			<% include ./views/shared/footer %>
 
