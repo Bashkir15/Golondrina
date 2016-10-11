@@ -1,0 +1,96 @@
+.nav
+	display: flex
+	align-items: stretch
+	postion: fixed
+	top: 0
+	left: 0
+	height: 55px
+	width: 100%
+	z-index: 120
+	border-bottom: 1px solid rgba(0,0,0,0.35)
+
+.nav-left
+	display: flex
+	flex-basis: 0
+	flex-grow: 1
+	align-items: stretch
+	justify-content: flex-start
+	white-space: nowrap
+	padding-left: 15px
+
+	.nav-item
+		width: 150px
+
+
+.nav-right
+	display: flex
+	flex-basis: 0
+	flex-grow: 1
+	align-items: stretch
+	justify-content: flex-end
+	padding-right: 15px
+	
+
+
+.nav-item
+	position: relative
+	display: flex
+	align-items: center
+	justify-content: center
+
+	img
+		position: absolute
+		top: 15px
+		left: 0
+		height: 70px
+
+.nav-icon
+	display: flex
+	flex-direction: column
+	align-items: center
+	justify-content: center
+	position: relative
+	height: 55px
+	width: 40px
+	transform: rotate(0deg)
+	transition: .5s ease-in-out
+	cursor: pointer
+
+	span
+		display: block
+		position: absolute
+		height: 6px
+		width: 100%
+		background: #d3531a
+		border-radius: 9px
+		opacity: 1
+		transform: rotate(0deg)
+		transition: .25s ease-in-out
+
+		&:nth-child(1)
+			top: 12px
+			transform-origin: left center
+
+		&:nth-child(2)
+			top: 24px
+			transform-origin: left center
+
+		&:nth-child(3)
+			top: 36px
+			transform-origin: left center
+
+	&.open
+		span
+			&:nth-child(1)
+				transform: rotate(45deg)
+				top: 10px
+				left: 8px
+
+			&:nth-child(2)
+				opacity: 0
+				width: 0
+
+			&:nth-child(3)
+				transform: rotate(-45deg)
+				top: 38px
+				left: 8px

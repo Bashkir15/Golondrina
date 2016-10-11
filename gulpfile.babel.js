@@ -27,23 +27,17 @@ const paths = {
 
 
 gulp.task('browserSync', () => {
-	browserSync({
-		server: {
-			baseDir: "public/"
-		},
-
-		options: {
-			reloadDelay: 150
-		},
-
-		notify: false
+	browserSync.init(null, {
+		proxy: 'http://localhost:8000',
+		files: ["public/**/*.*"],
+		port: 7000
 	});
 });
 
 gulp.task('styles', () => {
 	gulp.src(paths.dev.sass)
 		.pipe(plumber({
-			errorHandler: (err) => {
+			errorHandler: function(err) {
 				console.log(err);
 				this.emit('end');
 			}
@@ -55,7 +49,7 @@ gulp.task('styles', () => {
 			precision: 10
 		}))
 		.pipe(autoprefix({
-			browsers: ['last 2 version', 'safaria 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'],
+			browsers: ['last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'],
 			cascade: true
 		}))
 		.pipe(uglifycss({
@@ -76,7 +70,7 @@ gulp.task('scripts', () => {
 		.pipe(rename((path) => {
 			path.extname = '.min.js'
 		}))
-		.pipe(gulp.dest(config.prod.js))
+		.pipe(gulp.dest(paths.prod.js))
 		.pipe(browserSync.reload({stream: true}))
 });
 
@@ -86,8 +80,8 @@ gulp.task('html', () => {
 		.pipe(browserSync.reload({stream: true}))
 });
 
-gulp.task('default', ['browserSYnc', 'scripts', 'styles', 'html'], () => {
-	gulp.watch(paths.dev.sass2, ['styles']);
+gulp.task('default', ['browserSync', 'scripts', 'styles', 'html'], () => {
+	gulp.watch([paths.dev.sass, paths.dev.sass2], ['styles']);
 	gulp.watch(paths.dev.html, ['html']);
 	gulp.watch(paths.dev.js, ['scripts']);
 });
