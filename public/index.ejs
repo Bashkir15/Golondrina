@@ -4,12 +4,54 @@
 		<meta charset='utf-8'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Golondrina Studio</title>
-
+		
+		<link href="https://fonts.googleapis.com/css?family=Lato:300,400|Quattrocento+Sans:400,400i" rel="stylesheet">
 		<link rel='stylesheet' href='./styles/main.min.css'>
 	</head>
 
 	<body>
 		<% include ./views/shared/nav %>
+
+		<div class='landing-page-content'>
+			<div class='landing-header'>
+				<p>This is going to be some content block. Can't fix it until I have a color scheme</p>
+			</div>
+
+			<div class='landing-about'>
+				<div class='landing-about-columns'>
+					<div>
+						<h3>Icon and title</h3>
+						<p>This is going to be some content like text about Golondrina Studio and why you should recruit their services blah blah blah blah</p>
+					</div>
+
+					<div>
+						<h3>Icon and title</h3>
+						<p>This is goin to be something else about Golondrina. These will make people want to hire us</p>
+					</div>
+
+					<div>
+						<h3>Icon and Title</h3>
+						<p>A last and final thing about golondrina and why you should use their cool as balls stuff</p>
+					</div>
+				</div>
+			</div>
+
+			<div class='landing-decorator'></div>
+
+			<div class='landing-testimonials'>
+				<h3>Testimonials</h3>
+				<p>See why people choose GOlondeerrrnerr</p>
+
+				<div class='landing-testimonial-display'>
+					<div class='testimonial-mobile'>
+						<div></div>
+
+						<p>Wow, it is amazing that I never hired GOlondrina Studio's before. They were excellent in doing stuff, stuff, and then even more stuff for me when I needed it most, lawl.</p>
+					</div>
+				</div>
+			</div>
+
+			<% include ./views/shared/footer %>
 
 		<script src='./bundle.js'></script>
 	</body>
