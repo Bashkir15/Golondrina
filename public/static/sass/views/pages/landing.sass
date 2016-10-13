@@ -9,7 +9,7 @@
 	overflow: hidden
 	white-space: nowrap
 	margin: 0 auto
-	
+
 .slides
 	display: inline-block
 	width: 100%
@@ -182,8 +182,28 @@
 	display: flex
 	flex-direction: column
 	align-items: center
-	padding-top: 90px
+	padding-top: 30px
 
+.single-testimonial
+	text-overflow: ellipsis
+	white-space: normal
+
+	.testimonial-image
+		height: 90px
+		width: 90px
+		border-radius: 50%
+		background: rgba(255,255,255,0.1)
+		margin: 0 auto 80px auto
+
+	p
+		@include quat()
+		font-weight: 400
+		font-size: 18px
+		letter-spacing: 1px
+		line-height: 24px
+		color: #fff
+		width: 60%
+		margin: 0 auto
 
 .landing-testimonial-button
 	display: flex
@@ -212,6 +232,68 @@
 		&:hover
 			background: lighten(#9e99cd, 10%)
 
+.testimonial-controlls
+	display: flex
+	align-items: stretch
+	position: relative
+
+	> div
+		&:nth-of-type(1)
+			display: flex
+			flex: 1
+			flex-basis: 0
+			align-items: center
+			justify-content: flex-start
+
+		&:nth-of-type(2)
+			display: flex
+			align-items: center
+			justify-content: center
+
+		&:nth-of-type(3)
+			display: flex
+			flex: 1
+			flex-basis: 0
+			align-items: center
+			justify-content: flex-end
+
+.testimonial-control-item
+	display: flex
+	align-items: center
+	justify-content: center
+	padding: 10px
+
+	p
+		@include quat()
+		font-weight: 400
+		font-size: 18px
+		letter-spacing: 1px
+		line-height: 24px
+		color: #fff
+
+
+.landing-prev-button
+	display: inline-block
+	position: relative
+	border: none
+	outline: none
+	font-size: 30px
+	color: rgba(255,255,255,0.6)
+	transition: all .5s ease-out
+
+	&:hover
+		transform: scale(1.4,1.4)
+
+
+.landing-next-button
+	border: none
+	outline: none
+	font-size: 30px
+	color: rgba(255,255,255,0.6)
+	transition: all .5s ease-out
+
+	&:hover
+		transform: scale(1.4,1.4)
 
 .landing-latest-works
 	display: flex
@@ -330,6 +412,7 @@
 		letter-spacing: 1px
 		opacity: 1
 		z-index: 10
+		outline: none
 		transition: all .4s ease-out
 
 		span
@@ -355,6 +438,11 @@
 		border-top-right-radius: 22px
 		border-bottom-right-radius: 22px
 		z-index: 10
+		transition: all .3s ease-out
+
+		&:hover
+			background: lighten(#37bf5b, 15%)
+
 
 		span
 			@include quat()
@@ -439,7 +527,7 @@
 		padding-bottom: 40px
 
 
-@media screen and (min-width: 1010px)
+@media screen and (min-width: 1010px) and (max-width: 1270px)
 	.landing-about-columns
 		display: flex
 		flex-direction: row
@@ -460,3 +548,59 @@
 					width: 60%
 					margin: 0 auto
 					text-align: center
+
+	.landing-work
+		> div
+			height: 250px
+			width: 60%
+
+	.landing-form-wrapper
+		input
+			width: 80%
+
+		button
+			height: 44px
+			width: 20%
+
+@media screen and (min-width: 1270px)
+	.landing-about-columns
+		display: flex
+		flex-direction: row
+		flex-wrap: wrap
+		width: 90%
+		margin: 0 auto
+
+		> div
+			display: flex
+			align-items: center
+			width: 50%
+			margin-bottom: 170px
+
+			&:nth-of-type(3)
+				width: 100%
+
+				p
+					width: 60%
+					margin: 0 auto
+					text-align: center
+
+	.landing-testimonials
+		p
+			margin-bottom: 60px
+
+	.single-testimonial
+		p
+			width: 70%
+
+	.landing-work
+		> div
+			width: 60%
+			height: 350px
+
+	.landing-form-wrapper
+		input
+			width: 85%
+
+		button
+			height: 45px
+			width: 15%
