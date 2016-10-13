@@ -2,9 +2,10 @@ import scrollIn from '../utils/scroll.in';
 
 function home() {	
 	var scrollEntrance = new scrollIn();
-	var forwardButton = document.getElementById('forward-button');
 	var formContainer = document.getElementById('landing-form-wrapper');
 	var formInput = document.getElementById('landing-email');
+	var viewPortWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+	var test = 1;
 
 
 	function onFocus() {
@@ -50,9 +51,10 @@ function home() {
 		}
 
 	}
-
+	
 	document.addEventListener('DOMContentLoaded', () => {
 		const slider = document.querySelector('.js_slider');
+
 		lory(slider, {
 			rewind: true,
 			enableMouseEvents: true
@@ -64,9 +66,6 @@ function home() {
 	formInput.addEventListener('focus', onFocus);
 	formInput.addEventListener('blur', onBlur);
 
-	if (forwardButton) {
-		forwardButton.addEventListener('click', lory.next);
-	}
 }
 
 export default home

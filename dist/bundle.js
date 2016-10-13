@@ -230,9 +230,10 @@
 
 	function home() {
 		var scrollEntrance = new _scroll2.default();
-		var forwardButton = document.getElementById('forward-button');
 		var formContainer = document.getElementById('landing-form-wrapper');
 		var formInput = document.getElementById('landing-email');
+		var viewPortWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+		var test = 1;
 
 		function onFocus() {
 			if (!formContainer.classList.contains('landing-email--valid')) {
@@ -279,6 +280,7 @@
 
 		document.addEventListener('DOMContentLoaded', function () {
 			var slider = document.querySelector('.js_slider');
+
 			lory(slider, {
 				rewind: true,
 				enableMouseEvents: true
@@ -289,10 +291,6 @@
 		window.addEventListener('resize', scrollEntrance.viewPortChange);
 		formInput.addEventListener('focus', onFocus);
 		formInput.addEventListener('blur', onBlur);
-
-		if (forwardButton) {
-			forwardButton.addEventListener('click', lory.next);
-		}
 	}
 
 	exports.default = home;

@@ -562,7 +562,7 @@
 			height: 44px
 			width: 20%
 
-@media screen and (min-width: 1270px)
+@media screen and (min-width: 1270px) and (max-width: 1400px)
 	.landing-about-columns
 		display: flex
 		flex-direction: row
@@ -604,3 +604,28 @@
 		button
 			height: 45px
 			width: 15%
+
+@media screen and (min-width: 1400px)
+	.js_slide
+		width: 25%
+		height: 500px
+
+	.testimonial-image
+		position: relative
+
+		.testimonial-image-overlay
+			position: absolute
+			top: 105px
+			left: -75px
+			background: #666
+			height: 0
+			width: 250px
+			opacity: 0
+			transition: all .5s ease-out
+
+		&:hover
+			.testimonial-image-overlay
+				height: 600px
+				opacity: 1
+				transition: all .5s ease
+
