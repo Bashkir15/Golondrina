@@ -2,6 +2,7 @@ import scrollIn from '../utils/scroll.in';
 
 function home() {	
 	var scrollEntrance = new scrollIn();
+	var forwardButton = document.getElementById('forward-button');
 	var formContainer = document.getElementById('landing-form-wrapper');
 	var formInput = document.getElementById('landing-email');
 
@@ -50,11 +51,22 @@ function home() {
 
 	}
 
+	document.addEventListener('DOMContentLoaded', () => {
+		const slider = document.querySelector('.js_slider');
+		lory(slider, {
+			rewind: true,
+			enableMouseEvents: true
+		});
+	});
 	window.addEventListener('DOMContentLoaded', scrollEntrance.init, false);
 	window.addEventListener('scroll', scrollEntrance.viewPortChange);
 	window.addEventListener('resize', scrollEntrance.viewPortChange);
 	formInput.addEventListener('focus', onFocus);
 	formInput.addEventListener('blur', onBlur);
+
+	if (forwardButton) {
+		forwardButton.addEventListener('click', lory.next);
+	}
 }
 
 export default home
