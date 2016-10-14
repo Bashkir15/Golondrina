@@ -50,6 +50,10 @@
 
 	var _mobile2 = _interopRequireDefault(_mobile);
 
+	var _scroll = __webpack_require__(5);
+
+	var _scroll2 = _interopRequireDefault(_scroll);
+
 	var _landing = __webpack_require__(3);
 
 	var _landing2 = _interopRequireDefault(_landing);
@@ -70,7 +74,12 @@
 		}
 	}
 
-	navTrigger.addEventListener('click', openMobileMenu, false);
+	if (navTrigger != 'undefined') {
+		navTrigger.addEventListener('click', openMobileMenu, false);
+	}
+
+	(0, _scroll2.default)();
+
 	(0, _landing2.default)();
 
 /***/ },
@@ -397,6 +406,32 @@
 	}();
 
 	exports.default = ScrollIn;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	function init() {
+		window.addEventListener('scroll', function () {
+			var distanceY = window.pageYOffset || document.documentElement.scrollTop;
+			var nav = document.querySelector('nav');
+
+			if (distanceY > 200) {
+				nav.classList.add('nav--scrolled');
+			} else {
+				if (nav.classList.contains('nav--scrolled')) {
+					nav.classList.remove('nav--scrolled');
+				}
+			}
+		});
+	}
+
+	exports.default = init;
 
 /***/ }
 /******/ ]);

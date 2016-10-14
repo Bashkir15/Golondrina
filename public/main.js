@@ -1,4 +1,5 @@
 import mobileMenu from './scripts/components/mobile.menu'
+import scrollNav from './scripts/utils/scroll.nav'
 import home from './scripts/pages/landing'
 
 var navTrigger = document.getElementById('nav-trigger');
@@ -15,5 +16,10 @@ function openMobileMenu() {
 	}
 }
 
-navTrigger.addEventListener('click', openMobileMenu, false);
+if (navTrigger != 'undefined') {
+	navTrigger.addEventListener('click', openMobileMenu, false);
+}
+
+scrollNav();
+
 home();
