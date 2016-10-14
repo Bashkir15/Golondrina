@@ -154,7 +154,7 @@
 	padding: 180px 0 70px 0
 	margin: 0 auto
 	border-bottom: 1px solid rgba(0,0,0,0.12)
-	background-color: #9e99cd
+	background-color: darken(#9e99cd, 10%)
 
 	h3
 		@include lato()
@@ -309,10 +309,12 @@
 	margin: 0 auto 125px auto
 
 	> div
-		height: 150px
-		width: 90%
-		background: rgba(0,0,0,0.35)
-		margin-bottom: 35px
+
+		&:nth-of-type(1)
+			height: 150px
+			width: 90%
+			background: rgba(0,0,0,0.35)
+			margin-bottom: 35px
 
 	h3
 		@include lato()
@@ -512,8 +514,10 @@
 		margin-botton: 125px
 
 		> div
-			width: 60%
-			height: 225px
+
+			&:nth-of-type(1)
+				width: 60%
+				height: 225px
 
 	.landing-latest-button
 		padding-top: 40px
@@ -551,8 +555,9 @@
 
 	.landing-work
 		> div
-			height: 250px
-			width: 60%
+			&:nth-of-type(1)
+				height: 250px
+				width: 60%
 
 	.landing-form-wrapper
 		input
@@ -594,8 +599,9 @@
 
 	.landing-work
 		> div
-			width: 60%
-			height: 350px
+			&:nth-of-type(1)
+				width: 60%
+				height: 350px
 
 	.landing-form-wrapper
 		input
@@ -606,9 +612,41 @@
 			width: 15%
 
 @media screen and (min-width: 1400px)
+	.landing-about
+		padding-top: 250px
+		padding-bottom: 200px
+
+	.landing-about-columns
+		display: flex
+		flex-direction: row
+		width: 90%
+
+		> div
+			display: flex
+			flex: 1
+			height: 150px
+
 	.js_slide
+		position: relative
 		width: 25%
 		height: 500px
+
+	.landing-testimonials
+		h3
+			font-size: 45px
+			letter-spacing: 9px
+			margin-bottom: 65px
+			text-shadow: 2px 1px rgba(0,0,0,0.3)
+
+		> p
+			font-size: 22px
+			color: rgba(0,0,0,0.8)
+			text-shadow: 1px 1px rgba(0,0,0,0.6)
+			margin-bottom: 140px
+
+	.testimonial-controlls
+		padding-top: 90px
+		padding-bottom: 30px
 
 	.testimonial-image
 		position: relative
@@ -620,12 +658,77 @@
 			background: #666
 			height: 0
 			width: 250px
+			padding: 30px 0
 			opacity: 0
 			transition: all .5s ease-out
+
+			.landing-testimonial-button
+				padding-top: 50px
+
+			
 
 		&:hover
 			.testimonial-image-overlay
 				height: 600px
 				opacity: 1
 				transition: all .5s ease
+
+	.landing-latest-works
+		display: block
+
+	.landing-work
+		display: flex
+		flex-direction: row
+		align-items: center
+		width: 60%
+		margin: 0 auto 60px auto 
+
+		&.large-desktop
+			display: flex
+			flex-direction: row
+			align-items: center
+			width: 60%
+			margin: 0 auto 60px auto
+
+		> div
+			display: inline-block
+
+			&:nth-of-type(1)
+				width: 30%
+				overflow: hidden
+				margin-bottom: 0
+				margin-left: 25%
+				margin-right: 5%
+				height: 180px
+
+			&:nth-of-type(2)
+				flex-direction: column
+				overflow: hidden
+				padding-bottom: 50px
+				width: 50%
+				margin-right: 15%
+
+				p
+					text-align: left
+					width: 70%
+
+	.landing-latest-button
+		display: flex
+		width: 100%
+		align-items: center
+		justify-content: center
+		padding-top: 65px
+		padding-bottom: 50px
+
+	.landing-form-wrapper
+		width: 35%
+
+		input
+			width: 75%
+
+		button
+			width: 25%
+			height: 44px
+			padding-bottom: 0
+			margin-bottom: -1px
 
