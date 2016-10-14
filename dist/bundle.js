@@ -80,7 +80,13 @@
 
 	(0, _scroll2.default)();
 
-	(0, _landing2.default)();
+	if (window.location.href.indexOf('portfolio') != -1) {
+		console.log('portfolio');
+	} else if (window.location.href.indexOf('contact') != -1) {
+		console.log('contact');
+	} else {
+		(0, _landing2.default)();
+	}
 
 /***/ },
 /* 1 */

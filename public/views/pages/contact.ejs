@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Golondrina Studio -- Contact Us</title>
+
+		<link href="https://fonts.googleapis.com/css?family=Lato:300,400|Quattrocento+Sans:400,400i" rel="stylesheet">
+		<link rel='stylesheet' href='./static/icons/style.css'>
+		<link rel='stylesheet' href='./styles/main.min.css'>
+
+
+	</head>
+
+	<body>
+		<% include ../shared/nav %>
+		<% include ../shared/mobile-menu %>
+
+		<div class='contact-page-container'>
+			<h1>Contact Us</h1>
+			<p>Feel free to use this form to contact us directly for prompt response. Otherwise, you may use the additional contact details provided</p>
+
+			<div class='contact-options'>
+				<div class='contact-form'>
+					<form name='contactForm'>
+						<div class='contact-form-wrapper'>
+							<label for='contact-name'>Name</label>
+							<input type='text' class='contact-form-input' id='contact-name'>
+						</div>
+
+						<div class='contact-form-wrapper'>
+							<label for='contact-email'>Email</label>
+							<input type='email' class='contact-form-input' id='contact-email'>
+						</div>
+
+						<div class='contact-form-wrapper'>
+							<label for='contact-number'>Phone</label>
+							<input type='number' class='contact-form-input' id='contact-number'>
+						</div>
+
+						<div class='contact-form-wrapper'>
+							<label for='contact-message'>Message</label>
+							<textarea cols='40' rows='7' class='contact-form-input' id='contact-message'></textarea>
+						</div>
+
+						<div class='contact-submit'>
+							<button id='contact-send' type='button'>
+								<span>Send</span>
+							</button>
+						</div>
+					</form>
+				</div>
+
+				<div class='contact-details'>
+					<h3>Details</h3>
+
+					<div class='contact-detail'>
+						<span>Icon</span>
+						<div>
+							<h4>Email</h4>
+							<p>EKTolbert@gmail.com</p>
+						</div>
+					</div>
+
+					<div class='contact-detail'>
+						<span>Icon</span>
+						<div>
+							<h4>Phone</h4>
+							<p>1-940-367-5374</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src='./bundle.js'></script>
+	</body>
+</html>

@@ -22,4 +22,10 @@ if (navTrigger != 'undefined') {
 
 scrollNav();
 
-home();
+if (window.location.href.indexOf('portfolio') != -1) {
+	console.log('portfolio');
+} else if (window.location.href.indexOf('contact') != -1) {
+	console.log('contact');
+} else {
+	home();
+}
