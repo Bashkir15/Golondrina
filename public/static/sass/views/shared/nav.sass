@@ -4,11 +4,12 @@
 	position: fixed
 	top: 0
 	left: 0
-	height: 55px
+	height: 70px
 	width: 100%
 	z-index: 120
 	background-color: transparent
 	transition: all .5s ease-out
+	padding: 10px 0
 
 	&.nav-mobile--open
 		.nav-left
@@ -17,6 +18,7 @@
 				transition: all .4s ease-out
 
 	&.nav--scrolled
+		padding: 5px
 		background: #1f2439
 
 .nav-left
@@ -54,29 +56,10 @@
 
 	img
 		position: absolute
-		top: 15px
+		top: 8px
 		left: 0
 		height: 70px
 
-	&.below-tablet
-		display: none
-
-	&.above-tablet-only
-		display: flex
-		align-items: center
-		justify-content: center
-
-		button
-			padding: 10px
-			margin-right: 10px
-			border: none
-
-			span
-				@include quat()
-				font-weight: 400
-				font-size: 20px
-				letter-spacing: 1px
-				color: #fff
 
 .nav-icon
 	display: flex
@@ -131,7 +114,6 @@
 
 @media screen and (min-width: 1271px)
 	.nav
-		height: 70px
 		padding: 25px 0
 
 		&.nav--scrolled
@@ -155,3 +137,23 @@
 
 			&:hover
 				border-bottom: 2px solid #fff
+
+		&.below-tablet
+			display: none
+
+		&.above-tablet-only
+			display: flex
+			align-items: center
+			justify-content: center
+
+			button
+				padding: 10px
+				margin-right: 10px
+				border: none
+
+				span
+					@include quat()
+					font-weight: 400
+					font-size: 20px
+					letter-spacing: 1px
+					color: #fff
