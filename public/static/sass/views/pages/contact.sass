@@ -17,6 +17,7 @@
 		font-size: 18px
 		letter-spacing: 2px
 		line-height: 24px
+		text-align: center
 
 .contact-options
 	display: flex
@@ -36,11 +37,60 @@
 	margin-bottom: 20px
 	position: relative
 
+	label
+		position: absolute
+		top: 15px
+		left: 12px
+		@include quat()
+		font-weight: 400
+		font-size: 18px
+
+	input
+		height: 40px
+		width: 100%
+		@include lato()
+		font-weight: 400
+		letter-spacing: 1px
+		padding-left: 12px
+		font-size: 18px
+
+	textarea
+		@include lato
+		font-weight: 400
+		letter-spacing: 1px
+		font-size: 18px
+		width: 100%
+		padding: 12px 2px 0 12px
+
+.contact-submit
+	display: flex
+	align-items: center
+	justify-content: center
+	width: 100%
+
+
+	button
+		height: 45px
+		width: 220px
+		border-radius: 20px
+		border: none
+
+		span
+			@include quat()
+			font-weight: 400
+			letter-spacing: 1px
+			font-size: 18px
+
+
+
 
 .contact-details
 	display: flex
 	flex: 1
 	flex-direction: column
+	width: 100%
+	padding-top: 40px
+	padding-bottom: 80px
 
 	h3
 		@include lato()
@@ -60,9 +110,31 @@
 	display: flex
 	flex-direction: row
 	align-items: center
+	margin-top: 30px
+	margin-left: 14px
+
+	span
+		display: inline-block
+		margin-right: 12px
+
 
 	> div
 		display: flex
 		flex-direction: column
 		align-items: center
+		padding-top: 15px
+
+
+		h4
+			@include lato()
+			font-weight: 300
+			letter-spacing: 1px
+			font-size: 18px
+			margin-bottom: 20px
+
+		p
+			@include quat()
+			font-weight: 400
+			font-size: 14px
+			letter-spacing: 1px
 		
