@@ -50,13 +50,17 @@
 
 	var _mobile2 = _interopRequireDefault(_mobile);
 
-	var _scroll = __webpack_require__(5);
+	var _scroll = __webpack_require__(3);
 
 	var _scroll2 = _interopRequireDefault(_scroll);
 
-	var _landing = __webpack_require__(3);
+	var _landing = __webpack_require__(4);
 
 	var _landing2 = _interopRequireDefault(_landing);
+
+	var _contact = __webpack_require__(6);
+
+	var _contact2 = _interopRequireDefault(_contact);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -83,7 +87,7 @@
 	if (window.location.href.indexOf('portfolio') != -1) {
 		console.log('portfolio');
 	} else if (window.location.href.indexOf('contact') != -1) {
-		console.log('contact');
+		(0, _contact2.default)();
 	} else {
 		(0, _landing2.default)();
 	}
@@ -229,6 +233,32 @@
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	function init() {
+		window.addEventListener('scroll', function () {
+			var distanceY = window.pageYOffset || document.documentElement.scrollTop;
+			var nav = document.querySelector('nav');
+
+			if (distanceY > 200) {
+				nav.classList.add('nav--scrolled');
+			} else {
+				if (nav.classList.contains('nav--scrolled')) {
+					nav.classList.remove('nav--scrolled');
+				}
+			}
+		});
+	}
+
+	exports.default = init;
+
+/***/ },
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -237,7 +267,7 @@
 		value: true
 	});
 
-	var _scroll = __webpack_require__(4);
+	var _scroll = __webpack_require__(5);
 
 	var _scroll2 = _interopRequireDefault(_scroll);
 
@@ -311,7 +341,7 @@
 	exports.default = home;
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -414,7 +444,7 @@
 	exports.default = ScrollIn;
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -422,22 +452,45 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	function init() {
-		window.addEventListener('scroll', function () {
-			var distanceY = window.pageYOffset || document.documentElement.scrollTop;
-			var nav = document.querySelector('nav');
+	function contact() {
+		var formWrappers = document.querySelectorAll('.contact-form-wrapper');
+		var formInputs = document.querySelectorAll('.contact-form-input');
 
-			if (distanceY > 200) {
-				nav.classList.add('nav--scrolled');
+		/*	function onFocus() {
+	 		var i = 0;
+	 		for (i; i < formWrapper.length; i++) {
+	 			formWrappers[i].addEventListener('focus', () => {
+	 				for (k = 0; k < formInputs.length; k++) {
+	 
+	 				}
+	 			})
+	 		}
+	 	}
+	 
+	 	function formFocus() {
+	 		for (var k = 0; k < formWrappers.length; k++) {
+	 			formWrappers[k].classList.add('contact--focused');
+	 		}
+	 	} */
+
+		function onFocus() {
+			Array.prototype.forEach.call(formInputs, function (input) {
+				input.addEventListener('focus', inputFocus);
+			});
+		}
+
+		function inputFocus() {
+			if (!this.parentNode.classList.contains('focused')) {
+				this.parentNode.classList.add('focused');
 			} else {
-				if (nav.classList.contains('nav--scrolled')) {
-					nav.classList.remove('nav--scrolled');
-				}
+				return;
 			}
-		});
+		}
+
+		onFocus();
 	}
 
-	exports.default = init;
+	exports.default = contact;
 
 /***/ }
 /******/ ]);

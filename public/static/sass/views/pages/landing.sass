@@ -27,10 +27,9 @@
 	display: flex
 	align-items: center
 	justify-content: center
-	margin-top: -55px
 	border-bottom: 1px solid rgba(0,0,0,0.12)
 	background: #1f2439
-	padding-bottom: 75px
+	padding-bottom: 225px
 
 	> div
 		display: flex
@@ -105,8 +104,8 @@
 
 
 .landing-about
-	padding-top: 140px
-	padding-bottom: 80px
+	padding-top: 165px
+	padding-bottom: 140px
 	background: #f1f3f3
 
 .landing-about-columns
@@ -127,12 +126,13 @@
 			font-size: 22px
 			letter-spacing: .6px
 			margin-bottom: 27px
-			color: #98b3bb
+			color: #3f4c5b
 			text-transform: uppercase
 
 			span
 				display: inline-block
 				margin-right: 8px
+				color: darken(#98b3bb, 10%)
 
 		p
 			@include quat()
@@ -141,6 +141,7 @@
 			line-height: 20px
 			letter-spacing: 1px
 			margin-left: 14px
+			color: darken(#98b3bb, 20%)
 
 .landing-about-icon
 	height: 25px
@@ -155,7 +156,7 @@
 	padding: 180px 0 70px 0
 	margin: 0 auto
 	border-bottom: 1px solid rgba(0,0,0,0.12)
-	background-color: darken(#9e99cd, 10%)
+	background-color: #825cc3
 
 	h3
 		@include lato()
@@ -175,7 +176,7 @@
 		width: 60%
 		margin: 0 auto
 		text-align: center
-		color: #98b3bb
+		color: #9e99cd
 
 
 
@@ -264,6 +265,7 @@
 	justify-content: center
 	padding: 10px
 
+
 	p
 		@include quat()
 		font-weight: 400
@@ -279,7 +281,7 @@
 	border: none
 	outline: none
 	font-size: 30px
-	color: rgba(255,255,255,0.6)
+	color: #9e99cd
 	transition: all .5s ease-out
 
 	&:hover
@@ -290,7 +292,7 @@
 	border: none
 	outline: none
 	font-size: 30px
-	color: rgba(255,255,255,0.6)
+	color: #9e99cd
 	transition: all .5s ease-out
 
 	&:hover
@@ -301,6 +303,14 @@
 	flex-direction: column
 	align-items: center
 	padding: 120px 0 70px 0
+
+	h2
+		@include lato
+		font-weight: 300
+		font-size: 26px
+		line-height: 30px
+		letter-spacing: 2px
+		margin-bottom: 80px
 
 .landing-work
 	display: flex
@@ -324,12 +334,12 @@
 		letter-spacing: 1px
 		line-height: 38px
 		margin-bottom: 25px
-		color: #98b3bb
+		color: #3f4c5b
 		text-align: center
 
 	span
-		@include quat()
-		font-weight: 400
+		@include lato()
+		font-weight: 300
 		font-size: 22px
 		letter-spacing: 1px
 		line-height: 38px
@@ -339,10 +349,11 @@
 		@include quat()
 		font-weight: 400
 		font-size: 18px
+		font-style: italic
 		line-height: 26px
 		letter-spacing: 1px
 		text-align: center
-		color: #3f4c5b
+		color: darken(#98b3bb, 20%)
 
 .landing-latest-button
 	padding-bottom: 40px
@@ -393,7 +404,7 @@
 	left: 0
 	height: 100%
 	width: 100%
-	background: rgba(55,191,91, 0.6)
+	background: rgba(49,171,82, 0.8)
 
 
 .landing-newsletter-input
@@ -438,14 +449,14 @@
 		width: 30%
 		padding-bottom: 4px
 		margin-left: -14px
-		background: #37bf5b
+		background: darken(#37bf39, 5%)
 		border-top-right-radius: 22px
 		border-bottom-right-radius: 22px
 		z-index: 10
 		transition: all .3s ease-out
 
 		&:hover
-			background: lighten(#37bf5b, 15%)
+			background: #37bf39
 
 
 		span
@@ -619,72 +630,138 @@
 @media screen and (min-width: 1400px)
 	.landing-about
 		padding-top: 250px
-		padding-bottom: 200px
+		padding-bottom: 250px
 
 	.landing-about-columns
 		display: flex
 		flex-direction: row
-		width: 90%
+		width: 80%
+		margin: 0 auto
 
 		> div
 			display: flex
 			flex: 1
 			height: 150px
 
+			> h3
+				margin-bottom: 35px
+				color: #3f4c5b
+
+				span
+					font-size: 28px
+					margin-right: 15px
+					color: darken(#98b3bb, 10%)
+
+			> p
+				width: 70%
+				margin: 0 auto 0 50px
+				line-height: 28px
+				letter-spacing: 2px
+				color: darken(#98b3bb, 20%)
+
 	.landing-testimonial-display
 		padding-left: 70px
+		padding-top: 20px
 
+
+	.js_frame
+		padding-top: 40px
+		padding-bottom: 70px
+		margin: 0
 
 	.js_slide
 		padding-left: 70px
 		position: relative
-		width: 27%
+		width: 20%
 		height: 500px
 
 	.landing-testimonials
 		h3
-			font-size: 45px
-			letter-spacing: 9px
-			margin-bottom: 65px
+			font-size: 55px
+			letter-spacing: 12px
+			margin-bottom: 75px
 			text-shadow: 2px 1px rgba(0,0,0,0.3)
 
 		> p
-			font-size: 22px
-			color: rgba(0,0,0,0.8)
+			font-size: 24px
+			line-height: 40px
+			color: #9e99cd
 			text-shadow: 1px 1px rgba(0,0,0,0.6)
 			margin-bottom: 140px
+			width: 35%
+			margin: 0 auto
+
+	.desktop-version
+		display: flex
+		flex-direction: column
+		align-items: center
+		width: 275px
+
+		.testimonial-image-overlay
+			p
+				width: 85%
+				text-align: center
 
 	.testimonial-controlls
-		padding-top: 90px
-		padding-bottom: 30px
+		padding-top: 50px
+		padding-bottom: 70px
+
+	.testimonial-control-item
+		button
+			font-size: 45px
+		p
+			font-size: 22px
 
 	.testimonial-image
+		display: flex
+		flex-direction: column
+		align-items: center
+
 		position: relative
 
 		.testimonial-image-overlay
 			position: absolute
 			top: 105px
-			left: -75px
-			background: #666
+			left: -95px
+			display: flex
+			align-items: center
+			flex-direction: column
+			background: darken(#9e99cd, 10%)
 			height: 0
-			width: 250px
-			padding: 30px 0
+			width: 275px
+			padding-top: 35px
 			opacity: 0
 			transition: all .5s ease-out
 
 			.landing-testimonial-button
 				padding-top: 50px
 
+				button
+					background: darken(#9e99cd, 20%)
+
+					&:hover
+						background: darken(#9e99cd, 15%)
+
 			
 
 		&:hover
 			.testimonial-image-overlay
-				height: 600px
+				height: 400px
 				opacity: 1
 				transition: all .5s ease
 
+
 	.landing-latest-works
-		display: block
+		display: flex
+		flex-direction: column
+		align-items: center
+		justify-content: center
+		padding-top: 160px
+
+		h2
+			font-size: 45px
+			letter-spacing: 8px
+			margin-bottom: 100px
 
 	.landing-work
 		display: flex
@@ -700,16 +777,18 @@
 			width: 60%
 			margin: 0 auto 60px auto
 
+
+
 		> div
 			display: inline-block
 
 			&:nth-of-type(1)
-				width: 30%
 				overflow: hidden
 				margin-bottom: 0
-				margin-left: 25%
+				margin-left: 20%
 				margin-right: 5%
-				height: 180px
+				height: 150px
+				width: 180px
 
 			&:nth-of-type(2)
 				flex-direction: column
@@ -721,10 +800,13 @@
 
 				h3
 					text-align: left
+					font-size: 20px
 
 				p
 					text-align: left
-					width: 70%
+					font-size: 18px
+					line-height: 28px
+					
 
 	.landing-latest-button
 		display: flex
@@ -733,6 +815,10 @@
 		justify-content: center
 		padding-top: 65px
 		padding-bottom: 50px
+
+		button
+			height: 50px
+			width: 220px
 
 	.landing-form-wrapper
 		width: 35%
@@ -745,4 +831,11 @@
 			height: 44px
 			padding-bottom: 0
 			margin-bottom: -1px
+
+	.landing-newsletter
+		padding: 100px 0
+
+		h3
+			font-size: 30px
+			letter-spacing: 4px
 

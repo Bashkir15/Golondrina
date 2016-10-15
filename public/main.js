@@ -1,6 +1,7 @@
 import mobileMenu from './scripts/components/mobile.menu'
 import scrollNav from './scripts/utils/scroll.nav'
 import home from './scripts/pages/landing'
+import contact from './scripts/pages/contact'
 
 var navTrigger = document.getElementById('nav-trigger');
 
@@ -25,7 +26,7 @@ scrollNav();
 if (window.location.href.indexOf('portfolio') != -1) {
 	console.log('portfolio');
 } else if (window.location.href.indexOf('contact') != -1) {
-	console.log('contact');
+	contact();
 } else {
 	home();
 }
