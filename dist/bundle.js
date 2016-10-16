@@ -102,6 +102,12 @@
 		(0, _landing2.default)();
 	}
 
+	window.onload = function () {
+		setTimeout(function () {
+			document.body.classList.add('loaded');
+		}, 1000);
+	};
+
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {

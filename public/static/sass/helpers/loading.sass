@@ -6,6 +6,85 @@
 	width: 30px
 	animation: spin 1s linear infinite
 
+.preloader
+	position: fixed
+	top: 0
+	left: 0
+	width: 100%
+	height: 100vh
+	z-index: 1000
+
+	.loading-section
+		position: fixed
+		top: 0
+		width: 51%
+		height: 100%
+		background: #fff
+		z-index: 1000
+
+		&.section-left
+			left: 0
+
+		&.section-right
+			right: 0
+
+.loading
+	display: block
+	position: relative
+	left: 50%
+	top: 50%
+	height: 150px
+	width: 150px
+	margin: -75px 0 0 -75px
+	border: 3px solid transparent
+	border-top-color: #14869d
+	border-radius: 50%
+	z-index: 1500
+	animation: spin 2s linear infinite
+
+	&:before
+		content: ""
+		position: absolute
+		top: 5px
+		left: 5px
+		right: 5px
+		bottom: 5px
+		border: 3px solid transparent
+		border-radius: 50%
+		border-top-color: #14adc4
+		animation: spin 2s linear infinite
+
+	&:after
+		content: ""
+		position: absolute
+		top: 15px
+		left: 15px
+		right: 15px
+		bottom: 15px
+		border: 3px solid transparent
+		border-top-color: #60c4d3
+		border-radius: 50%
+		animation: spin 2s linear infinite
+
+.loaded
+	.preloader
+		visibility: hidden
+		transform: translateY(-100%)
+		transition: all .3s 1s ease-out
+
+		.loading
+			opacity: 0
+			transition: all .3s ease-out
+
+		.loading-section
+			&.section-left
+				transform: translateX(-100%)
+				transition: all .7s .5s cubic-bezier(0.645, 0.045, 0.355, 1.000)
+
+			&.section-right
+				transform: translateX(100%)
+				transition: all .7s .5s cubic-bezier(0.645, 0.045, 0.355, 1.000)
+
 
 @keyframes spin
 	0% 

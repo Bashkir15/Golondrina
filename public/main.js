@@ -35,3 +35,9 @@ if (window.location.href.indexOf('portfolio') != -1) {
 } else {
 	home();
 }
+
+window.onload = () => {
+	setTimeout(() => {
+		document.body.classList.add('loaded');
+	}, 1000);
+}
