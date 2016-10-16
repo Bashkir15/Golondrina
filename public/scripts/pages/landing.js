@@ -4,8 +4,7 @@ function home() {
 	var scrollEntrance = new scrollIn();
 	var formContainer = document.getElementById('landing-form-wrapper');
 	var formInput = document.getElementById('landing-email');
-	var viewPortWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-	var test = 1;
+	var signupButton = document.getElementById('signup-button');
 
 
 	function onFocus() {
@@ -51,6 +50,51 @@ function home() {
 		}
 
 	}
+
+	function signup() {
+		if (formContainer.classList.contains('landing-email--valid')) {
+			signupButton.classList.add('signup-button-loading');
+
+			var data = {};
+			data.email = document.getElementById('landing-email');
+
+			var promise = new Promise((resolve, reject) => {
+				var req = new XMLHttpRequest();
+
+				req.open('POST', '/', true);
+				req.onload = () => {
+					if (req.staus == 200) {
+						resolve(req.response);
+					} else {
+						reject(Error(req.statusText));
+					}
+				};
+
+				req.onError = () => {
+					reject(Error("Error"));
+				};
+
+				req.send();
+			});
+
+			promise.then((response) => {
+				if (response.success) {
+					signupButton.classList.remove('signup-button-loading');
+					var success = new Event('signed-up');
+					window.dispatchEvent(success);
+				} else {
+					signupButton.classList.remove('signup-button-loading');
+					var failure = new Event('signup-failed');
+					window.dispatchEvent(failure);
+				}
+			}, (error) => {
+				console.log('Signup Failed');
+			});
+		} else {
+			var sendError = new Event('signup-error');
+			window.dispatchEvent(sendError);
+		}
+	}
 	
 	document.addEventListener('DOMContentLoaded', () => {
 		const slider = document.querySelector('.js_slider');
@@ -65,6 +109,7 @@ function home() {
 	window.addEventListener('resize', scrollEntrance.viewPortChange);
 	formInput.addEventListener('focus', onFocus);
 	formInput.addEventListener('blur', onBlur);
+	signupButton.addEventListener('click', signup);
 
 }
 

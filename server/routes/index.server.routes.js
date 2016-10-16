@@ -1,4 +1,6 @@
 import express from 'express';
+import email from '../helpers/email';
+
 var router = express.Router();
 
 router.get('/', (req, res) => {
@@ -31,6 +33,12 @@ router.get('/about', (req, res) => {
 
 router.get('/contact', (req, res) => {
 	res.render('./views/pages/contact');
+});
+
+router.post('/contact', email.message);
+
+router.get('/recent', (req, res) => {
+	res.render('./views/pages/recent');
 });
 
 router.get('/media', (req, res) => {

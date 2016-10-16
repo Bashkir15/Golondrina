@@ -277,8 +277,7 @@
 		var scrollEntrance = new _scroll2.default();
 		var formContainer = document.getElementById('landing-form-wrapper');
 		var formInput = document.getElementById('landing-email');
-		var viewPortWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-		var test = 1;
+		var signupButton = document.getElementById('signup-button');
 
 		function onFocus() {
 			if (!formContainer.classList.contains('landing-email--valid')) {
@@ -323,6 +322,51 @@
 			}
 		}
 
+		function signup() {
+			if (formContainer.classList.contains('landing-email--valid')) {
+				signupButton.classList.add('signup-button-loading');
+
+				var data = {};
+				data.email = document.getElementById('landing-email');
+
+				var promise = new Promise(function (resolve, reject) {
+					var req = new XMLHttpRequest();
+
+					req.open('POST', '/', true);
+					req.onload = function () {
+						if (req.staus == 200) {
+							resolve(req.response);
+						} else {
+							reject(Error(req.statusText));
+						}
+					};
+
+					req.onError = function () {
+						reject(Error("Error"));
+					};
+
+					req.send();
+				});
+
+				promise.then(function (response) {
+					if (response.success) {
+						signupButton.classList.remove('signup-button-loading');
+						var success = new Event('signed-up');
+						window.dispatchEvent(success);
+					} else {
+						signupButton.classList.remove('signup-button-loading');
+						var failure = new Event('signup-failed');
+						window.dispatchEvent(failure);
+					}
+				}, function (error) {
+					console.log('Signup Failed');
+				});
+			} else {
+				var sendError = new Event('signup-error');
+				window.dispatchEvent(sendError);
+			}
+		}
+
 		document.addEventListener('DOMContentLoaded', function () {
 			var slider = document.querySelector('.js_slider');
 
@@ -336,6 +380,7 @@
 		window.addEventListener('resize', scrollEntrance.viewPortChange);
 		formInput.addEventListener('focus', onFocus);
 		formInput.addEventListener('blur', onBlur);
+		signupButton.addEventListener('click', signup);
 	}
 
 	exports.default = home;
