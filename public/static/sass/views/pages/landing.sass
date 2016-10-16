@@ -329,13 +329,11 @@
 	width: 85%
 	margin: 0 auto 125px auto
 
-	> div
+	img
+		height: 150px
+		width: 90%
+		margin-bottom: 35px
 
-		&:nth-of-type(1)
-			height: 150px
-			width: 90%
-			background: rgba(0,0,0,0.35)
-			margin-bottom: 35px
 
 	h3
 		@include lato()
@@ -561,11 +559,10 @@
 	.landing-work
 		margin-botton: 125px
 
-		> div
+		img
+			width: 60%
+			height: 225px
 
-			&:nth-of-type(1)
-				width: 60%
-				height: 225px
 
 	.landing-latest-button
 		padding-top: 40px
@@ -602,10 +599,9 @@
 					text-align: center
 
 	.landing-work
-		> div
-			&:nth-of-type(1)
-				height: 250px
-				width: 60%
+		img
+			height: 250px
+			width: 60%
 
 	.landing-form-wrapper
 		input
@@ -646,10 +642,9 @@
 			width: 70%
 
 	.landing-work
-		> div
-			&:nth-of-type(1)
-				width: 60%
-				height: 350px
+		img
+			width: 60%
+			height: 350px
 
 	.landing-form-wrapper
 		input
@@ -849,33 +844,31 @@
 
 
 
+		img
+			overflow: hidden
+			margin-bottom: 0
+			margin-left: 20%
+			margin-right: 5%
+			hright: 150px
+			width: 180px
+
 		> div
 			display: inline-block
+			flex-direction: column
+			overflow: hidden
+			padding-top: 20px
+			padding-bottom: 50px
+			width: 50%
+			margin-right: 15%
 
-			&:nth-of-type(1)
-				overflow: hidden
-				margin-bottom: 0
-				margin-left: 20%
-				margin-right: 5%
-				height: 150px
-				width: 180px
+			h3
+				text-align: left
+				font-size: 20px
 
-			&:nth-of-type(2)
-				flex-direction: column
-				overflow: hidden
-				padding-top: 20px
-				padding-bottom: 50px
-				width: 50%
-				margin-right: 15%
-
-				h3
-					text-align: left
-					font-size: 20px
-
-				p
-					text-align: left
-					font-size: 18px
-					line-height: 28px
+			p
+				text-align: left
+				font-size: 18px
+				line-height: 28px
 					
 
 	.landing-latest-button

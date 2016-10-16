@@ -66,6 +66,10 @@
 
 	var _portfolio2 = _interopRequireDefault(_portfolio);
 
+	var _recent = __webpack_require__(10);
+
+	var _recent2 = _interopRequireDefault(_recent);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var navTrigger = document.getElementById('nav-trigger');
@@ -92,6 +96,8 @@
 		(0, _contact2.default)();
 	} else if (window.location.href.indexOf('about') != -1) {
 		(0, _about2.default)();
+	} else if (window.location.href.indexOf('recent') != -1) {
+		(0, _recent2.default)();
 	} else {
 		(0, _landing2.default)();
 	}
@@ -926,10 +932,49 @@
 				},
 				animation: 'fadeIn'
 			});
+		} else if (window.location.href.indexOf('commercial') != -1) {
+			baguetteBox.run('.gallery2', {
+				captions: function captions(element) {
+					return element.getElementsByTagName('img')[0].alt;
+				},
+				animation: 'fadeIn'
+			});
+		} else if (window.location.href.indexOf('digital') != -1) {
+			baguetteBox.run('.gallery3', {
+				captions: function captions(element) {
+					return element.getElementsByTagName('img')[0].alt;
+				}
+			});
+		} else {
+			baguetteBox.run('.gallery4', {
+				captions: function captions(element) {
+					return element.getElementsByTagName('img')[0].alt;
+				}
+			});
 		}
 	}
 
 	exports.default = portfolio;
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	function recent() {
+		baguetteBox.run('.gallery', {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			},
+			animation: 'fadeIn'
+		});
+	}
+
+	exports.default = recent;
 
 /***/ }
 /******/ ]);

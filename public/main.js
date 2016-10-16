@@ -3,6 +3,7 @@ import home from './scripts/pages/landing'
 import contact from './scripts/pages/contact'
 import about from './scripts/pages/about'
 import portfolio from './scripts/pages/portfolio'
+import recent from './scripts/pages/recent'
 
 var navTrigger = document.getElementById('nav-trigger');
 
@@ -29,6 +30,8 @@ if (window.location.href.indexOf('portfolio') != -1) {
 	contact();
 } else if (window.location.href.indexOf('about') != -1) {
 	about();
+} else if (window.location.href.indexOf('recent') != -1) {
+	recent();
 } else {
 	home();
 }
