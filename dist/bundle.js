@@ -50,10 +50,6 @@
 
 	var _mobile2 = _interopRequireDefault(_mobile);
 
-	var _scroll = __webpack_require__(3);
-
-	var _scroll2 = _interopRequireDefault(_scroll);
-
 	var _landing = __webpack_require__(4);
 
 	var _landing2 = _interopRequireDefault(_landing);
@@ -61,6 +57,10 @@
 	var _contact = __webpack_require__(6);
 
 	var _contact2 = _interopRequireDefault(_contact);
+
+	var _about = __webpack_require__(8);
+
+	var _about2 = _interopRequireDefault(_about);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82,12 +82,12 @@
 		navTrigger.addEventListener('click', openMobileMenu, false);
 	}
 
-	(0, _scroll2.default)();
-
 	if (window.location.href.indexOf('portfolio') != -1) {
 		console.log('portfolio');
 	} else if (window.location.href.indexOf('contact') != -1) {
 		(0, _contact2.default)();
+	} else if (window.location.href.indexOf('about') != -1) {
+		(0, _about2.default)();
 	} else {
 		(0, _landing2.default)();
 	}
@@ -232,32 +232,7 @@
 	exports.default = mod;
 
 /***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	function init() {
-		window.addEventListener('scroll', function () {
-			var distanceY = window.pageYOffset || document.documentElement.scrollTop;
-			var nav = document.querySelector('nav');
-
-			if (distanceY > 200) {
-				nav.classList.add('nav--scrolled');
-			} else {
-				if (nav.classList.contains('nav--scrolled')) {
-					nav.classList.remove('nav--scrolled');
-				}
-			}
-		});
-	}
-
-	exports.default = init;
-
-/***/ },
+/* 3 */,
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -866,6 +841,32 @@
 	}();
 
 	exports.default = notifications;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _scroll = __webpack_require__(5);
+
+	var _scroll2 = _interopRequireDefault(_scroll);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function about() {
+		var aboutScroll = new _scroll2.default();
+
+		window.addEventListener('DOMContentLoaded', aboutScroll.init, false);
+		window.addEventListener('scroll', aboutScroll.viewPortChange);
+		window.addEventListener('resize', aboutScroll.viewPortChange);
+	}
+
+	exports.default = about;
 
 /***/ }
 /******/ ]);
