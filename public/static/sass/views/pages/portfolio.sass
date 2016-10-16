@@ -7,12 +7,13 @@
 	> h1
 		@include lato()
 		font-size: 24px
-		font-weight: 400
-		letter-spacing: 2px
+		font-weight: 300
+		letter-spacing: 6px
 		line-height: 35px
 		margin-bottom: 50px
+		color: #3f4c5b
 
-	p
+	> p
 		@include quat()
 		font-size: 18px
 		font-weight: 400
@@ -21,6 +22,8 @@
 		width: 60%
 		margin: 0 auto
 		text-align: center
+		color: darken(#98b3bb, 20%)
+		text-shadow: 1px 1px rgba(0,0,0,0.2)
 
 
 .portfolio-categories
@@ -38,17 +41,31 @@
 	width: 100%
 	margin-bottom: 40px
 
-	div
-		height: 140px
-		width: 200px
-		background: rgba(0,0,0,0.45)
-		margin-bottom: 30px
+	a
+		display: flex
+		flex-direction: column
+		align-items: center
+
+		div
+			height: 140px
+			width: 200px
+			background: rgba(0,0,0,0.45)
+			margin-bottom: 30px
+
+		> p
+			@include quat()
+			font-size: 22px
+			font-weight: 400
+			line-height: 30px
+			color: #3f4c5b
 
 
 @media screen and (min-width: 630px) and (max-width: 1270px)
 	.portfolio-page-container
 		h1
 			margin-bottom: 65px
+			font-size: 33px
+			letter-spacing: 9px
 
 	.portfolio-categories
 		flex-direction: row
@@ -65,16 +82,19 @@
 		padding-bottom: 120px
 
 		h1
-			font-size: 28px
+			font-size: 40px
+			letter-spacing: 13px
 			margin-bottom: 75px
 
-		p
-			font-size: 22px
+		> p
+			font-size: 18px
+			letter-spacing: 4px
+			line-height: 30px
 
 	.portfolio-categories
 		flex-direction: row
 		flex-wrap: wrap
-		padding-top: 160px
+		padding-top: 200px
 
 	.portfolio-category
 		flex: 1

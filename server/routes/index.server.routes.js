@@ -1,6 +1,7 @@
 import express from 'express';
-import email from '../helpers/email';
+import emailHelper from '../helpers/email';
 
+var email = emailHelper();
 var router = express.Router();
 
 router.get('/', (req, res) => {

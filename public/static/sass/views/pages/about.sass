@@ -1,0 +1,170 @@
+.about-page-container
+	display: flex
+	flex-direction: column
+	align-items: center
+	padding: 140px 0
+
+	> h1
+		@include lato
+		font-weight: 300
+		font-size: 28px
+		letter-spacing: 4px
+		line-height: 30px
+		color: #3f4c5b
+
+.about-page-content
+	display: flex
+	flex-direction: column
+	align-items: center
+	width: 85%
+	margin: 0 auto
+	padding-top: 150px
+
+	> div
+		&:nth-of-type(1)
+			height: 250px
+			width: 100%
+			background: #666
+			border-radius: 8px
+			margin-bottom: 65px
+
+		&:nth-of-type(2)
+			display: flex
+			flex-direction: column
+			align-items: center
+			width: 70%
+			margin: 0 auto
+
+			> p
+				@include quat()
+				font-weight: 400
+				font-size: 18px
+				letter-spacing: 2px
+				line-height: 26px
+				color: darken(#98b3bb, 20%)
+
+@media screen and (min-width: 670px) and (max-width: 1014px)
+	.about-page-container
+		padding-top: 200px
+
+		> h1
+			font-size: 33px
+			letter-spacing: 7px
+
+
+	.about-page-content
+		padding-top: 200px
+
+
+		> div
+			&:nth-of-type(1)
+				height: 350px
+				margin-bottom: 85px
+
+			&:nth-of-type(2)
+				p
+					font-size: 20px
+					line-height: 34px
+
+@media screen and (min-width: 1014px) and (max-width: 1390px)
+	.about-page-container
+		padding-top: 230px
+		padding-bottom: 180px
+
+		> h1
+			font-size: 38px
+			letter-spacing: 10px
+
+	.about-page-content-wrapper
+		width: 85%
+		margin: 200px auto 0 auto
+		padding: 40px 0
+		border-radius: 20px
+		background: #f1f3f3
+		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6)
+
+	.about-page-content
+		width: 90%
+		padding: 120px 20px
+		margin-top: 25px
+		border-radius: 18px
+		background: #9e99cd
+		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5)
+
+		> div
+			&:nth-of-type(1)
+				width: 85%
+				height: 400px
+				margin: 0 auto 120px auto
+				background: rgba(0,0,0,0.12)
+				border-radius: 20px
+
+			&:nth-of-type(2)
+				width: 70%
+				border-radius: 18px
+				padding: 30px
+				background: darken(#9e99cd, 10%)
+				box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4)
+
+				p
+					line-height: 38px
+					color: #f1f3f3
+					width: 70%
+					text-align: left
+					text-shadow: 1px 1px rgba(0,0,0,0.6)
+
+@media screen and (min-width: 1390px)
+	.about-page-container
+		padding-top: 280px
+		padding-bottom: 220px
+
+		> h1
+			font-size: 45px
+			letter-spacing: 15px
+
+	.about-page-content-wrapper
+		width: 90%
+		height: 60%
+		margin: 240px auto 0 auto
+		padding: 40px 0 90px 0
+		border-radius: 25px
+		background: #f1f3f3
+		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6)
+
+
+	.about-page-content
+		display: flex
+		flex-direction: column
+		margin-top: 30px
+		width: 90%
+		padding: 140px 30px
+		border-radius: 20px
+		background: #9e99cd
+		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5)
+
+		> div
+
+			&:nth-of-type(1)
+				margin-right: 40px
+				width: 70%
+				margin: 0 auto 85px auto
+				height: 650px
+				border-radius: 22px
+				background: rgba(0,0,0,0.12)
+
+			&:nth-of-type(2)
+				display: inline-block
+				border-radius: 20px
+				width: 55%
+				padding: 40px
+				background: darken(#9e99cd, 10%)
+				box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4)
+				margin: 0
+
+				p
+					line-height: 50px
+					color: #f1f3f3
+					width: 70%
+					margin: 0 auto
+					text-align: center
+					text-shadow: 1px 1px rgba(0,0,0,0.6)
