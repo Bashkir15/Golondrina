@@ -1,6 +1,8 @@
 import nodemailer from 'nodemailer';
 import mongoose from 'mongoose';
-import json from './json'
+import fs from 'fs';
+import path from 'path';
+import json from './json';
 
 var Newsletter = mongoose.model('Emails');
 
@@ -8,6 +10,7 @@ module.exports = () => {
 	var obj = {};
 
 	obj.message = function (req, res) {
+		var emailTemplate = fs.readFileSync('./server/templates/contact-email.html', {encoding: 'utf-8'});
 		var transporter = nodemailer.createTransport({
 			service: global.config.mailer.service,
 			auth: {
@@ -20,7 +23,7 @@ module.exports = () => {
 			from: req.body.email,
 			to: global.config.mailer.auth.user,
 			subject: 'New contact from ' + req.body.name,
-			text: req.body.message
+			html: emailTemplate
 		};
 
 		transporter.sendMail(mailOptions, (error, info) => {
@@ -34,6 +37,7 @@ module.exports = () => {
 	};
 
 	obj.subscribe = (req, res) => {
+		var emailTemplate = fs.readFileSync('./server/templates/welcome-email.html', {encoding: 'utf-8'});
 		var subscriber = new Newsletter(req.body);
 		subscriber.email = req.body.email;
 		subscriber.save((err) => {
@@ -53,12 +57,12 @@ module.exports = () => {
 				from: 'Golondrina Studios',
 				to: req.body.email,
 				subject: 'Welcome to the Golondrina Newsletter',
-				html: '../templates/welcome-email.html'
+				html: emailTemplate
 			};
 
 			transporter.sendMail(mailOptions, (error, info) => {
 				if (error) {
-					json.bad(err, res);
+					json.bad(error, res);
 				} else {
 					json.good(info.response, res);
 				}
