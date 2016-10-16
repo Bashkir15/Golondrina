@@ -66,10 +66,12 @@ function contact() {
 		var atpos = formValue.indexOf('@');
 		var dotpos = formValue.lastIndexOf(".");
 
+	
 		if (atpos < 1 || (dotpos - atpos < 2)) {
 			if (input.parentNode.classList.contains('blank')) {
 				input.parentNode.classList.remove('blank');
 			}
+
 
 			input.parentNode.classList.add('email-invalid');
 		} else {
