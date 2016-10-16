@@ -25,7 +25,7 @@ module.exports = () => {
 
 		transporter.sendMail(mailOptions, (error, info) => {
 			if (error) {
-				console.log(err);
+				json.bad(err, res);
 			} else {
 				json.good(info.response, res);
 				console.log('Message sent' + info.response);
@@ -41,7 +41,28 @@ module.exports = () => {
 				return json.bad(err, res);
 			}
 
-			json.good(subscriber, res);
+			var transporter = nodemailer.createTransport({
+				service: global.config.mailer.service,
+				auth: {
+					user: global.config.mailer.auth.user,
+					pass: global.config.mailer.auth.pass
+				}
+			});
+
+			var mailOptions = {
+				from: 'Golondrina Studios',
+				to: req.body.email,
+				subject: 'Welcome to the Golondrina Newsletter',
+				html: '../templates/welcome-email.html'
+			};
+
+			transporter.sendMail(mailOptions, (error, info) => {
+				if (error) {
+					json.bad(err, res);
+				} else {
+					json.good(info.response, res);
+				}
+			});
 		});
 	};
 
