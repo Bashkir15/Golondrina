@@ -8,6 +8,8 @@ router.get('/', (req, res) => {
 	res.render('index');
 });
 
+router.post('/', email.subscribe);
+
 router.get('/portfolio', (req, res) => {
 	res.render('./views/pages/portfolio/portfolio');
 });

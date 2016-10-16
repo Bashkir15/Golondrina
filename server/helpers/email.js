@@ -1,5 +1,8 @@
 import nodemailer from 'nodemailer';
+import mongoose from 'mongoose';
+import json from './json'
 
+var Newsletter = mongoose.model('Emails');
 
 module.exports = () => {
 	var obj = {};
@@ -24,11 +27,25 @@ module.exports = () => {
 			if (error) {
 				console.log(err);
 			} else {
-				res.send(info.response);
+				json.good(info.response, res);
 				console.log('Message sent' + info.response);
 			}
 		});
 	};
+
+	obj.subscribe = (req, res) => {
+		var subscriber = new Newsletter(req.body);
+		subscriber.email = req.body.email;
+		subscriber.save((err) => {
+			if (err) {
+				return json.bad(err, res);
+			}
+
+			json.good(subscriber, res);
+		});
+	};
+
+
 
 	return obj;
 }

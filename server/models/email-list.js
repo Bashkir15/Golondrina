@@ -1,9 +1,15 @@
 import mongoose from 'mongoose';
 
 var emailSchema = new mongoose.Schema({
-	emails: {
-		type: 'Array',
-		default: []
+	created: {
+		type: Date,
+		default: Date.now
+	},
+
+	email: {
+		type: String,
+		required: true,
+		unique: true
 	}
 });
 

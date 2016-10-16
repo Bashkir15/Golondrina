@@ -7,7 +7,7 @@ import ejs from 'ejs';
 
 import indexRoutes from '../routes/index.server.routes';
 
-module.exports = () => {
+module.exports = (db) => {
 	const app = express();
 
 	app.set('view engine', 'ejs');
@@ -17,6 +17,12 @@ module.exports = () => {
 	app.use(bodyParser.urlencoded({extended: true}));
 	app.use(morgan('dev'));
 	app.use(compression());
+	app.use((req, res, next) => {
+		res.setHeader('Access-Control-Allow-Origin', '*');
+		res.setHeader('Access-Control-Allow-Methods', "GET, POST, PUT, DELETE");
+		res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization');
+		next();
+	});
 
 	app.use(express.static(path.join(__dirname, '../../public')));
 	app.use(express.static(path.join(__dirname, '../../dist')));

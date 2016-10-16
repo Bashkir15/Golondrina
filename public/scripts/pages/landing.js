@@ -55,15 +55,16 @@ function home() {
 		if (formContainer.classList.contains('landing-email--valid')) {
 			signupButton.classList.add('signup-button-loading');
 
-			var data = {};
-			data.email = document.getElementById('landing-email');
+			var emailData = document.getElementById('landing-email').value;
+			var data = JSON.stringify({"email": emailData});
 
 			var promise = new Promise((resolve, reject) => {
 				var req = new XMLHttpRequest();
 
 				req.open('POST', '/', true);
+				req.setRequestHeader('Content-Type', 'application/json');
 				req.onload = () => {
-					if (req.staus == 200) {
+					if (req.status == 200) {
 						resolve(req.response);
 					} else {
 						reject(Error(req.statusText));
@@ -74,7 +75,7 @@ function home() {
 					reject(Error("Error"));
 				};
 
-				req.send();
+				req.send(data);
 			});
 
 			promise.then((response) => {
@@ -88,7 +89,7 @@ function home() {
 					window.dispatchEvent(failure);
 				}
 			}, (error) => {
-				console.log('Signup Failed');
+				console.log('Signup error');
 			});
 		} else {
 			var sendError = new Event('signup-error');
