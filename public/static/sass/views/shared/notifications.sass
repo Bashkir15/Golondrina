@@ -1,0 +1,45 @@
+.notification-container
+	max-width: 98%
+	z-index: 999
+
+	&.shown
+		.notification
+			opacity: 1
+			transform: translateX(0)
+
+.notification
+	position: relative
+	width: 100%
+	min-height: 62px
+	margin-bottom: 12px
+	padding: 8px
+	background: #fff
+	border-radius: 1px
+	box-shadow: 0 1px 10px 0 rgba(0,0,0,0.1), 0 2px 15px 0 rgba(0,0,0,.05)
+	opacity: 0
+	transform: translateX(100%)
+	transition: all .5s cubic-bezier(0.5, -0.5, 0.3, 1.4), opacity .6s ease-out
+
+	&.success
+		border-left: 1px solid #37bf5b
+
+	&.warning
+		border-left: 1px solid #bf3757
+
+.notification-title
+	margin: 0
+	padding: 10px
+	margin-bottom: 4px
+	font-size: 18px
+	@include lato
+	font-weight: 300
+	letter-spacing: 2px
+	color: #3f4c5b
+
+.notification-text
+	padding: 5px 12px
+	font-size: 14px
+	@include quat()
+	font-weight: 400
+	letter-spacing: 1px
+	color: darken(#98b3bb, 20%)

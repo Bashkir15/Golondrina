@@ -1,6 +1,12 @@
+import notifications from '../components/notifications'
+
 function contact() {
 	var formWrappers = document.querySelectorAll('.contact-form-wrapper');
 	var formInputs = document.querySelectorAll('.contact-form-input');
+	var submitButton = document.getElementById('contact-send');
+	var successContent = document.getElementById('contact-success');
+	var failureContent = document.getElementById('contact-failure');
+	var errorContent = document.getElementById('contact-error');
 
 /*	function onFocus() {
 		var i = 0;
@@ -177,19 +183,41 @@ function contact() {
 				} else {
 					submitButton.classList.remove('contact-show-loading');
 					var failure = new Event('message-failed');
-					window.dispatchEvent('message-failed');
+					window.dispatchEvent(failure);
 				}
 			}, function (error) {
 				console.log('Failed');
 			});
 		} else {
 			var sendError = new Event('sending-failed');
-			window.dispatchEvent('sending-failed');
+			window.dispatchEvent(sendError);
 		}
 	}
 
+	var successNotify = new notifications({
+		content: successContent,
+		timeout: 1000,
+		type: 'success'
+	});
+
+	var failureNotify = new notifications({
+		content: failureContent,
+		timeout: 1000,
+		type: 'danger'
+	});
+
+	var errorNotfy = new notifications({
+		content: errorContent,
+		type: 'warning'
+	});
+
 	onFocus(); 
 	onBlur();
+
+	submitButton.addEventListener('click', sendMessage);
+//	window.addEventListener('message-delivered', successNotify.open);
+//	window.addEventListener('message-failed', failureNotify.open);
+	window.addEventListener('sending-failed', errorNotfy.open);
 }
 
 export default contact
