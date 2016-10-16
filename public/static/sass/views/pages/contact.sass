@@ -49,6 +49,8 @@
 		font-weight: 400
 		font-size: 18px
 		color: darken(#98b3bb, 20%)
+		opacity: 1
+		transition: all .4s ease-out
 
 	input
 		height: 40px
@@ -58,6 +60,9 @@
 		letter-spacing: 1px
 		padding-left: 12px
 		font-size: 18px
+		outline: none
+		border: 1px solid darken(#98b3bb, 20%)
+		transition: border-color .4s ease-out
 
 	textarea
 		@include lato
@@ -66,25 +71,122 @@
 		font-size: 18px
 		width: 100%
 		padding: 12px 2px 0 12px
+		outline: none
+		border: 1px solid darken(#98b3bb, 20%)
+		transition: border-color .4s ease-out
+
+	&.focused
+		label
+			left: -30px
+			opacity: 0
+
+		input
+			border-color: #14adc4
+
+	&.valid
+		label
+			left: -30px
+			opacity: 0
+
+		input
+			border-color: #37bf5b
+
+		textarea
+			border-color: #37bf5b
+
+	&.blank
+		label
+			left: 12px
+			opacity: 1
+			color: #bf3757
+
+		input
+			border-color: #bf3757
+
+		textarea
+			border-color: #bf3757
+
+		&.focused
+			label
+				left: -30px
+				opacity: 0
+
+	&.email-valid
+		label
+			left: -30px
+			opacity: 0
+
+		input
+			border-color: #37bf5b
+
+
+	&.email-invalid
+		label
+			left: 12px
+			opacity: 1
+			color: #bf3757
+
+		input
+			border-color: #bf3757
+
+		&.focused
+			label
+				left: -30px
+				opacity: 0
+
+	&.phone-valid
+		label
+			left: -30px
+			opacity: 0
+
+		input
+			border-color: #37bf5b
+
+	&.phone-invalid
+		label
+			left: 12px
+			opacity: 1
+			color: #bf3757
+
+		input
+			border-color: #bf3757
+
+		&.focused
+			label
+				left: -30px
+				opacity: 0
+
+
 
 .contact-submit
 	display: flex
 	align-items: center
 	justify-content: center
 	width: 100%
+	padding-top: 25px
 
 
 	button
 		height: 45px
 		width: 220px
 		border-radius: 20px
-		border: none
+		border: 1px solid darken(#98b3bb, 20%)
+		transition: all .4s ease-out
 
 		span
 			@include quat()
 			font-weight: 400
 			letter-spacing: 1px
 			font-size: 18px
+			transition: color .4s ease-out
+
+		&.contact-form-valid
+			border-color: #37bf5b
+			background: #37bf5b
+
+			span
+				color: #f1f3f3
+
 
 
 

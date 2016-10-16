@@ -66,6 +66,8 @@ function contact() {
 
 			this.parentNode.classList.add('valid');
 		}
+
+		checkValidForm();
 	}
 
 	function validateEmail() {
@@ -119,6 +121,70 @@ function contact() {
 			input.parentNode.classList.add('phone-valid');
 		} else {
 			console.log('weird');
+		}
+	}
+
+	function checkValidForm() {
+		var validForm = 0;
+		Array.prototype.forEach.call(formWrappers, (wrapper) => {
+			if (wrapper.classList.contains('valid') || wrapper.classList.contains('email-valid') || wrapper.classList.contains('phone-valid')) {
+				validForm++;
+			}
+		});
+
+		if (validForm == 4) {
+			var submitButton = document.getElementById('contact-send');
+			submitButton.classList.add('contact-form-valid');
+		}
+	}
+
+	function sendMessage() {
+		var submitButton = document.getElementById('contact-send');
+
+		if (submitButton.classList.contains('contact-form-valid')) {
+			submitButton.classList.add('contact-show-loading');
+
+			var data = {};
+			data.name = document.getElementById('contact-name');
+			data.email = document.getElementById('contact-email');
+			data.phone = document.getElementById('contact-number');
+			data.message = document.getElementById('contact-message');
+
+			var promise = new Promise((resolve, reject) => {
+				var req = new XMLHttpRequest();
+
+				req.open('POST', '/contact', true);
+				req.onload = () => {
+					if (req.status == 200) {
+						resolve(req.response);
+					} else {
+						reject(Error(req.statusText));
+					}
+				};
+
+				req.onError = () => {
+					reject(Error('Error'));
+				};
+
+				req.send();
+			});
+
+			promise.then((response) => {
+				if (response.success) {
+					submitButton.classList.remove('contact-show-loading');
+					var success = new Event('message-delivered');
+					window.dispatchEvent(success);
+				} else {
+					submitButton.classList.remove('contact-show-loading');
+					var failure = new Event('message-failed');
+					window.dispatchEvent('message-failed');
+				}
+			}, function (error) {
+				console.log('Failed');
+			});
+		} else {
+			var sendError = new Event('sending-failed');
+			window.dispatchEvent('sending-failed');
 		}
 	}
 
