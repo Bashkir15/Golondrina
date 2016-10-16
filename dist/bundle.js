@@ -62,6 +62,10 @@
 
 	var _about2 = _interopRequireDefault(_about);
 
+	var _portfolio = __webpack_require__(9);
+
+	var _portfolio2 = _interopRequireDefault(_portfolio);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var navTrigger = document.getElementById('nav-trigger');
@@ -83,7 +87,7 @@
 	}
 
 	if (window.location.href.indexOf('portfolio') != -1) {
-		console.log('portfolio');
+		(0, _portfolio2.default)();
 	} else if (window.location.href.indexOf('contact') != -1) {
 		(0, _contact2.default)();
 	} else if (window.location.href.indexOf('about') != -1) {
@@ -903,6 +907,29 @@
 	}
 
 	exports.default = about;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	function portfolio() {
+
+		if (window.location.href.indexOf('canvas') != -1) {
+			baguetteBox.run('.gallery', {
+				captions: function captions(element) {
+					return element.getElementsByTagName('img')[0].alt;
+				},
+				animation: 'fadeIn'
+			});
+		}
+	}
+
+	exports.default = portfolio;
 
 /***/ }
 /******/ ]);
