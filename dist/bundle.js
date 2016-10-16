@@ -246,6 +246,10 @@
 
 	var _scroll2 = _interopRequireDefault(_scroll);
 
+	var _notifications = __webpack_require__(7);
+
+	var _notifications2 = _interopRequireDefault(_notifications);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function home() {
@@ -253,6 +257,9 @@
 		var formContainer = document.getElementById('landing-form-wrapper');
 		var formInput = document.getElementById('landing-email');
 		var signupButton = document.getElementById('signup-button');
+		var successContent = document.getElementById('landing-success');
+		var failureContent = document.getElementById('landing-failure');
+		var errorContent = document.getElementById('landing-error');
 
 		function onFocus() {
 			if (!formContainer.classList.contains('landing-email--valid')) {
@@ -311,7 +318,8 @@
 					req.setRequestHeader('Content-Type', 'application/json');
 					req.onload = function () {
 						if (req.status == 200) {
-							resolve(req.response);
+							var obj = JSON.parse(req.response);
+							resolve(obj);
 						} else {
 							reject(Error(req.statusText));
 						}
@@ -326,13 +334,19 @@
 
 				promise.then(function (response) {
 					if (response.success) {
-						signupButton.classList.remove('signup-button-loading');
-						var success = new Event('signed-up');
-						window.dispatchEvent(success);
+						setTimeout(function () {
+							signupButton.classList.remove('signup-button-loading');
+							var clearInput = document.getElementById('landing-email');
+							clearInput.value = "";
+							var success = new Event('signed-up');
+							window.dispatchEvent(success);
+						}, 800);
 					} else {
-						signupButton.classList.remove('signup-button-loading');
-						var failure = new Event('signup-failed');
-						window.dispatchEvent(failure);
+						setTimeout(function () {
+							signupButton.classList.remove('signup-button-loading');
+							var failure = new Event('signup-failed');
+							window.dispatchEvent(failure);
+						}, 1000);
 					}
 				}, function (error) {
 					console.log('Signup error');
@@ -342,6 +356,24 @@
 				window.dispatchEvent(sendError);
 			}
 		}
+
+		var successNotify = new _notifications2.default({
+			content: successContent,
+			timeout: 2500,
+			type: 'success'
+		});
+
+		var failureNotify = new _notifications2.default({
+			content: failureContent,
+			timeout: 2500,
+			type: 'danger'
+		});
+
+		var errorNotify = new _notifications2.default({
+			content: errorContent,
+			timeout: 2500,
+			type: 'warning'
+		});
 
 		document.addEventListener('DOMContentLoaded', function () {
 			var slider = document.querySelector('.js_slider');
@@ -354,6 +386,9 @@
 		window.addEventListener('DOMContentLoaded', scrollEntrance.init, false);
 		window.addEventListener('scroll', scrollEntrance.viewPortChange);
 		window.addEventListener('resize', scrollEntrance.viewPortChange);
+		window.addEventListener('signed-up', successNotify.open);
+		window.addEventListener('signup-failed', failureNotify.open);
+		window.addEventListener('signup-error', errorNotify.open);
 		formInput.addEventListener('focus', onFocus);
 		formInput.addEventListener('blur', onBlur);
 		signupButton.addEventListener('click', signup);
