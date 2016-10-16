@@ -8,22 +8,6 @@ function contact() {
 	var failureContent = document.getElementById('contact-failure');
 	var errorContent = document.getElementById('contact-error');
 
-/*	function onFocus() {
-		var i = 0;
-		for (i; i < formWrapper.length; i++) {
-			formWrappers[i].addEventListener('focus', () => {
-				for (k = 0; k < formInputs.length; k++) {
-
-				}
-			})
-		}
-	}
-
-	function formFocus() {
-		for (var k = 0; k < formWrappers.length; k++) {
-			formWrappers[k].classList.add('contact--focused');
-		}
-	} */
 
 
 	function onFocus() {
@@ -196,18 +180,19 @@ function contact() {
 
 	var successNotify = new notifications({
 		content: successContent,
-		timeout: 1000,
+		timeout: 2500,
 		type: 'success'
 	});
 
 	var failureNotify = new notifications({
 		content: failureContent,
-		timeout: 1000,
+		timeout: 2500,
 		type: 'danger'
 	});
 
 	var errorNotfy = new notifications({
 		content: errorContent,
+		timeout: 2500,
 		type: 'warning'
 	});
 

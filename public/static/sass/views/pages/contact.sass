@@ -39,6 +39,19 @@
 	align-items: center
 	justfy-content: center
 
+.contact-error-container
+	padding-top: 10px
+	padding-left: 10px
+
+	p
+		@include quat()
+		font-weight: 400
+		font-size: 16px
+		letter-spacing: 2px
+		color: #bf3757
+		opacity: 0
+		transition: opacity .4s ease-out
+
 .contact-form-wrapper
 	width: 100%
 	margin-bottom: 20px
@@ -114,6 +127,10 @@
 				left: -30px
 				opacity: 0
 
+		.contact-error-container
+			p
+				opacity: 1
+
 	&.email-valid
 		label
 			left: -30px
@@ -125,17 +142,16 @@
 
 	&.email-invalid
 		label
-			left: 12px
-			opacity: 1
-			color: #bf3757
+			left: -30px
+			opacity: 0
 
 		input
 			border-color: #bf3757
 
-		&.focused
-			label
-				left: -30px
-				opacity: 0
+
+		.contact-error-container
+			p
+				opacity: 1
 
 	&.phone-valid
 		label
@@ -147,17 +163,15 @@
 
 	&.phone-invalid
 		label
-			left: 12px
-			opacity: 1
-			color: #bf3757
+			left: -30px
+			opacity: 0
 
 		input
 			border-color: #bf3757
 
-		&.focused
-			label
-				left: -30px
-				opacity: 0
+		.contact-error-container
+			p
+				opacity: 1
 
 
 
@@ -259,7 +273,7 @@
 			font-size: 45px
 			letter-spacing: 12px
 
-		p
+		> p
 			width: 50%
 
 	.contact-options
