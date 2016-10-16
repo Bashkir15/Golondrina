@@ -190,6 +190,9 @@
 		border: 1px solid darken(#98b3bb, 20%)
 		transition: all .4s ease-out
 
+		.loader
+			display: none
+
 		span
 			@include quat()
 			font-weight: 400
@@ -203,6 +206,14 @@
 
 			span
 				color: #f1f3f3
+
+		&.contact-show-loading
+			span
+				display: none
+
+			.loader
+				margin-top: 4px
+				display: inline-block
 
 
 
