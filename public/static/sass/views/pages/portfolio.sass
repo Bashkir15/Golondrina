@@ -2,7 +2,7 @@
 	display: flex
 	flex-direction: column
 	align-items: center
-	padding-top: 125px
+	padding-top: 160px
 
 	> h1
 		@include lato()
@@ -10,7 +10,7 @@
 		font-weight: 300
 		letter-spacing: 6px
 		line-height: 35px
-		margin-bottom: 50px
+		margin-bottom: 65px
 		color: #3f4c5b
 
 	> p
@@ -23,7 +23,6 @@
 		margin: 0 auto
 		text-align: center
 		color: darken(#98b3bb, 20%)
-		text-shadow: 1px 1px rgba(0,0,0,0.2)
 
 
 .portfolio-categories
@@ -62,15 +61,22 @@
 
 @media screen and (min-width: 630px) and (max-width: 1270px)
 	.portfolio-page-container
+		padding-top: 200px
+		padding-bottom: 120px
+
 		h1
-			margin-bottom: 65px
+			margin-bottom: 90px
 			font-size: 33px
-			letter-spacing: 9px
+			letter-spacing: 12px
+
+		> p
+			width: 50%
+			line-height: 35px
 
 	.portfolio-categories
 		flex-direction: row
 		flex-wrap: wrap
-		padding-top: 120px
+		padding-top: 150px
 
 	.portfolio-category
 		flex: 1
@@ -78,13 +84,13 @@
 
 @media screen and (min-width: 1271px)
 	.portfolio-page-container
-		padding-top: 180px
+		padding-top: 220px
 		padding-bottom: 120px
 
 		h1
 			font-size: 40px
 			letter-spacing: 13px
-			margin-bottom: 75px
+			margin-bottom: 110px
 
 		> p
 			font-size: 18px
