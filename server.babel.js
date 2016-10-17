@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import Emails from './server/models/email-list';
+import Categories from './server/models/categories';
+import Images from './server/models/images';
 
 var config = require('./server/config/env/' + (process.env.NODE_ENV || 'development'));
 var db = mongoose.connect(config.db, () => {
