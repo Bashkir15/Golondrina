@@ -1,11 +1,11 @@
 import express from 'express';
 import path from 'path';
 import compression from 'compression';
-import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import ejs from 'ejs';
 
 import indexRoutes from '../routes/index.server.routes';
+
 
 module.exports = (db) => {
 	const app = express();
@@ -13,8 +13,7 @@ module.exports = (db) => {
 	app.set('view engine', 'ejs');
 	app.set('views', path.join(__dirname, '../../public'));
 
-	app.use(bodyParser.json());
-	app.use(bodyParser.urlencoded({extended: true}));
+
 	app.use(morgan('dev'));
 	app.use(compression());
 	app.use((req, res, next) => {
