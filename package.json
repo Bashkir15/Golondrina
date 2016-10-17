@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "baguettebox.js": "^1.8.0",
+    "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
     "ejs": "^2.5.2",
