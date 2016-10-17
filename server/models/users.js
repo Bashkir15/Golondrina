@@ -51,8 +51,8 @@ var userSchema = new mongoose.Schema({
 		type: String
 	},
 
-	activationCode: String
-
+	activationCode: String,
+	activationCodeExpires: Date,
 	resetPasswordToken: String,
 	resetPasswordExpires: Date
 });
@@ -75,7 +75,6 @@ userSchema.pre('save', (next) => {
 			}
 
 			user.password = hash;
-			user.activationCode = Date.now().toString().substr(4,4) + Date.now().toString().substr(6, 4) + Date.now().toString();
 			next();
 		});
 	});
