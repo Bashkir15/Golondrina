@@ -8,6 +8,7 @@
     "baguettebox.js": "^1.8.0",
     "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
+    "cluster": "^0.7.7",
     "compression": "^1.6.2",
     "crypto": "0.0.3",
     "ejs": "^2.5.2",
