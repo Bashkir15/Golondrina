@@ -1,0 +1,204 @@
+.carousel-cell
+	width: 85%
+	margin: 0 auto 30px 65px
+
+.landing-testimonials
+	width: 100%
+	padding-top: 90px
+	padding-bottom: 50px
+	background: #f5f7f5
+	position: relative
+
+	h3
+		@include open()
+		font-weight: 300
+		font-size: 33px
+		letter-spacing: 3px
+		margin-bottom: 30px
+		text-align: center
+		color: #555
+
+	> p
+		@include open()
+		font-weight: 300
+		font-size: 16px
+		letter-spacing: 1px
+		line-height: 32px
+		text-align: center
+		color: #328896
+		width: 80%
+		margin: 0 auto
+		text-shadow: 1px 1px rgba(0,0,0,0.1)
+
+		span
+			font-weight: 300
+			font-style: italic
+			font-size: 16px
+			letter-spacing: 2px
+			text-shadow: -1px 1px rgba(0,0,0,0.15)
+
+.flickity-prev-next-button
+	&.previous
+		left: -35px
+
+.flickity-prev-next-button
+	&.next
+		right: -35px
+
+.testimonial-card
+	padding-top: 45px
+	padding-bottom: 30px
+	width: 70%
+	margin: 0 auto
+
+.testimonial-single-card
+	text-overflow: ellipsis
+	white-space: normal
+	padding-top: 65px
+
+.testimonial-image
+	position: relative
+	height: 260px
+	width: 100%
+	background: rgba(0,0,0,0.5)
+
+	img
+		height: 260px
+		width: 100%
+
+.testimonial-image-overlay
+	position: absolute
+	bottom: 0
+	left: 0
+	height: 120px
+	width: 100%
+
+	p
+		@include open()
+		font-weight: 700
+		font-size: 18px
+		text-align: center
+		color: #fff
+		margin-bottom: 10px
+		text-shadow: 2px 2px 2px rgba(0,0,0,0.23)
+
+		&:nth-of-type(2)
+			font-size: 17px
+			font-weight: 400
+
+
+.testimonial-body
+	display: flex
+	flex-direction: column
+	align-items: center
+	padding-bottom: 30px
+	background: #fefefe
+
+.testimonial-body-image
+	width: 100%
+	display: flex
+	flex-direction: column
+	align-items: center
+	margin-top: -46px
+
+	> img
+		position: relative
+		width: 105px
+		height: 105px
+		border: 3px solid #fefefe
+		border-radius: 50%
+		background: #fff
+		z-index: 20
+		margin-bottom: 6px
+
+	p
+		line-height: 21px
+
+		&:nth-of-type(1)
+			font-size: 18px
+			@include open()
+			font-weight: 400
+			color: #333
+			margin-bottom: 4px
+
+		&:nth-of-type(2)
+			@include lato()
+			color: #999
+			font-weight: 300
+
+.testimonial-quote
+	width: 80%
+	margin: 38px auto 0 auto
+	padding-left: 15px
+
+	blockquote
+		position: relative
+		@include open()
+		font-weight: 400
+		letter-spacing: 1px
+		font-size: 16px
+		line-height: 27px
+		padding-top: 8px
+		padding-left: 16px
+		color: #666
+
+		&:before
+			display: block
+			padding-left: 10px
+			content: "\201C"
+			font-size: 60px
+			position: absolute
+			left: -25px
+			top: 20px
+			color: #ccc
+
+		cite
+			font-size: 16px
+			display: block
+			margin-top: 5px
+			color: #bbb
+			@include open()
+			font-weight: 300
+			font-style: italic
+
+			&:before
+				content: "\2014 \2009"
+
+.testimonial-work
+	display: flex
+	align-items: center
+	justify-content: center
+	padding-top: 65px
+	padding-bottom: 20px
+	width: 100%
+
+	a
+		button
+			height: 56px
+			width: 200px
+			background: #1e6978
+			border: 1px solid #1e6978
+			transition: all .3s ease-out
+
+			span
+				@include open()
+				font-weight: 700
+				letter-spacing: 1px
+				font-size: 16px
+				color: #fff
+
+			&:hover
+				background: darken(#1e6978, 8%)
+
+@media screen and (min-width: 1200px)
+	.carousel
+		margin-left: 45px
+		margin-right: 45px
+
+	.carousel-cell
+		width: 45%
+
+@media screen and (min-width: 1650px)
+	.carousel-cell
+		width: 29%
+		margin-right: 2%

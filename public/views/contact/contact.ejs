@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Golondrina Studio</title>
+		<link href="https://fonts.googleapis.com/css?family=Lato:300,400i|Open+Sans:300,300i,400,700" rel="stylesheet">
+		<link rel='stylesheet' href='./static/icons/style.css'>
+		<link rel='stylesheet' href='./styles/main.min.css'>
+	</head>
+
+	<body>
+		<% include ../shared/nav %>
+		<% include ../shared/mobile-menu %>
+
+		<div class='contact-page-container'>
+			<div class='contact-page-content'>
+				<div class='contact-page-form'>
+					<h1>Contact Us</h1>
+
+					<p>We are here to answer any questions you might have about the work we do here at Golondrina Studios. Reach out to us and we'll respond as soon as we can</p>
+
+					<p>Have a project that you have always wanted done but can't find anything like it here? Let us know and we will work with you and see if it can be done</p>
+
+					<div class='contact-form-form'>
+						<form name='contactForm'>
+							<div class='contact-form-wrapper contact-page-wrapper'>
+								<input type='text' name='name' class='contact-form-input' id='contact-name'>
+								<label>
+									Name
+								</label>
+							</div>
+
+							<div class='contact-form-wrapper contact-page-wrapper contact-form-email'>
+								<input type='email' name='email' class='contact-form-input' id='contact-email'>
+								<label>
+									<span class='contact-label-effect' data-content="Email">Email</span>
+								</label>
+							</div>
+
+							<div class='contact-form-wrapper contact-page-wrapper'>
+								<input type='phone' name='phone' class='contact-form-input' id='contact-phone'>
+								<label>
+									<span class='contact-label-effect' data-content="Phone">Name</span>
+								</label>
+							</div>
+
+							<div class='contact-form-wrapper contact-page-wrapper'>
+								<textarea name='message' class='contact-form-input' rows='7' id='contact-message'></textarea>
+								<label>
+									<span class='contact-label-effect' data-content="message">Message</span>
+								</label>
+							</div>
+
+							<div class='contact-page-submit'>
+								<button type='button' id='contact-send' data-style="move-up" data-horizontal>
+									<span>Send</span>
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<div class='contact-page-details'>
+					<div>
+						<div class='contact-detail'>
+							<span class='icon-envelope'></span>
+							<div>
+								<h4>Email</h4>
+								<p>EKtolbert@gmail.com</p>
+							</div>
+						</div>
+
+						<div class='contact-detail'>
+							<span class='icon-global'></span>
+							<div>
+								<h4>Phone</h4>
+								<p>1-940-367-5374</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<% include ./contact-notifications %>
+
+		<script src='./bundle.js'></script>
+	</body>
+</html>

@@ -4,8 +4,8 @@
 		<meta charset='utf-8'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Golondrina Studio</title>
-
-		<link href="https://fonts.googleapis.com/css?family=Lato:300,400|Quattrocento+Sans:400,400i" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Lato:300,400i|Open+Sans:300,300i,400,700" rel="stylesheet">
+		<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.css">
 		<link rel='stylesheet' href='./static/icons/style.css'>
 		<link rel='stylesheet' href='./styles/main.min.css'>
 
@@ -13,9 +13,6 @@
 	</head>
 
 	<body class='home-body'>
-		<% include ./views/shared/nav %>
-
-		<% include ./views/shared/mobile-menu %>
 
 		<div class='preloader'>
 			<div class='loading'></div>
@@ -23,323 +20,38 @@
 			<div class='loading-section section-right'></div>
 		</div>
 
+		<% include ./views/shared/nav %>
+		<% include ./views/shared/mobile-menu %>
+
 		<div class='landing-page-content'>
 			<div class='landing-header'>
-				<div>
 					<h1 class='below-desktop'>Custom Art</h1>
 					<h1 class='large-desktop'>
 						Custom Art in the Heart of Texas
 					</h1>
 					<p class='mobile-only'>From the heart of Texas</p>
-					<p class='above-mobile-only below-desktop'>
+					<p class='above-mobile-only'>
 						Unique art created in the <span>heart</span> of Texas</p>
 					<p class='large-desktop'>
 						Stay one step ahead of your competitors
 					</p>
-					<a href='/contact'>
-						<button class='landing-header-contact'>
+						<button class='landing-header-contact' id='landing-contact'>
 							<span>Contact Us</span>
 						</button>
-					</a>
-				</div>
 			</div>
 
-			<div class='landing-about'>
-				<div class='landing-about-columns'>
-					<div data-entrance='fade'>
-						<h3>
-							<span class='icon-beaker'></span>
-							Original and Excellent Designs
-						</h3>
-						<p>At Golondrina Studios we pride ourselves on creating custom artwork on a myriad of different media. From large-scale businesses looking for a new design to quaint residential paintings, Golondrina Studios has something in mind for everyone</p>
-					</div>
-
-					<div data-entrance='fade'>
-						<h3>
-						<span class='icon-megaphone'></span>
-						Work Around Your Schedule</h3>
-						<p>We understand how hard it is as a business owner or even as a family to make time for the things that you want to do. It is for this reason that we strive to be as flexible as possible to give you great art in your time frame.</p>
-					</div>
-
-					<div data-entrance='fade'>
-						<h3>
-						<span class='icon-genius'></span>
-						Help Grow Your Business</h3>
-						<p>It is scientifically proven that a strong visual and design presence can not only have an effect on how people view your business, but how much they feel a personal connection to your product and how much they want to return to your business in the future</p>
-					</div>
-				</div>
-			</div>
-
-
-			<div class='landing-testimonials'>
-				<h3>Testimonials</h3>
-				<p>See why people are so thrilled about Golondrina and the work that we do here</p>
-
-				<div class='landing-testimonial-display'>
-					<div class='testimonial-mobile js_slider'>
-						<div class='frame js_frame'>
-
-
-							<div class='slides js_slides'>
-								<div class='js_slide single-testimonial'>
-									<div class='mobile-version below-desktop'>
-										<div class='testimonial-image'></div>
-
-										<p>I was referred to Golondrina Studio's by a neighboring business and before I knew it Erika Tolbert was here working. We felt the work she did was worth way more than what we were charged. We will definitely use her in the future.</p>
-
-										<div class='landing-testimonial-button'>
-											<button>
-												<span>See The Work</span>
-											</button>
-										</div>
-									</div>
-
-									<div class='desktop-version large-desktop'>
-										<div class='testimonial-image'>
-											<div class='testimonial-image-overlay'>
-												<p>I was referred to Golondrina Studio's by a neighboring business and before I knew it Erika Tolbert was here working. We felt the work she did was worth way more than what we were charged. We will definitely use her in the future.</p>
-
-												<div class='landing-testimonial-button'>
-													<button>
-														<span>See the work</span>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class='js_slide single-testimonial'>
-									<div class='mobile-version below-desktop'>
-										<div class='testimonial-image'></div>
-
-										<p>Wow it ajfhkasdhfkjsdaf akjsdhfksadhf asdkfjahsdkfh adkjfhaskdhf kahsdkjfhasdf kajsdhfkjasdhf asdkjfhskjdhf asdkjfhaksjdhf kajsdhfkjhsad faskjfhkjsdahf asdkjfhaskdjhf asdkjfhksdhf</p>
-
-										<div class='landing-testimonial-button'>
-											<button>
-												<span>See The Work</span>
-											</button>
-										</div>
-									</div>
-
-									<div class='desktop-version large-desktop'>
-										<div class='testimonial-image'>
-											<div class='testimonial-image-overlay'>
-												<p>I was referred to Golondrina Studio's by a neighboring business and before I knew it Erika Tolbert was here working. We felt the work she did was worth way more than what we were charged. We will definitely use her in the future.</p>
-
-												<div class='landing-testimonial-button'>
-													<button>
-														<span>See the work</span>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-
-
-								</div>
-
-
-								<div class='js_slide single-testimonial'>
-									<div class='mobile-version below-desktop'>
-										<div class='testimonial-image'></div>
-
-										<p>Wow it ajfhkasdhfkjsdaf akjsdhfksadhf asdkfjahsdkfh adkjfhaskdhf kahsdkjfhasdf kajsdhfkjasdhf asdkjfhskjdhf asdkjfhaksjdhf kajsdhfkjhsad faskjfhkjsdahf asdkjfhaskdjhf asdkjfhksdhf</p>
-
-										<div class='landing-testimonial-button'>
-											<button>
-												<span>See The Work</span>
-											</button>
-										</div>
-									</div>
-
-									<div class='desktop-version large-desktop'>
-										<div class='testimonial-image'>
-											<div class='testimonial-image-overlay'>
-												<p>I was referred to Golondrina Studio's by a neighboring business and before I knew it Erika Tolbert was here working. We felt the work she did was worth way more than what we were charged. We will definitely use her in the future.</p>
-
-												<div class='landing-testimonial-button'>
-													<button>
-														<span>See the work</span>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-
-								<div class='js_slide single-testimonial'>
-									<div class='mobile-version below-desktop'>
-										<div class='testimonial-image'></div>
-
-										<p>Wow it ajfhkasdhfkjsdaf akjsdhfksadhf asdkfjahsdkfh adkjfhaskdhf kahsdkjfhasdf kajsdhfkjasdhf asdkjfhskjdhf asdkjfhaksjdhf kajsdhfkjhsad faskjfhkjsdahf asdkjfhaskdjhf asdkjfhksdhf</p>
-
-										<div class='landing-testimonial-button'>
-											<button>
-												<span>See The Work</span>
-											</button>
-										</div>
-									</div>
-
-									<div class='desktop-version large-desktop'>
-										<div class='testimonial-image'>
-											<div class='testimonial-image-overlay'>
-												<p>I was referred to Golondrina Studio's by a neighboring business and before I knew it Erika Tolbert was here working. We felt the work she did was worth way more than what we were charged. We will definitely use her in the future.</p>
-
-												<div class='landing-testimonial-button'>
-													<button>
-														<span>See the work</span>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								
-								<div class='js_slide single-testimonial'>
-									<div class='mobile-version below-desktop'>
-										<div class='testimonial-image'></div>
-
-										<p>Wow it ajfhkasdhfkjsdaf akjsdhfksadhf asdkfjahsdkfh adkjfhaskdhf kahsdkjfhasdf kajsdhfkjasdhf asdkjfhskjdhf asdkjfhaksjdhf kajsdhfkjhsad faskjfhkjsdahf asdkjfhaskdjhf asdkjfhksdhf</p>
-
-										<div class='landing-testimonial-button'>
-											<button>
-												<span>See The Work</span>
-											</button>
-										</div>
-									</div>
-
-									<div class='desktop-version large-desktop'>
-										<div class='testimonial-image'>
-											<div class='testimonial-image-overlay'>
-												<p>I was referred to Golondrina Studio's by a neighboring business and before I knew it Erika Tolbert was here working. We felt the work she did was worth way more than what we were charged. We will definitely use her in the future.</p>
-												
-												<div class='landing-testimonial-button'>
-													<button>
-														<span>See the work</span>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class='testimonial-controlls'>
-							<div>
-								<div class='testimonial-control-item'>
-									<button type='button' class='js_prev landing-prev-button'><</button>
-								</div>
-							</div>
-
-							<div>
-								<div class='testimonial-control-item'>
-									<p>Use the controls or swipe to see the next slides</p>
-								</div>
-							</div>
-
-							<div>
-								<div class='testimonial-control-item'>	
-									<button type='button' class='js_next landing-next-button'>></button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class='landing-latest-works'>
-				<h2>Latest Success Stories</h2>
-				<div class='landing-work' data-entrance='fade'>
-					<img src='./static/images/keyboard.jpg'>
-					<div>
-						<h3>Work for from <span>This Place</span></h3>
-						<p>Blah blah, a business that does blah blah and blah blah blah blah da blah blah blah</p>
-					</div>
-				</div>
-
-				<div class='landing-work' data-entrance='fade'>
-					<img src='./static/images/keyboard.jpg'>
-					<div>
-						<h3>Work for from <span>This Place</span></h3>
-						<p>Blah blah, a business that does blah blah and blah blah blah blah da blah blah blah</p>
-					</div>
-				</div>
-
-				<div class='landing-work' data-entrance='fade'>
-					<img src='./static/images/keyboard.jpg'>
-					<div>
-						<h3>Work for from <span>This Place</span></h3>
-						<p>Blah blah, a business that does blah blah and blah blah blah blah da blah blah blah</p>
-					</div>
-				</div>
-
-				<div class='landing-work large-desktop' data-entrance='fade'>
-					<img src='./static/images/keyboard.jpg'>
-					<div>
-						<h3>Work for from <span>This Place</span></h3>
-						<p>Blah blah, a business that does blah blah and blah blah blah blah da blah blah blah</p>
-					</div>
-				</div>
-
-				<div class='landing-work large-desktop' data-entrance='fade'>
-					<img src='./static/images/keyboard.jpg'>
-					<div>
-						<h3>Work for from <span>This Place</span></h3>
-						<p>Blah blah, a business that does blah blah and blah blah blah blah da blah blah blah</p>
-					</div>
-				</div>
-
-				<div class='landing-latest-button'>
-					<a href='/recent'>
-						<button>
-							<span>See More</span>
-						</button>
-					</a>
-				</div>
-			</div>
-
-			<div class='landing-newsletter'>
-				<div class='landing-newsletter-overlay'></div>
-				<h3>Signup to get the latest</h3>
-
-				<div class='landing-newsletter-input'>
-					<div class='landing-form-wrapper' id='landing-form-wrapper'>
-						<label for="email">
-							<span class='icon-envelope'></span>
-							Email
-						</label>
-						<input type='email' name='email' id='landing-email' required>
-						<button id='signup-button'>
-							<span>Start!</span>
-							<div class='loader'></div>
-						</button>
-					</div>
-				</div>
-			</div>
-
-			<div id='landing-success'>
-				<h3 class='notification-title'>Welcome to the club!</h3>
-				<p class='notification-text'>You should have just received your first email</p>
-			</div>
-
-			<div id='landing-failure'>
-				<h3 class='notification-title'>Uh Oh</h3>
-				<p class='notification-text'>Try again and make sure this email isn't in use</p>
-			</div>
-
-			<div id='landing-error'>
-				<h3 class='notification-title'>That's Strange</h3>
-				<p class='notification-text'>Your request wasn't sent. Check to make sure your email is valid</p>
-			</div>
-
+			<% include ./views/landing/mission %>
+			<% include ./views/landing/testimonials %>
+			<% include ./views/landing/works %>
+			<% include ./views/landing/about %>
 
 			<% include ./views/shared/footer %>
 
-		<script src='./lory.js/dist/lory.js'></script>
+			<% include ./views/landing/notifications %>
+			<% include ./views/landing/dialogs %>
+
+
+		<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js"></script>
 		<script src='./bundle.js'></script>
 	</body>
 </html>

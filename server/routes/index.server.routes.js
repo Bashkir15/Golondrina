@@ -10,35 +10,9 @@ router.get('/', (req, res) => {
 
 router.post('/', email.subscribe);
 
-router.get('/portfolio', (req, res) => {
-	res.render('./views/pages/portfolio/portfolio');
+router.get('/gallery', (req, res) => {
+	res.render('./views/gallery/gallery');
 });
-
-router.get('/portfolio/canvas', (req, res) => {
-	res.render('./views/pages/portfolio/canvas');
-});
-
-router.get('/portfolio/residential', (req, res) => {
-	res.render('./views/pages/portfolio/residential');
-});
-
-router.get('/portfolio/commercial', (req, res) => {
-	res.render('./views/pages/portfolio/commercial');
-});
-
-router.get('/portfolio/digital', (req, res) => {
-	res.render('./views/pages/portfolio/digital');
-});
-
-router.get('/about', (req, res) => {
-	res.render('./views/pages/about');
-});
-
-router.get('/contact', (req, res) => {
-	res.render('./views/pages/contact');
-});
-
-router.post('/contact', email.message);
 
 router.get('/recent', (req, res) => {
 	res.render('./views/pages/recent');
@@ -46,6 +20,14 @@ router.get('/recent', (req, res) => {
 
 router.get('/media', (req, res) => {
 	res.render('./views/pages/media');
+});
+
+router.get('/signup', (req, res) => {
+	res.render('./views/admin/signup');
+});
+
+router.get('/login', (req, res) => {
+	res.render('./views/admin/login');
 });
 
 module.exports = router;

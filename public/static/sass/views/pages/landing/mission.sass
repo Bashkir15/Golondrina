@@ -1,0 +1,98 @@
+.landing-mission
+	display: flex
+	flex-direction: column
+	align-items: center
+	padding-top: 55px
+	padding-bottom: 35px
+	width: 90%
+	margin: 0 auto
+
+.landing-mission-columns
+	display: flex
+	flex-direction: column
+	align-items: center
+	width: 85%
+	margin: 0 auto
+
+	> div
+		display: flex
+		flex-direction: column
+		margin-bottom: 70px
+
+		h3
+			@include lato()
+			font-weight: 400px
+			font-size: 22px
+			letter-spacing: 1px
+			margin-bottom: 18px
+			line-height: 28px
+			text-transform: uppercase
+			text-align: center
+
+			span
+				display: inline-block
+				margin-right: 8px
+				color: #2292d6
+
+		p
+			@include open()
+			font-weight: 300
+			font-size: 18px
+			line-height: 25px
+			letter-spacing: 1px
+			margin-left: 14px
+			text-align: center
+			color: #88909a
+
+@media screen and (min-width: 1200px)
+	.landing-mission
+		padding-top: 90px
+		padding-bottom: 10px
+
+	.landing-mission-columns
+		flex-direction: row
+		flex-wrap: wrap
+		justify-content: space-around
+
+		> div
+			width: 48%
+			height: 250px
+
+			&:nth-of-type(3)
+				width: 60%
+				margin-bottom: 0
+
+@media screen and (min-width: 1400px)
+	.landing-mission-columns
+		width: 95%
+
+		> div
+			display: flex
+			align-items: center
+			width: 30%
+			height: 250px
+
+			&:nth-of-type(3)
+				width: 30%
+				margin-bottom: 70px
+
+@media screen and (min-width: 1650px)
+	.landing-mission
+		margin-top: -155px
+
+	.landing-mission-columns
+		padding-bottom: 30px
+
+		> div
+			margin-bottom: 0
+
+			&:nth-of-type(3)
+				margin-bottom: 0
+
+			h3
+				color: #fff
+				padding-bottom: 50px
+
+				span
+					color: lighten(#2292d6, 15%)
+					font-size: 25px

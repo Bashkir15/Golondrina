@@ -1,18 +1,33 @@
 .footer
+	position: relative
 	display: flex
 	flex-direction: column
-	align-items: center
 	height: 70px
-	padding: 55px 0 100px 0
-	background: #1f2439
+	padding-bottom: 20px
+	margin-top: -170px
+	z-index: 100
 
 	p
-		@include quat()
+		@include lato()
 		font-weight: 400
 		font-size: 18px
 		line-height: 22px
 		letter-spacing: 1px
-		color: #3f4c5b
+		color: #fff
+		text-align: center
+		padding-top: 26px
+
+.footer-brand
+	&.desktop-footer
+		display: none
+
+	&.mobile-footer
+		display: flex
+		align-items: center
+		justify-content: center
+		width: 100%
+		padding-top: 35px
+		padding-bottom: 30px
 
 .footer-social-buttons
 	display: flex
@@ -32,6 +47,8 @@
 		display: flex
 		align-items: center
 		justify-content: center
+		color: rgba(0,0,0,0.4)
+		margin-right: 20px
 
 		> div
 			display: flex
@@ -39,32 +56,28 @@
 			justify-content: center
 			height: 45px
 			width: 45px
-			box-shadow: 0 0 0 3px #3f4c5b
+			box-shadow: 0 0 0 3px #eee
 			border-radius: 50%
-			transition: box-shadow .4s ease-out
+
+		button
+			border: none
+			background: none
 
 			span
-				font-size: 20px
-				color: #3f4c5b
-				transition: color .4s ease-out
+				@include open()
+				font-weight: 300
+				letter-spacing: 1px
+				color: #fff
+				font-size: 18px
 
-		&:hover
-			> div
-				box-shadow: 0 0 0 6px lighten(#3f4c5b, 10%)
+	&.above-tablet
+		display: none
 
-				span
-					color: #f1f3f3
-
-	.etsy
-		@include quat()
-		font-weight: 400
-		font-size: 20px
-
-@media screen and (min-width: 1000px) and (max-width: 1271px)
+@media screen and (min-width: 1000px)
 	.footer
 		flex-direction: initial
 		align-items: stretch
-		padding: 55px 0
+		padding-top: 30px
 
 	.footer-brand
 		display: flex
@@ -78,6 +91,12 @@
 			display: flex
 			align-items: center
 			justify-content: center
+
+		&.mobile-footer
+			display: none
+
+		&.desktop-footer
+			display: flex
 		
 	.footer-social-buttons
 		flex: 1
@@ -95,11 +114,13 @@
 		justify-content: center
 		margin-right: 15px
 
+		&.above-tablet
+			display: flex
+
 @media screen and (min-width: 1271px)
 	.footer
 		flex-direction: initial
 		align-items: stretch
-		padding: 55px 0
 
 	.footer-brand
 		display: flex
@@ -144,7 +165,7 @@
 					transition: all .4s ease-out
 
 					span
-						@include quat()
+						@include lato()
 						font-weight: 400
 						font-size: 18px
 						letter-spacing: 1px

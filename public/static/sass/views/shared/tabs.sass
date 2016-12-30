@@ -1,0 +1,80 @@
+.js-tab
+	position: relative
+
+.tab-item[data-tab-active]
+	&:before
+		transform: scale3d(5,5,1)
+
+.tab-list
+	display: flex
+	align-items: center
+	position: relative
+	justify-content: flex-start
+	border: 1px solid #1c907f
+
+	li
+		display: flex
+		align-items: center
+		justify-content: center
+		flex: 1
+		border-right: 1px solid #1c907f
+		overflow: hidden
+		position: relative
+		height: 100px
+
+		a
+			display: inline-block
+			padding: 10px 0
+			color: #fff
+			font-size: 24px
+			overflow: hidden
+			text-overflow: ellipsis
+			white-space: nowrap
+			transition: color 0.4s
+
+		&:before
+			position: absolute
+			top: 60%
+			left: 65%
+			margin: -30px 0 0 -30px
+			width: 40px
+			height: 40px
+			border: 1px solid #1c907f
+			border-radius: 50%
+			background: #1c907f
+			content: ''
+			transition: transform 0.4s
+			pointer-events: none
+.tab-link
+	color: #fff
+	display: block
+	position: relative
+	text-decoration: none
+	outline: none
+	transition: all .3s cubic-bezier(0.42, 0, 1, 1)
+
+.tab-panel
+	background: #f0f0f0
+	padding: 30px 0 30px 30px
+
+	h2
+		@include lato()
+		font-weight: 400
+		letter-spacing: 2px
+		font-size: 30px
+		color: rgba(0,0,0,0.5)
+
+
+.tab-panel[aria-hidden="true"]
+	display: none
+
+@media screen and (min-device-width: 400px) and (max-device-width: 680px)
+	.tab-list
+		li
+			&:before
+				left: 60%
+
+			a
+				font-size: 18px
+				margin-top: 3px
+				margin-left: 3px

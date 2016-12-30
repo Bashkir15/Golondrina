@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import json from './json';
 
-var Newsletter = mongoose.model('Emails');
+var Newsletter = mongoose.model('Email');
 
 module.exports = () => {
 	var obj = {};

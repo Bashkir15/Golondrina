@@ -1,25 +1,11 @@
-.nav-wrapper
-	height: 50px
-
 .nav
 	display: flex
 	align-items: stretch
-	position: absolute
-	top: 0
-	left: 0
+	position: relative
 	height: 70px
 	width: 100%
 	z-index: 120
-	transition: all .5s ease-out
 	padding-bottom: 10px
-	background: #1f2439
-
-
-	&.nav-mobile--open
-		.nav-left
-			img
-				opacity: 0
-				transition: all .4s ease-out
 
 	&.nav--scrolled
 		padding-bottom: 5px
@@ -28,40 +14,47 @@
 	display: flex
 	flex-basis: 0
 	flex-grow: 1
-	align-items: stretch
+	align-items: center
 	justify-content: flex-start
 	white-space: nowrap
 	padding-left: 15px
 
 	.nav-item
-		width: 150px
+		width: 200px
+		margin-left: -70px
+		padding-top: 12px
 
 		img
 			opacity: 1
-			transition: all .4s ease-out
-
+			height: 70px
+			width: 100%
+			transition: opacity .4s ease-out
 
 .nav-right
 	display: flex
 	flex-basis: 0
 	flex-grow: 1
-	align-items: stretch
+	align-items: center
 	justify-content: flex-end
 	padding-right: 15px
-	
-
 
 .nav-item
-	position: relative
 	display: flex
 	align-items: center
 	justify-content: center
+	position: relative
+	padding: 0 10px
 
-	img
-		position: absolute
-		top: 8px
-		left: 0
-		height: 70px
+
+	button
+		border: none
+
+		span
+			@include open()
+			font-weight: 300
+			letter-spacing: 1px
+			font-size: 18px
+			color: #ccc
 
 
 .nav-icon
@@ -72,8 +65,8 @@
 	position: relative
 	height: 55px
 	width: 40px
+	transition: all .5s ease-in-out
 	transform: rotate(0deg)
-	transition: .5s ease-in-out
 	cursor: pointer
 
 	span
@@ -81,11 +74,11 @@
 		position: absolute
 		height: 6px
 		width: 100%
-		background: #14869d
+		background: rgba(0,0,0,0.25)
 		border-radius: 9px
 		opacity: 1
 		transform: rotate(0deg)
-		transition: .25s ease-in-out
+		transition: all .25s ease-in-out
 
 		&:nth-child(1)
 			top: 12px
@@ -105,6 +98,7 @@
 				transform: rotate(45deg)
 				top: 10px
 				left: 8px
+				color: #fff
 
 			&:nth-child(2)
 				opacity: 0
@@ -114,52 +108,9 @@
 				transform: rotate(-45deg)
 				top: 38px
 				left: 8px
+				color: #fff
 
-@media screen and (min-width: 1271px)
-	.nav
-		padding: 10px
 
-	.nav-left
-		margin-left: 40px
-
-	.nav-right
-		margin-right: 40px
-
-	.nav-item
-		img
-			position: relative
-			top: 0
-			left: 0
-
-		button
-			border: none
-			transition: all .4s ease-out
-
-			span
-				color: #3f4c5b
-				transition: color .4s ease-out
-			
-
-			&:hover
-				border-bottom: 2px solid #fff
-
-				span
-					color: #f1f3f3
-
-		&.below-tablet
-			display: none
-
-		&.above-tablet-only
-			display: flex
-			align-items: center
-			justify-content: center
-
-			button
-				padding: 10px
-				margin-right: 10px
-
-				span
-					@include quat()
-					font-weight: 400
-					font-size: 20px
-					letter-spacing: 1px
+@media screen and (min-width: 1400px)
+	.nav-icon
+		display: none

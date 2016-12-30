@@ -11,6 +11,11 @@ body
 	width: 100%
 	transition: all .6s ease
 
+	&.dialog-open
+		height: 100%
+		overflow-y: hidden
+		overflow-x: hidden
+
 h1, h2, h3, h4, p, blockquote, figure, ol, ul
 	margin: 0
 	padding: 0
@@ -31,3 +36,7 @@ img
 ::-moz-focus-inner
 	padding: 0
 	border: 0
+
+@media screen and (min-device-width: 320px) and (max-device-width: 680px)
+	html
+		overflow-x: hidden

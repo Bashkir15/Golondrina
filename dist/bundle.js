@@ -46,60 +46,54 @@
 
 	'use strict';
 
-	var _mobile = __webpack_require__(1);
+	var _mobileMenu = __webpack_require__(1);
 
-	var _mobile2 = _interopRequireDefault(_mobile);
+	var _mobileMenu2 = _interopRequireDefault(_mobileMenu);
 
-	var _landing = __webpack_require__(3);
+	var _landing = __webpack_require__(2);
 
-	var _landing2 = _interopRequireDefault(_landing);
+	var _signup = __webpack_require__(32);
 
-	var _contact = __webpack_require__(6);
+	var _login = __webpack_require__(33);
 
-	var _contact2 = _interopRequireDefault(_contact);
+	var _admin = __webpack_require__(34);
 
-	var _about = __webpack_require__(7);
+	var _gallery = __webpack_require__(35);
 
-	var _about2 = _interopRequireDefault(_about);
-
-	var _portfolio = __webpack_require__(8);
-
-	var _portfolio2 = _interopRequireDefault(_portfolio);
-
-	var _recent = __webpack_require__(9);
-
-	var _recent2 = _interopRequireDefault(_recent);
+	var _contact = __webpack_require__(37);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	//import about from './scripts/pages/about'
+	//import portfolio from './scripts/pages/portfolio'
+	//import recent from './scripts/pages/recent'
+
 	var navTrigger = document.getElementById('nav-trigger');
 
-	function openMobileMenu() {
-		var menu = new _mobile2.default();
-
-		if (!navTrigger.classList.contains('open')) {
-			navTrigger.classList.add('open');
-			menu.toggle();
-		} else {
-			navTrigger.classList.remove('open');
-			menu.toggle();
-		}
-	}
+	var menu = new _mobileMenu2.default();
 
 	if (navTrigger != 'undefined') {
-		navTrigger.addEventListener('click', openMobileMenu, false);
+		navTrigger.addEventListener('click', menu.toggle, false);
 	}
 
 	if (window.location.href.indexOf('portfolio') != -1) {
-		(0, _portfolio2.default)();
+		//	portfolio();
 	} else if (window.location.href.indexOf('contact') != -1) {
-		(0, _contact2.default)();
+		(0, _contact.contact)();
 	} else if (window.location.href.indexOf('about') != -1) {
-		(0, _about2.default)();
+		//	about();
 	} else if (window.location.href.indexOf('recent') != -1) {
-		(0, _recent2.default)();
+		//	recent();
+	} else if (window.location.href.indexOf('signup') != -1) {
+		(0, _signup.signup)();
+	} else if (window.location.href.indexOf('admin') != -1) {
+		(0, _admin.admin)();
+	} else if (window.location.href.indexOf('gallery') != -1) {
+		(0, _gallery.gallery)();
+	} else if (window.location.href.indexOf('login') != -1) {
+		(0, _login.login)();
 	} else {
-		(0, _landing2.default)();
+		(0, _landing.landing)();
 	}
 
 	window.onload = function () {
@@ -110,7 +104,7 @@
 
 /***/ },
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
@@ -118,45 +112,62 @@
 		value: true
 	});
 
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _dom = __webpack_require__(2);
-
-	var _dom2 = _interopRequireDefault(_dom);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var MobileMenu = function () {
-		function MobileMenu() {
-			_classCallCheck(this, MobileMenu);
+	var mobileMenu = function () {
+		function mobileMenu(options) {
+			_classCallCheck(this, mobileMenu);
 
 			this.container = document.getElementById('mobile-menu-container');
 			this.menu = document.getElementById('mobile-menu');
+
+			this.defaults = {
+				closeKeys: [27],
+				animatedClass: 'mobile-menu-container--animatable',
+				openClass: 'mobile-menu-container--open'
+			};
+
 			this.toggle = this._toggle.bind(this);
-			this.animatedClass = 'mobile-menu-container--animatable';
-			this.openClass = 'mobile-menu-container--open';
+			this._applySettings(options);
 		}
 
-		_createClass(MobileMenu, [{
+		_createClass(mobileMenu, [{
+			key: '_applySettings',
+			value: function _applySettings(options) {
+				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+					for (var i in options) {
+						if (options.hasOwnProperty(i)) {
+							this.defaults[i] = options[i];
+						}
+					}
+				}
+			}
+		}, {
 			key: '_toggle',
 			value: function _toggle() {
 				this.menu.style.willChange = 'opacity';
-				_dom2.default.addClass(this.container, this.animatedClass);
+				this.container.classList.add(this.defaults.animatedClass);
 
-				if (_dom2.default.hasClass(this.container, this.animatedClass) && !_dom2.default.hasClass(this.container, this.openClass)) {
+				if (this.container.classList.contains(this.defaults.animatedClass) && !this.container.classList.contains(this.defaults.openClass)) {
 					document.body.style.overflowY = 'hidden';
 					document.body.style.position = 'fixed';
-					_dom2.default.addClass(this.container, this.openClass);
+
+					this.container.classList.add(this.defaults.openClass);
+
 					this._updateNav();
 					this._addEvents();
 				} else {
 					document.body.style.overflowY = 'auto';
 					document.body.style.position = 'relative';
-					_dom2.default.removeClass(this.container, this.openClass);
+
+					this.container.classList.remove(this.defaults.openClass);
+
 					this._updateNav();
-					this._addEvents();
+					this._removeEvents();
 				}
 
 				this.menu.style.willChange = 'auto';
@@ -165,90 +176,58 @@
 			key: '_updateNav',
 			value: function _updateNav() {
 				var nav = document.getElementById('nav');
+				var navTrigger = document.getElementById('nav-trigger');
 
-				if (_dom2.default.hasClass(this.container, this.openClass)) {
+				if (this.container.classList.contains(this.defaults.openClass)) {
 					nav.classList.add('nav-mobile--open');
+					navTrigger.classList.add('open');
 				} else {
 					nav.classList.remove('nav-mobile--open');
+					navTrigger.classList.remove('open');
 				}
 			}
 		}, {
-			key: '_whichTransitionEvent',
-			value: function _whichTransitionEvent() {
-				var t;
-				var el = document.createElement('div');
-				var transitions = {
-					'transition': 'transitionend',
-					'0Transition': 'onTransitionEnd',
-					'MozTransition': 'transitionend',
-					'WebkitTransition': 'webkitTransitionEnd'
-				};
-
-				for (t in transitions) {
-					if (el.style[t] !== undefined) {
-						return transitions[t];
+			key: '_closeKeyHandler',
+			value: function _closeKeyHandler(e) {
+				if (this.container.classList.contains(this.defaults.openClass)) {
+					if (this.defaults.closeKeys.indexOf(e.which) > -1) {
+						e.preventDefault();
+						this.toggle();
 					}
 				}
 			}
 		}, {
 			key: '_onTransitionEnd',
 			value: function _onTransitionEnd() {
-				this.container.classList.remove('mobile-menu-container--animatable');
+				this.container.classList.remove(this.defaults.animatedClass);
 			}
 		}, {
 			key: '_addEvents',
 			value: function _addEvents() {
 				var onTransitionEnd = this._onTransitionEnd.bind(this);
-				var transitionEvent = this._whichTransitionEvent();
+				var closeKeyHandler = this._closeKeyHandler.bind(this);
 
 				this.container.addEventListener('transitionend', onTransitionEnd);
+				document.body.addEventListener('keydown', closeKeyHandler);
+			}
+		}, {
+			key: '_removeEvents',
+			value: function _removeEvents() {
+				var onTransitionEnd = this._onTransitionEnd.bind(this);
+				var closeKeyHandler = this._closeKeyHandler.bind(this);
+
+				this.container.removeEventListener('transitionend', onTransitionEnd);
+				document.body.removeEventListener('keydown', closeKeyHandler);
 			}
 		}]);
 
-		return MobileMenu;
+		return mobileMenu;
 	}();
 
-	exports.default = MobileMenu;
+	exports.default = mobileMenu;
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	var mod = {};
-
-	mod.addClass = function (element, newClass) {
-		if (element.classList.contains(newClass)) {
-			return;
-		} else {
-			element.classList.add(newClass);
-		}
-	};
-
-	mod.removeClass = function (element, oldClass) {
-		if (!element.classList.contains(oldClass)) {
-			return;
-		} else {
-			element.classList.remove(oldClass);
-		}
-	};
-
-	mod.hasClass = function (element, currentClass) {
-		if (element.classList.contains(currentClass)) {
-			return true;
-		} else {
-			return false;
-		}
-	};
-
-	exports.default = mod;
-
-/***/ },
-/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -256,120 +235,462 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.landing = landing;
 
-	var _scroll = __webpack_require__(4);
+	var _dialog = __webpack_require__(3);
 
-	var _scroll2 = _interopRequireDefault(_scroll);
+	var _dialog2 = _interopRequireDefault(_dialog);
 
-	var _notifications = __webpack_require__(5);
+	var _contact = __webpack_require__(4);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function landing() {
+		var contactDialogTrigger = document.getElementById('landing-contact');
+		var contactContent = document.getElementById('contact-dialog');
+
+		var contactDialog = new _dialog2.default({
+			content: contactContent
+		});
+
+		function openContact() {
+			contactDialog.open();
+			(0, _contact.contact)();
+		}
+
+		contactDialogTrigger.addEventListener('click', openContact, false);
+	}
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var modal = function () {
+		function modal(options) {
+			_classCallCheck(this, modal);
+
+			this.dialog = null;
+			this.overlay = null;
+			this.closeButton = null;
+
+			this.defaults = {
+				className: 'dialog-effect',
+				content: "",
+				overlay: true,
+				closeKeys: [27],
+				closeButton: true,
+				onBeforeOpen: null,
+				onBeforeClose: null,
+				transitions: true,
+				onOpen: null,
+				onClose: null
+			};
+
+			this._applySettings(options);
+			this.open = this._open.bind(this);
+			this.close = this._close.bind(this);
+			//this.transitionEnd = this._transitionSniff();
+		}
+
+		_createClass(modal, [{
+			key: '_applySettings',
+			value: function _applySettings(options) {
+				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+					for (var i in options) {
+						if (options.hasOwnProperty(i)) {
+							this.defaults[i] = options[i];
+						}
+					}
+				}
+			}
+		}, {
+			key: '_open',
+			value: function _open() {
+				document.body.classList.add('dialog-open');
+				this._buildOut.call(this);
+				this._checkOverflow.call(this);
+
+				this.dialog.classList.add('dialog-open');
+				this.overlay.classList.add('dialog-open');
+
+				this._checkOverflow.call(this);
+				this._attachEvents();
+			}
+		}, {
+			key: '_close',
+			value: function _close() {
+				var _this = this;
+
+				this.overlay.classList.remove('dialog-open');
+				this.dialog.classList.remove('dialog-open');
+				document.body.classList.remove('dialog-open');
+
+				this._destroyEvents();
+
+				this.overlay.addEventListener('transitionend', function () {
+					_this.overlay.parentNode.removeChild(_this.overlay);
+				});
+			}
+		}, {
+			key: '_buildOut',
+			value: function _buildOut() {
+				var content;
+				var contentHolder = document.createElement('div');
+				contentHolder.classList.add('dialog-content');
+
+				this.overlay = document.createElement('div');
+				this.overlay.classList.add('dialog-overlay');
+
+				this.dialog = document.createElement('div');
+				this.dialog.classList.add('dialog');
+
+				if (typeof this.defaults.content === 'string') {
+					content = this.defaults.content;
+				} else {
+					content = this.defaults.content.innerHTML;
+				}
+
+				if (this.defaults.closeButton === true) {
+					this.closeButton = document.createElement('button');
+					this.closeButton.innerHTML = '<span class=\'icon-close\'>X</span>';
+					this.closeButton.classList.add('dialog-close-button');
+					this.dialog.appendChild(this.closeButton);
+				}
+
+				contentHolder.innerHTML = content;
+				this.dialog.appendChild(contentHolder);
+				this.overlay.appendChild(this.dialog);
+				document.body.insertBefore(this.overlay, document.body.firstChild);
+			}
+
+			/* _transitionSniff() {
+	  	if (this.defaults.transitions === false) {
+	  		return;
+	  	}
+	  		var el = document.createElement('div');
+	  	var transitions = {
+	  		'transition': 'transitionend',
+	  		'OTransition': 'otransitionend',
+	  		'MozTransition': 'transitionend',
+	  		'WebkitTransition': 'webkitTransitionEnd'
+	  	};
+	  		for (var i in transitions) {
+	  		if (transitions.hasOwnProperty(i) && el.style[i] !== undefined) {
+	  			return transitions[i];
+	  		}
+	  	}
+	  	}
+	  	_open() {
+	  	if (typeof this.defaults.onBeforeOpen === 'function') {
+	  		this.defaults.onBeforeOpen.call(this, e);
+	  	}
+	  		this._buildOut.call(this);
+	  	this._checkOverflow.call(this);
+	  		/* window.getComputedStyle(this.dialog).height;
+	  	if (this.dialog.offsetHeight > window.innerHeight) {
+	  		this.dialog.classList.add('dialog-anchored');
+	  		this.dialog.style.top = 20 + "px";
+	  	} 
+	  		this.dialog.classList.add('dialog-open');
+	  	this.overlay.classList.add('dialog-open');
+	  	document.body.classList.add('dialog-open');
+	  	
+	  	//document.querySelector('.landing-page-content').classList.add('dialog-open');
+	  		document.body.style.overflowY = 'hidden';
+	  	this._checkOverflow.call(this);
+	  		this._attachEvents();
+	  		if (typeof this.defaults.onOpen === 'function') {
+	  		this.defaults.onOpen.call(this, e);
+	  	}
+	  }
+	  	_close() {
+	  		if (typeof this.defaults.onBeforeClose === 'function') {
+	  		this.defaults.onBeforeClose.call(this, e);
+	  	}
+	  		this.dialog.className = this.dialog.className.replace(" dialog-open", "");
+	  	this.overlay.className = this.overlay.className.replace(" dialog-open", "");
+	  	document.querySelector('.landing-page-content').classList.remove('dialog-open');
+	  	document.body.style.overflowY = 'auto';
+	  		this._destroyEvents();
+	  		this.dialog.addEventListener('transitionend', () => {
+	  		this.dialog.parentNode.removeChild(this.dialog);
+	  	}, false);
+	  		this.overlay.addEventListener('transitionend', () => {
+	  		this.overlay.parentNode.removeChild(this.overlay);
+	  	}, false);
+	  		document.body.style.height = 'auto';
+	  	document.body.style.overflowY = 'auto';
+	  		if (typeof this.defaults.onClose === 'function') {
+	  		this.defaults.onClose.call(this, e);
+	  	}
+	  }
+	  	_buildOut() {
+	  	let content;
+	  	let contentHolder;
+	  	let docFrag;
+	  		if (typeof this.defaults.content === 'string') {
+	  		content = this.defaults.content;
+	  	} else {
+	  		content = this.defaults.content.innerHTML;
+	  	}
+	  		docFrag = document.createDocumentFragment();
+	  		this.dialog = document.createElement("div");
+	  	this.dialog.className = 'dialog ' + this.defaults.className;
+	  
+	  	//this.dialog.style.top = window.pageYOffset + (window.innerHeight / 2) + "px";
+	  	//this.dialog.style.left = (window.innerWidth + this.dialog.offsetWidth) / 2 + "px";
+	  		if (this.defaults.closeButton === true) {
+	  		this.closeButton = document.createElement('button');
+	  		this.closeButton.innerHTML = 	`<span class='icon-close'>X</span>`;
+	  		this.closeButton.classList.add('dialog-close-button');
+	  		this.dialog.appendChild(this.closeButton);
+	  	}
+	  		if (this.defaults.overlay === true) {
+	  		this.overlay = document.createElement('div');
+	  		this.overlay.className = "dialog-overlay " + this.defaults.className;
+	  		docFrag.appendChild(this.overlay);
+	  	}
+	  		contentHolder = document.createElement('div');
+	  	contentHolder.className = "dialog-content";
+	  	contentHolder.innerHTML = content;
+	  	this.dialog.appendChild(contentHolder);
+	  	docFrag.appendChild(this.dialog);
+	  	document.body.appendChild(docFrag);
+	  } */
+
+		}, {
+			key: '_isOverflow',
+			value: function _isOverflow() {
+				var viewportHeight = window.innerHeight;
+				var dialogHeight = this.dialog.clientHeight;
+				var isOverflow = dialogHeight < viewportHeight ? false : true;
+
+				return isOverflow;
+			}
+		}, {
+			key: '_checkOverflow',
+			value: function _checkOverflow() {
+				if (this.dialog.classList.contains('dialog-open')) {
+					if (this._isOverflow()) {
+						this.overlay.classList.add('dialog-overflow');
+					} else {
+						this.overlay.classList.remove('dialog-overflow');
+					}
+				}
+			}
+		}, {
+			key: '_closeKeyHandler',
+			value: function _closeKeyHandler(e) {
+				if (this.defaults.closeKeys.indexOf(e.which) > -1) {
+					e.preventDefault();
+					this.close();
+				}
+			}
+		}, {
+			key: '_attachEvents',
+			value: function _attachEvents() {
+				var _closeKeyHandler = this._closeKeyHandler.bind(this);
+
+				this.overlay.addEventListener('click', this.close, false);
+
+				if (this.closeButton) {
+					this.closeButton.addEventListener('click', this.close);
+				}
+
+				document.body.addEventListener('keydown', _closeKeyHandler, false);
+			}
+		}, {
+			key: '_destroyEvents',
+			value: function _destroyEvents() {
+				var _closeKeyHandler = this._closeKeyHandler.bind(this);
+
+				this.overlay.removeEventListener('click', this.close);
+				this.closeButton.removeEventListener('click', this.close);
+				document.body.addEventListener('keydown', _closeKeyHandler);
+			}
+		}]);
+
+		return modal;
+	}();
+
+	exports.default = modal;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.contact = contact;
+
+	var _axios = __webpack_require__(5);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _notifications = __webpack_require__(31);
 
 	var _notifications2 = _interopRequireDefault(_notifications);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function home() {
-		var scrollEntrance = new _scroll2.default();
-		var formContainer = document.getElementById('landing-form-wrapper');
-		var formInput = document.getElementById('landing-email');
-		var signupButton = document.getElementById('signup-button');
-		var successContent = document.getElementById('landing-success');
-		var failureContent = document.getElementById('landing-failure');
-		var errorContent = document.getElementById('landing-error');
+	function contact() {
+		var formWrappers = document.querySelectorAll('.contact-form-wrapper');
+		var formInputs = document.querySelectorAll('.contact-form-input');
+		var submitButton = document.getElementById('contact-send');
+		var successContent = document.getElementById('contact-success');
+		var failureContent = document.getElementById('contact-failure');
 
 		function onFocus() {
-			if (!formContainer.classList.contains('landing-email--valid')) {
-				formContainer.classList.add('landing-email--focused');
+			Array.prototype.forEach.call(formInputs, function (input) {
+				input.addEventListener('focus', inputFocus);
+			});
+		}
+
+		function onBlur() {
+			Array.prototype.forEach.call(formInputs, function (input) {
+				input.addEventListener('blur', inputBlur);
+			});
+		}
+
+		function inputFocus() {
+			if (!this.parentNode.classList.contains('focused')) {
+				this.parentNode.classList.add('focused');
 			} else {
 				return;
 			}
 		}
 
-		function onBlur() {
-			var formContent = formInput.value;
-			var atpos = formContent.indexOf('@');
-			var dotpos = formContent.lastIndexOf(".");
+		function inputBlur() {
+			var formContent = this.value;
 
-			if (formContainer.classList.contains('landing-email--focused')) {
-				formContainer.classList.remove('landing-email--focused');
+			if (this.parentNode.classList.contains('focused')) {
+				this.parentNode.classList.remove('focused');
 			}
 
-			if (formContent == "") {
-				formContainer.classList.add('landing-email--blank');
-			} else if (atpos < 1 || dotpos - atpos < 2) {
+			if (formContent == '') {
+				this.parentNode.classList.add('blank');
+			}
 
-				if (formContainer.classList.contains('landing-email--blank')) {
-					formContainer.classList.remove('landing-email--blank');
+			if (this.parentNode.classList.contains('contact-form-email')) {
+				validateEmail();
+			}
+
+			if (formContent !== '' && !this.parentNode.classList.contains('contact-form-email')) {
+				if (this.parentNode.classList.contains('blank')) {
+					this.parentNode.classList.remove('blank');
 				}
 
-				formContainer.classList.add('landing-email--invalid');
+				this.parentNode.classList.add('valid');
+			}
+
+			checkValidForm();
+		}
+
+		function validateEmail() {
+			var input = document.getElementById('contact-email');
+			var formValue = input.value;
+			var atpos = formValue.indexOf('@');
+			var dotpos = formValue.lastIndexOf(".");
+
+			if (atpos < 1 || dotpos - atpos < 2) {
+				if (input.parentNode.classList.contains('blank')) {
+					console.log('grrr');
+					input.parentNode.classList.remove('blank');
+				}
+
+				input.parentNode.classList.add('email-invalid');
 			} else {
-
-				if (!formContainer.classList.contains('landing-email--valid')) {
-
-					if (formContainer.classList.contains('landing-email--blank')) {
-						formContainer.classList.remove('landing-email--blank');
-					} else if (formContainer.classList.contains('landing-email--invalid')) {
-						formContainer.classList.remove('landing-email--invalid');
-					}
-
-					formContainer.classList.add('landing-email--valid');
+				if (input.parentNode.classList.contains('blank')) {
+					input.parentNode.classList.remove('blank');
 				}
 
-				return true;
+				if (input.parentNode.classList.contains('email-invalid')) {
+					input.parentNode.classList.remove('email-invalid');
+				}
+
+				input.parentNode.classList.add('email-valid');
 			}
 		}
 
-		function signup() {
-			if (formContainer.classList.contains('landing-email--valid')) {
-				signupButton.classList.add('signup-button-loading');
+		function checkValidForm() {
+			var validForm = 0;
 
-				var emailData = document.getElementById('landing-email').value;
-				var data = JSON.stringify({ "email": emailData });
+			Array.prototype.forEach.call(formWrappers, function (wrapper) {
+				if (wrapper.classList.contains('valid') || wrapper.classList.contains('email-valid')) {
+					validForm++;
+				}
+			});
 
-				var promise = new Promise(function (resolve, reject) {
-					var req = new XMLHttpRequest();
-
-					req.open('POST', '/', true);
-					req.setRequestHeader('Content-Type', 'application/json');
-					req.onload = function () {
-						if (req.status == 200) {
-							var obj = JSON.parse(req.response);
-							resolve(obj);
-						} else {
-							reject(Error(req.statusText));
-						}
-					};
-
-					req.onError = function () {
-						reject(Error("Error"));
-					};
-
-					req.send(data);
-				});
-
-				promise.then(function (response) {
-					if (response.success) {
-						setTimeout(function () {
-							signupButton.classList.remove('signup-button-loading');
-							var clearInput = document.getElementById('landing-email');
-							clearInput.value = "";
-							var success = new Event('signed-up');
-							window.dispatchEvent(success);
-						}, 800);
-					} else {
-						setTimeout(function () {
-							signupButton.classList.remove('signup-button-loading');
-							var failure = new Event('signup-failed');
-							window.dispatchEvent(failure);
-						}, 1000);
-					}
-				}, function (error) {
-					console.log('Signup error');
-				});
-			} else {
-				var sendError = new Event('signup-error');
-				window.dispatchEvent(sendError);
+			if (validForm == 4) {
+				submitButton.classList.add('contact-form-valid');
+				submitButton.addEventListener('click', sendMessage);
 			}
+		}
+
+		function sendMessage() {
+			if (submitButton.classList.contains('contact-form-valid')) {
+				submitButton.classList.add('contact-show-loading');
+
+				var data = {};
+				data.name = name.value;
+				data.email = email.value;
+				data.phone = phone.value;
+				data.message = message.value;
+
+				_axios2.default.post('http://localhost:7000/contact', {
+					name: data.name,
+					email: data.email,
+					phone: data.phone,
+					message: data.message,
+
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function (response) {
+					if (response.data.success) {
+						submitButton.classList.remove('contact-show-loading');
+						var success = new Event('message-delivered');
+						window.dispatchEvent(success);
+						removeEvents();
+					} else {
+						submitButton.classList.remove('contact-show-loading');
+						var failure = new Event('message-failed');
+						window.dispatchEvent(failure);
+					}
+				});
+			}
+		}
+
+		function removeEvents() {
+			submitButton.removeEventListener('click', sendMessage);
+
+			Array.prototype.forEach.call(formInputs, function (input) {
+				input.removeEventListener('focus', inputFocus);
+			});
+
+			Array.prototype.forEach.call(formInputs, function (input) {
+				input.removeEventListener('blur', inputBlur);
+			});
+		}
+
+		function handleClose() {
+			contactDialog.close();
+			successNotify.open();
 		}
 
 		var successNotify = new _notifications2.default({
@@ -384,138 +705,1690 @@
 			type: 'danger'
 		});
 
-		var errorNotify = new _notifications2.default({
-			content: errorContent,
-			timeout: 2500,
-			type: 'warning'
-		});
+		onBlur();
+		onFocus();
 
-		document.addEventListener('DOMContentLoaded', function () {
-			var slider = document.querySelector('.js_slider');
-
-			lory(slider, {
-				rewind: true,
-				enableMouseEvents: true
-			});
-		});
-		window.addEventListener('DOMContentLoaded', scrollEntrance.init, false);
-		window.addEventListener('scroll', scrollEntrance.viewPortChange);
-		window.addEventListener('resize', scrollEntrance.viewPortChange);
-		window.addEventListener('signed-up', successNotify.open);
-		window.addEventListener('signup-failed', failureNotify.open);
-		window.addEventListener('signup-error', errorNotify.open);
-		formInput.addEventListener('focus', onFocus);
-		formInput.addEventListener('blur', onBlur);
-		signupButton.addEventListener('click', signup);
+		window.addEventListener('message-delivered', handleClose);
+		window.addEventListener('message-failed', failureNotify.open);
 	}
 
-	exports.default = home;
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(6);
 
 /***/ },
-/* 4 */
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var utils = __webpack_require__(7);
+	var bind = __webpack_require__(8);
+	var Axios = __webpack_require__(9);
+	var defaults = __webpack_require__(10);
+
+	/**
+	 * Create an instance of Axios
+	 *
+	 * @param {Object} defaultConfig The default config for the instance
+	 * @return {Axios} A new instance of Axios
+	 */
+	function createInstance(defaultConfig) {
+	  var context = new Axios(defaultConfig);
+	  var instance = bind(Axios.prototype.request, context);
+
+	  // Copy axios.prototype to instance
+	  utils.extend(instance, Axios.prototype, context);
+
+	  // Copy context to instance
+	  utils.extend(instance, context);
+
+	  return instance;
+	}
+
+	// Create the default instance to be exported
+	var axios = createInstance(defaults);
+
+	// Expose Axios class to allow class inheritance
+	axios.Axios = Axios;
+
+	// Factory for creating new instances
+	axios.create = function create(instanceConfig) {
+	  return createInstance(utils.merge(defaults, instanceConfig));
+	};
+
+	// Expose Cancel & CancelToken
+	axios.Cancel = __webpack_require__(28);
+	axios.CancelToken = __webpack_require__(29);
+	axios.isCancel = __webpack_require__(25);
+
+	// Expose all/spread
+	axios.all = function all(promises) {
+	  return Promise.all(promises);
+	};
+	axios.spread = __webpack_require__(30);
+
+	module.exports = axios;
+
+	// Allow use of default import syntax in TypeScript
+	module.exports.default = axios;
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var bind = __webpack_require__(8);
+
+	/*global toString:true*/
+
+	// utils is a library of generic helper functions non-specific to axios
+
+	var toString = Object.prototype.toString;
+
+	/**
+	 * Determine if a value is an Array
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is an Array, otherwise false
+	 */
+	function isArray(val) {
+	  return toString.call(val) === '[object Array]';
+	}
+
+	/**
+	 * Determine if a value is an ArrayBuffer
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is an ArrayBuffer, otherwise false
+	 */
+	function isArrayBuffer(val) {
+	  return toString.call(val) === '[object ArrayBuffer]';
+	}
+
+	/**
+	 * Determine if a value is a FormData
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is an FormData, otherwise false
+	 */
+	function isFormData(val) {
+	  return (typeof FormData !== 'undefined') && (val instanceof FormData);
+	}
+
+	/**
+	 * Determine if a value is a view on an ArrayBuffer
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
+	 */
+	function isArrayBufferView(val) {
+	  var result;
+	  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
+	    result = ArrayBuffer.isView(val);
+	  } else {
+	    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
+	  }
+	  return result;
+	}
+
+	/**
+	 * Determine if a value is a String
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is a String, otherwise false
+	 */
+	function isString(val) {
+	  return typeof val === 'string';
+	}
+
+	/**
+	 * Determine if a value is a Number
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is a Number, otherwise false
+	 */
+	function isNumber(val) {
+	  return typeof val === 'number';
+	}
+
+	/**
+	 * Determine if a value is undefined
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if the value is undefined, otherwise false
+	 */
+	function isUndefined(val) {
+	  return typeof val === 'undefined';
+	}
+
+	/**
+	 * Determine if a value is an Object
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is an Object, otherwise false
+	 */
+	function isObject(val) {
+	  return val !== null && typeof val === 'object';
+	}
+
+	/**
+	 * Determine if a value is a Date
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is a Date, otherwise false
+	 */
+	function isDate(val) {
+	  return toString.call(val) === '[object Date]';
+	}
+
+	/**
+	 * Determine if a value is a File
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is a File, otherwise false
+	 */
+	function isFile(val) {
+	  return toString.call(val) === '[object File]';
+	}
+
+	/**
+	 * Determine if a value is a Blob
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is a Blob, otherwise false
+	 */
+	function isBlob(val) {
+	  return toString.call(val) === '[object Blob]';
+	}
+
+	/**
+	 * Determine if a value is a Function
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is a Function, otherwise false
+	 */
+	function isFunction(val) {
+	  return toString.call(val) === '[object Function]';
+	}
+
+	/**
+	 * Determine if a value is a Stream
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is a Stream, otherwise false
+	 */
+	function isStream(val) {
+	  return isObject(val) && isFunction(val.pipe);
+	}
+
+	/**
+	 * Determine if a value is a URLSearchParams object
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is a URLSearchParams object, otherwise false
+	 */
+	function isURLSearchParams(val) {
+	  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
+	}
+
+	/**
+	 * Trim excess whitespace off the beginning and end of a string
+	 *
+	 * @param {String} str The String to trim
+	 * @returns {String} The String freed of excess whitespace
+	 */
+	function trim(str) {
+	  return str.replace(/^\s*/, '').replace(/\s*$/, '');
+	}
+
+	/**
+	 * Determine if we're running in a standard browser environment
+	 *
+	 * This allows axios to run in a web worker, and react-native.
+	 * Both environments support XMLHttpRequest, but not fully standard globals.
+	 *
+	 * web workers:
+	 *  typeof window -> undefined
+	 *  typeof document -> undefined
+	 *
+	 * react-native:
+	 *  typeof document.createElement -> undefined
+	 */
+	function isStandardBrowserEnv() {
+	  return (
+	    typeof window !== 'undefined' &&
+	    typeof document !== 'undefined' &&
+	    typeof document.createElement === 'function'
+	  );
+	}
+
+	/**
+	 * Iterate over an Array or an Object invoking a function for each item.
+	 *
+	 * If `obj` is an Array callback will be called passing
+	 * the value, index, and complete array for each item.
+	 *
+	 * If 'obj' is an Object callback will be called passing
+	 * the value, key, and complete object for each property.
+	 *
+	 * @param {Object|Array} obj The object to iterate
+	 * @param {Function} fn The callback to invoke for each item
+	 */
+	function forEach(obj, fn) {
+	  // Don't bother if no value provided
+	  if (obj === null || typeof obj === 'undefined') {
+	    return;
+	  }
+
+	  // Force an array if not already something iterable
+	  if (typeof obj !== 'object' && !isArray(obj)) {
+	    /*eslint no-param-reassign:0*/
+	    obj = [obj];
+	  }
+
+	  if (isArray(obj)) {
+	    // Iterate over array values
+	    for (var i = 0, l = obj.length; i < l; i++) {
+	      fn.call(null, obj[i], i, obj);
+	    }
+	  } else {
+	    // Iterate over object keys
+	    for (var key in obj) {
+	      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+	        fn.call(null, obj[key], key, obj);
+	      }
+	    }
+	  }
+	}
+
+	/**
+	 * Accepts varargs expecting each argument to be an object, then
+	 * immutably merges the properties of each object and returns result.
+	 *
+	 * When multiple objects contain the same key the later object in
+	 * the arguments list will take precedence.
+	 *
+	 * Example:
+	 *
+	 * ```js
+	 * var result = merge({foo: 123}, {foo: 456});
+	 * console.log(result.foo); // outputs 456
+	 * ```
+	 *
+	 * @param {Object} obj1 Object to merge
+	 * @returns {Object} Result of all merge properties
+	 */
+	function merge(/* obj1, obj2, obj3, ... */) {
+	  var result = {};
+	  function assignValue(val, key) {
+	    if (typeof result[key] === 'object' && typeof val === 'object') {
+	      result[key] = merge(result[key], val);
+	    } else {
+	      result[key] = val;
+	    }
+	  }
+
+	  for (var i = 0, l = arguments.length; i < l; i++) {
+	    forEach(arguments[i], assignValue);
+	  }
+	  return result;
+	}
+
+	/**
+	 * Extends object a by mutably adding to it the properties of object b.
+	 *
+	 * @param {Object} a The object to be extended
+	 * @param {Object} b The object to copy properties from
+	 * @param {Object} thisArg The object to bind function to
+	 * @return {Object} The resulting value of object a
+	 */
+	function extend(a, b, thisArg) {
+	  forEach(b, function assignValue(val, key) {
+	    if (thisArg && typeof val === 'function') {
+	      a[key] = bind(val, thisArg);
+	    } else {
+	      a[key] = val;
+	    }
+	  });
+	  return a;
+	}
+
+	module.exports = {
+	  isArray: isArray,
+	  isArrayBuffer: isArrayBuffer,
+	  isFormData: isFormData,
+	  isArrayBufferView: isArrayBufferView,
+	  isString: isString,
+	  isNumber: isNumber,
+	  isObject: isObject,
+	  isUndefined: isUndefined,
+	  isDate: isDate,
+	  isFile: isFile,
+	  isBlob: isBlob,
+	  isFunction: isFunction,
+	  isStream: isStream,
+	  isURLSearchParams: isURLSearchParams,
+	  isStandardBrowserEnv: isStandardBrowserEnv,
+	  forEach: forEach,
+	  merge: merge,
+	  extend: extend,
+	  trim: trim
+	};
+
+
+/***/ },
+/* 8 */
 /***/ function(module, exports) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
+	module.exports = function bind(fn, thisArg) {
+	  return function wrap() {
+	    var args = new Array(arguments.length);
+	    for (var i = 0; i < args.length; i++) {
+	      args[i] = arguments[i];
+	    }
+	    return fn.apply(thisArg, args);
+	  };
+	};
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var ScrollIn = function () {
-		function ScrollIn() {
-			_classCallCheck(this, ScrollIn);
-
-			this.elements = null;
-
-			this.defaults = {
-				duration: '1000',
-				distance: '200',
-				heightOffset: 200
-			};
-
-			this.enter = this._enter.bind(this);
-			this.init = this._init.bind(this);
-			this.viewPortChange = this._viewPortChange.bind(this);
-		}
-
-		_createClass(ScrollIn, [{
-			key: '_isInView',
-			value: function _isInView(elem) {
-				var rect = elem.getBoundingClientRect();
-
-				return rect.top + this.defaults.heightOffset >= 0 && rect.top + this.defaults.heightOffset <= window.innerHeight || rect.bottom + this.defaults.heightOffset >= 0 && rect.bottom + this.defaults.heightOffset <= window.innerHeight || rect.top + this.defaults.heightOffset < 0 && rect.bottom + this.defaults.heightOffset > window.innerHeight;
-			}
-		}, {
-			key: '_setInitialStyles',
-			value: function _setInitialStyles(elem) {
-				var anim = elem.getAttribute('data-entrance');
-				var delay = elem.getAttribute('data-entrance-delay');
-
-				elem.style.transition = "all " + this.defaults.duration / 1000 + "s ease-out";
-
-				if (delay) {
-					elem.style.transitionDelay = delay / 1000 + 's';
-				}
-
-				if (anim == 'fade') {
-					elem.style.opacity = '0';
-				}
-			}
-		}, {
-			key: '_enter',
-			value: function _enter(elem) {
-				elem.style.visibility = "visible";
-				elem.style.opacity = "1";
-				elem.style.transform = "translate(0,0)";
-				elem.classList.add('has-entered');
-			}
-		}, {
-			key: '_viewPortChange',
-			value: function _viewPortChange() {
-				var _this = this;
-
-				Array.prototype.map.call(this.elements, function (item) {
-					var isInView = _this._isInView(item);
-
-					if (isInView) {
-						var hasEntered = item.classList.contains('has-entered');
-
-						if (!hasEntered) {
-							_this._enter(item);
-						}
-					}
-				});
-			}
-		}, {
-			key: '_init',
-			value: function _init() {
-				var _this2 = this;
-
-				this.elements = document.querySelectorAll('[data-entrance]');
-
-				Array.prototype.map.call(this.elements, function (item) {
-					_this2._setInitialStyles(item);
-
-					if (_this2._isInView(item)) {
-						window.addEventListener('load', function () {
-							_this2.enter(item);
-						}, false);
-					}
-				});
-			}
-		}]);
-
-		return ScrollIn;
-	}();
-
-	exports.default = ScrollIn;
 
 /***/ },
-/* 5 */
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var defaults = __webpack_require__(10);
+	var utils = __webpack_require__(7);
+	var InterceptorManager = __webpack_require__(22);
+	var dispatchRequest = __webpack_require__(23);
+	var isAbsoluteURL = __webpack_require__(26);
+	var combineURLs = __webpack_require__(27);
+
+	/**
+	 * Create a new instance of Axios
+	 *
+	 * @param {Object} instanceConfig The default config for the instance
+	 */
+	function Axios(instanceConfig) {
+	  this.defaults = instanceConfig;
+	  this.interceptors = {
+	    request: new InterceptorManager(),
+	    response: new InterceptorManager()
+	  };
+	}
+
+	/**
+	 * Dispatch a request
+	 *
+	 * @param {Object} config The config specific for this request (merged with this.defaults)
+	 */
+	Axios.prototype.request = function request(config) {
+	  /*eslint no-param-reassign:0*/
+	  // Allow for axios('example/url'[, config]) a la fetch API
+	  if (typeof config === 'string') {
+	    config = utils.merge({
+	      url: arguments[0]
+	    }, arguments[1]);
+	  }
+
+	  config = utils.merge(defaults, this.defaults, { method: 'get' }, config);
+
+	  // Support baseURL config
+	  if (config.baseURL && !isAbsoluteURL(config.url)) {
+	    config.url = combineURLs(config.baseURL, config.url);
+	  }
+
+	  // Hook up interceptors middleware
+	  var chain = [dispatchRequest, undefined];
+	  var promise = Promise.resolve(config);
+
+	  this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
+	    chain.unshift(interceptor.fulfilled, interceptor.rejected);
+	  });
+
+	  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
+	    chain.push(interceptor.fulfilled, interceptor.rejected);
+	  });
+
+	  while (chain.length) {
+	    promise = promise.then(chain.shift(), chain.shift());
+	  }
+
+	  return promise;
+	};
+
+	// Provide aliases for supported request methods
+	utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+	  /*eslint func-names:0*/
+	  Axios.prototype[method] = function(url, config) {
+	    return this.request(utils.merge(config || {}, {
+	      method: method,
+	      url: url
+	    }));
+	  };
+	});
+
+	utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+	  /*eslint func-names:0*/
+	  Axios.prototype[method] = function(url, data, config) {
+	    return this.request(utils.merge(config || {}, {
+	      method: method,
+	      url: url,
+	      data: data
+	    }));
+	  };
+	});
+
+	module.exports = Axios;
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	var utils = __webpack_require__(7);
+	var normalizeHeaderName = __webpack_require__(12);
+
+	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
+	var DEFAULT_CONTENT_TYPE = {
+	  'Content-Type': 'application/x-www-form-urlencoded'
+	};
+
+	function setContentTypeIfUnset(headers, value) {
+	  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+	    headers['Content-Type'] = value;
+	  }
+	}
+
+	function getDefaultAdapter() {
+	  var adapter;
+	  if (typeof XMLHttpRequest !== 'undefined') {
+	    // For browsers use XHR adapter
+	    adapter = __webpack_require__(13);
+	  } else if (typeof process !== 'undefined') {
+	    // For node use HTTP adapter
+	    adapter = __webpack_require__(13);
+	  }
+	  return adapter;
+	}
+
+	var defaults = {
+	  adapter: getDefaultAdapter(),
+
+	  transformRequest: [function transformRequest(data, headers) {
+	    normalizeHeaderName(headers, 'Content-Type');
+	    if (utils.isFormData(data) ||
+	      utils.isArrayBuffer(data) ||
+	      utils.isStream(data) ||
+	      utils.isFile(data) ||
+	      utils.isBlob(data)
+	    ) {
+	      return data;
+	    }
+	    if (utils.isArrayBufferView(data)) {
+	      return data.buffer;
+	    }
+	    if (utils.isURLSearchParams(data)) {
+	      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+	      return data.toString();
+	    }
+	    if (utils.isObject(data)) {
+	      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+	      return JSON.stringify(data);
+	    }
+	    return data;
+	  }],
+
+	  transformResponse: [function transformResponse(data) {
+	    /*eslint no-param-reassign:0*/
+	    if (typeof data === 'string') {
+	      data = data.replace(PROTECTION_PREFIX, '');
+	      try {
+	        data = JSON.parse(data);
+	      } catch (e) { /* Ignore */ }
+	    }
+	    return data;
+	  }],
+
+	  timeout: 0,
+
+	  xsrfCookieName: 'XSRF-TOKEN',
+	  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+	  maxContentLength: -1,
+
+	  validateStatus: function validateStatus(status) {
+	    return status >= 200 && status < 300;
+	  }
+	};
+
+	defaults.headers = {
+	  common: {
+	    'Accept': 'application/json, text/plain, */*'
+	  }
+	};
+
+	utils.forEach(['delete', 'get', 'head'], function forEachMehtodNoData(method) {
+	  defaults.headers[method] = {};
+	});
+
+	utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+	  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+	});
+
+	module.exports = defaults;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	// shim for using process in browser
+	var process = module.exports = {};
+
+	// cached from whatever global is present so that test runners that stub it
+	// don't break things.  But we need to wrap it in a try catch in case it is
+	// wrapped in strict mode code which doesn't define any globals.  It's inside a
+	// function because try/catches deoptimize in certain engines.
+
+	var cachedSetTimeout;
+	var cachedClearTimeout;
+
+	function defaultSetTimout() {
+	    throw new Error('setTimeout has not been defined');
+	}
+	function defaultClearTimeout () {
+	    throw new Error('clearTimeout has not been defined');
+	}
+	(function () {
+	    try {
+	        if (typeof setTimeout === 'function') {
+	            cachedSetTimeout = setTimeout;
+	        } else {
+	            cachedSetTimeout = defaultSetTimout;
+	        }
+	    } catch (e) {
+	        cachedSetTimeout = defaultSetTimout;
+	    }
+	    try {
+	        if (typeof clearTimeout === 'function') {
+	            cachedClearTimeout = clearTimeout;
+	        } else {
+	            cachedClearTimeout = defaultClearTimeout;
+	        }
+	    } catch (e) {
+	        cachedClearTimeout = defaultClearTimeout;
+	    }
+	} ())
+	function runTimeout(fun) {
+	    if (cachedSetTimeout === setTimeout) {
+	        //normal enviroments in sane situations
+	        return setTimeout(fun, 0);
+	    }
+	    // if setTimeout wasn't available but was latter defined
+	    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+	        cachedSetTimeout = setTimeout;
+	        return setTimeout(fun, 0);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedSetTimeout(fun, 0);
+	    } catch(e){
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+	            return cachedSetTimeout.call(null, fun, 0);
+	        } catch(e){
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+	            return cachedSetTimeout.call(this, fun, 0);
+	        }
+	    }
+
+
+	}
+	function runClearTimeout(marker) {
+	    if (cachedClearTimeout === clearTimeout) {
+	        //normal enviroments in sane situations
+	        return clearTimeout(marker);
+	    }
+	    // if clearTimeout wasn't available but was latter defined
+	    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+	        cachedClearTimeout = clearTimeout;
+	        return clearTimeout(marker);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedClearTimeout(marker);
+	    } catch (e){
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+	            return cachedClearTimeout.call(null, marker);
+	        } catch (e){
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+	            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+	            return cachedClearTimeout.call(this, marker);
+	        }
+	    }
+
+
+
+	}
+	var queue = [];
+	var draining = false;
+	var currentQueue;
+	var queueIndex = -1;
+
+	function cleanUpNextTick() {
+	    if (!draining || !currentQueue) {
+	        return;
+	    }
+	    draining = false;
+	    if (currentQueue.length) {
+	        queue = currentQueue.concat(queue);
+	    } else {
+	        queueIndex = -1;
+	    }
+	    if (queue.length) {
+	        drainQueue();
+	    }
+	}
+
+	function drainQueue() {
+	    if (draining) {
+	        return;
+	    }
+	    var timeout = runTimeout(cleanUpNextTick);
+	    draining = true;
+
+	    var len = queue.length;
+	    while(len) {
+	        currentQueue = queue;
+	        queue = [];
+	        while (++queueIndex < len) {
+	            if (currentQueue) {
+	                currentQueue[queueIndex].run();
+	            }
+	        }
+	        queueIndex = -1;
+	        len = queue.length;
+	    }
+	    currentQueue = null;
+	    draining = false;
+	    runClearTimeout(timeout);
+	}
+
+	process.nextTick = function (fun) {
+	    var args = new Array(arguments.length - 1);
+	    if (arguments.length > 1) {
+	        for (var i = 1; i < arguments.length; i++) {
+	            args[i - 1] = arguments[i];
+	        }
+	    }
+	    queue.push(new Item(fun, args));
+	    if (queue.length === 1 && !draining) {
+	        runTimeout(drainQueue);
+	    }
+	};
+
+	// v8 likes predictible objects
+	function Item(fun, array) {
+	    this.fun = fun;
+	    this.array = array;
+	}
+	Item.prototype.run = function () {
+	    this.fun.apply(null, this.array);
+	};
+	process.title = 'browser';
+	process.browser = true;
+	process.env = {};
+	process.argv = [];
+	process.version = ''; // empty string to avoid regexp issues
+	process.versions = {};
+
+	function noop() {}
+
+	process.on = noop;
+	process.addListener = noop;
+	process.once = noop;
+	process.off = noop;
+	process.removeListener = noop;
+	process.removeAllListeners = noop;
+	process.emit = noop;
+
+	process.binding = function (name) {
+	    throw new Error('process.binding is not supported');
+	};
+
+	process.cwd = function () { return '/' };
+	process.chdir = function (dir) {
+	    throw new Error('process.chdir is not supported');
+	};
+	process.umask = function() { return 0; };
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var utils = __webpack_require__(7);
+
+	module.exports = function normalizeHeaderName(headers, normalizedName) {
+	  utils.forEach(headers, function processHeader(value, name) {
+	    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
+	      headers[normalizedName] = value;
+	      delete headers[name];
+	    }
+	  });
+	};
+
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	var utils = __webpack_require__(7);
+	var settle = __webpack_require__(14);
+	var buildURL = __webpack_require__(17);
+	var parseHeaders = __webpack_require__(18);
+	var isURLSameOrigin = __webpack_require__(19);
+	var createError = __webpack_require__(15);
+	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(20);
+
+	module.exports = function xhrAdapter(config) {
+	  return new Promise(function dispatchXhrRequest(resolve, reject) {
+	    var requestData = config.data;
+	    var requestHeaders = config.headers;
+
+	    if (utils.isFormData(requestData)) {
+	      delete requestHeaders['Content-Type']; // Let the browser set it
+	    }
+
+	    var request = new XMLHttpRequest();
+	    var loadEvent = 'onreadystatechange';
+	    var xDomain = false;
+
+	    // For IE 8/9 CORS support
+	    // Only supports POST and GET calls and doesn't returns the response headers.
+	    // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
+	    if (process.env.NODE_ENV !== 'test' &&
+	        typeof window !== 'undefined' &&
+	        window.XDomainRequest && !('withCredentials' in request) &&
+	        !isURLSameOrigin(config.url)) {
+	      request = new window.XDomainRequest();
+	      loadEvent = 'onload';
+	      xDomain = true;
+	      request.onprogress = function handleProgress() {};
+	      request.ontimeout = function handleTimeout() {};
+	    }
+
+	    // HTTP basic authentication
+	    if (config.auth) {
+	      var username = config.auth.username || '';
+	      var password = config.auth.password || '';
+	      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
+	    }
+
+	    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
+
+	    // Set the request timeout in MS
+	    request.timeout = config.timeout;
+
+	    // Listen for ready state
+	    request[loadEvent] = function handleLoad() {
+	      if (!request || (request.readyState !== 4 && !xDomain)) {
+	        return;
+	      }
+
+	      // The request errored out and we didn't get a response, this will be
+	      // handled by onerror instead
+	      // With one exception: request that using file: protocol, most browsers
+	      // will return status as 0 even though it's a successful request
+	      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+	        return;
+	      }
+
+	      // Prepare the response
+	      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+	      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
+	      var response = {
+	        data: responseData,
+	        // IE sends 1223 instead of 204 (https://github.com/mzabriskie/axios/issues/201)
+	        status: request.status === 1223 ? 204 : request.status,
+	        statusText: request.status === 1223 ? 'No Content' : request.statusText,
+	        headers: responseHeaders,
+	        config: config,
+	        request: request
+	      };
+
+	      settle(resolve, reject, response);
+
+	      // Clean up request
+	      request = null;
+	    };
+
+	    // Handle low level network errors
+	    request.onerror = function handleError() {
+	      // Real errors are hidden from us by the browser
+	      // onerror should only fire if it's a network error
+	      reject(createError('Network Error', config));
+
+	      // Clean up request
+	      request = null;
+	    };
+
+	    // Handle timeout
+	    request.ontimeout = function handleTimeout() {
+	      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED'));
+
+	      // Clean up request
+	      request = null;
+	    };
+
+	    // Add xsrf header
+	    // This is only done if running in a standard browser environment.
+	    // Specifically not if we're in a web worker, or react-native.
+	    if (utils.isStandardBrowserEnv()) {
+	      var cookies = __webpack_require__(21);
+
+	      // Add xsrf header
+	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
+	          cookies.read(config.xsrfCookieName) :
+	          undefined;
+
+	      if (xsrfValue) {
+	        requestHeaders[config.xsrfHeaderName] = xsrfValue;
+	      }
+	    }
+
+	    // Add headers to the request
+	    if ('setRequestHeader' in request) {
+	      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+	        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
+	          // Remove Content-Type if data is undefined
+	          delete requestHeaders[key];
+	        } else {
+	          // Otherwise add header to the request
+	          request.setRequestHeader(key, val);
+	        }
+	      });
+	    }
+
+	    // Add withCredentials to request if needed
+	    if (config.withCredentials) {
+	      request.withCredentials = true;
+	    }
+
+	    // Add responseType to request if needed
+	    if (config.responseType) {
+	      try {
+	        request.responseType = config.responseType;
+	      } catch (e) {
+	        if (request.responseType !== 'json') {
+	          throw e;
+	        }
+	      }
+	    }
+
+	    // Handle progress if needed
+	    if (typeof config.onDownloadProgress === 'function') {
+	      request.addEventListener('progress', config.onDownloadProgress);
+	    }
+
+	    // Not all browsers support upload events
+	    if (typeof config.onUploadProgress === 'function' && request.upload) {
+	      request.upload.addEventListener('progress', config.onUploadProgress);
+	    }
+
+	    if (config.cancelToken) {
+	      // Handle cancellation
+	      config.cancelToken.promise.then(function onCanceled(cancel) {
+	        if (!request) {
+	          return;
+	        }
+
+	        request.abort();
+	        reject(cancel);
+	        // Clean up request
+	        request = null;
+	      });
+	    }
+
+	    if (requestData === undefined) {
+	      requestData = null;
+	    }
+
+	    // Send the request
+	    request.send(requestData);
+	  });
+	};
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var createError = __webpack_require__(15);
+
+	/**
+	 * Resolve or reject a Promise based on response status.
+	 *
+	 * @param {Function} resolve A function that resolves the promise.
+	 * @param {Function} reject A function that rejects the promise.
+	 * @param {object} response The response.
+	 */
+	module.exports = function settle(resolve, reject, response) {
+	  var validateStatus = response.config.validateStatus;
+	  // Note: status is not exposed by XDomainRequest
+	  if (!response.status || !validateStatus || validateStatus(response.status)) {
+	    resolve(response);
+	  } else {
+	    reject(createError(
+	      'Request failed with status code ' + response.status,
+	      response.config,
+	      null,
+	      response
+	    ));
+	  }
+	};
+
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var enhanceError = __webpack_require__(16);
+
+	/**
+	 * Create an Error with the specified message, config, error code, and response.
+	 *
+	 * @param {string} message The error message.
+	 * @param {Object} config The config.
+	 * @param {string} [code] The error code (for example, 'ECONNABORTED').
+	 @ @param {Object} [response] The response.
+	 * @returns {Error} The created error.
+	 */
+	module.exports = function createError(message, config, code, response) {
+	  var error = new Error(message);
+	  return enhanceError(error, config, code, response);
+	};
+
+
+/***/ },
+/* 16 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	/**
+	 * Update an Error with the specified config, error code, and response.
+	 *
+	 * @param {Error} error The error to update.
+	 * @param {Object} config The config.
+	 * @param {string} [code] The error code (for example, 'ECONNABORTED').
+	 @ @param {Object} [response] The response.
+	 * @returns {Error} The error.
+	 */
+	module.exports = function enhanceError(error, config, code, response) {
+	  error.config = config;
+	  if (code) {
+	    error.code = code;
+	  }
+	  error.response = response;
+	  return error;
+	};
+
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var utils = __webpack_require__(7);
+
+	function encode(val) {
+	  return encodeURIComponent(val).
+	    replace(/%40/gi, '@').
+	    replace(/%3A/gi, ':').
+	    replace(/%24/g, '$').
+	    replace(/%2C/gi, ',').
+	    replace(/%20/g, '+').
+	    replace(/%5B/gi, '[').
+	    replace(/%5D/gi, ']');
+	}
+
+	/**
+	 * Build a URL by appending params to the end
+	 *
+	 * @param {string} url The base of the url (e.g., http://www.google.com)
+	 * @param {object} [params] The params to be appended
+	 * @returns {string} The formatted url
+	 */
+	module.exports = function buildURL(url, params, paramsSerializer) {
+	  /*eslint no-param-reassign:0*/
+	  if (!params) {
+	    return url;
+	  }
+
+	  var serializedParams;
+	  if (paramsSerializer) {
+	    serializedParams = paramsSerializer(params);
+	  } else if (utils.isURLSearchParams(params)) {
+	    serializedParams = params.toString();
+	  } else {
+	    var parts = [];
+
+	    utils.forEach(params, function serialize(val, key) {
+	      if (val === null || typeof val === 'undefined') {
+	        return;
+	      }
+
+	      if (utils.isArray(val)) {
+	        key = key + '[]';
+	      }
+
+	      if (!utils.isArray(val)) {
+	        val = [val];
+	      }
+
+	      utils.forEach(val, function parseValue(v) {
+	        if (utils.isDate(v)) {
+	          v = v.toISOString();
+	        } else if (utils.isObject(v)) {
+	          v = JSON.stringify(v);
+	        }
+	        parts.push(encode(key) + '=' + encode(v));
+	      });
+	    });
+
+	    serializedParams = parts.join('&');
+	  }
+
+	  if (serializedParams) {
+	    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
+	  }
+
+	  return url;
+	};
+
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var utils = __webpack_require__(7);
+
+	/**
+	 * Parse headers into an object
+	 *
+	 * ```
+	 * Date: Wed, 27 Aug 2014 08:58:49 GMT
+	 * Content-Type: application/json
+	 * Connection: keep-alive
+	 * Transfer-Encoding: chunked
+	 * ```
+	 *
+	 * @param {String} headers Headers needing to be parsed
+	 * @returns {Object} Headers parsed into an object
+	 */
+	module.exports = function parseHeaders(headers) {
+	  var parsed = {};
+	  var key;
+	  var val;
+	  var i;
+
+	  if (!headers) { return parsed; }
+
+	  utils.forEach(headers.split('\n'), function parser(line) {
+	    i = line.indexOf(':');
+	    key = utils.trim(line.substr(0, i)).toLowerCase();
+	    val = utils.trim(line.substr(i + 1));
+
+	    if (key) {
+	      parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+	    }
+	  });
+
+	  return parsed;
+	};
+
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var utils = __webpack_require__(7);
+
+	module.exports = (
+	  utils.isStandardBrowserEnv() ?
+
+	  // Standard browser envs have full support of the APIs needed to test
+	  // whether the request URL is of the same origin as current location.
+	  (function standardBrowserEnv() {
+	    var msie = /(msie|trident)/i.test(navigator.userAgent);
+	    var urlParsingNode = document.createElement('a');
+	    var originURL;
+
+	    /**
+	    * Parse a URL to discover it's components
+	    *
+	    * @param {String} url The URL to be parsed
+	    * @returns {Object}
+	    */
+	    function resolveURL(url) {
+	      var href = url;
+
+	      if (msie) {
+	        // IE needs attribute set twice to normalize properties
+	        urlParsingNode.setAttribute('href', href);
+	        href = urlParsingNode.href;
+	      }
+
+	      urlParsingNode.setAttribute('href', href);
+
+	      // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+	      return {
+	        href: urlParsingNode.href,
+	        protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+	        host: urlParsingNode.host,
+	        search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+	        hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+	        hostname: urlParsingNode.hostname,
+	        port: urlParsingNode.port,
+	        pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
+	                  urlParsingNode.pathname :
+	                  '/' + urlParsingNode.pathname
+	      };
+	    }
+
+	    originURL = resolveURL(window.location.href);
+
+	    /**
+	    * Determine if a URL shares the same origin as the current location
+	    *
+	    * @param {String} requestURL The URL to test
+	    * @returns {boolean} True if URL shares the same origin, otherwise false
+	    */
+	    return function isURLSameOrigin(requestURL) {
+	      var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
+	      return (parsed.protocol === originURL.protocol &&
+	            parsed.host === originURL.host);
+	    };
+	  })() :
+
+	  // Non standard browser envs (web workers, react-native) lack needed support.
+	  (function nonStandardBrowserEnv() {
+	    return function isURLSameOrigin() {
+	      return true;
+	    };
+	  })()
+	);
+
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	// btoa polyfill for IE<10 courtesy https://github.com/davidchambers/Base64.js
+
+	var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+	function E() {
+	  this.message = 'String contains an invalid character';
+	}
+	E.prototype = new Error;
+	E.prototype.code = 5;
+	E.prototype.name = 'InvalidCharacterError';
+
+	function btoa(input) {
+	  var str = String(input);
+	  var output = '';
+	  for (
+	    // initialize result and counter
+	    var block, charCode, idx = 0, map = chars;
+	    // if the next str index does not exist:
+	    //   change the mapping table to "="
+	    //   check if d has no fractional digits
+	    str.charAt(idx | 0) || (map = '=', idx % 1);
+	    // "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8
+	    output += map.charAt(63 & block >> 8 - idx % 1 * 8)
+	  ) {
+	    charCode = str.charCodeAt(idx += 3 / 4);
+	    if (charCode > 0xFF) {
+	      throw new E();
+	    }
+	    block = block << 8 | charCode;
+	  }
+	  return output;
+	}
+
+	module.exports = btoa;
+
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var utils = __webpack_require__(7);
+
+	module.exports = (
+	  utils.isStandardBrowserEnv() ?
+
+	  // Standard browser envs support document.cookie
+	  (function standardBrowserEnv() {
+	    return {
+	      write: function write(name, value, expires, path, domain, secure) {
+	        var cookie = [];
+	        cookie.push(name + '=' + encodeURIComponent(value));
+
+	        if (utils.isNumber(expires)) {
+	          cookie.push('expires=' + new Date(expires).toGMTString());
+	        }
+
+	        if (utils.isString(path)) {
+	          cookie.push('path=' + path);
+	        }
+
+	        if (utils.isString(domain)) {
+	          cookie.push('domain=' + domain);
+	        }
+
+	        if (secure === true) {
+	          cookie.push('secure');
+	        }
+
+	        document.cookie = cookie.join('; ');
+	      },
+
+	      read: function read(name) {
+	        var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+	        return (match ? decodeURIComponent(match[3]) : null);
+	      },
+
+	      remove: function remove(name) {
+	        this.write(name, '', Date.now() - 86400000);
+	      }
+	    };
+	  })() :
+
+	  // Non standard browser env (web workers, react-native) lack needed support.
+	  (function nonStandardBrowserEnv() {
+	    return {
+	      write: function write() {},
+	      read: function read() { return null; },
+	      remove: function remove() {}
+	    };
+	  })()
+	);
+
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var utils = __webpack_require__(7);
+
+	function InterceptorManager() {
+	  this.handlers = [];
+	}
+
+	/**
+	 * Add a new interceptor to the stack
+	 *
+	 * @param {Function} fulfilled The function to handle `then` for a `Promise`
+	 * @param {Function} rejected The function to handle `reject` for a `Promise`
+	 *
+	 * @return {Number} An ID used to remove interceptor later
+	 */
+	InterceptorManager.prototype.use = function use(fulfilled, rejected) {
+	  this.handlers.push({
+	    fulfilled: fulfilled,
+	    rejected: rejected
+	  });
+	  return this.handlers.length - 1;
+	};
+
+	/**
+	 * Remove an interceptor from the stack
+	 *
+	 * @param {Number} id The ID that was returned by `use`
+	 */
+	InterceptorManager.prototype.eject = function eject(id) {
+	  if (this.handlers[id]) {
+	    this.handlers[id] = null;
+	  }
+	};
+
+	/**
+	 * Iterate over all the registered interceptors
+	 *
+	 * This method is particularly useful for skipping over any
+	 * interceptors that may have become `null` calling `eject`.
+	 *
+	 * @param {Function} fn The function to call for each interceptor
+	 */
+	InterceptorManager.prototype.forEach = function forEach(fn) {
+	  utils.forEach(this.handlers, function forEachHandler(h) {
+	    if (h !== null) {
+	      fn(h);
+	    }
+	  });
+	};
+
+	module.exports = InterceptorManager;
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var utils = __webpack_require__(7);
+	var transformData = __webpack_require__(24);
+	var isCancel = __webpack_require__(25);
+	var defaults = __webpack_require__(10);
+
+	/**
+	 * Throws a `Cancel` if cancellation has been requested.
+	 */
+	function throwIfCancellationRequested(config) {
+	  if (config.cancelToken) {
+	    config.cancelToken.throwIfRequested();
+	  }
+	}
+
+	/**
+	 * Dispatch a request to the server using the configured adapter.
+	 *
+	 * @param {object} config The config that is to be used for the request
+	 * @returns {Promise} The Promise to be fulfilled
+	 */
+	module.exports = function dispatchRequest(config) {
+	  throwIfCancellationRequested(config);
+
+	  // Ensure headers exist
+	  config.headers = config.headers || {};
+
+	  // Transform request data
+	  config.data = transformData(
+	    config.data,
+	    config.headers,
+	    config.transformRequest
+	  );
+
+	  // Flatten headers
+	  config.headers = utils.merge(
+	    config.headers.common || {},
+	    config.headers[config.method] || {},
+	    config.headers || {}
+	  );
+
+	  utils.forEach(
+	    ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
+	    function cleanHeaderConfig(method) {
+	      delete config.headers[method];
+	    }
+	  );
+
+	  var adapter = config.adapter || defaults.adapter;
+
+	  return adapter(config).then(function onAdapterResolution(response) {
+	    throwIfCancellationRequested(config);
+
+	    // Transform response data
+	    response.data = transformData(
+	      response.data,
+	      response.headers,
+	      config.transformResponse
+	    );
+
+	    return response;
+	  }, function onAdapterRejection(reason) {
+	    if (!isCancel(reason)) {
+	      throwIfCancellationRequested(config);
+
+	      // Transform response data
+	      if (reason && reason.response) {
+	        reason.response.data = transformData(
+	          reason.response.data,
+	          reason.response.headers,
+	          config.transformResponse
+	        );
+	      }
+	    }
+
+	    return Promise.reject(reason);
+	  });
+	};
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var utils = __webpack_require__(7);
+
+	/**
+	 * Transform the data for a request or a response
+	 *
+	 * @param {Object|String} data The data to be transformed
+	 * @param {Array} headers The headers for the request or response
+	 * @param {Array|Function} fns A single function or Array of functions
+	 * @returns {*} The resulting transformed data
+	 */
+	module.exports = function transformData(data, headers, fns) {
+	  /*eslint no-param-reassign:0*/
+	  utils.forEach(fns, function transform(fn) {
+	    data = fn(data, headers);
+	  });
+
+	  return data;
+	};
+
+
+/***/ },
+/* 25 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = function isCancel(value) {
+	  return !!(value && value.__CANCEL__);
+	};
+
+
+/***/ },
+/* 26 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	/**
+	 * Determines whether the specified URL is absolute
+	 *
+	 * @param {string} url The URL to test
+	 * @returns {boolean} True if the specified URL is absolute, otherwise false
+	 */
+	module.exports = function isAbsoluteURL(url) {
+	  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
+	  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
+	  // by any combination of letters, digits, plus, period, or hyphen.
+	  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
+	};
+
+
+/***/ },
+/* 27 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	/**
+	 * Creates a new URL by combining the specified URLs
+	 *
+	 * @param {string} baseURL The base URL
+	 * @param {string} relativeURL The relative URL
+	 * @returns {string} The combined URL
+	 */
+	module.exports = function combineURLs(baseURL, relativeURL) {
+	  return baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '');
+	};
+
+
+/***/ },
+/* 28 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	/**
+	 * A `Cancel` is an object that is thrown when an operation is canceled.
+	 *
+	 * @class
+	 * @param {string=} message The message.
+	 */
+	function Cancel(message) {
+	  this.message = message;
+	}
+
+	Cancel.prototype.toString = function toString() {
+	  return 'Cancel' + (this.message ? ': ' + this.message : '');
+	};
+
+	Cancel.prototype.__CANCEL__ = true;
+
+	module.exports = Cancel;
+
+
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var Cancel = __webpack_require__(28);
+
+	/**
+	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
+	 *
+	 * @class
+	 * @param {Function} executor The executor function.
+	 */
+	function CancelToken(executor) {
+	  if (typeof executor !== 'function') {
+	    throw new TypeError('executor must be a function.');
+	  }
+
+	  var resolvePromise;
+	  this.promise = new Promise(function promiseExecutor(resolve) {
+	    resolvePromise = resolve;
+	  });
+
+	  var token = this;
+	  executor(function cancel(message) {
+	    if (token.reason) {
+	      // Cancellation has already been requested
+	      return;
+	    }
+
+	    token.reason = new Cancel(message);
+	    resolvePromise(token.reason);
+	  });
+	}
+
+	/**
+	 * Throws a `Cancel` if cancellation has been requested.
+	 */
+	CancelToken.prototype.throwIfRequested = function throwIfRequested() {
+	  if (this.reason) {
+	    throw this.reason;
+	  }
+	};
+
+	/**
+	 * Returns an object that contains a new `CancelToken` and a function that, when called,
+	 * cancels the `CancelToken`.
+	 */
+	CancelToken.source = function source() {
+	  var cancel;
+	  var token = new CancelToken(function executor(c) {
+	    cancel = c;
+	  });
+	  return {
+	    token: token,
+	    cancel: cancel
+	  };
+	};
+
+	module.exports = CancelToken;
+
+
+/***/ },
+/* 30 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	/**
+	 * Syntactic sugar for invoking a function and expanding an array for arguments.
+	 *
+	 * Common use case would be to use `Function.prototype.apply`.
+	 *
+	 *  ```js
+	 *  function f(x, y, z) {}
+	 *  var args = [1, 2, 3];
+	 *  f.apply(null, args);
+	 *  ```
+	 *
+	 * With `spread` this example can be re-written.
+	 *
+	 *  ```js
+	 *  spread(function(x, y, z) {})([1, 2, 3]);
+	 *  ```
+	 *
+	 * @param {Function} callback
+	 * @returns {Function}
+	 */
+	module.exports = function spread(callback) {
+	  return function wrap(arr) {
+	    return callback.apply(null, arr);
+	  };
+	};
+
+
+/***/ },
+/* 31 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -534,8 +2407,10 @@
 		function notifications(options) {
 			_classCallCheck(this, notifications);
 
-			this.settings = {
-				container: null,
+			this.container = null;
+			this.count = 0;
+
+			this.defaults = {
 				notification: null,
 				timeout: 0,
 				type: 'alert',
@@ -544,10 +2419,9 @@
 				posY: 'bottom'
 			};
 
-			this.count = 0;
-			this._applySettings(options);
 			this.open = this._open.bind(this);
 			this.close = this._close.bind(this);
+			this._applySettings(options);
 		}
 
 		_createClass(notifications, [{
@@ -556,73 +2430,9 @@
 				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
 					for (var i in options) {
 						if (options.hasOwnProperty(i)) {
-							this.settings[i] = options[i];
+							this.defaults[i] = options[i];
 						}
 					}
-				}
-			}
-		}, {
-			key: '_buildOut',
-			value: function _buildOut() {
-				var _container = document.createElement('div');
-				var _contentHolder = document.createElement('div');
-				var _content;
-
-				_container.className = 'notification-container';
-				_contentHolder.className = 'notification';
-
-				this.settings.container = _container;
-				this.settings.container.style.position = "fixed";
-
-				if (this.settings.content === "string") {
-					_content = this.settings.content;
-				} else {
-					_content = this.settings.content.innerHTML;
-				}
-
-				this._checkOptions(_contentHolder);
-
-				_contentHolder.innerHTML = _content;
-				this.settings.container.appendChild(_contentHolder);
-				document.body.appendChild(this.settings.container);
-			}
-		}, {
-			key: '_checkOptions',
-			value: function _checkOptions(item) {
-				switch (this.settings.type) {
-					case "success":
-						item.classList.add('success');
-						break;
-					case "danger":
-						item.classList.add('danger');
-						break;
-					case "warning":
-						item.classList.add('warning');
-						break;
-					default:
-						item.classList.add('alert');
-				}
-
-				switch (this.settings.posX) {
-					case "right":
-						this.settings.container.style.right = 20 + "px";
-						break;
-					case "left":
-						this.settings.container.style.left = 20 + "px";
-						break;
-					default:
-						this.settings.container.style.right = 20 + "px";
-				}
-
-				switch (this.settings.posY) {
-					case "top":
-						this.settings.container.style.top = 20 + "px";
-						break;
-					case "bottom":
-						this.settings.container.style.bottom = 20 + "px";
-						break;
-					default:
-						this.settings.container.style.bottom = 20 + "px";
 				}
 			}
 		}, {
@@ -631,17 +2441,18 @@
 				var _this = this;
 
 				var notifyId = "notification-" + this.count;
+
 				this._buildOut.call(this);
 
 				setTimeout(function () {
-					_this.settings.container.classList.add('shown');
-					_this.settings.container.setAttribute('id', notifyId);
+					_this.container.classList.add('shown');
+					_this.container.setAttribute('id', notifyId);
 				}, 100);
 
-				if (this.settings.timeout > 0) {
+				if (this.defaults.timeout > 0) {
 					setTimeout(function () {
 						_this.close(notifyId);
-					}, this.settings.timeout);
+					}, this.defaults.timeout);
 				}
 
 				this.count += 1;
@@ -665,6 +2476,76 @@
 					return false;
 				}
 			}
+		}, {
+			key: '_buildOut',
+			value: function _buildOut() {
+				var _container = document.createElement('div');
+				var _contentHolder = document.createElement('div');
+				var _content;
+
+				_container.className = 'notification-container';
+				_contentHolder.className = 'notification';
+
+				this.container = _container;
+				this.container.style.position = "fixed";
+
+				if (this.defaults.content === 'string') {
+					_content = this.defaults.content;
+				} else {
+					_content = this.defaults.content.innerHTML;
+				}
+
+				this._checkType(_contentHolder);
+				this._checkPosition();
+
+				_contentHolder.innerHTML = _content;
+				this.container.appendChild(_contentHolder);
+				document.body.appendChild(this.container);
+			}
+		}, {
+			key: '_checkType',
+			value: function _checkType(item) {
+				switch (this.defaults.type) {
+					case "success":
+						item.classList.add('success');
+						break;
+					case "danger":
+						item.classList.add('danger');
+						break;
+					case "warning":
+						item.classList.add('warning');
+						break;
+					case "alert":
+						item.classList.add('alert');
+					default:
+						item.classList.add('alert');
+				}
+			}
+		}, {
+			key: '_checkPosition',
+			value: function _checkPosition() {
+				switch (this.defaults.posX) {
+					case "right":
+						this.container.style.right = 20 + "px";
+						break;
+					case "left":
+						this.container.style.left = 20 + "px";
+						break;
+					default:
+						this.container.style.right = 20 + "px";
+				}
+
+				switch (this.defaults.posY) {
+					case "top":
+						this.container.style.top = 20 + "px";
+						break;
+					case "bottom":
+						this.container.style.bottom = 20 + "px";
+						break;
+					default:
+						this.container.style.bottom = 20 + "px";
+				}
+			}
 		}]);
 
 		return notifications;
@@ -673,7 +2554,7 @@
 	exports.default = notifications;
 
 /***/ },
-/* 6 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -681,220 +2562,51 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.signup = signup;
 
-	var _notifications = __webpack_require__(5);
+	var _axios = __webpack_require__(5);
 
-	var _notifications2 = _interopRequireDefault(_notifications);
+	var _axios2 = _interopRequireDefault(_axios);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function contact() {
-		var formWrappers = document.querySelectorAll('.contact-form-wrapper');
-		var formInputs = document.querySelectorAll('.contact-form-input');
-		var submitButton = document.getElementById('contact-send');
-		var successContent = document.getElementById('contact-success');
-		var failureContent = document.getElementById('contact-failure');
-		var errorContent = document.getElementById('contact-error');
+	function signup() {
+		var submitButton = document.getElementById('signup-submit');
+		var email = document.getElementById('signup-email');
+		var password = document.getElementById('signup-password');
+		var name = document.getElementById('signup-name');
+		var username = document.getElementById('signup-username');
 
-		function onFocus() {
-			Array.prototype.forEach.call(formInputs, function (input) {
-				input.addEventListener('focus', inputFocus);
-			});
-		}
+		function submit() {
+			var data = {};
 
-		function inputFocus() {
-			if (!this.parentNode.classList.contains('focused')) {
-				this.parentNode.classList.add('focused');
-			} else {
-				return;
-			}
-		}
+			data.name = name;
+			data.email = email;
+			data.password = password;
 
-		function onBlur() {
-			Array.prototype.forEach.call(formInputs, function (input) {
-				input.addEventListener('blur', inputBlur);
-			});
-		}
+			_axios2.default.post('http://localhost:8000/users', {
+				name: data.name.value,
+				email: data.email.value,
+				password: data.password.value,
 
-		function inputBlur() {
-			var formContent = this.value;
-
-			if (this.parentNode.classList.contains('focused')) {
-				this.parentNode.classList.remove('focused');
-			}
-
-			if (formContent == '') {
-				this.parentNode.classList.add('blank');
-			}
-
-			if (this.parentNode.classList.contains('contact-form-email')) {
-				validateEmail();
-			}
-
-			if (this.parentNode.classList.contains('contact-form-number')) {
-				validatePhone();
-			}
-
-			if (formContent != '' && !this.parentNode.classList.contains('contact-form-email') && !this.parentNode.classList.contains('contact-form-number')) {
-				if (this.parentNode.classList.contains('blank')) {
-					this.parentNode.classList.remove('blank');
+				headers: {
+					'Content-Type': 'application/json'
 				}
+			}).then(function (response) {
+				if (response.data.success) {
+					var admin = JSON.stringify(response.data.res.record);
 
-				this.parentNode.classList.add('valid');
-			}
-
-			checkValidForm();
-		}
-
-		function validateEmail() {
-			var input = document.getElementById('contact-email');
-			var formValue = input.value;
-			var atpos = formValue.indexOf('@');
-			var dotpos = formValue.lastIndexOf(".");
-
-			if (atpos < 1 || dotpos - atpos < 2) {
-				if (input.parentNode.classList.contains('blank')) {
-					input.parentNode.classList.remove('blank');
-				}
-
-				input.parentNode.classList.add('email-invalid');
-			} else {
-				if (input.parentNode.classList.contains('blank')) {
-					input.parentNode.classList.remove('blank');
-				}
-
-				if (input.parentNode.classList.contains('email-invalid')) {
-					input.parentNode.classList.remove('email-invalid');
-				}
-
-				input.parentNode.classList.add('email-valid');
-			}
-		}
-
-		function validatePhone() {
-			var input = document.getElementById('contact-number');
-			var formValue = input.value;
-			var phoneRe = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
-			if (!formValue.match(phoneRe) || formValue == '') {
-				if (input.parentNode.classList.contains('blank')) {
-					input.parentNode.classList.remove('blank');
-				}
-
-				if (input.parentNode.classList.contains('phone-valid')) {
-					input.parentNode.classList.remove('phone-valid');
-				}
-
-				input.parentNode.classList.add('phone-invalid');
-			} else if (formValue.match(phoneRe)) {
-				if (input.parentNode.classList.contains('blank')) {
-					input.parentNode.classList.remove('blank');
-				}
-
-				if (input.parentNode.classList.contains('phone-invalid')) {
-					input.parentNode.classList.remove('phone-invalid');
-				}
-
-				input.parentNode.classList.add('phone-valid');
-			} else {
-				console.log('weird');
-			}
-		}
-
-		function checkValidForm() {
-			var validForm = 0;
-			Array.prototype.forEach.call(formWrappers, function (wrapper) {
-				if (wrapper.classList.contains('valid') || wrapper.classList.contains('email-valid') || wrapper.classList.contains('phone-valid')) {
-					validForm++;
+					window.localStorage.setItem('admin', admin);
+					window.localStorage.setItem('golondrina-token', response.data.res.token);
 				}
 			});
-
-			if (validForm == 4) {
-				var submitButton = document.getElementById('contact-send');
-				submitButton.classList.add('contact-form-valid');
-			}
 		}
 
-		function sendMessage() {
-			var submitButton = document.getElementById('contact-send');
-
-			if (submitButton.classList.contains('contact-form-valid')) {
-				submitButton.classList.add('contact-show-loading');
-
-				var data = {};
-				data.name = document.getElementById('contact-name');
-				data.email = document.getElementById('contact-email');
-				data.phone = document.getElementById('contact-number');
-				data.message = document.getElementById('contact-message');
-
-				var promise = new Promise(function (resolve, reject) {
-					var req = new XMLHttpRequest();
-
-					req.open('POST', '/contact', true);
-					req.onload = function () {
-						if (req.status == 200) {
-							resolve(req.response);
-						} else {
-							reject(Error(req.statusText));
-						}
-					};
-
-					req.onError = function () {
-						reject(Error('Error'));
-					};
-
-					req.send();
-				});
-
-				promise.then(function (response) {
-					if (response.success) {
-						submitButton.classList.remove('contact-show-loading');
-						var success = new Event('message-delivered');
-						window.dispatchEvent(success);
-					} else {
-						submitButton.classList.remove('contact-show-loading');
-						var failure = new Event('message-failed');
-						window.dispatchEvent(failure);
-					}
-				}, function (error) {
-					console.log('Failed');
-				});
-			} else {
-				var sendError = new Event('sending-failed');
-				window.dispatchEvent(sendError);
-			}
-		}
-
-		var successNotify = new _notifications2.default({
-			content: successContent,
-			timeout: 2500,
-			type: 'success'
-		});
-
-		var failureNotify = new _notifications2.default({
-			content: failureContent,
-			timeout: 2500,
-			type: 'danger'
-		});
-
-		var errorNotfy = new _notifications2.default({
-			content: errorContent,
-			timeout: 2500,
-			type: 'warning'
-		});
-
-		onFocus();
-		onBlur();
-
-		submitButton.addEventListener('click', sendMessage);
-		//	window.addEventListener('message-delivered', successNotify.open);
-		//	window.addEventListener('message-failed', failureNotify.open);
-		window.addEventListener('sending-failed', errorNotfy.open);
+		submitButton.addEventListener('click', submit);
 	}
 
-	exports.default = contact;
-
 /***/ },
-/* 7 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -902,67 +2614,47 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.login = login;
 
-	var _scroll = __webpack_require__(4);
+	var _axios = __webpack_require__(5);
 
-	var _scroll2 = _interopRequireDefault(_scroll);
+	var _axios2 = _interopRequireDefault(_axios);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function about() {
-		var aboutScroll = new _scroll2.default();
+	function login() {
+		var loginEmail = document.getElementById('login-email');
+		var loginPassword = document.getElementById('login-password');
+		var submitButton = document.getElementById('login-submit');
 
-		window.addEventListener('DOMContentLoaded', aboutScroll.init, false);
-		window.addEventListener('scroll', aboutScroll.viewPortChange);
-		window.addEventListener('resize', aboutScroll.viewPortChange);
-	}
+		function submit() {
+			var data = {};
 
-	exports.default = about;
+			data.email = loginEmail;
+			data.password = loginPassword;
 
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
+			_axios2.default.post('http://localhost:8000/users/authenticate', {
+				email: data.email.value,
+				password: data.password.value,
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	function portfolio() {
-
-		if (window.location.href.indexOf('canvas') != -1) {
-			baguetteBox.run('.gallery', {
-				captions: function captions(element) {
-					return element.getElementsByTagName('img')[0].alt;
-				},
-				animation: 'fadeIn'
-			});
-		} else if (window.location.href.indexOf('commercial') != -1) {
-			baguetteBox.run('.gallery2', {
-				captions: function captions(element) {
-					return element.getElementsByTagName('img')[0].alt;
-				},
-				animation: 'fadeIn'
-			});
-		} else if (window.location.href.indexOf('digital') != -1) {
-			baguetteBox.run('.gallery3', {
-				captions: function captions(element) {
-					return element.getElementsByTagName('img')[0].alt;
+				headers: {
+					'Content-Type': 'application/json'
 				}
-			});
-		} else {
-			baguetteBox.run('.gallery4', {
-				captions: function captions(element) {
-					return element.getElementsByTagName('img')[0].alt;
+			}).then(function (response) {
+				if (response.data.success) {
+					var admin = JSON.stringify(response.data.res.record);
+
+					window.localStorage.setItem('admin', admin);
+					window.localStorage.setItem('golondrina-token', response.data.res.token);
 				}
 			});
 		}
+
+		submitButton.addEventListener('click', submit);
 	}
 
-	exports.default = portfolio;
-
 /***/ },
-/* 9 */
+/* 34 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -970,16 +2662,419 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	function recent() {
+	exports.admin = admin;
+	function admin() {
+
+		function checkAdmin() {
+
+			var admin = JSON.parse(window.localStorage.getItem('admin'));
+
+			if (admin) {
+				if (admin.roles.indexOf('admin') == -1) {
+					window.location.href = '/';
+				} else {
+					return;
+				}
+			} else {
+				window.location.href = '/';
+			}
+		}
+
+		checkAdmin();
+	}
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.gallery = gallery;
+
+	var _tabs = __webpack_require__(36);
+
+	function gallery() {
+		(0, _tabs.tabs)();
+
 		baguetteBox.run('.gallery', {
 			captions: function captions(element) {
 				return element.getElementsByTagName('img')[0].alt;
 			},
 			animation: 'fadeIn'
 		});
+
+		baguetteBox.run('.gallery-2', {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			}
+		});
+
+		baguetteBox.run('.gallery-3', {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			}
+		});
+
+		baguetteBox.run('.gallery-4', {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			}
+		});
+
+		baguetteBox.run('.gallery-5', {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			}
+		});
 	}
 
-	exports.default = recent;
+/***/ },
+/* 36 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.tabs = tabs;
+	function tabs() {
+		var tabWidget = Array.prototype.slice.call(document.querySelectorAll('.js-tab')) || [];
+
+		var tabClickEvent = function tabClickEvent(tabLink, tabLinks, tabPanels, linkIndex, e) {
+			tabLinks.forEach(function (link) {
+				link.setAttribute('tabindex', '-1');
+				link.setAttribute('aria-selected', 'false');
+				link.parentNode.removeAttribute('data-tab-active');
+				link.removeAttribute('data-tab-active');
+			});
+
+			tabLink.setAttribute('tabindex', '0');
+			tabLink.setAttribute('aria-selected', 'true');
+			tabLink.parentNode.setAttribute('data-tab-active', '');
+			tabLink.setAttribute('data-tab-active', '');
+
+			tabPanels.forEach(function (panel, index) {
+				if (index != linkIndex) {
+					panel.setAttribute('aria-hidden', 'true');
+					panel.removeAttribute('data-tab-active');
+				} else {
+					panel.setAttribute('aria-hidden', 'false');
+					panel.setAttribute('data-tab-active', '');
+				}
+			});
+		};
+
+		var keyBoardEvent = function keyBoardEvent(tabLink, tabLinks, tabPanels, tabItems, index, e) {
+			var keyCode = e.key || e.which,
+			    currentTab = tabLinks[index],
+			    previousTab = tabLinks[index - 1],
+			    nextTab = tabLinks[index + 1],
+			    firstTab = tabLinks[0],
+			    lastTab = tabLinks[tabLinks.length - 1];
+
+			switch (keyCode) {
+				case 'ArrowLeft':
+				case 37:
+					e.preventDefault();
+
+					if (!previousTab) {
+						lastTab.focus();
+					} else {
+						previousTab.focus();
+					}
+					break;
+
+				case 'ArrowRight':
+				case 39:
+					e.preventDefault();
+
+					if (!nextTab) {
+						firstTab.focus();
+					} else {
+						nextTab.focus();
+					}
+					break;
+			}
+		};
+
+		tabWidget.forEach(function (tabWidgetInstance, i) {
+			var tabList = tabWidgetInstance.getElementsByTagName('ul')[0],
+			    tabItems = Array.prototype.slice.call(tabList.getElementsByTagName('li')),
+			    tabLinks = [],
+			    tabPanels = Array.prototype.slice.call(tabWidgetInstance.getElementsByTagName('section'));
+
+			tabList.setAttribute('role', 'tablist');
+
+			tabItems.forEach(function (item, index) {
+				var link = item.getElementsByTagName('a')[0];
+
+				tabLinks.push(link);
+
+				item.setAttribute('role', 'presentation');
+
+				if (index == 0) {
+					item.setAttribute('data-tab-active', '');
+				}
+			});
+
+			tabLinks.forEach(function (link, i) {
+				var anchor = link.getAttribute('href').split("#")[1];
+				var attributes = {
+					'id': 'tab-link' + i,
+					'role': 'tab',
+					'tabIndex': '-1',
+					'aria-selected': 'false',
+					'aria-controls': anchor
+				};
+
+				if (i == 0) {
+					attributes['aria-selected'] = 'true';
+					attributes.tabIndex = '0';
+
+					link.setAttribute('data-tab-active', '');
+				}
+
+				for (var key in attributes) {
+					link.setAttribute(key, attributes[key]);
+				}
+
+				link.addEventListener('click', function (e) {
+					e.preventDefault();
+				});
+
+				link.addEventListener('focus', function (e) {
+					tabClickEvent(this, tabLinks, tabPanels, i, e);
+				});
+
+				link.addEventListener('keydown', function (e) {
+					keyBoardEvent(link, tabLinks, tabPanels, tabItems, i, e);
+				});
+			});
+
+			tabPanels.forEach(function (panel, i) {
+				var nextTabLink = document.createElement('a'),
+				    nextTabLinkIndex = i < tabPanels.length - 1 ? i + 1 : 0;
+
+				var attributes = {
+					'role': 'tabpanel',
+					'aria-hidden': 'true',
+					'aria-labelledyby': 'tab-link-' + i
+				};
+
+				nextTabLink.setAttribute('href', '#tab-link-' + nextTabLinkIndex);
+				nextTabLink.textContext = 'Next Tab';
+				panel.appendChild(nextTabLink);
+
+				if (i == 0) {
+					attributes['aria-hidden'] = 'false';
+					panel.setAttribute('data-tab-active', '');
+				}
+
+				for (var key in attributes) {
+					panel.setAttribute(key, attributes[key]);
+				}
+			});
+		});
+	}
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.contact = contact;
+
+	var _axios = __webpack_require__(5);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _notifications = __webpack_require__(31);
+
+	var _notifications2 = _interopRequireDefault(_notifications);
+
+	var _validator = __webpack_require__(38);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function contact() {
+		var formWrapper = document.querySelectorAll('.contact-form-wrapper');
+		var formInputs = document.querySelectorAll('.contact-form-input');
+		var submitButton = document.getElementById('contact-send');
+		var name = document.getElementById('contact-name');
+		var email = document.getElementById('contact-email');
+		var phone = document.getElementById('contact-phone');
+		var message = document.getElementById('contact-message');
+
+		var successContent = document.getElementById('contact-success');
+		var failureContent = document.getElementById('contact-failure');
+		var errorContent = document.getElementById('contact-error');
+
+		function submit() {
+			if (submitButton.classList.contains('contact-form-valid')) {
+				submitButton.classList.add('contact-form-loading');
+
+				var data = {};
+				data.name = name.value;
+				data.email = email.value;
+				data.phone = phone.value;
+				data.message = message.value;
+
+				_axios2.default.post('http://localhost:8000/contact', {
+					name: data.name,
+					email: data.email,
+					phone: data.phone,
+					message: data.message,
+
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function (response) {
+					if (response.data.success) {
+						submitButton.classList.remove('contact-form-loading');
+						submitButton.classList.add("contact-form-success");
+
+						var success = new Event('message-delivered');
+						window.dispatchEvent(success);
+						removeEvents();
+					} else {
+						submitButton.classList.remove('contact-form-loading');
+						submitButton.classList.add('contact-form-failure');
+
+						var failure = new Event('message-failed');
+						window.dispatchEvent(failure);
+					}
+				});
+			} else {
+				var error = new Event('message-error');
+				window.dispatchEvent(error);
+			}
+		}
+
+		function removeEvents() {
+			submitButton.removeEventListener('click', submit);
+			(0, _validator.removeBlur)(formInputs);
+		}
+
+		var successNotify = new _notifications2.default({
+			content: successContent,
+			type: 'success',
+			timeout: 2500
+		});
+
+		var failureNotify = new _notifications2.default({
+			content: failureContent,
+			type: 'danger',
+			timeout: 2500
+		});
+
+		var errorNotify = new _notifications2.default({
+			content: errorContent,
+			type: 'warning',
+			timeout: 2500
+		});
+
+		(0, _validator.onBlur)(formInputs);
+
+		submitButton.addEventListener('click', submit);
+		window.addEventListener('message-delivered', successNotify.open);
+		window.addEventListener('message-failed', failureNotify.open);
+		window.addEventListener('message-error', errorNotify.open);
+	}
+
+/***/ },
+/* 38 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.onBlur = onBlur;
+	exports.removeBlur = removeBlur;
+	function onBlur(nodes) {
+		Array.prototype.forEach.call(nodes, function (node) {
+			node.addEventListener('blur', inputBlur);
+		});
+	}
+
+	function removeBlur(nodes) {
+		Array.prototype.forEach.call(nodes, function (node) {
+			node.removeEventListener('blur', inputBlur);
+		});
+	}
+
+	function validateEmail(node) {
+		console.log('meep');
+		var value = node.value;
+		var atpos = value.indexOf('@');
+		var dotpos = value.lastIndexOf('.');
+
+		if (atpos < 1 || dotpos - atpos < 2) {
+			if (node.parentNode.classList.contains('blank')) {
+				node.parentNode.classList.remove('blank');
+			}
+
+			node.parentNode.classList.add('email-invalid');
+		} else {
+			if (node.parentNode.classList.contains('blank')) {
+				node.parentNode.classList.remove('blank');
+			}
+
+			if (node.parentNode.classList.contains('email-invalid')) {
+				node.parentNode.classList.remove('email-invalid');
+			}
+
+			node.parentNode.classList.add('email-valid');
+		}
+	}
+
+	function inputBlur() {
+		console.log('grr');
+		var formContent = this.value;
+
+		if (formContent == '') {
+			this.parentNode.classList.add('blank');
+		}
+
+		if (this.parentNode.classList.contains('contact-form-email')) {
+			validateEmail(this);
+		}
+
+		if (formContent != '' && !this.parentNode.classList.contains('contact-form-email')) {
+			if (this.parentNode.classList.contains('blank')) {
+				this.parentNode.classList.remove('blank');
+			}
+
+			this.parentNode.classList.add('valid');
+		}
+
+		checkValidForm();
+	}
+
+	function checkValidForm() {
+		var formWrappers = document.querySelectorAll('.contact-form-wrapper');
+		var submitButton = document.getElementById('contact-send');
+		var valid = 0;
+
+		Array.prototype.forEach.call(formWrappers, function (wrapper) {
+			if (wrapper.classList.contains('valid') || wrapper.classList.contains('email-valid')) {
+				valid++;
+			}
+		});
+
+		if (valid == 4) {
+			submitButton.classList.add('contact-form-valid');
+		}
+	}
 
 /***/ }
 /******/ ]);

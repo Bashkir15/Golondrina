@@ -3,8 +3,12 @@ import path from 'path';
 import compression from 'compression';
 import morgan from 'morgan';
 import ejs from 'ejs';
+import bodyParser from 'body-parser'
 
 import indexRoutes from '../routes/index.server.routes';
+import userRoutes from '../routes/users.server.routes';
+import adminRoutes from '../routes/admin.server.routes'
+import contactRoutes from '../routes/contact.server.routes'
 
 
 module.exports = (db) => {
@@ -15,6 +19,8 @@ module.exports = (db) => {
 
 
 	app.use(morgan('dev'));
+	app.use(bodyParser.json());
+	app.use(bodyParser.urlencoded({extended: true}));
 	app.use(compression());
 	app.use((req, res, next) => {
 		res.setHeader('Access-Control-Allow-Origin', '*');
@@ -28,6 +34,9 @@ module.exports = (db) => {
 	app.use(express.static(path.join(__dirname, '../../node_modules')));
 
 	app.use('/', indexRoutes);
+	app.use('/users', userRoutes);
+	app.use('/admin', adminRoutes);
+	app.use('/contact', contactRoutes);
 
 	return app;
 }

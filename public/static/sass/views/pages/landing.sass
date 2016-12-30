@@ -1,5 +1,6 @@
-[data-entrance]
-	visibility: hidden
+
+#contact-dialog
+	display: none
 
 #landing-success
 	display: none
@@ -10,895 +11,87 @@
 #landing-error
 	display: none
 
+.dialog-content
+	padding-top: 40px
 
-.frame
-	position: relative
-	width: 90%
-	font-size: 0
-	line-height: 0
-	overflow: hidden
-	white-space: nowrap
+.contact-dialog-header
+	width: 35%
+	padding: 15px
+	background: rgba(0,0,0,0.2)
+
+.contact-dialog-form
+	width: 80%
+	padding-top: 38px
 	margin: 0 auto
 
-.slides
-	display: inline-block
-	width: 100%
+	form
+		width: 100%
 
-.js_slide
-	position: relative
-	display: inline-block
-	width: 100%
+
 
 .landing-page-content
 	display: flex
 	flex-direction: column
+	margin-top: -80px
 
 .landing-header
 	display: flex
-	align-items: center
-	justify-content: center
-	border-bottom: 1px solid rgba(0,0,0,0.12)
-	background: #1f2439
-	padding-bottom: 225px
-
-	> div
-		display: flex
-		flex-direction: column
-		align-items: center
-		width: 75%
-		padding-top: 195px
-		margin: 0 auto
-
-		h1
-			@include lato
-			font-weight: 400
-			font-size: 30px
-			letter-spacing: 2px
-			margin-bottom: 38px
-			color: #f1f3f3
-
-		p
-			@include quat()
-			font-weight: 400
-			font-size: 20px
-			line-height: 22px
-			letter-spacing: 1px
-			width: 90%
-			text-align: center
-			margin-bottom: 70px
-			color: #98b3bb
-
-
-.landing-header-contact
-	display: flex
-	align-items: center
-	justify-content: center
-	position: relative
-	height: 45px
-	width: 180px
-	border-radius: 20px
-	border: 1px solid #37bf5b
-	background-color: #37bf5b
-	outline: none
-	transition: background-color 0.4s ease-out, color 0.4s ease-out
-
-	span
-		@include quat()
-		font-weight: 400
-		font-size: 18px
-		letter-spacing: 1px
-		color: #f1f3f3
-
-	&::before
-		content: ''
-		position: absolute
-		top: 0
-		left: 0
-		width: 180px
-		height: 45px
-		border: 1px solid #60c4d3
-		border-radius: inherit
-		opacity: 0
-		transform: scale3d(0.6, 0.6, 1)
-		transition: transform 0.4s, opacity 0.4s
-		transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1)
-
-	&:hover
-		background-color: transparent
-		border: none
-		
-		&::before
-			transform: scale3d(1,1,1)
-			opacity: 1
-
-
-
-.landing-about
-	padding-top: 165px
-	padding-bottom: 140px
-	background: #f1f3f3
-
-.landing-about-columns
-	display: flex
 	flex-direction: column
 	align-items: center
-	width: 75%
-	margin: 0 auto
+	padding-top: 150px
+	padding-bottom: 70px
+	background: linear-gradient(-12deg, #4cddff, #3b9aca 12%, #2d6ca5 30%, #2a5291 41%, #283d81 51%, #222654 70%, #1e1635 90%)
 
-	> div
-		display: flex
-		flex-direction: column
-		margin-bottom: 125px
-
-		h3
-			@include lato()
-			font-weight: 300
-			font-size: 22px
-			letter-spacing: .6px
-			margin-bottom: 27px
-			color: #3f4c5b
-			text-transform: uppercase
-
-			span
-				display: inline-block
-				margin-right: 8px
-				color: darken(#98b3bb, 10%)
-
-		p
-			@include quat()
-			font-weight: 400
-			font-size: 18px
-			line-height: 20px
-			letter-spacing: 1px
-			margin-left: 14px
-			color: darken(#98b3bb, 20%)
-
-.landing-about-icon
-	height: 25px
-	width: 25px
-
-	use
-		height: 25px
-		width: 25px
-
-.landing-testimonials
-	width: 100%
-	padding: 180px 0 70px 0
-	margin: 0 auto
-	border-bottom: 1px solid rgba(0,0,0,0.12)
-	background-color: #825cc3
-
-	h3
+	h1
 		@include lato()
-		font-weight: 300
-		font-size: 24px
-		letter-spacing: 1px
-		margin-bottom: 45px
-		text-align: center
-		color: #f1f3f3
-
-	> p
-		@include quat()
 		font-weight: 400
-		font-size: 18px
-		line-height: 20px
-		letter-spacing: 1px
-		width: 60%
-		margin: 0 auto
-		text-align: center
-		color: #9e99cd
-
-
-
-.testimonial-mobile
-	display: flex
-	flex-direction: column
-	align-items: center
-	padding-top: 30px
-
-.single-testimonial
-	text-overflow: ellipsis
-	white-space: normal
-
-	.testimonial-image
-		height: 90px
-		width: 90px
-		border-radius: 50%
-		background: rgba(255,255,255,0.1)
-		margin: 0 auto 80px auto
-
-	p
-		@include quat()
-		font-weight: 400
-		font-size: 18px
-		letter-spacing: 1px
-		line-height: 24px
-		color: #fff
-		width: 60%
-		margin: 0 auto
-
-.landing-testimonial-button
-	display: flex
-	flex-direction: column
-	align-items: center
-	justify-content: center
-	padding: 125px 0 40px 0
-
-	button
-		height: 40px
-		width: 185px
-		border-radius: 25px
-		border: none
-		outline: none
-		background: rgba(255, 255, 255, 0.1)
-		transition: background .4s ease-out
-
-		span
-			@include quat()
-			font-weight: 400
-			font-size: 18px
-			letter-spacing: 1px
-			line-height: 22px
-			color: #f1f3f3
-
-		&:hover
-			background: lighten(#9e99cd, 10%)
-
-.testimonial-controlls
-	display: flex
-	align-items: stretch
-	position: relative
-
-	> div
-		&:nth-of-type(1)
-			display: flex
-			flex: 1
-			flex-basis: 0
-			align-items: center
-			justify-content: flex-start
-
-		&:nth-of-type(2)
-			display: flex
-			align-items: center
-			justify-content: center
-
-		&:nth-of-type(3)
-			display: flex
-			flex: 1
-			flex-basis: 0
-			align-items: center
-			justify-content: flex-end
-
-.testimonial-control-item
-	display: flex
-	align-items: center
-	justify-content: center
-	padding: 10px
-
-
-	p
-		@include quat()
-		font-weight: 400
-		font-size: 18px
-		letter-spacing: 1px
-		line-height: 24px
-		color: #fff
-
-
-.landing-prev-button
-	display: inline-block
-	position: relative
-	border: none
-	outline: none
-	font-size: 30px
-	color: #9e99cd
-	transition: all .5s ease-out
-
-	&:hover
-		transform: scale(1.4,1.4)
-
-
-.landing-next-button
-	border: none
-	outline: none
-	font-size: 30px
-	color: #9e99cd
-	transition: all .5s ease-out
-
-	&:hover
-		transform: scale(1.4,1.4)
-
-.landing-latest-works
-	display: flex
-	flex-direction: column
-	align-items: center
-	padding: 120px 0 70px 0
-
-	h2
-		@include lato
-		font-weight: 300
-		font-size: 26px
-		line-height: 30px
 		letter-spacing: 2px
-		margin-bottom: 80px
-
-.landing-work
-	display: flex
-	flex-direction: column
-	align-items: center
-	width: 85%
-	margin: 0 auto 125px auto
-
-	img
-		height: 150px
-		width: 90%
-		margin-bottom: 35px
-
-
-	h3
-		@include lato()
-		font-weight: 300
-		font-size: 22px
-		letter-spacing: 1px
-		line-height: 38px
-		margin-bottom: 25px
-		color: #3f4c5b
-		text-align: center
-
-	span
-		@include lato()
-		font-weight: 300
-		font-size: 22px
-		letter-spacing: 1px
-		line-height: 38px
-		color: #14869d
+		font-size: 40px
+		padding-bottom: 30px
+		color: #fff
 
 	p
-		@include quat()
+		@include open()
 		font-weight: 400
-		font-size: 18px
-		font-style: italic
-		line-height: 26px
 		letter-spacing: 1px
-		text-align: center
-		color: darken(#98b3bb, 20%)
+		font-size: 19px
+		line-height: 28px
+		padding-bottom: 50px
+		color: #fff
 
-.landing-latest-button
-	padding-bottom: 40px
+
 
 	button
-		height: 40px
+		height: 50px
 		width: 180px
 		border: none
-		border-radius: 25px
-		outline: none
-		background: #9e99cd
-		transition: background .4s ease-out
-
-		span
-			@include quat()
-			font-weight: 400
-			font-size: 20px
-			line-height: 28px
-			letter-spacing: 1px
-			color: #f1f3f3
-
-		&:hover
-			background: lighten(#9e99cd, 5%)
-
-.landing-newsletter
-	display: flex
-	flex-direction: column
-	position: relative
-	padding: 55px 0
-	background: url("../../static/images/keyboard.jpg")
-	background-repeat: no-repeat
-	background-size: cover
-
-	h3
-		position: relative
-		@include lato()
-		font-weight: 400
-		letter-spacing: 1px
-		line-height: 28px
-		font-size: 22px
-		text-align: center
-		color: #f1f3f3
-		z-index: 15
-
-.landing-newsletter-overlay
-	position: absolute
-	top: 0
-	left: 0
-	height: 100%
-	width: 100%
-	background: rgba(49,171,82, 0.8)
-
-
-.landing-newsletter-input
-	padding-top: 55px
-
-
-.landing-form-wrapper
-	position: relative
-	display: flex
-	flex-direction: row
-	width: 80%
-	margin: 0 auto
-
-	label
-		display: inline-block
-		position: absolute
-		top: 14px
-		left: 15px
-		@include lato()
-		font-weight: 400
-		font-size: 16px
-		color: #3f4c5b
-		letter-spacing: 1px
-		opacity: 1
-		z-index: 10
-		outline: none
-		transition: all .4s ease-out
-
-		span
-			margin-right: 6px
-
-	input
-		position: relative
-		height: 40px
-		width: 70%
-		background: #fff
-		border: none
-		border-top-left-radius: 22px
-		border-bottom-left-radius: 22px
-		@include quat()
-		font-weight: 400
-		font-size: 18px
-		padding-left: 15px
-		color: #3f4c5b
-		outline: none
-
-	button
-		position: relative
-		border: none
-		height: 42px
-		width: 23%
-		padding-bottom: 4px
-		margin-left: -14px
-		background: darken(#37bf39, 5%)
-		border-top-right-radius: 22px
-		border-bottom-right-radius: 22px
-		z-index: 10
+		margin-bottom: 40px
+		background: rgba(0,0,0,0.25)
+		border-radius: 23px
 		transition: all .3s ease-out
 
-		&:hover
-			background: #37bf39
-
-		.loader
-			display: none
-			height:
-
-		&.signup-button-loading
-			span
-				display: none
-
-			.loader
-				display: inline-block
-				margin-top: 2px
-
-
-
 		span
-			@include quat()
+			@include lato()
 			font-weight: 400
-			font-size: 18px
-			letter-spacing: 1px
-			line-height: 24px
-			color: #f1f3f3
+			letter-spacing: 2px
+			color: #fff
 
-.landing-email--focused
-	label
-		left: -50px
-		opacity: 0
+		&:hover
+			background: rgba(0,0,0,0.35)
 
-.landing-email--valid
-	label
-		opacity: 0
-		left: -50px
-
-.landing-email--invalid
-	label
-		opacity: 0
-		left: -50px
-
-	&.landing-email--blank
-		label
-			opacity: 1
-			left: 15px
-
-	&.landing-email--focused
-		label
-			left: -50px
-			opacity: 0
-
-
-@media screen and (min-width: 630px) and (max-width: 1010px)
-	.landing-header
-		padding-bottom: 120px
-
-		> div
-
-			h1
-				margin-bottom: 80px
-
-			p
-				margin-bottom: 90px
-
-				span
-					font-style: italic
-
-				&.mobile-only
-					display: none
-
-	.landing-about
-		padding-top: 240px
-		padding-bottom: 120px
-
-
-	.landing-about-columns
-		> div
-			margin-bottom: 175px
-
-			h3
-				margin-bottom: 55px
-
-	.landing-testimonial-display
-		padding-top: 150px
-
-	.landing-work
-		margin-botton: 125px
-
-		img
-			width: 60%
-			height: 225px
-
-
-	.landing-latest-button
-		padding-top: 40px
-		padding-bottom: 120px
-
-		button
-			width: 240px
-			height: 45px
-
-	.landing-newsletter
-		padding-bottom: 40px
-
-
-@media screen and (min-width: 1010px) and (max-width: 1270px)
-	.landing-about-columns
-		display: flex
-		flex-direction: row
-		flex-wrap: wrap
-		width: 80%
-		margin: 0 auto
-
-		> div
-			display: flex
-			align-items: center
-			width: 49%
-			margin-bottom: 170px
-
-			&:nth-of-type(3)
-				width: 100%
-
-				p
-					width: 60%
-					margin: 0 auto
-					text-align: center
-
-	.landing-work
-		img
-			height: 250px
-			width: 60%
-
-	.landing-form-wrapper
-		input
-			width: 80%
-
-		button
-			height: 44px
-			width: 20%
-
-@media screen and (min-width: 1270px) and (max-width: 1400px)
-	.landing-about-columns
-		display: flex
-		flex-direction: row
-		flex-wrap: wrap
-		width: 90%
-		margin: 0 auto
-
-		> div
-			display: flex
-			align-items: center
-			width: 50%
-			margin-bottom: 170px
-
-			&:nth-of-type(3)
-				width: 100%
-
-				p
-					width: 60%
-					margin: 0 auto
-					text-align: center
-
-	.landing-testimonials
-		p
-			margin-bottom: 60px
-
-	.single-testimonial
-		p
-			width: 70%
-
-	.landing-work
-		img
-			width: 60%
-			height: 350px
-
-	.landing-form-wrapper
-		input
-			width: 85%
-
-		button
-			height: 45px
-			width: 15%
-
-			.loader
-				margin-top: 5px
 
 @media screen and (min-width: 1400px)
 	.landing-header
-		justify-content: flex-start
-		padding-bottom: 850px
-
-		> div
-			margin: 0
-			justify-content: flex-start
-			align-items: initial
-			padding-left: 70px
-			width: 40%
-
-			h1
-				font-size: 55px
-				letter-spacing: 12px
-				line-height: 75px
-				font-weight: 300
-
-			p
-				text-align: left
-				font-size: 20px
-				letter-spacing: 4px
-				margin-bottom: 38px
-
-	.landing-header-contact
-		height: 55px
-		width: 220px
-		border-radius: 28px
-
-		span
-			font-size: 20px
-
-		&:before
-			height: 55px
-			width: 220px
-
-	.landing-about
-		padding-top: 250px
-		padding-bottom: 250px
-
-	.landing-about-columns
-		display: flex
-		flex-direction: row
-		width: 80%
-		margin: 0 auto
-
-		> div
-			display: flex
-			flex: 1
-			height: 150px
-
-			> h3
-				margin-bottom: 35px
-				color: #3f4c5b
-
-				span
-					font-size: 28px
-					margin-right: 15px
-					color: darken(#98b3bb, 10%)
-
-			> p
-				width: 70%
-				margin: 0 auto 0 50px
-				line-height: 28px
-				letter-spacing: 2px
-				color: darken(#98b3bb, 20%)
-
-	.landing-testimonial-display
-		padding-left: 70px
-		padding-top: 20px
-
-
-	.js_frame
-		padding-top: 40px
-		padding-bottom: 70px
-		margin: 0
-
-	.js_slide
-		padding-left: 70px
-		position: relative
-		width: 20%
-		height: 500px
-
-	.landing-testimonials
-		h3
-			font-size: 55px
-			letter-spacing: 12px
-			margin-bottom: 75px
-			text-shadow: 2px 1px rgba(0,0,0,0.3)
-
-		> p
-			font-size: 24px
-			line-height: 40px
-			color: #9e99cd
-			text-shadow: 1px 1px rgba(0,0,0,0.6)
-			margin-bottom: 140px
-			width: 35%
-			margin: 0 auto
-
-	.desktop-version
-		display: flex
-		flex-direction: column
-		align-items: center
-		width: 275px
-
-		.testimonial-image-overlay
-			p
-				width: 85%
-				text-align: center
-
-	.testimonial-controlls
-		padding-top: 50px
-		padding-bottom: 70px
-
-	.testimonial-control-item
-		button
-			font-size: 45px
-		p
-			font-size: 22px
-
-	.testimonial-image
-		display: flex
-		flex-direction: column
-		align-items: center
-
-		position: relative
-
-		.testimonial-image-overlay
-			position: absolute
-			top: 105px
-			left: -95px
-			display: flex
-			align-items: center
-			flex-direction: column
-			background: darken(#9e99cd, 10%)
-			height: 0
-			width: 275px
-			padding-top: 35px
-			opacity: 0
-			transition: all .5s ease-out
-
-			.landing-testimonial-button
-				padding-top: 50px
-
-				button
-					background: darken(#9e99cd, 20%)
-
-					&:hover
-						background: darken(#9e99cd, 15%)
-
-			
-
-		&:hover
-			.testimonial-image-overlay
-				height: 400px
-				opacity: 1
-				transition: all .5s ease
-
-
-	.landing-latest-works
-		display: flex
-		flex-direction: column
-		align-items: center
-		justify-content: center
-		padding-top: 160px
-
-		h2
-			font-size: 45px
-			letter-spacing: 8px
-			margin-bottom: 100px
-
-	.landing-work
-		display: flex
-		flex-direction: row
-		align-items: center
-		width: 60%
-		margin: 0 auto 60px auto 
-
-		&.large-desktop
-			display: flex
-			flex-direction: row
-			align-items: center
-			width: 60%
-			margin: 0 auto 60px auto
-
-
-
-		img
-			overflow: hidden
-			margin-bottom: 0
-			margin-left: 20%
-			margin-right: 5%
-			hright: 150px
-			width: 180px
-
-		> div
-			display: inline-block
-			flex-direction: column
-			overflow: hidden
-			padding-top: 20px
-			padding-bottom: 50px
-			width: 50%
-			margin-right: 15%
-
-			h3
-				text-align: left
-				font-size: 20px
-
-			p
-				text-align: left
-				font-size: 18px
-				line-height: 28px
-					
-
-	.landing-latest-button
-		display: flex
-		width: 100%
-		align-items: center
-		justify-content: center
-		padding-top: 65px
-		padding-bottom: 50px
+		.above-mobile-only
+			display: none
 
 		button
-			height: 50px
-			width: 220px
+			width: 240px
 
-	.landing-form-wrapper
-		width: 35%
+@media screen and (min-width: 1650px)
 
-		input
-			width: 75%
 
+	.landing-header
 		button
-			width: 24%
-			height: 44px
-			padding-bottom: 0
-			margin-bottom: -1px
-
-	.landing-newsletter
-		padding: 100px 0
-
-		h3
-			font-size: 30px
-			letter-spacing: 4px
+			margin-bottom: 120px
 

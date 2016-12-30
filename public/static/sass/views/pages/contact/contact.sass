@@ -1,0 +1,259 @@
+#contact-success,
+#contact-failure,
+#contact-error
+	display: none
+
+.contact-page-container
+	display: flex
+	flex-direction: column
+	background: #f6f7f0
+	padding-top: 90px
+	padding-bottom: 25px
+
+.contact-page-content
+	display: flex
+	flex-direction: column
+	width: 95%
+	padding: 0 15px 20px 15px
+	margin: 0 auto
+	background: #fff
+	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2)
+
+.contact-page-form
+	padding-top: 30px
+
+	h1
+		@include lato()
+		font-weight: 400
+		letter-spacing: 2px
+		font-size: 35px
+		color: #204a65
+		margin-left: 30px
+
+	p
+		@include lato()
+		font-weight: 300
+		letter-spacing: 1px
+		font-size: 16px
+		line-height: 25px
+		color: #4e4e4d
+		margin-top: 30px
+		margin-left: 35px
+		width: 85%
+
+		&:nth-of-type(2)
+			margin-top: 18px
+
+.contact-form-form
+	padding-top: 45px
+	width: 90%
+	margin: 0 auto
+
+.contact-page-wrapper
+	position: relative
+	width: 100%
+	margin-bottom: 55px
+
+	input
+		width: calc(100% - 10px)
+		background: #d0d1d0
+		border: 2px solid transparent
+		height: 40px
+		padding-left: 10px
+		@include open()
+		font-weight: 300
+		letter-spacing: 1px
+		font-size: 16px
+		transition: background-color 0.3s, border-color 0.3s
+		outline: none
+
+		&:focus
+			background-color: transparent
+			border-color: #a3d39c
+
+			& + label
+				transform: translate3d(0, -40px, 0)
+				color: #a3d39c
+
+	textarea
+		width: calc(100% - 12px)
+		background: #d0d1d0
+		border: 2px solid transparent
+		padding-left: 10px
+		@include open()
+		font-weight: 300
+		letter-spacing: 1px
+		font-size: 16px
+		transition: background-color 0.3s, border-color 0.3s
+		outline: none
+
+		&:focus
+			background-color: transparent
+			border-color: #a3d39c
+
+			& + label
+				transform: translate3d(0, -40px, 0)
+				color: #a3d39c
+
+
+	label
+		position: absolute
+		top: 16px
+		left: 12px
+		pointer-events: none
+		overflow: hidden
+		@include open()
+		font-weight: 300
+		letter-spacing: 1px
+		font-size: 16px
+		transition: transform 0.3s
+
+	&.valid
+		label
+			transform: translate3d(0, -40px, 0)
+			color: #a3d39c
+
+		input
+			background: transparent
+			border-color: #a3d39c
+
+		textarea
+			background: transparent
+			border-color: #a3d39c
+
+	&.email-valid
+		label
+			transform: translate3d(0, -40px, 0)
+			color: #a3d39c
+
+		input
+			background: transparent
+			border-color: #a3d39c
+
+	&.email-invalid
+		label
+			transform: translate3d(0, -40px, 0)
+			color: #fa5c54
+
+		input
+			background: transparent
+			border-color: #fa5c54
+
+.contact-page-submit
+	display: flex
+	align-items: center
+	justify-content: flex-end
+	padding-top: 30px
+	padding-bottom: 35px
+
+	button
+		position: relative
+		height: 45px
+		width: 160px
+		background-color: #fa5c54
+		border: none
+		border-bottom: 5px solid #9a3834
+		transition: all .125s ease-out
+
+		span
+			@include open()
+			font-weight: 400
+			letter-spacing: 2px
+			font-size: 18px
+			text-transform: uppercase
+			color: #fff
+
+		&.contact-form-valid
+			background-color: #a3d39c
+			border-bottom: 5px solid darken(#a3d39c, 10%)
+
+.contact-page-details
+	padding-top: 30px
+	padding-bottom: 40px
+	background: #fff url(../../static/images/wave-pattern-white.png)
+
+	> div
+		display: flex
+		flex-direction: row
+		align-items: center
+		justify-content: space-around
+		width: 80%
+		margin-left: 13%
+
+.contact-detail
+	display: flex
+	flex: 1
+	flex-direction: row
+	align-items: center
+
+	span
+		display: inline-block
+		margin-right: 20px
+		font-size: 30px
+
+	h4
+		@include open()
+		font-weight: 400
+		letter-spacing: 2px
+		font-size: 19px
+		margin-bottom: 10px
+
+	p
+		@include lato()
+		font-weight: 400
+		font-size: 15px
+		letter-spacing: 1px
+		line-height: 22px
+
+	&:nth-of-type(1)
+		margin-right: 13%
+
+
+
+
+
+@media screen and (min-width: 700px)
+	.contact-page-content
+		width: 85%
+		
+	.contact-form-form
+		width: 75%
+
+	.contact-page-details
+		> div
+			width: 60%
+			margin: 0 auto
+
+
+
+@media screen and (min-width: 1250px)
+	.contact-page-content
+		flex-direction: row
+		width: 70%
+
+	.contact-page-details
+		width: 30%
+		margin-top: 20px
+		margin-right: 10px
+
+		> div
+			flex-direction: column
+			align-items: auto
+			justify-content: auto
+			height: 25%
+			width: 100%
+			padding-left: 40px
+
+			.contact-detail
+				margin-right: 0
+
+	.contact-detail
+		margin: 0
+		margin-bottom: 30px
+		height: 150px
+		flex: 0
+		width: 100%
+
+		&:nth-of-type(1)
+			margin-right: 0
+

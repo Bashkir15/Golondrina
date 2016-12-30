@@ -1,20 +1,21 @@
 import gulp from 'gulp';
 import plumber from 'gulp-plumber';
+import notify from 'gulp-notify';
 import sass from 'gulp-sass';
 import uglifycss from 'gulp-uglifycss';
 import uglify from 'gulp-uglify';
 import autoprefix from 'gulp-autoprefixer';
 import cmq from 'gulp-combine-media-queries';
 import rename from 'gulp-rename';
-import notify from 'gulp-notify';
 import browserSync from 'browser-sync';
 import sourceMaps from 'gulp-sourcemaps';
 
 const paths = {
 	dev: {
-		html: './public/*.html',
+		ejs: './public/*.ejs',
 		sass: './public/static/sass/main.sass',
 		sass2: '/public/static/sass/**',
+		images: './public/static/images/*',
 		js: './dist/bundle.js'
 	},
 
@@ -55,27 +56,36 @@ gulp.task('styles', () => {
 		.pipe(uglifycss({
 			maxLineLne: 80
 		}))
-		.pipe(sourceMaps.write())
+		.pipe(sourceMaps.write('.'))
 		.pipe(rename((path) => {
 			path.extname = '.min.css'
 		}))
 		.pipe(gulp.dest(paths.prod.css))
+		.pipe(notify('Styles Complete'))
 		.pipe(browserSync.reload({stream: true}))
 });
 
 gulp.task('scripts', () => {
 	gulp.src(paths.dev.js)
-		.pipe(plumber())
+		.pipe(plumber({
+			errorHandler: function(err) {
+				console.log(err);
+				this.emit(end);
+			}
+		}))
+		.pipe(sourceMaps.init())
 		.pipe(uglify())
 		.pipe(rename((path) => {
 			path.extname = '.min.js'
 		}))
+		.pipe(sourceMaps.write('.'))
 		.pipe(gulp.dest(paths.prod.js))
+		.pipe(notify('Scripts Complete'))
 		.pipe(browserSync.reload({stream: true}))
 });
 
 gulp.task('html', () => {
-	gulp.src(paths.dev.html)
+	gulp.src(paths.dev.ejs)
 		.pipe(plumber())
 		.pipe(browserSync.reload({stream: true}))
 });

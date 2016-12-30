@@ -57,7 +57,7 @@ var userSchema = new mongoose.Schema({
 	resetPasswordExpires: Date
 });
 
-userSchema.pre('save', (next) => {
+userSchema.pre('save', function(next) {
 	var user = this;
 
 	if (!user.isModified('password')) {
@@ -85,17 +85,17 @@ userSchema.set('toJSON', {
 	virtuals: true
 });
 
-userSchema.virtual('isLocked').get(() => {
+userSchema.virtual('isLocked').get(function() {
 	return !!(this.lockUntil && this.lockUntil > Date.now());
 });
 
 userSchema.methods = {
 
-	isAdmin: () => {
+	isAdmin: function() {
 		return this.roles.indexOf('admin') !== -1;
 	},
 
-	comparePassword: (candidatePassword, cb) => {
+	comparePassword: function(candidatePassword, cb) {
 		var user = this;
 		bcrypt.compare(candidatePassword, user.password, (err, isMatch) => {
 			if (err) {
@@ -106,7 +106,7 @@ userSchema.methods = {
 		});
 	},
 
-	incorrectLoginAttempts: (cb) => {
+	incorrectLoginAttempts: function(cb) {
 		if (this.lockUntil && this.lockUntil < Date.now()) {
 			return this.update({
 				$set: {
@@ -156,7 +156,7 @@ userSchema.methods = {
 		return this.update(updates, callback);
 	},
 
-	toJSON: () => {
+	toJSON: function() {
 		var obj = this.toObject();
 		delete obj.password;
 
