@@ -12,7 +12,11 @@
 	width: 100%
 	min-height: 62px
 	margin-bottom: 12px
-	padding: 8px
+	padding-top: 20px
+	padding-bottom: 10px
+	padding-left: 25px
+	padding-right: 15px
+
 	background: #fff
 	border-radius: 1px
 	box-shadow: 0 1px 10px 0 rgba(0,0,0,0.1), 0 2px 15px 0 rgba(0,0,0,.05)
@@ -21,7 +25,23 @@
 	transition: all .5s cubic-bezier(0.5, -0.5, 0.3, 1.4), opacity .6s ease-out
 
 	&.success
-		border-left: 1px solid #a3d39c
+		border-left: 4px solid #a3d39c
 
 	&.warning
-		border-left: 1px solid #fa5c54
+		border-left: 4px solid #fa5c54
+
+.notification-title
+	@include lato()
+	font-weight: 400
+	letter-spacing: 1px
+	font-size: 24px
+	color: rbga(0,0,0,0.7)
+	margin-bottom: 20px
+
+.notification-text
+	@include open()
+	font-weight: 300
+	letter-spacing: 1px
+	font-size: 18px
+	color: rgba(0,0,0,0.4)
+	padding-right: 10px
