@@ -2,3 +2,50 @@
 @import "./views/views"
 @import "./helpers/helpers"
 
+
+.under-construction
+	display: flex
+	flex-direction: column
+	justify-content: center
+	width: 90%
+	padding: 30px 0
+	margin: 0 auto
+	margin-top: 100px
+	border: 2px solid rgba(0,0,0,0.4)
+	background: #fff
+
+	> div
+		width: 80%
+		margin-left: 10%
+		
+		h3
+			@include lato()
+			font-weight: 400
+			letter-spacing: 2px
+			font-size: 30px
+			text-align: left
+			margin-bottom: 38px
+
+		p
+			@include lato()
+			font-weight: 300
+			letter-spacing: 1px
+			font-size: 18px
+			color: rgba(0,0,0,0.3)
+
+@media screen and (min-width: 640px)
+	.under-construction
+		padding: 50px 0
+		width: 80%
+
+
+@media screen and (min-width: 1000px)
+	.under-construction
+		padding: 80px 0
+		width: 70%
+
+
+@media screen and (min-width: 1350px)
+	.under-construction
+		padding: 100px 0
+		width: 55%

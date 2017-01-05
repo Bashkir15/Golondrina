@@ -10,6 +10,7 @@ import { contact } from './static/scripts/pages/contact/contact'
 //import recent from './scripts/pages/recent'
 
 var navTrigger = document.getElementById('nav-trigger');
+var footer = document.getElementById('footer');
 
 var menu = new mobileMenu();
 
@@ -22,23 +23,42 @@ if (window.location.href.indexOf('portfolio') != -1) {
 //	portfolio();
 } else if (window.location.href.indexOf('contact') != -1) {
 	contact();
+	fixElements();
 } else if (window.location.href.indexOf('about') != -1) {
 //	about();
 } else if (window.location.href.indexOf('recent') != -1) {
 //	recent();
 } else if (window.location.href.indexOf('signup') != -1) {
 	signup();
+	fixElements();
 } else if (window.location.href.indexOf('admin') != -1) {
 	admin();
+	fixElements();
 } else if (window.location.href.indexOf('gallery') != -1) {
 	gallery();
+	fixElements();
 } else if (window.location.href.indexOf('login') != -1) {
 	login();
 } else {
 	landing();
+	landingElements();
 }
 
+function fixElements() {
+	if (footer.classList.contains('landing-footer')) {
+		footer.classList.remove('landing-footer');
+	}
+	
+	footer.classList.add('normal-footer');
+}
 
+function landingElements() {
+	if (footer.classList.contains('normal-footer')) {
+		footer.classList.remove('normal-footer');
+	}
+
+	footer.classList.add('landing-footer');
+}
 window.onload = () => {
 	setTimeout(() => {
 		document.body.classList.add('loaded');

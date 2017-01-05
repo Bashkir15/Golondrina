@@ -69,6 +69,7 @@
 	//import recent from './scripts/pages/recent'
 
 	var navTrigger = document.getElementById('nav-trigger');
+	var footer = document.getElementById('footer');
 
 	var menu = new _mobileMenu2.default();
 
@@ -80,22 +81,42 @@
 		//	portfolio();
 	} else if (window.location.href.indexOf('contact') != -1) {
 		(0, _contact.contact)();
+		fixElements();
 	} else if (window.location.href.indexOf('about') != -1) {
 		//	about();
 	} else if (window.location.href.indexOf('recent') != -1) {
 		//	recent();
 	} else if (window.location.href.indexOf('signup') != -1) {
 		(0, _signup.signup)();
+		fixElements();
 	} else if (window.location.href.indexOf('admin') != -1) {
 		(0, _admin.admin)();
+		fixElements();
 	} else if (window.location.href.indexOf('gallery') != -1) {
 		(0, _gallery.gallery)();
+		fixElements();
 	} else if (window.location.href.indexOf('login') != -1) {
 		(0, _login.login)();
 	} else {
 		(0, _landing.landing)();
+		landingElements();
 	}
 
+	function fixElements() {
+		if (footer.classList.contains('landing-footer')) {
+			footer.classList.remove('landing-footer');
+		}
+
+		footer.classList.add('normal-footer');
+	}
+
+	function landingElements() {
+		if (footer.classList.contains('normal-footer')) {
+			footer.classList.remove('normal-footer');
+		}
+
+		footer.classList.add('landing-footer');
+	}
 	window.onload = function () {
 		setTimeout(function () {
 			document.body.classList.add('loaded');
