@@ -70,11 +70,36 @@
 
 	var navTrigger = document.getElementById('nav-trigger');
 	var footer = document.getElementById('footer');
+	var navLinks = document.querySelectorAll('.nav-link');
 
 	var menu = new _mobileMenu2.default();
 
 	if (navTrigger != 'undefined') {
 		navTrigger.addEventListener('click', menu.toggle, false);
+	}
+
+	function activeUrl() {
+		Array.prototype.forEach.call(navLinks, function (link) {
+			if (link.getAttribute("href") == window.location.pathname || window.location.pathname == "") {
+				link.classList.add('active');
+			}
+		});
+	}
+
+	function fixElements() {
+		if (footer.classList.contains('landing-footer')) {
+			footer.classList.remove('landing-footer');
+		}
+
+		footer.classList.add('normal-footer');
+	}
+
+	function landingElements() {
+		if (footer.classList.contains('normal-footer')) {
+			footer.classList.remove('normal-footer');
+		}
+
+		footer.classList.add('landing-footer');
 	}
 
 	if (window.location.href.indexOf('portfolio') != -1) {
@@ -102,21 +127,8 @@
 		landingElements();
 	}
 
-	function fixElements() {
-		if (footer.classList.contains('landing-footer')) {
-			footer.classList.remove('landing-footer');
-		}
+	activeUrl();
 
-		footer.classList.add('normal-footer');
-	}
-
-	function landingElements() {
-		if (footer.classList.contains('normal-footer')) {
-			footer.classList.remove('normal-footer');
-		}
-
-		footer.classList.add('landing-footer');
-	}
 	window.onload = function () {
 		setTimeout(function () {
 			document.body.classList.add('loaded');
