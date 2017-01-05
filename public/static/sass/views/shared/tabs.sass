@@ -10,14 +10,15 @@
 	align-items: center
 	position: relative
 	justify-content: flex-start
-	border-top: 1px solid #1c907f
+	border-top: 1px solid #204a65
+	border-bottom: 1px solid #204a65
 
-	li
+	> li
 		display: flex
 		align-items: center
 		justify-content: center
 		flex: 1
-		border-right: 1px solid #1c907f
+		border-right: 1px solid #204a65
 		overflow: hidden
 		position: relative
 		height: 100px
@@ -39,13 +40,17 @@
 			margin: -30px 0 0 -30px
 			width: 50px
 			height: 50px
-			border: 1px solid #1c907f
+			border: 1px solid #204a65
 			border-radius: 50%
-			//background: #1c907f
 			background: #1c907f
+			background: darken(#204a65, 5%)
 			content: ''
 			transition: transform 0.4s
 			pointer-events: none
+
+		&:last-child
+			border-right: none
+
 .tab-link
 	color: #fff
 	display: block
