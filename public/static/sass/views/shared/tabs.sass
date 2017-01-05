@@ -3,7 +3,7 @@
 
 .tab-item[data-tab-active]
 	&:before
-		transform: scale3d(5,5,1)
+		transform: scale3d(7,7,1)
 
 .tab-list
 	display: flex
@@ -78,3 +78,51 @@
 				font-size: 18px
 				margin-top: 3px
 				margin-left: 3px
+
+@media screen and (min-width: 680px)
+	.tab-list
+		li
+			a
+				padding: 25px 
+
+			&:before
+				height: 85px
+				width: 85px
+				left: 42%
+				top: 37%
+
+@media screen and (min-width: 830px)
+	.tab-list
+		li
+			&:before
+				left: 43%
+
+@media screen and (min-width: 1000px)
+	.tab-list
+		li
+			&:before
+				left: 44%
+
+@media screen and (min-width: 1200px)
+	.tab-list
+		li
+			&:before
+				left: 45%
+
+@media screen and (min-width: 1400px)
+	.tab-list
+		li
+			&:before
+				left: 46%
+
+@media screen and (min-width: 1600px)
+	.tab-list
+		li
+			&:before
+				left: 47%
+
+@media screen and (min-width: 1800px)
+	.tab-list
+		li
+			&:before
+				left: 47%

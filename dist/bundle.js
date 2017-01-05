@@ -503,7 +503,7 @@
 			value: function _attachEvents() {
 				var _closeKeyHandler = this._closeKeyHandler.bind(this);
 
-				this.overlay.addEventListener('click', this.close, false);
+				//	this.overlay.addEventListener('click', this.close, false);
 
 				if (this.closeButton) {
 					this.closeButton.addEventListener('click', this.close);

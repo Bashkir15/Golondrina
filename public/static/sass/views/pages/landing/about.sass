@@ -171,7 +171,8 @@
 		border-top-right-radius: 23px
 		border-bottom-right-radius: 23px
 		border-color: rgba(0,0,0,0.23)
-		background: rgba(0,0,0,0.6)
+		background: rgba(0,0,0,0.4)
+		transition: all .4s ease-out
 
 		span
 			@include lato()
@@ -179,6 +180,9 @@
 			letter-spacing: 1px
 			font-size: 16px
 			color: #fff
+
+		&:hover
+			background: rgba(0,0,0,0.2)
 
 @media screen and (min-width: 1200px)
 	.landing-about-text
