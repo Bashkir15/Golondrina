@@ -3,14 +3,17 @@ import mongoose from 'mongoose'
 import fs from 'fs'
 import path from 'path'
 import json from '../helpers/json'
+import ejs from 'ejs'
 
 var Email = mongoose.model('Email')
 
 module.exports = () => {
 	let obj = {};
 
-	obj.contact = function (req, res) => {
-		var emailTemplate = fs.readFileSync('./server/templates/contact-email.html', {encoding: 'utf-8'});
+	obj.contact = (req, res) => {
+		var emailTemplate = ejs.compile(fs.readFileSync('./server/templates/contact-email.ejs', {encoding: 'utf-8'}));
+		var html = emailTemplate({name: req.body.name, email: req.body.email, phone: req.body.phone, message: req.body.message});
+	
 		var transporter = nodemailer.createTransport({
 			service: global.config.mailer.service,
 			auth: {
@@ -23,11 +26,11 @@ module.exports = () => {
 			from: req.body.email,
 			to: global.config.mailer.auth.user,
 			subject: 'New contact from ' + req.body.name,
-			html: emailTemplate
+			html: html
 		};
 
 		transporter.sendMail(mailOptions, (error, info) => {
-			if (err) {
+			if (error) {
 				json.bad(err, res);
 			} else {
 				json.good(info.response, res);
