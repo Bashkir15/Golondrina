@@ -20,9 +20,15 @@ if (navTrigger != 'undefined') {
 }
 
 function activeUrl() {
+	var pathNames = ['/contact', '/gallery'];
+
+
+
 	Array.prototype.forEach.call(navLinks, (link) => {
-		if (link.getAttribute("href") == window.location.pathname || window.location.pathname == "") {
-			link.classList.add('active');
+		if (pathNames.indexOf(link.getAttribute("href")) != -1 && link.getAttribute("href") == window.location.pathname) {
+			link.classList.add('active')
+		} else  if (link.getAttribute("href") == window.location.pathname) {
+			link.classList.add('landing-active');
 		}
 	});
 }
