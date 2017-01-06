@@ -87,3 +87,46 @@
 		input
 			background: transparent
 			border-color: #fa5c54
+
+.form-send
+	position: relative
+
+
+	&.form-valid
+		background-color: #a3d39c
+		border-bottom: 5px solid darken(#a3d39c, 10%)
+
+	&.form-success
+		span
+			color: transparent
+			font-size: 0
+
+		&:before
+			position: absolute
+			left: 0
+			width: 40%
+			color: #0a833d
+			content: "\e001"
+
+		&:after
+			position: absolute
+			content: 'Success!'
+			z-index: 5
+			color: #fff
+			left: 25%
+			bottom: 10%
+			@include open()
+			font-weight: 400
+			font-size: 24px
+			animation: moveUp 0.5s
+
+@keyframes moveUp 
+	0% 
+		transform: translateY(130%)
+		opacity: 0
+	
+
+	100% 
+		opacity: 1
+		transform: translateY(0)
+	

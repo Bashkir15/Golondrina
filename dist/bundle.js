@@ -2542,9 +2542,9 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function contact() {
-		var formWrapper = document.querySelectorAll('.contact-form-wrapper');
-		var formInputs = document.querySelectorAll('.contact-form-input');
-		var submitButton = document.getElementById('contact-send');
+		var formWrapper = document.querySelectorAll('.form-wrapper');
+		var formInputs = document.querySelectorAll('.form-input');
+		var submitButton = document.querySelector('.contact-send');
 		var name = document.getElementById('contact-name');
 		var email = document.getElementById('contact-email');
 		var phone = document.getElementById('contact-phone');
@@ -2555,8 +2555,8 @@
 		var errorContent = document.getElementById('contact-error');
 
 		function submit() {
-			if (submitButton.classList.contains('contact-form-valid')) {
-				submitButton.classList.add('contact-form-loading');
+			if (submitButton.classList.contains('form-valid')) {
+				submitButton.classList.add('form-loading');
 
 				var data = {};
 				data.name = name.value;
@@ -2576,15 +2576,15 @@
 				}).then(function (response) {
 					if (response.data.success) {
 						resetForm();
-						submitButton.classList.remove('contact-form-loading');
-						submitButton.classList.add("contact-form-success");
+						submitButton.classList.remove('form-loading');
+						submitButton.classList.add("form-success");
 
 						var success = new Event('message-delivered');
 						window.dispatchEvent(success);
 						removeEvents();
 					} else {
-						submitButton.classList.remove('contact-form-loading');
-						submitButton.classList.add('contact-form-failure');
+						submitButton.classList.remove('form-loading');
+						submitButton.classList.add('form-failure');
 
 						var failure = new Event('message-failed');
 						window.dispatchEvent(failure);
@@ -2878,7 +2878,7 @@
 
 	function checkValidForm() {
 		var formWrappers = document.querySelectorAll('.form-wrapper');
-		var submitButton = document.getElementById('contact-send');
+		var submitButton = document.querySelector('.form-send');
 		var valid = 0;
 
 		Array.prototype.forEach.call(formWrappers, function (wrapper) {

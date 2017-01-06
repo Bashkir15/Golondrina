@@ -59,7 +59,7 @@ function inputBlur() {
 
 function checkValidForm() {
 	var formWrappers = document.querySelectorAll('.form-wrapper');
-	var submitButton = document.getElementById('contact-send');
+	var submitButton = document.querySelector('.form-send');
 	var valid = 0;
 
 	Array.prototype.forEach.call(formWrappers, (wrapper) => {
