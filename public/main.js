@@ -1,4 +1,5 @@
 import mobileMenu from './static/scripts/components/mobile-menu'
+import scrollIn from './static/scripts/utils/scroll.in'
 import { landing } from './static/scripts/pages/landing'
 import { signup } from './static/scripts/pages/auth/signup'
 import { login } from './static/scripts/pages/auth/login'
@@ -12,8 +13,11 @@ import { contact } from './static/scripts/pages/contact/contact'
 var navTrigger = document.getElementById('nav-trigger');
 var footer = document.getElementById('footer');
 var navLinks = document.querySelectorAll('.nav-link');
+var scrollTimeout;
+var resizeTimeout;
 
 var menu = new mobileMenu();
+var scroller = new scrollIn();
 
 if (navTrigger != 'undefined') {
 	navTrigger.addEventListener('click', menu.toggle, false);
@@ -49,6 +53,24 @@ function landingElements() {
 	footer.classList.add('landing-footer');
 }
 
+function scrollThrottle() {
+	if (!scrollTimeout) {
+		scrollTimeout = setTimeout(() => {
+			scrollTimeout = null;
+			scroller.viewPortChange();
+		}, )
+	}
+}
+
+function resizeThrottle() {
+	if (!resizeTimeout) {
+		resizeTimeout = setTimeout(() => {
+			resizeTimeout = null;
+			scroller.viewPortChange();
+		}, 250);
+	}
+}
+
 
 if (window.location.href.indexOf('portfolio') != -1) {
 //	portfolio();
@@ -76,6 +98,10 @@ if (window.location.href.indexOf('portfolio') != -1) {
 }
 
 activeUrl();
+
+window.addEventListener('DOMContentLoaded', scroller.init, false);
+window.addEventListener('scroll', scrollThrottle, false);
+window.addEventListener('resize', resizeThrottle, false);
 
 window.onload = () => {
 	setTimeout(() => {

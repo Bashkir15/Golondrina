@@ -9,7 +9,7 @@ class scrollIn {
 		};
 
 		this.enter = this._enter.bind(this);
-		this.init = this.init.bind(this);
+		this.init = this._init.bind(this);
 		this.viewPortChange = this._viewPortChange.bind(this);
 		this._applySettings(options);
 	}
