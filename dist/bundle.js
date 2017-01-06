@@ -50,21 +50,21 @@
 
 	var _mobileMenu2 = _interopRequireDefault(_mobileMenu);
 
-	var _scroll = __webpack_require__(39);
+	var _scroll = __webpack_require__(2);
 
 	var _scroll2 = _interopRequireDefault(_scroll);
 
-	var _landing = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./static/scripts/pages/landing\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _landing = __webpack_require__(3);
 
-	var _signup = __webpack_require__(32);
+	var _signup = __webpack_require__(4);
 
-	var _login = __webpack_require__(33);
+	var _login = __webpack_require__(31);
 
-	var _admin = __webpack_require__(34);
+	var _admin = __webpack_require__(32);
 
-	var _gallery = __webpack_require__(35);
+	var _gallery = __webpack_require__(33);
 
-	var _contact = __webpack_require__(37);
+	var _contact = __webpack_require__(35);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -293,9 +293,281 @@
 	exports.default = mobileMenu;
 
 /***/ },
-/* 2 */,
-/* 3 */,
-/* 4 */,
+/* 2 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var scrollIn = function () {
+		function scrollIn(options) {
+			_classCallCheck(this, scrollIn);
+
+			this.elements = null;
+
+			this.defaults = {
+				duration: '1000',
+				distance: '200',
+				heightOffset: 200
+			};
+
+			this.enter = this._enter.bind(this);
+			this.init = this._init.bind(this);
+			this.viewPortChange = this._viewPortChange.bind(this);
+			this._applySettings(options);
+		}
+
+		_createClass(scrollIn, [{
+			key: '_applySettings',
+			value: function _applySettings(options) {
+				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+					for (var i in options) {
+						if (options.hasOwnProperty(i)) {
+							this.defaults[i] = options[i];
+						}
+					}
+				}
+			}
+		}, {
+			key: '_isInView',
+			value: function _isInView(elem) {
+				var rect = elem.getBoundingClientRect();
+
+				return rect.top + this.defaults.heightOffset >= 0 && rect.top + this.defaults.heightOffset <= window.innerHeight || rect.bottom + this.defaults.heightOffset >= 0 && rect.bottom + this.defaults.heightOffset <= window.innerHeight || rect.bottom + this.defaults.heightOffset < 0 && rect.bottom + this.defaults.heightOffset > window.innerHeight;
+			}
+		}, {
+			key: '_setInitialStyles',
+			value: function _setInitialStyles(elem) {
+				var anim = elem.getAttribute('data-entrance');
+				var delay = elem.getAttribute('data-entray-delay');
+
+				elem.style.transition = "all " + this.defaults.duration / 1000 + "s ease-out";
+
+				if (delay) {
+					elem.style.transitionDelay = delay / 1000 + 's';
+				}
+
+				if (anim == 'fade') {
+					elem.style.opacity = 0;
+				}
+			}
+		}, {
+			key: '_enter',
+			value: function _enter(elem) {
+				elem.style.visibility = "visible";
+				elem.style.opacity = "1";
+				elem.style.transform = "translate(0,0)";
+				elem.classList.add("has-entered");
+			}
+		}, {
+			key: '_viewPortChange',
+			value: function _viewPortChange() {
+				var _this = this;
+
+				Array.prototype.map.call(this.elements, function (item) {
+					var isInView = _this._isInView(item);
+
+					if (isInView) {
+						var hasEntered = item.classList.contains('has-entered');
+
+						if (!hasEntered) {
+							_this._enter(item);
+						}
+					}
+				});
+			}
+		}, {
+			key: '_init',
+			value: function _init() {
+				var _this2 = this;
+
+				this.elements = document.querySelectorAll('[data-entrance]');
+
+				Array.prototype.map.call(this.elements, function (item) {
+					_this2._setInitialStyles(item);
+
+					if (_this2._isInView(item)) {
+						window.addEventListener('load', function () {
+							_this2.enter(item);
+						}, false);
+					}
+				});
+			}
+		}]);
+
+		return scrollIn;
+	}();
+
+	exports.default = scrollIn;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.landing = landing;
+
+	var _dialog = __webpack_require__(38);
+
+	var _dialog2 = _interopRequireDefault(_dialog);
+
+	var _notifications = __webpack_require__(36);
+
+	var _notifications2 = _interopRequireDefault(_notifications);
+
+	var _axios = __webpack_require__(5);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _contact = __webpack_require__(39);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function landing() {
+		//	let contactDialogTrigger = document.getElementById('landing-contact');
+		var contactContent = document.getElementById('contact-dialog');
+		var formWrapper = document.getElementById('landing-form-wrapper');
+		var email = document.getElementById('landing-email');
+		var signupButton = document.getElementById('signup-button');
+
+		var successContent = document.getElementById('newsletter-success');
+		var failureContent = document.getElementById('newsletter-failure');
+		var errorContent = document.getElementById('newsletter-error');
+
+		var contactDialog = new _dialog2.default({
+			content: contactContent
+		});
+
+		function openContact() {
+			contactDialog.open();
+			(0, _contact.contact)();
+		}
+
+		function newsletter() {
+			if (signupButton.classList.contains('signup-button-valid')) {
+				signupButton.classList.add('signup-button-loading');
+
+				var data = {};
+				data.email = email.value;
+
+				_axios2.default.post('http://localhost:8000/contact/newsletter', {
+					email: data.email,
+
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function (response) {
+					if (response.data.success) {
+						resetForm();
+						signupButton.classList.remove('signup-button-loading');
+						signupButton.classList.add('signup-button-success');
+
+						var success = new Event('newsletter-success');
+						window.dispatchEvent(success);
+					} else {
+						signupButton.classList.remove('signup-button-loading');
+
+						var failure = new Event('newsletter-failure');
+						window.dispatchEvent(failure);
+					}
+				});
+			} else {
+				var error = new Event('newsletter-error');
+				window.dispatchEvent(error);
+			}
+		}
+
+		function resetForm() {
+			email.value = "";
+		}
+
+		var newsletterSuccess = new _notifications2.default({
+			content: successContent,
+			type: 'success',
+			timeout: 2500
+		});
+
+		var newsletterFailure = new _notifications2.default({
+			content: failureContent,
+			type: 'danger',
+			timeout: 2500
+		});
+
+		var newsletterError = new _notifications2.default({
+			content: errorContent,
+			type: 'warning',
+			timeout: 2500
+		});
+
+		//contactDialogTrigger.addEventListener('click', openContact, false);
+	}
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.signup = signup;
+
+	var _axios = __webpack_require__(5);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function signup() {
+		var submitButton = document.getElementById('signup-submit');
+		var email = document.getElementById('signup-email');
+		var password = document.getElementById('signup-password');
+		var name = document.getElementById('signup-name');
+		var username = document.getElementById('signup-username');
+
+		function submit() {
+			var data = {};
+
+			data.name = name;
+			data.email = email;
+			data.password = password;
+
+			_axios2.default.post('http://localhost:8000/users', {
+				name: data.name.value,
+				email: data.email.value,
+				password: data.password.value,
+
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}).then(function (response) {
+				if (response.data.success) {
+					var admin = JSON.stringify(response.data.res.record);
+
+					window.localStorage.setItem('admin', admin);
+					window.localStorage.setItem('golondrina-token', response.data.res.token);
+				}
+			});
+		}
+
+		submitButton.addEventListener('click', submit);
+	}
+
+/***/ },
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1972,6 +2244,405 @@
 
 /***/ },
 /* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.login = login;
+
+	var _axios = __webpack_require__(5);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function login() {
+		var loginEmail = document.getElementById('login-email');
+		var loginPassword = document.getElementById('login-password');
+		var submitButton = document.getElementById('login-submit');
+
+		function submit() {
+			var data = {};
+
+			data.email = loginEmail;
+			data.password = loginPassword;
+
+			_axios2.default.post('http://localhost:8000/users/authenticate', {
+				email: data.email.value,
+				password: data.password.value,
+
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}).then(function (response) {
+				if (response.data.success) {
+					var admin = JSON.stringify(response.data.res.record);
+
+					window.localStorage.setItem('admin', admin);
+					window.localStorage.setItem('golondrina-token', response.data.res.token);
+				}
+			});
+		}
+
+		submitButton.addEventListener('click', submit);
+	}
+
+/***/ },
+/* 32 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.admin = admin;
+	function admin() {
+
+		function checkAdmin() {
+
+			var admin = JSON.parse(window.localStorage.getItem('admin'));
+
+			if (admin) {
+				if (admin.roles.indexOf('admin') == -1) {
+					window.location.href = '/';
+				} else {
+					return;
+				}
+			} else {
+				window.location.href = '/';
+			}
+		}
+
+		checkAdmin();
+	}
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.gallery = gallery;
+
+	var _tabs = __webpack_require__(34);
+
+	function gallery() {
+		(0, _tabs.tabs)();
+
+		baguetteBox.run('.gallery', {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			},
+			animation: 'fadeIn'
+		});
+
+		baguetteBox.run('.gallery-2', {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			}
+		});
+
+		baguetteBox.run('.gallery-3', {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			}
+		});
+
+		baguetteBox.run('.gallery-4', {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			}
+		});
+
+		baguetteBox.run('.gallery-5', {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			}
+		});
+	}
+
+/***/ },
+/* 34 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.tabs = tabs;
+	function tabs() {
+		var tabWidget = Array.prototype.slice.call(document.querySelectorAll('.js-tab')) || [];
+
+		var tabClickEvent = function tabClickEvent(tabLink, tabLinks, tabPanels, linkIndex, e) {
+			tabLinks.forEach(function (link) {
+				link.setAttribute('tabindex', '-1');
+				link.setAttribute('aria-selected', 'false');
+				link.parentNode.removeAttribute('data-tab-active');
+				link.removeAttribute('data-tab-active');
+			});
+
+			tabLink.setAttribute('tabindex', '0');
+			tabLink.setAttribute('aria-selected', 'true');
+			tabLink.parentNode.setAttribute('data-tab-active', '');
+			tabLink.setAttribute('data-tab-active', '');
+
+			tabPanels.forEach(function (panel, index) {
+				if (index != linkIndex) {
+					panel.setAttribute('aria-hidden', 'true');
+					panel.removeAttribute('data-tab-active');
+				} else {
+					panel.setAttribute('aria-hidden', 'false');
+					panel.setAttribute('data-tab-active', '');
+				}
+			});
+		};
+
+		var keyBoardEvent = function keyBoardEvent(tabLink, tabLinks, tabPanels, tabItems, index, e) {
+			var keyCode = e.key || e.which,
+			    currentTab = tabLinks[index],
+			    previousTab = tabLinks[index - 1],
+			    nextTab = tabLinks[index + 1],
+			    firstTab = tabLinks[0],
+			    lastTab = tabLinks[tabLinks.length - 1];
+
+			switch (keyCode) {
+				case 'ArrowLeft':
+				case 37:
+					e.preventDefault();
+
+					if (!previousTab) {
+						lastTab.focus();
+					} else {
+						previousTab.focus();
+					}
+					break;
+
+				case 'ArrowRight':
+				case 39:
+					e.preventDefault();
+
+					if (!nextTab) {
+						firstTab.focus();
+					} else {
+						nextTab.focus();
+					}
+					break;
+			}
+		};
+
+		tabWidget.forEach(function (tabWidgetInstance, i) {
+			var tabList = tabWidgetInstance.getElementsByTagName('ul')[0],
+			    tabItems = Array.prototype.slice.call(tabList.getElementsByTagName('li')),
+			    tabLinks = [],
+			    tabPanels = Array.prototype.slice.call(tabWidgetInstance.getElementsByTagName('section'));
+
+			tabList.setAttribute('role', 'tablist');
+
+			tabItems.forEach(function (item, index) {
+				var link = item.getElementsByTagName('a')[0];
+
+				tabLinks.push(link);
+
+				item.setAttribute('role', 'presentation');
+
+				if (index == 0) {
+					item.setAttribute('data-tab-active', '');
+				}
+			});
+
+			tabLinks.forEach(function (link, i) {
+				var anchor = link.getAttribute('href').split("#")[1];
+				var attributes = {
+					'id': 'tab-link' + i,
+					'role': 'tab',
+					'tabIndex': '-1',
+					'aria-selected': 'false',
+					'aria-controls': anchor
+				};
+
+				if (i == 0) {
+					attributes['aria-selected'] = 'true';
+					attributes.tabIndex = '0';
+
+					link.setAttribute('data-tab-active', '');
+				}
+
+				for (var key in attributes) {
+					link.setAttribute(key, attributes[key]);
+				}
+
+				link.addEventListener('click', function (e) {
+					e.preventDefault();
+				});
+
+				link.addEventListener('focus', function (e) {
+					tabClickEvent(this, tabLinks, tabPanels, i, e);
+				});
+
+				link.addEventListener('keydown', function (e) {
+					keyBoardEvent(link, tabLinks, tabPanels, tabItems, i, e);
+				});
+			});
+
+			tabPanels.forEach(function (panel, i) {
+				var nextTabLink = document.createElement('a'),
+				    nextTabLinkIndex = i < tabPanels.length - 1 ? i + 1 : 0;
+
+				var attributes = {
+					'role': 'tabpanel',
+					'aria-hidden': 'true',
+					'aria-labelledyby': 'tab-link-' + i
+				};
+
+				nextTabLink.setAttribute('href', '#tab-link-' + nextTabLinkIndex);
+				nextTabLink.textContext = 'Next Tab';
+				panel.appendChild(nextTabLink);
+
+				if (i == 0) {
+					attributes['aria-hidden'] = 'false';
+					panel.setAttribute('data-tab-active', '');
+				}
+
+				for (var key in attributes) {
+					panel.setAttribute(key, attributes[key]);
+				}
+			});
+		});
+	}
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.contact = contact;
+
+	var _axios = __webpack_require__(5);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _notifications = __webpack_require__(36);
+
+	var _notifications2 = _interopRequireDefault(_notifications);
+
+	var _validator = __webpack_require__(37);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function contact() {
+		var formWrapper = document.querySelectorAll('.contact-form-wrapper');
+		var formInputs = document.querySelectorAll('.contact-form-input');
+		var submitButton = document.getElementById('contact-send');
+		var name = document.getElementById('contact-name');
+		var email = document.getElementById('contact-email');
+		var phone = document.getElementById('contact-phone');
+		var message = document.getElementById('contact-message');
+
+		var successContent = document.getElementById('contact-success');
+		var failureContent = document.getElementById('contact-failure');
+		var errorContent = document.getElementById('contact-error');
+
+		function submit() {
+			if (submitButton.classList.contains('contact-form-valid')) {
+				submitButton.classList.add('contact-form-loading');
+
+				var data = {};
+				data.name = name.value;
+				data.email = email.value;
+				data.phone = phone.value;
+				data.message = message.value;
+
+				_axios2.default.post('http://localhost:8000/contact', {
+					name: data.name,
+					email: data.email,
+					phone: data.phone,
+					message: data.message,
+
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function (response) {
+					if (response.data.success) {
+						resetForm();
+						submitButton.classList.remove('contact-form-loading');
+						submitButton.classList.add("contact-form-success");
+
+						var success = new Event('message-delivered');
+						window.dispatchEvent(success);
+						removeEvents();
+					} else {
+						submitButton.classList.remove('contact-form-loading');
+						submitButton.classList.add('contact-form-failure');
+
+						var failure = new Event('message-failed');
+						window.dispatchEvent(failure);
+					}
+				});
+			} else {
+				var error = new Event('message-error');
+				window.dispatchEvent(error);
+			}
+		}
+
+		function resetForm() {
+			Array.prototype.forEach.call(formInputs, function (input) {
+				input.value = "";
+
+				if (input.parentNode.classList.contains('valid')) {
+					input.parentNode.classList.remove('valid');
+				}
+
+				if (input.parentNode.classList.contains('email-valid')) {
+					input.parentNode.classList.remove('email-valid');
+				}
+			});
+		}
+
+		function removeEvents() {
+			submitButton.removeEventListener('click', submit);
+			(0, _validator.removeBlur)(formInputs);
+		}
+
+		var successNotify = new _notifications2.default({
+			content: successContent,
+			type: 'success',
+			timeout: 2500
+		});
+
+		var failureNotify = new _notifications2.default({
+			content: failureContent,
+			type: 'danger',
+			timeout: 2500
+		});
+
+		var errorNotify = new _notifications2.default({
+			content: errorContent,
+			type: 'warning',
+			timeout: 2500
+		});
+
+		(0, _validator.onBlur)(formInputs);
+
+		submitButton.addEventListener('click', submit);
+		window.addEventListener('message-delivered', successNotify.open);
+		window.addEventListener('message-failed', failureNotify.open);
+		window.addEventListener('message-error', errorNotify.open);
+	}
+
+/***/ },
+/* 36 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2137,458 +2808,7 @@
 	exports.default = notifications;
 
 /***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.signup = signup;
-
-	var _axios = __webpack_require__(5);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function signup() {
-		var submitButton = document.getElementById('signup-submit');
-		var email = document.getElementById('signup-email');
-		var password = document.getElementById('signup-password');
-		var name = document.getElementById('signup-name');
-		var username = document.getElementById('signup-username');
-
-		function submit() {
-			var data = {};
-
-			data.name = name;
-			data.email = email;
-			data.password = password;
-
-			_axios2.default.post('http://localhost:8000/users', {
-				name: data.name.value,
-				email: data.email.value,
-				password: data.password.value,
-
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}).then(function (response) {
-				if (response.data.success) {
-					var admin = JSON.stringify(response.data.res.record);
-
-					window.localStorage.setItem('admin', admin);
-					window.localStorage.setItem('golondrina-token', response.data.res.token);
-				}
-			});
-		}
-
-		submitButton.addEventListener('click', submit);
-	}
-
-/***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.login = login;
-
-	var _axios = __webpack_require__(5);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function login() {
-		var loginEmail = document.getElementById('login-email');
-		var loginPassword = document.getElementById('login-password');
-		var submitButton = document.getElementById('login-submit');
-
-		function submit() {
-			var data = {};
-
-			data.email = loginEmail;
-			data.password = loginPassword;
-
-			_axios2.default.post('http://localhost:8000/users/authenticate', {
-				email: data.email.value,
-				password: data.password.value,
-
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}).then(function (response) {
-				if (response.data.success) {
-					var admin = JSON.stringify(response.data.res.record);
-
-					window.localStorage.setItem('admin', admin);
-					window.localStorage.setItem('golondrina-token', response.data.res.token);
-				}
-			});
-		}
-
-		submitButton.addEventListener('click', submit);
-	}
-
-/***/ },
-/* 34 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.admin = admin;
-	function admin() {
-
-		function checkAdmin() {
-
-			var admin = JSON.parse(window.localStorage.getItem('admin'));
-
-			if (admin) {
-				if (admin.roles.indexOf('admin') == -1) {
-					window.location.href = '/';
-				} else {
-					return;
-				}
-			} else {
-				window.location.href = '/';
-			}
-		}
-
-		checkAdmin();
-	}
-
-/***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.gallery = gallery;
-
-	var _tabs = __webpack_require__(36);
-
-	function gallery() {
-		(0, _tabs.tabs)();
-
-		baguetteBox.run('.gallery', {
-			captions: function captions(element) {
-				return element.getElementsByTagName('img')[0].alt;
-			},
-			animation: 'fadeIn'
-		});
-
-		baguetteBox.run('.gallery-2', {
-			captions: function captions(element) {
-				return element.getElementsByTagName('img')[0].alt;
-			}
-		});
-
-		baguetteBox.run('.gallery-3', {
-			captions: function captions(element) {
-				return element.getElementsByTagName('img')[0].alt;
-			}
-		});
-
-		baguetteBox.run('.gallery-4', {
-			captions: function captions(element) {
-				return element.getElementsByTagName('img')[0].alt;
-			}
-		});
-
-		baguetteBox.run('.gallery-5', {
-			captions: function captions(element) {
-				return element.getElementsByTagName('img')[0].alt;
-			}
-		});
-	}
-
-/***/ },
-/* 36 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.tabs = tabs;
-	function tabs() {
-		var tabWidget = Array.prototype.slice.call(document.querySelectorAll('.js-tab')) || [];
-
-		var tabClickEvent = function tabClickEvent(tabLink, tabLinks, tabPanels, linkIndex, e) {
-			tabLinks.forEach(function (link) {
-				link.setAttribute('tabindex', '-1');
-				link.setAttribute('aria-selected', 'false');
-				link.parentNode.removeAttribute('data-tab-active');
-				link.removeAttribute('data-tab-active');
-			});
-
-			tabLink.setAttribute('tabindex', '0');
-			tabLink.setAttribute('aria-selected', 'true');
-			tabLink.parentNode.setAttribute('data-tab-active', '');
-			tabLink.setAttribute('data-tab-active', '');
-
-			tabPanels.forEach(function (panel, index) {
-				if (index != linkIndex) {
-					panel.setAttribute('aria-hidden', 'true');
-					panel.removeAttribute('data-tab-active');
-				} else {
-					panel.setAttribute('aria-hidden', 'false');
-					panel.setAttribute('data-tab-active', '');
-				}
-			});
-		};
-
-		var keyBoardEvent = function keyBoardEvent(tabLink, tabLinks, tabPanels, tabItems, index, e) {
-			var keyCode = e.key || e.which,
-			    currentTab = tabLinks[index],
-			    previousTab = tabLinks[index - 1],
-			    nextTab = tabLinks[index + 1],
-			    firstTab = tabLinks[0],
-			    lastTab = tabLinks[tabLinks.length - 1];
-
-			switch (keyCode) {
-				case 'ArrowLeft':
-				case 37:
-					e.preventDefault();
-
-					if (!previousTab) {
-						lastTab.focus();
-					} else {
-						previousTab.focus();
-					}
-					break;
-
-				case 'ArrowRight':
-				case 39:
-					e.preventDefault();
-
-					if (!nextTab) {
-						firstTab.focus();
-					} else {
-						nextTab.focus();
-					}
-					break;
-			}
-		};
-
-		tabWidget.forEach(function (tabWidgetInstance, i) {
-			var tabList = tabWidgetInstance.getElementsByTagName('ul')[0],
-			    tabItems = Array.prototype.slice.call(tabList.getElementsByTagName('li')),
-			    tabLinks = [],
-			    tabPanels = Array.prototype.slice.call(tabWidgetInstance.getElementsByTagName('section'));
-
-			tabList.setAttribute('role', 'tablist');
-
-			tabItems.forEach(function (item, index) {
-				var link = item.getElementsByTagName('a')[0];
-
-				tabLinks.push(link);
-
-				item.setAttribute('role', 'presentation');
-
-				if (index == 0) {
-					item.setAttribute('data-tab-active', '');
-				}
-			});
-
-			tabLinks.forEach(function (link, i) {
-				var anchor = link.getAttribute('href').split("#")[1];
-				var attributes = {
-					'id': 'tab-link' + i,
-					'role': 'tab',
-					'tabIndex': '-1',
-					'aria-selected': 'false',
-					'aria-controls': anchor
-				};
-
-				if (i == 0) {
-					attributes['aria-selected'] = 'true';
-					attributes.tabIndex = '0';
-
-					link.setAttribute('data-tab-active', '');
-				}
-
-				for (var key in attributes) {
-					link.setAttribute(key, attributes[key]);
-				}
-
-				link.addEventListener('click', function (e) {
-					e.preventDefault();
-				});
-
-				link.addEventListener('focus', function (e) {
-					tabClickEvent(this, tabLinks, tabPanels, i, e);
-				});
-
-				link.addEventListener('keydown', function (e) {
-					keyBoardEvent(link, tabLinks, tabPanels, tabItems, i, e);
-				});
-			});
-
-			tabPanels.forEach(function (panel, i) {
-				var nextTabLink = document.createElement('a'),
-				    nextTabLinkIndex = i < tabPanels.length - 1 ? i + 1 : 0;
-
-				var attributes = {
-					'role': 'tabpanel',
-					'aria-hidden': 'true',
-					'aria-labelledyby': 'tab-link-' + i
-				};
-
-				nextTabLink.setAttribute('href', '#tab-link-' + nextTabLinkIndex);
-				nextTabLink.textContext = 'Next Tab';
-				panel.appendChild(nextTabLink);
-
-				if (i == 0) {
-					attributes['aria-hidden'] = 'false';
-					panel.setAttribute('data-tab-active', '');
-				}
-
-				for (var key in attributes) {
-					panel.setAttribute(key, attributes[key]);
-				}
-			});
-		});
-	}
-
-/***/ },
 /* 37 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.contact = contact;
-
-	var _axios = __webpack_require__(5);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	var _notifications = __webpack_require__(31);
-
-	var _notifications2 = _interopRequireDefault(_notifications);
-
-	var _validator = __webpack_require__(38);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function contact() {
-		var formWrapper = document.querySelectorAll('.contact-form-wrapper');
-		var formInputs = document.querySelectorAll('.contact-form-input');
-		var submitButton = document.getElementById('contact-send');
-		var name = document.getElementById('contact-name');
-		var email = document.getElementById('contact-email');
-		var phone = document.getElementById('contact-phone');
-		var message = document.getElementById('contact-message');
-
-		var successContent = document.getElementById('contact-success');
-		var failureContent = document.getElementById('contact-failure');
-		var errorContent = document.getElementById('contact-error');
-
-		function submit() {
-			if (submitButton.classList.contains('contact-form-valid')) {
-				submitButton.classList.add('contact-form-loading');
-
-				var data = {};
-				data.name = name.value;
-				data.email = email.value;
-				data.phone = phone.value;
-				data.message = message.value;
-
-				_axios2.default.post('http://localhost:8000/contact', {
-					name: data.name,
-					email: data.email,
-					phone: data.phone,
-					message: data.message,
-
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				}).then(function (response) {
-					if (response.data.success) {
-						resetForm();
-						submitButton.classList.remove('contact-form-loading');
-						submitButton.classList.add("contact-form-success");
-
-						var success = new Event('message-delivered');
-						window.dispatchEvent(success);
-						removeEvents();
-					} else {
-						submitButton.classList.remove('contact-form-loading');
-						submitButton.classList.add('contact-form-failure');
-
-						var failure = new Event('message-failed');
-						window.dispatchEvent(failure);
-					}
-				});
-			} else {
-				var error = new Event('message-error');
-				window.dispatchEvent(error);
-			}
-		}
-
-		function resetForm() {
-			Array.prototype.forEach.call(formInputs, function (input) {
-				input.value = "";
-
-				if (input.parentNode.classList.contains('valid')) {
-					input.parentNode.classList.remove('valid');
-				}
-
-				if (input.parentNode.classList.contains('email-valid')) {
-					input.parentNode.classList.remove('email-valid');
-				}
-			});
-		}
-
-		function removeEvents() {
-			submitButton.removeEventListener('click', submit);
-			(0, _validator.removeBlur)(formInputs);
-		}
-
-		var successNotify = new _notifications2.default({
-			content: successContent,
-			type: 'success',
-			timeout: 2500
-		});
-
-		var failureNotify = new _notifications2.default({
-			content: failureContent,
-			type: 'danger',
-			timeout: 2500
-		});
-
-		var errorNotify = new _notifications2.default({
-			content: errorContent,
-			type: 'warning',
-			timeout: 2500
-		});
-
-		(0, _validator.onBlur)(formInputs);
-
-		submitButton.addEventListener('click', submit);
-		window.addEventListener('message-delivered', successNotify.open);
-		window.addEventListener('message-failed', failureNotify.open);
-		window.addEventListener('message-error', errorNotify.open);
-	}
-
-/***/ },
-/* 38 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2611,7 +2831,6 @@
 	}
 
 	function validateEmail(node) {
-		console.log('meep');
 		var value = node.value;
 		var atpos = value.indexOf('@');
 		var dotpos = value.lastIndexOf('.');
@@ -2636,18 +2855,17 @@
 	}
 
 	function inputBlur() {
-		console.log('grr');
 		var formContent = this.value;
 
 		if (formContent == '') {
 			this.parentNode.classList.add('blank');
 		}
 
-		if (this.parentNode.classList.contains('contact-form-email')) {
+		if (this.parentNode.classList.contains('form-email')) {
 			validateEmail(this);
 		}
 
-		if (formContent != '' && !this.parentNode.classList.contains('contact-form-email')) {
+		if (formContent != '' && !this.parentNode.classList.contains('form-email')) {
 			if (this.parentNode.classList.contains('blank')) {
 				this.parentNode.classList.remove('blank');
 			}
@@ -2659,7 +2877,7 @@
 	}
 
 	function checkValidForm() {
-		var formWrappers = document.querySelectorAll('.contact-form-wrapper');
+		var formWrappers = document.querySelectorAll('.form-wrapper');
 		var submitButton = document.getElementById('contact-send');
 		var valid = 0;
 
@@ -2670,12 +2888,12 @@
 		});
 
 		if (valid == 4) {
-			submitButton.classList.add('contact-form-valid');
+			submitButton.classList.add('form-valid');
 		}
 	}
 
 /***/ },
-/* 39 */
+/* 38 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2690,25 +2908,34 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var scrollIn = function () {
-		function scrollIn(options) {
-			_classCallCheck(this, scrollIn);
+	var modal = function () {
+		function modal(options) {
+			_classCallCheck(this, modal);
 
-			this.elements = null;
+			this.dialog = null;
+			this.overlay = null;
+			this.closeButton = null;
 
 			this.defaults = {
-				duration: '1000',
-				distance: '200',
-				heightOffset: 200
+				className: 'dialog-effect',
+				content: "",
+				overlay: true,
+				closeKeys: [27],
+				closeButton: true,
+				onBeforeOpen: null,
+				onBeforeClose: null,
+				transitions: true,
+				onOpen: null,
+				onClose: null
 			};
 
-			this.enter = this._enter.bind(this);
-			this.init = this._init.bind(this);
-			this.viewPortChange = this._viewPortChange.bind(this);
 			this._applySettings(options);
+			this.open = this._open.bind(this);
+			this.close = this._close.bind(this);
+			//this.transitionEnd = this._transitionSniff();
 		}
 
-		_createClass(scrollIn, [{
+		_createClass(modal, [{
 			key: '_applySettings',
 			value: function _applySettings(options) {
 				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
@@ -2720,76 +2947,401 @@
 				}
 			}
 		}, {
-			key: '_isInView',
-			value: function _isInView(elem) {
-				var rect = elem.getBoundingClientRect();
+			key: '_open',
+			value: function _open() {
+				document.body.classList.add('dialog-open');
+				this._buildOut.call(this);
+				this._checkOverflow.call(this);
 
-				return rect.top + this.defaults.heightOffset >= 0 && rect.top + this.defaults.heightOffset <= window.innerHeight || rect.bottom + this.defaults.heightOffset >= 0 && rect.bottom + this.defaults.heightOffset <= window.innerHeight || rect.bottom + this.defaults.heightOffset < 0 && rect.bottom + this.defaults.heightOffset > window.innerHeight;
+				this.dialog.classList.add('dialog-open');
+				this.overlay.classList.add('dialog-open');
+
+				this._checkOverflow.call(this);
+				this._attachEvents();
 			}
 		}, {
-			key: '_setInitialStyles',
-			value: function _setInitialStyles(elem) {
-				var anim = elem.getAttribute('data-entrance');
-				var delay = elem.getAttribute('data-entray-delay');
-
-				elem.style.transition = "all " + this.defaults.duration / 1000 + "s ease-out";
-
-				if (delay) {
-					elem.style.transitionDelay = delay / 1000 + 's';
-				}
-
-				if (anim == 'fade') {
-					elem.style.opacity = 0;
-				}
-			}
-		}, {
-			key: '_enter',
-			value: function _enter(elem) {
-				elem.style.visibility = "visible";
-				elem.style.opacity = "1";
-				elem.style.transform = "translate(0,0)";
-				elem.classList.add("has-entered");
-			}
-		}, {
-			key: '_viewPortChange',
-			value: function _viewPortChange() {
+			key: '_close',
+			value: function _close() {
 				var _this = this;
 
-				Array.prototype.map.call(this.elements, function (item) {
-					var isInView = _this._isInView(item);
+				this.overlay.classList.remove('dialog-open');
+				this.dialog.classList.remove('dialog-open');
+				document.body.classList.remove('dialog-open');
 
-					if (isInView) {
-						var hasEntered = item.classList.contains('has-entered');
+				this._destroyEvents();
 
-						if (!hasEntered) {
-							_this._enter(item);
-						}
-					}
+				this.overlay.addEventListener('transitionend', function () {
+					_this.overlay.parentNode.removeChild(_this.overlay);
 				});
 			}
 		}, {
-			key: '_init',
-			value: function _init() {
-				var _this2 = this;
+			key: '_buildOut',
+			value: function _buildOut() {
+				var content;
+				var contentHolder = document.createElement('div');
+				contentHolder.classList.add('dialog-content');
 
-				this.elements = document.querySelectorAll('[data-entrance]');
+				this.overlay = document.createElement('div');
+				this.overlay.classList.add('dialog-overlay');
 
-				Array.prototype.map.call(this.elements, function (item) {
-					_this2._setInitialStyles(item);
+				this.dialog = document.createElement('div');
+				this.dialog.classList.add('dialog');
 
-					if (_this2._isInView(item)) {
-						window.addEventListener('load', function () {
-							_this2.enter(item);
-						}, false);
+				if (typeof this.defaults.content === 'string') {
+					content = this.defaults.content;
+				} else {
+					content = this.defaults.content.innerHTML;
+				}
+
+				if (this.defaults.closeButton === true) {
+					this.closeButton = document.createElement('button');
+					this.closeButton.innerHTML = '<span class=\'icon-close\'>X</span>';
+					this.closeButton.classList.add('dialog-close-button');
+					this.dialog.appendChild(this.closeButton);
+				}
+
+				contentHolder.innerHTML = content;
+				this.dialog.appendChild(contentHolder);
+				this.overlay.appendChild(this.dialog);
+				document.body.insertBefore(this.overlay, document.body.firstChild);
+			}
+
+			/* _transitionSniff() {
+	  	if (this.defaults.transitions === false) {
+	  		return;
+	  	}
+	  		var el = document.createElement('div');
+	  	var transitions = {
+	  		'transition': 'transitionend',
+	  		'OTransition': 'otransitionend',
+	  		'MozTransition': 'transitionend',
+	  		'WebkitTransition': 'webkitTransitionEnd'
+	  	};
+	  		for (var i in transitions) {
+	  		if (transitions.hasOwnProperty(i) && el.style[i] !== undefined) {
+	  			return transitions[i];
+	  		}
+	  	}
+	  	}
+	  	_open() {
+	  	if (typeof this.defaults.onBeforeOpen === 'function') {
+	  		this.defaults.onBeforeOpen.call(this, e);
+	  	}
+	  		this._buildOut.call(this);
+	  	this._checkOverflow.call(this);
+	  		/* window.getComputedStyle(this.dialog).height;
+	  	if (this.dialog.offsetHeight > window.innerHeight) {
+	  		this.dialog.classList.add('dialog-anchored');
+	  		this.dialog.style.top = 20 + "px";
+	  	} 
+	  		this.dialog.classList.add('dialog-open');
+	  	this.overlay.classList.add('dialog-open');
+	  	document.body.classList.add('dialog-open');
+	  	
+	  	//document.querySelector('.landing-page-content').classList.add('dialog-open');
+	  		document.body.style.overflowY = 'hidden';
+	  	this._checkOverflow.call(this);
+	  		this._attachEvents();
+	  		if (typeof this.defaults.onOpen === 'function') {
+	  		this.defaults.onOpen.call(this, e);
+	  	}
+	  }
+	  	_close() {
+	  		if (typeof this.defaults.onBeforeClose === 'function') {
+	  		this.defaults.onBeforeClose.call(this, e);
+	  	}
+	  		this.dialog.className = this.dialog.className.replace(" dialog-open", "");
+	  	this.overlay.className = this.overlay.className.replace(" dialog-open", "");
+	  	document.querySelector('.landing-page-content').classList.remove('dialog-open');
+	  	document.body.style.overflowY = 'auto';
+	  		this._destroyEvents();
+	  		this.dialog.addEventListener('transitionend', () => {
+	  		this.dialog.parentNode.removeChild(this.dialog);
+	  	}, false);
+	  		this.overlay.addEventListener('transitionend', () => {
+	  		this.overlay.parentNode.removeChild(this.overlay);
+	  	}, false);
+	  		document.body.style.height = 'auto';
+	  	document.body.style.overflowY = 'auto';
+	  		if (typeof this.defaults.onClose === 'function') {
+	  		this.defaults.onClose.call(this, e);
+	  	}
+	  }
+	  	_buildOut() {
+	  	let content;
+	  	let contentHolder;
+	  	let docFrag;
+	  		if (typeof this.defaults.content === 'string') {
+	  		content = this.defaults.content;
+	  	} else {
+	  		content = this.defaults.content.innerHTML;
+	  	}
+	  		docFrag = document.createDocumentFragment();
+	  		this.dialog = document.createElement("div");
+	  	this.dialog.className = 'dialog ' + this.defaults.className;
+	  
+	  	//this.dialog.style.top = window.pageYOffset + (window.innerHeight / 2) + "px";
+	  	//this.dialog.style.left = (window.innerWidth + this.dialog.offsetWidth) / 2 + "px";
+	  		if (this.defaults.closeButton === true) {
+	  		this.closeButton = document.createElement('button');
+	  		this.closeButton.innerHTML = 	`<span class='icon-close'>X</span>`;
+	  		this.closeButton.classList.add('dialog-close-button');
+	  		this.dialog.appendChild(this.closeButton);
+	  	}
+	  		if (this.defaults.overlay === true) {
+	  		this.overlay = document.createElement('div');
+	  		this.overlay.className = "dialog-overlay " + this.defaults.className;
+	  		docFrag.appendChild(this.overlay);
+	  	}
+	  		contentHolder = document.createElement('div');
+	  	contentHolder.className = "dialog-content";
+	  	contentHolder.innerHTML = content;
+	  	this.dialog.appendChild(contentHolder);
+	  	docFrag.appendChild(this.dialog);
+	  	document.body.appendChild(docFrag);
+	  } */
+
+		}, {
+			key: '_isOverflow',
+			value: function _isOverflow() {
+				var viewportHeight = window.innerHeight;
+				var dialogHeight = this.dialog.clientHeight;
+				var isOverflow = dialogHeight < viewportHeight ? false : true;
+
+				return isOverflow;
+			}
+		}, {
+			key: '_checkOverflow',
+			value: function _checkOverflow() {
+				if (this.dialog.classList.contains('dialog-open')) {
+					if (this._isOverflow()) {
+						this.overlay.classList.add('dialog-overflow');
+					} else {
+						this.overlay.classList.remove('dialog-overflow');
 					}
-				});
+				}
+			}
+		}, {
+			key: '_closeKeyHandler',
+			value: function _closeKeyHandler(e) {
+				if (this.defaults.closeKeys.indexOf(e.which) > -1) {
+					e.preventDefault();
+					this.close();
+				}
+			}
+		}, {
+			key: '_attachEvents',
+			value: function _attachEvents() {
+				var _closeKeyHandler = this._closeKeyHandler.bind(this);
+
+				//	this.overlay.addEventListener('click', this.close, false);
+
+				if (this.closeButton) {
+					this.closeButton.addEventListener('click', this.close);
+				}
+
+				document.body.addEventListener('keydown', _closeKeyHandler, false);
+			}
+		}, {
+			key: '_destroyEvents',
+			value: function _destroyEvents() {
+				var _closeKeyHandler = this._closeKeyHandler.bind(this);
+
+				this.overlay.removeEventListener('click', this.close);
+				this.closeButton.removeEventListener('click', this.close);
+				document.body.addEventListener('keydown', _closeKeyHandler);
 			}
 		}]);
 
-		return scrollIn;
+		return modal;
 	}();
 
-	exports.default = scrollIn;
+	exports.default = modal;
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.contact = contact;
+
+	var _axios = __webpack_require__(5);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _notifications = __webpack_require__(36);
+
+	var _notifications2 = _interopRequireDefault(_notifications);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function contact() {
+		var formWrappers = document.querySelectorAll('.contact-form-wrapper');
+		var formInputs = document.querySelectorAll('.contact-form-input');
+		var submitButton = document.getElementById('contact-send');
+		var successContent = document.getElementById('contact-success');
+		var failureContent = document.getElementById('contact-failure');
+
+		function onFocus() {
+			Array.prototype.forEach.call(formInputs, function (input) {
+				input.addEventListener('focus', inputFocus);
+			});
+		}
+
+		function onBlur() {
+			Array.prototype.forEach.call(formInputs, function (input) {
+				input.addEventListener('blur', inputBlur);
+			});
+		}
+
+		function inputFocus() {
+			if (!this.parentNode.classList.contains('focused')) {
+				this.parentNode.classList.add('focused');
+			} else {
+				return;
+			}
+		}
+
+		function inputBlur() {
+			var formContent = this.value;
+
+			if (this.parentNode.classList.contains('focused')) {
+				this.parentNode.classList.remove('focused');
+			}
+
+			if (formContent == '') {
+				this.parentNode.classList.add('blank');
+			}
+
+			if (this.parentNode.classList.contains('contact-form-email')) {
+				validateEmail();
+			}
+
+			if (formContent !== '' && !this.parentNode.classList.contains('contact-form-email')) {
+				if (this.parentNode.classList.contains('blank')) {
+					this.parentNode.classList.remove('blank');
+				}
+
+				this.parentNode.classList.add('valid');
+			}
+
+			checkValidForm();
+		}
+
+		function validateEmail() {
+			var input = document.getElementById('contact-email');
+			var formValue = input.value;
+			var atpos = formValue.indexOf('@');
+			var dotpos = formValue.lastIndexOf(".");
+
+			if (atpos < 1 || dotpos - atpos < 2) {
+				if (input.parentNode.classList.contains('blank')) {
+					console.log('grrr');
+					input.parentNode.classList.remove('blank');
+				}
+
+				input.parentNode.classList.add('email-invalid');
+			} else {
+				if (input.parentNode.classList.contains('blank')) {
+					input.parentNode.classList.remove('blank');
+				}
+
+				if (input.parentNode.classList.contains('email-invalid')) {
+					input.parentNode.classList.remove('email-invalid');
+				}
+
+				input.parentNode.classList.add('email-valid');
+			}
+		}
+
+		function checkValidForm() {
+			var validForm = 0;
+
+			Array.prototype.forEach.call(formWrappers, function (wrapper) {
+				if (wrapper.classList.contains('valid') || wrapper.classList.contains('email-valid')) {
+					validForm++;
+				}
+			});
+
+			if (validForm == 4) {
+				submitButton.classList.add('contact-form-valid');
+				submitButton.addEventListener('click', sendMessage);
+			}
+		}
+
+		function sendMessage() {
+			if (submitButton.classList.contains('contact-form-valid')) {
+				submitButton.classList.add('contact-show-loading');
+
+				var data = {};
+				data.name = name.value;
+				data.email = email.value;
+				data.phone = phone.value;
+				data.message = message.value;
+
+				_axios2.default.post('http://localhost:7000/contact', {
+					name: data.name,
+					email: data.email,
+					phone: data.phone,
+					message: data.message,
+
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function (response) {
+					if (response.data.success) {
+						submitButton.classList.remove('contact-show-loading');
+						var success = new Event('message-delivered');
+						window.dispatchEvent(success);
+						removeEvents();
+					} else {
+						submitButton.classList.remove('contact-show-loading');
+						var failure = new Event('message-failed');
+						window.dispatchEvent(failure);
+					}
+				});
+			}
+		}
+
+		function removeEvents() {
+			submitButton.removeEventListener('click', sendMessage);
+
+			Array.prototype.forEach.call(formInputs, function (input) {
+				input.removeEventListener('focus', inputFocus);
+			});
+
+			Array.prototype.forEach.call(formInputs, function (input) {
+				input.removeEventListener('blur', inputBlur);
+			});
+		}
+
+		function handleClose() {
+			contactDialog.close();
+			successNotify.open();
+		}
+
+		var successNotify = new _notifications2.default({
+			content: successContent,
+			timeout: 2500,
+			type: 'success'
+		});
+
+		var failureNotify = new _notifications2.default({
+			content: failureContent,
+			timeout: 2500,
+			type: 'danger'
+		});
+
+		onBlur();
+		onFocus();
+
+		window.addEventListener('message-delivered', handleClose);
+		window.addEventListener('message-failed', failureNotify.open);
+	}
 
 /***/ }
 /******/ ]);

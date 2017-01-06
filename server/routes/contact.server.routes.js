@@ -9,5 +9,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', contact.contact);
+router.post('/newsletter', contact.subscribe);
 
 module.exports = router;

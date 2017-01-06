@@ -4,10 +4,10 @@ import axios from 'axios'
 import { contact } from '../utils/contact'
 
 export function landing() {
-	let contactDialogTrigger = document.getElementById('landing-contact');
+//	let contactDialogTrigger = document.getElementById('landing-contact');
 	let contactContent = document.getElementById('contact-dialog');
 	let formWrapper = document.getElementById('landing-form-wrapper');
-	let email = doucument.getElementById('landing-email');
+	let email = document.getElementById('landing-email');
 	let signupButton = document.getElementById('signup-button');
 
 	let successContent = document.getElementById('newsletter-success');
@@ -26,36 +26,37 @@ export function landing() {
 	function newsletter() {
 		if (signupButton.classList.contains('signup-button-valid')) {
 			signupButton.classList.add('signup-button-loading');
+		
+
+			let data = {};
+			data.email = email.value;
+
+			axios.post('http://localhost:8000/contact/newsletter', {
+				email: data.email,
+
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+			.then((response) => {
+				if (response.data.success) {
+					resetForm();
+					signupButton.classList.remove('signup-button-loading');
+					signupButton.classList.add('signup-button-success');
+
+					var success = new Event('newsletter-success');
+					window.dispatchEvent(success);
+				} else {
+					signupButton.classList.remove('signup-button-loading');
+
+					var failure = new Event('newsletter-failure');
+					window.dispatchEvent(failure);
+				}
+			});
+		} else {
+			var error = new Event('newsletter-error');
+			window.dispatchEvent(error);
 		}
-
-		let data = {};
-		data.email = email.value;
-
-		axios.post('http://localhost:8000/contact/newsletter', {
-			email: data.email,
-
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-		.then((response) => {
-			if (response.data.success) {
-				resetForm();
-				signupButton.classList.remove('signup-button-loading');
-				signupButton.classList.add('signup-button-success');
-
-				var success = new Event('newsletter-success');
-				window.dispatchEvent(success);
-			} else {
-				signupButton.classList.remove('signup-button-loading');
-
-				var failure = new Event('newsletter-failure');
-				window.dispatchEvent(failure);
-			}
-		});
-	} else {
-		var error = new Event('newsletter-error');
-		window.dispatchEvent(error);
 	}
 
 	function resetForm() {
@@ -80,5 +81,5 @@ export function landing() {
 		timeout: 2500
 	});
 	
-	contactDialogTrigger.addEventListener('click', openContact, false);
+	//contactDialogTrigger.addEventListener('click', openContact, false);
 }

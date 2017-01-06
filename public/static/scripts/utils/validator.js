@@ -12,7 +12,6 @@ export function removeBlur(nodes) {
 }
 
 function validateEmail(node) {
-	console.log('meep');
 	var value = node.value;
 	var atpos = value.indexOf('@');
 	var dotpos = value.lastIndexOf('.');
@@ -37,18 +36,17 @@ function validateEmail(node) {
 }
 
 function inputBlur() {
-	console.log('grr');
 	var formContent = this.value;
 
 	if (formContent == '') {
 		this.parentNode.classList.add('blank');
 	}
 
-	if (this.parentNode.classList.contains('contact-form-email')) {
+	if (this.parentNode.classList.contains('form-email')) {
 		validateEmail(this);
 	}
 
-	if (formContent != '' && !this.parentNode.classList.contains('contact-form-email')) {
+	if (formContent != '' && !this.parentNode.classList.contains('form-email')) {
 		if (this.parentNode.classList.contains('blank')) {
 			this.parentNode.classList.remove('blank');
 		}
@@ -60,7 +58,7 @@ function inputBlur() {
 }
 
 function checkValidForm() {
-	var formWrappers = document.querySelectorAll('.contact-form-wrapper');
+	var formWrappers = document.querySelectorAll('.form-wrapper');
 	var submitButton = document.getElementById('contact-send');
 	var valid = 0;
 
@@ -71,7 +69,7 @@ function checkValidForm() {
 	});
 
 	if (valid == 4) {
-		submitButton.classList.add('contact-form-valid');
+		submitButton.classList.add('form-valid');
 	}
 }
 
