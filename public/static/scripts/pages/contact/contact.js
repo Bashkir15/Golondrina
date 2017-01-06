@@ -38,6 +38,7 @@ export function contact() {
 			})
 			.then((response) => {
 				if (response.data.success) {
+					resetForm();
 					submitButton.classList.remove('contact-form-loading');
 					submitButton.classList.add("contact-form-success");
 
@@ -56,6 +57,20 @@ export function contact() {
 			var error = new Event('message-error');
 			window.dispatchEvent(error);
 		}
+	}
+
+	function resetForm() {
+		Array.prototype.forEach.call(formInputs, (input) => {
+			input.value = "";
+
+			if (input.parentNode.classList.contains('valid')) {
+				input.parentNode.classList.remove('valid');
+			}
+
+			if (input.parentNode.classList.contains('email-valid')) {
+				input.parentNode.classList.remove('email-valid');
+			}
+		});
 	}
 
 	function removeEvents() {
