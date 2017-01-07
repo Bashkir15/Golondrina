@@ -9,6 +9,8 @@ import cmq from 'gulp-combine-media-queries';
 import rename from 'gulp-rename';
 import browserSync from 'browser-sync';
 import sourceMaps from 'gulp-sourcemaps';
+import imagemin from 'gulp-imagemin'
+import pngquant from 'imagemin-pngquant'
 
 const paths = {
 	dev: {
@@ -22,7 +24,7 @@ const paths = {
 	prod: {
 		css: './dist/styles',
 		js: './dist/scripts',
-		images: './dist/images'
+		images: './dist/static/images'
 	}
 };
 
@@ -33,6 +35,15 @@ gulp.task('browserSync', () => {
 		files: ["public/**/*.*"],
 		port: 7000
 	});
+});
+
+gulp.task('images', () => {
+	gulp.src(paths.dev.images)
+		.pipe(imagemin({
+			progressive: true,
+			use: [pngquant()]
+		}))
+		.pipe(gulp.dest(paths.prod.images))
 });
 
 gulp.task('styles', () => {
