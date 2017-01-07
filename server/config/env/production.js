@@ -10,5 +10,7 @@ module.exports = {
 			user: process.env.USER,
 			pass: process.env.PASS
 		}
-	}
+	},
+
+	db: process.env.MONGODB_URI
 };
