@@ -56,15 +56,15 @@
 
 	var _landing = __webpack_require__(3);
 
-	var _signup = __webpack_require__(4);
+	var _signup = __webpack_require__(34);
 
-	var _login = __webpack_require__(31);
+	var _login = __webpack_require__(35);
 
-	var _admin = __webpack_require__(32);
+	var _admin = __webpack_require__(36);
 
-	var _gallery = __webpack_require__(33);
+	var _gallery = __webpack_require__(37);
 
-	var _contact = __webpack_require__(35);
+	var _contact = __webpack_require__(39);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -420,24 +420,27 @@
 	});
 	exports.landing = landing;
 
-	var _dialog = __webpack_require__(38);
+	var _dialog = __webpack_require__(4);
 
 	var _dialog2 = _interopRequireDefault(_dialog);
 
-	var _notifications = __webpack_require__(36);
+	var _notifications = __webpack_require__(5);
 
 	var _notifications2 = _interopRequireDefault(_notifications);
 
-	var _axios = __webpack_require__(5);
+	var _axios = __webpack_require__(6);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
-	var _contact = __webpack_require__(39);
+	var _contact = __webpack_require__(32);
+
+	var _validator = __webpack_require__(33);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function landing() {
 		//	let contactDialogTrigger = document.getElementById('landing-contact');
+		var input = document.querySelectorAll('.form-input');
 		var contactContent = document.getElementById('contact-dialog');
 		var formWrapper = document.getElementById('landing-form-wrapper');
 		var email = document.getElementById('landing-email');
@@ -447,18 +450,19 @@
 		var failureContent = document.getElementById('newsletter-failure');
 		var errorContent = document.getElementById('newsletter-error');
 
-		var contactDialog = new _dialog2.default({
-			content: contactContent
-		});
-
-		function openContact() {
-			contactDialog.open();
-			(0, _contact.contact)();
-		}
+		/*	let contactDialog = new modal({
+	 		content: contactContent
+	 	});
+	 
+	 	function openContact() {
+	 		contactDialog.open();
+	 		contact();
+	 	} */
 
 		function newsletter() {
-			if (signupButton.classList.contains('signup-button-valid')) {
-				signupButton.classList.add('signup-button-loading');
+			console.log('meh');
+			if (formWrapper.classList.contains('email-valid')) {
+				signupButton.classList.add('form-loading');
 
 				var data = {};
 				data.email = email.value;
@@ -472,13 +476,13 @@
 				}).then(function (response) {
 					if (response.data.success) {
 						resetForm();
-						signupButton.classList.remove('signup-button-loading');
-						signupButton.classList.add('signup-button-success');
+						signupButton.classList.remove('form-loading');
+						signupButton.classList.add('form-success');
 
 						var success = new Event('newsletter-success');
 						window.dispatchEvent(success);
 					} else {
-						signupButton.classList.remove('signup-button-loading');
+						signupButton.classList.remove('form-loading');
 
 						var failure = new Event('newsletter-failure');
 						window.dispatchEvent(failure);
@@ -493,6 +497,8 @@
 		function resetForm() {
 			email.value = "";
 		}
+
+		(0, _validator.onBlur)(input);
 
 		var newsletterSuccess = new _notifications2.default({
 			content: successContent,
@@ -512,77 +518,461 @@
 			timeout: 2500
 		});
 
+		window.addEventListener('newsletter-success', newsletterSuccess.open, false);
+		window.addEventListener('newsletter-failure', newsletterFailure.open, false);
+		window.addEventListener('newsletter-error', newsletterError.open, false);
+		signupButton.addEventListener('click', newsletter, false);
 		//contactDialogTrigger.addEventListener('click', openContact, false);
 	}
 
 /***/ },
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.signup = signup;
 
-	var _axios = __webpack_require__(5);
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	var _axios2 = _interopRequireDefault(_axios);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	function signup() {
-		var submitButton = document.getElementById('signup-submit');
-		var email = document.getElementById('signup-email');
-		var password = document.getElementById('signup-password');
-		var name = document.getElementById('signup-name');
-		var username = document.getElementById('signup-username');
+	var modal = function () {
+		function modal(options) {
+			_classCallCheck(this, modal);
 
-		function submit() {
-			var data = {};
+			this.dialog = null;
+			this.overlay = null;
+			this.closeButton = null;
 
-			data.name = name;
-			data.email = email;
-			data.password = password;
+			this.defaults = {
+				className: 'dialog-effect',
+				content: "",
+				overlay: true,
+				closeKeys: [27],
+				closeButton: true,
+				onBeforeOpen: null,
+				onBeforeClose: null,
+				transitions: true,
+				onOpen: null,
+				onClose: null
+			};
 
-			_axios2.default.post('http://localhost:8000/users', {
-				name: data.name.value,
-				email: data.email.value,
-				password: data.password.value,
-
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}).then(function (response) {
-				if (response.data.success) {
-					var admin = JSON.stringify(response.data.res.record);
-
-					window.localStorage.setItem('admin', admin);
-					window.localStorage.setItem('golondrina-token', response.data.res.token);
-				}
-			});
+			this._applySettings(options);
+			this.open = this._open.bind(this);
+			this.close = this._close.bind(this);
+			//this.transitionEnd = this._transitionSniff();
 		}
 
-		submitButton.addEventListener('click', submit);
-	}
+		_createClass(modal, [{
+			key: '_applySettings',
+			value: function _applySettings(options) {
+				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+					for (var i in options) {
+						if (options.hasOwnProperty(i)) {
+							this.defaults[i] = options[i];
+						}
+					}
+				}
+			}
+		}, {
+			key: '_open',
+			value: function _open() {
+				document.body.classList.add('dialog-open');
+				this._buildOut.call(this);
+				this._checkOverflow.call(this);
+
+				this.dialog.classList.add('dialog-open');
+				this.overlay.classList.add('dialog-open');
+
+				this._checkOverflow.call(this);
+				this._attachEvents();
+			}
+		}, {
+			key: '_close',
+			value: function _close() {
+				var _this = this;
+
+				this.overlay.classList.remove('dialog-open');
+				this.dialog.classList.remove('dialog-open');
+				document.body.classList.remove('dialog-open');
+
+				this._destroyEvents();
+
+				this.overlay.addEventListener('transitionend', function () {
+					_this.overlay.parentNode.removeChild(_this.overlay);
+				});
+			}
+		}, {
+			key: '_buildOut',
+			value: function _buildOut() {
+				var content;
+				var contentHolder = document.createElement('div');
+				contentHolder.classList.add('dialog-content');
+
+				this.overlay = document.createElement('div');
+				this.overlay.classList.add('dialog-overlay');
+
+				this.dialog = document.createElement('div');
+				this.dialog.classList.add('dialog');
+
+				if (typeof this.defaults.content === 'string') {
+					content = this.defaults.content;
+				} else {
+					content = this.defaults.content.innerHTML;
+				}
+
+				if (this.defaults.closeButton === true) {
+					this.closeButton = document.createElement('button');
+					this.closeButton.innerHTML = '<span class=\'icon-close\'>X</span>';
+					this.closeButton.classList.add('dialog-close-button');
+					this.dialog.appendChild(this.closeButton);
+				}
+
+				contentHolder.innerHTML = content;
+				this.dialog.appendChild(contentHolder);
+				this.overlay.appendChild(this.dialog);
+				document.body.insertBefore(this.overlay, document.body.firstChild);
+			}
+
+			/* _transitionSniff() {
+	  	if (this.defaults.transitions === false) {
+	  		return;
+	  	}
+	  		var el = document.createElement('div');
+	  	var transitions = {
+	  		'transition': 'transitionend',
+	  		'OTransition': 'otransitionend',
+	  		'MozTransition': 'transitionend',
+	  		'WebkitTransition': 'webkitTransitionEnd'
+	  	};
+	  		for (var i in transitions) {
+	  		if (transitions.hasOwnProperty(i) && el.style[i] !== undefined) {
+	  			return transitions[i];
+	  		}
+	  	}
+	  	}
+	  	_open() {
+	  	if (typeof this.defaults.onBeforeOpen === 'function') {
+	  		this.defaults.onBeforeOpen.call(this, e);
+	  	}
+	  		this._buildOut.call(this);
+	  	this._checkOverflow.call(this);
+	  		/* window.getComputedStyle(this.dialog).height;
+	  	if (this.dialog.offsetHeight > window.innerHeight) {
+	  		this.dialog.classList.add('dialog-anchored');
+	  		this.dialog.style.top = 20 + "px";
+	  	} 
+	  		this.dialog.classList.add('dialog-open');
+	  	this.overlay.classList.add('dialog-open');
+	  	document.body.classList.add('dialog-open');
+	  	
+	  	//document.querySelector('.landing-page-content').classList.add('dialog-open');
+	  		document.body.style.overflowY = 'hidden';
+	  	this._checkOverflow.call(this);
+	  		this._attachEvents();
+	  		if (typeof this.defaults.onOpen === 'function') {
+	  		this.defaults.onOpen.call(this, e);
+	  	}
+	  }
+	  	_close() {
+	  		if (typeof this.defaults.onBeforeClose === 'function') {
+	  		this.defaults.onBeforeClose.call(this, e);
+	  	}
+	  		this.dialog.className = this.dialog.className.replace(" dialog-open", "");
+	  	this.overlay.className = this.overlay.className.replace(" dialog-open", "");
+	  	document.querySelector('.landing-page-content').classList.remove('dialog-open');
+	  	document.body.style.overflowY = 'auto';
+	  		this._destroyEvents();
+	  		this.dialog.addEventListener('transitionend', () => {
+	  		this.dialog.parentNode.removeChild(this.dialog);
+	  	}, false);
+	  		this.overlay.addEventListener('transitionend', () => {
+	  		this.overlay.parentNode.removeChild(this.overlay);
+	  	}, false);
+	  		document.body.style.height = 'auto';
+	  	document.body.style.overflowY = 'auto';
+	  		if (typeof this.defaults.onClose === 'function') {
+	  		this.defaults.onClose.call(this, e);
+	  	}
+	  }
+	  	_buildOut() {
+	  	let content;
+	  	let contentHolder;
+	  	let docFrag;
+	  		if (typeof this.defaults.content === 'string') {
+	  		content = this.defaults.content;
+	  	} else {
+	  		content = this.defaults.content.innerHTML;
+	  	}
+	  		docFrag = document.createDocumentFragment();
+	  		this.dialog = document.createElement("div");
+	  	this.dialog.className = 'dialog ' + this.defaults.className;
+	  
+	  	//this.dialog.style.top = window.pageYOffset + (window.innerHeight / 2) + "px";
+	  	//this.dialog.style.left = (window.innerWidth + this.dialog.offsetWidth) / 2 + "px";
+	  		if (this.defaults.closeButton === true) {
+	  		this.closeButton = document.createElement('button');
+	  		this.closeButton.innerHTML = 	`<span class='icon-close'>X</span>`;
+	  		this.closeButton.classList.add('dialog-close-button');
+	  		this.dialog.appendChild(this.closeButton);
+	  	}
+	  		if (this.defaults.overlay === true) {
+	  		this.overlay = document.createElement('div');
+	  		this.overlay.className = "dialog-overlay " + this.defaults.className;
+	  		docFrag.appendChild(this.overlay);
+	  	}
+	  		contentHolder = document.createElement('div');
+	  	contentHolder.className = "dialog-content";
+	  	contentHolder.innerHTML = content;
+	  	this.dialog.appendChild(contentHolder);
+	  	docFrag.appendChild(this.dialog);
+	  	document.body.appendChild(docFrag);
+	  } */
+
+		}, {
+			key: '_isOverflow',
+			value: function _isOverflow() {
+				var viewportHeight = window.innerHeight;
+				var dialogHeight = this.dialog.clientHeight;
+				var isOverflow = dialogHeight < viewportHeight ? false : true;
+
+				return isOverflow;
+			}
+		}, {
+			key: '_checkOverflow',
+			value: function _checkOverflow() {
+				if (this.dialog.classList.contains('dialog-open')) {
+					if (this._isOverflow()) {
+						this.overlay.classList.add('dialog-overflow');
+					} else {
+						this.overlay.classList.remove('dialog-overflow');
+					}
+				}
+			}
+		}, {
+			key: '_closeKeyHandler',
+			value: function _closeKeyHandler(e) {
+				if (this.defaults.closeKeys.indexOf(e.which) > -1) {
+					e.preventDefault();
+					this.close();
+				}
+			}
+		}, {
+			key: '_attachEvents',
+			value: function _attachEvents() {
+				var _closeKeyHandler = this._closeKeyHandler.bind(this);
+
+				//	this.overlay.addEventListener('click', this.close, false);
+
+				if (this.closeButton) {
+					this.closeButton.addEventListener('click', this.close);
+				}
+
+				document.body.addEventListener('keydown', _closeKeyHandler, false);
+			}
+		}, {
+			key: '_destroyEvents',
+			value: function _destroyEvents() {
+				var _closeKeyHandler = this._closeKeyHandler.bind(this);
+
+				this.overlay.removeEventListener('click', this.close);
+				this.closeButton.removeEventListener('click', this.close);
+				document.body.addEventListener('keydown', _closeKeyHandler);
+			}
+		}]);
+
+		return modal;
+	}();
+
+	exports.default = modal;
 
 /***/ },
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	module.exports = __webpack_require__(6);
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var notifications = function () {
+		function notifications(options) {
+			_classCallCheck(this, notifications);
+
+			this.container = null;
+			this.count = 0;
+
+			this.defaults = {
+				notification: null,
+				timeout: 0,
+				type: 'alert',
+				content: "",
+				posX: 'right',
+				posY: 'bottom'
+			};
+
+			this.open = this._open.bind(this);
+			this.close = this._close.bind(this);
+			this._applySettings(options);
+		}
+
+		_createClass(notifications, [{
+			key: '_applySettings',
+			value: function _applySettings(options) {
+				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+					for (var i in options) {
+						if (options.hasOwnProperty(i)) {
+							this.defaults[i] = options[i];
+						}
+					}
+				}
+			}
+		}, {
+			key: '_open',
+			value: function _open() {
+				var _this = this;
+
+				var notifyId = "notification-" + this.count;
+
+				this._buildOut.call(this);
+
+				setTimeout(function () {
+					_this.container.classList.add('shown');
+					_this.container.setAttribute('id', notifyId);
+				}, 100);
+
+				if (this.defaults.timeout > 0) {
+					setTimeout(function () {
+						_this.close(notifyId);
+					}, this.defaults.timeout);
+				}
+
+				this.count += 1;
+
+				return notifyId;
+			}
+		}, {
+			key: '_close',
+			value: function _close(notificationId) {
+				var notification = document.getElementById(notificationId);
+
+				if (notification) {
+					notification.classList.remove('shown');
+
+					setTimeout(function () {
+						notification.parentNode.removeChild(notification);
+					}, 600);
+
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}, {
+			key: '_buildOut',
+			value: function _buildOut() {
+				var _container = document.createElement('div');
+				var _contentHolder = document.createElement('div');
+				var _content;
+
+				_container.className = 'notification-container';
+				_contentHolder.className = 'notification';
+
+				this.container = _container;
+				this.container.style.position = "fixed";
+
+				if (this.defaults.content === 'string') {
+					_content = this.defaults.content;
+				} else {
+					_content = this.defaults.content.innerHTML;
+				}
+
+				this._checkType(_contentHolder);
+				this._checkPosition();
+
+				_contentHolder.innerHTML = _content;
+				this.container.appendChild(_contentHolder);
+				document.body.appendChild(this.container);
+			}
+		}, {
+			key: '_checkType',
+			value: function _checkType(item) {
+				switch (this.defaults.type) {
+					case "success":
+						item.classList.add('success');
+						break;
+					case "danger":
+						item.classList.add('danger');
+						break;
+					case "warning":
+						item.classList.add('warning');
+						break;
+					case "alert":
+						item.classList.add('alert');
+					default:
+						item.classList.add('alert');
+				}
+			}
+		}, {
+			key: '_checkPosition',
+			value: function _checkPosition() {
+				switch (this.defaults.posX) {
+					case "right":
+						this.container.style.right = 20 + "px";
+						break;
+					case "left":
+						this.container.style.left = 20 + "px";
+						break;
+					default:
+						this.container.style.right = 20 + "px";
+				}
+
+				switch (this.defaults.posY) {
+					case "top":
+						this.container.style.top = 20 + "px";
+						break;
+					case "bottom":
+						this.container.style.bottom = 20 + "px";
+						break;
+					default:
+						this.container.style.bottom = 20 + "px";
+				}
+			}
+		}]);
+
+		return notifications;
+	}();
+
+	exports.default = notifications;
 
 /***/ },
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = __webpack_require__(7);
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
-	var utils = __webpack_require__(7);
-	var bind = __webpack_require__(8);
-	var Axios = __webpack_require__(9);
-	var defaults = __webpack_require__(10);
+	var utils = __webpack_require__(8);
+	var bind = __webpack_require__(9);
+	var Axios = __webpack_require__(10);
+	var defaults = __webpack_require__(11);
 
 	/**
 	 * Create an instance of Axios
@@ -615,15 +1005,15 @@
 	};
 
 	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(28);
-	axios.CancelToken = __webpack_require__(29);
-	axios.isCancel = __webpack_require__(25);
+	axios.Cancel = __webpack_require__(29);
+	axios.CancelToken = __webpack_require__(30);
+	axios.isCancel = __webpack_require__(26);
 
 	// Expose all/spread
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(30);
+	axios.spread = __webpack_require__(31);
 
 	module.exports = axios;
 
@@ -632,12 +1022,12 @@
 
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bind = __webpack_require__(8);
+	var bind = __webpack_require__(9);
 
 	/*global toString:true*/
 
@@ -937,7 +1327,7 @@
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -954,17 +1344,17 @@
 
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(10);
-	var utils = __webpack_require__(7);
-	var InterceptorManager = __webpack_require__(22);
-	var dispatchRequest = __webpack_require__(23);
-	var isAbsoluteURL = __webpack_require__(26);
-	var combineURLs = __webpack_require__(27);
+	var defaults = __webpack_require__(11);
+	var utils = __webpack_require__(8);
+	var InterceptorManager = __webpack_require__(23);
+	var dispatchRequest = __webpack_require__(24);
+	var isAbsoluteURL = __webpack_require__(27);
+	var combineURLs = __webpack_require__(28);
 
 	/**
 	 * Create a new instance of Axios
@@ -1045,13 +1435,13 @@
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(7);
-	var normalizeHeaderName = __webpack_require__(12);
+	var utils = __webpack_require__(8);
+	var normalizeHeaderName = __webpack_require__(13);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -1068,10 +1458,10 @@
 	  var adapter;
 	  if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(13);
+	    adapter = __webpack_require__(14);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(13);
+	    adapter = __webpack_require__(14);
 	  }
 	  return adapter;
 	}
@@ -1142,10 +1532,10 @@
 
 	module.exports = defaults;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -1331,12 +1721,12 @@
 
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(7);
+	var utils = __webpack_require__(8);
 
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -1349,18 +1739,18 @@
 
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(7);
-	var settle = __webpack_require__(14);
-	var buildURL = __webpack_require__(17);
-	var parseHeaders = __webpack_require__(18);
-	var isURLSameOrigin = __webpack_require__(19);
-	var createError = __webpack_require__(15);
-	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(20);
+	var utils = __webpack_require__(8);
+	var settle = __webpack_require__(15);
+	var buildURL = __webpack_require__(18);
+	var parseHeaders = __webpack_require__(19);
+	var isURLSameOrigin = __webpack_require__(20);
+	var createError = __webpack_require__(16);
+	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(21);
 
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -1456,7 +1846,7 @@
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(21);
+	      var cookies = __webpack_require__(22);
 
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -1530,15 +1920,15 @@
 	  });
 	};
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createError = __webpack_require__(15);
+	var createError = __webpack_require__(16);
 
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -1564,12 +1954,12 @@
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var enhanceError = __webpack_require__(16);
+	var enhanceError = __webpack_require__(17);
 
 	/**
 	 * Create an Error with the specified message, config, error code, and response.
@@ -1587,7 +1977,7 @@
 
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1612,12 +2002,12 @@
 
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(7);
+	var utils = __webpack_require__(8);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -1686,12 +2076,12 @@
 
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(7);
+	var utils = __webpack_require__(8);
 
 	/**
 	 * Parse headers into an object
@@ -1729,12 +2119,12 @@
 
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(7);
+	var utils = __webpack_require__(8);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -1803,7 +2193,7 @@
 
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1845,12 +2235,12 @@
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(7);
+	var utils = __webpack_require__(8);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -1904,12 +2294,12 @@
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(7);
+	var utils = __webpack_require__(8);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -1962,15 +2352,15 @@
 
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(7);
-	var transformData = __webpack_require__(24);
-	var isCancel = __webpack_require__(25);
-	var defaults = __webpack_require__(10);
+	var utils = __webpack_require__(8);
+	var transformData = __webpack_require__(25);
+	var isCancel = __webpack_require__(26);
+	var defaults = __webpack_require__(11);
 
 	/**
 	 * Throws a `Cancel` if cancellation has been requested.
@@ -2047,12 +2437,12 @@
 
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(7);
+	var utils = __webpack_require__(8);
 
 	/**
 	 * Transform the data for a request or a response
@@ -2073,7 +2463,7 @@
 
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2084,7 +2474,7 @@
 
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2104,7 +2494,7 @@
 
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2122,7 +2512,7 @@
 
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2147,12 +2537,12 @@
 
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Cancel = __webpack_require__(28);
+	var Cancel = __webpack_require__(29);
 
 	/**
 	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -2210,7 +2600,7 @@
 
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2243,283 +2633,7 @@
 
 
 /***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.login = login;
-
-	var _axios = __webpack_require__(5);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function login() {
-		var loginEmail = document.getElementById('login-email');
-		var loginPassword = document.getElementById('login-password');
-		var submitButton = document.getElementById('login-submit');
-
-		function submit() {
-			var data = {};
-
-			data.email = loginEmail;
-			data.password = loginPassword;
-
-			_axios2.default.post('http://localhost:8000/users/authenticate', {
-				email: data.email.value,
-				password: data.password.value,
-
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}).then(function (response) {
-				if (response.data.success) {
-					var admin = JSON.stringify(response.data.res.record);
-
-					window.localStorage.setItem('admin', admin);
-					window.localStorage.setItem('golondrina-token', response.data.res.token);
-				}
-			});
-		}
-
-		submitButton.addEventListener('click', submit);
-	}
-
-/***/ },
 /* 32 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.admin = admin;
-	function admin() {
-
-		function checkAdmin() {
-
-			var admin = JSON.parse(window.localStorage.getItem('admin'));
-
-			if (admin) {
-				if (admin.roles.indexOf('admin') == -1) {
-					window.location.href = '/';
-				} else {
-					return;
-				}
-			} else {
-				window.location.href = '/';
-			}
-		}
-
-		checkAdmin();
-	}
-
-/***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.gallery = gallery;
-
-	var _tabs = __webpack_require__(34);
-
-	function gallery() {
-		(0, _tabs.tabs)();
-
-		baguetteBox.run('.gallery', {
-			captions: function captions(element) {
-				return element.getElementsByTagName('img')[0].alt;
-			},
-			animation: 'fadeIn'
-		});
-
-		baguetteBox.run('.gallery-2', {
-			captions: function captions(element) {
-				return element.getElementsByTagName('img')[0].alt;
-			}
-		});
-
-		baguetteBox.run('.gallery-3', {
-			captions: function captions(element) {
-				return element.getElementsByTagName('img')[0].alt;
-			}
-		});
-
-		baguetteBox.run('.gallery-4', {
-			captions: function captions(element) {
-				return element.getElementsByTagName('img')[0].alt;
-			}
-		});
-
-		baguetteBox.run('.gallery-5', {
-			captions: function captions(element) {
-				return element.getElementsByTagName('img')[0].alt;
-			}
-		});
-	}
-
-/***/ },
-/* 34 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.tabs = tabs;
-	function tabs() {
-		var tabWidget = Array.prototype.slice.call(document.querySelectorAll('.js-tab')) || [];
-
-		var tabClickEvent = function tabClickEvent(tabLink, tabLinks, tabPanels, linkIndex, e) {
-			tabLinks.forEach(function (link) {
-				link.setAttribute('tabindex', '-1');
-				link.setAttribute('aria-selected', 'false');
-				link.parentNode.removeAttribute('data-tab-active');
-				link.removeAttribute('data-tab-active');
-			});
-
-			tabLink.setAttribute('tabindex', '0');
-			tabLink.setAttribute('aria-selected', 'true');
-			tabLink.parentNode.setAttribute('data-tab-active', '');
-			tabLink.setAttribute('data-tab-active', '');
-
-			tabPanels.forEach(function (panel, index) {
-				if (index != linkIndex) {
-					panel.setAttribute('aria-hidden', 'true');
-					panel.removeAttribute('data-tab-active');
-				} else {
-					panel.setAttribute('aria-hidden', 'false');
-					panel.setAttribute('data-tab-active', '');
-				}
-			});
-		};
-
-		var keyBoardEvent = function keyBoardEvent(tabLink, tabLinks, tabPanels, tabItems, index, e) {
-			var keyCode = e.key || e.which,
-			    currentTab = tabLinks[index],
-			    previousTab = tabLinks[index - 1],
-			    nextTab = tabLinks[index + 1],
-			    firstTab = tabLinks[0],
-			    lastTab = tabLinks[tabLinks.length - 1];
-
-			switch (keyCode) {
-				case 'ArrowLeft':
-				case 37:
-					e.preventDefault();
-
-					if (!previousTab) {
-						lastTab.focus();
-					} else {
-						previousTab.focus();
-					}
-					break;
-
-				case 'ArrowRight':
-				case 39:
-					e.preventDefault();
-
-					if (!nextTab) {
-						firstTab.focus();
-					} else {
-						nextTab.focus();
-					}
-					break;
-			}
-		};
-
-		tabWidget.forEach(function (tabWidgetInstance, i) {
-			var tabList = tabWidgetInstance.getElementsByTagName('ul')[0],
-			    tabItems = Array.prototype.slice.call(tabList.getElementsByTagName('li')),
-			    tabLinks = [],
-			    tabPanels = Array.prototype.slice.call(tabWidgetInstance.getElementsByTagName('section'));
-
-			tabList.setAttribute('role', 'tablist');
-
-			tabItems.forEach(function (item, index) {
-				var link = item.getElementsByTagName('a')[0];
-
-				tabLinks.push(link);
-
-				item.setAttribute('role', 'presentation');
-
-				if (index == 0) {
-					item.setAttribute('data-tab-active', '');
-				}
-			});
-
-			tabLinks.forEach(function (link, i) {
-				var anchor = link.getAttribute('href').split("#")[1];
-				var attributes = {
-					'id': 'tab-link' + i,
-					'role': 'tab',
-					'tabIndex': '-1',
-					'aria-selected': 'false',
-					'aria-controls': anchor
-				};
-
-				if (i == 0) {
-					attributes['aria-selected'] = 'true';
-					attributes.tabIndex = '0';
-
-					link.setAttribute('data-tab-active', '');
-				}
-
-				for (var key in attributes) {
-					link.setAttribute(key, attributes[key]);
-				}
-
-				link.addEventListener('click', function (e) {
-					e.preventDefault();
-				});
-
-				link.addEventListener('focus', function (e) {
-					tabClickEvent(this, tabLinks, tabPanels, i, e);
-				});
-
-				link.addEventListener('keydown', function (e) {
-					keyBoardEvent(link, tabLinks, tabPanels, tabItems, i, e);
-				});
-			});
-
-			tabPanels.forEach(function (panel, i) {
-				var nextTabLink = document.createElement('a'),
-				    nextTabLinkIndex = i < tabPanels.length - 1 ? i + 1 : 0;
-
-				var attributes = {
-					'role': 'tabpanel',
-					'aria-hidden': 'true',
-					'aria-labelledyby': 'tab-link-' + i
-				};
-
-				nextTabLink.setAttribute('href', '#tab-link-' + nextTabLinkIndex);
-				nextTabLink.textContext = 'Next Tab';
-				panel.appendChild(nextTabLink);
-
-				if (i == 0) {
-					attributes['aria-hidden'] = 'false';
-					panel.setAttribute('data-tab-active', '');
-				}
-
-				for (var key in attributes) {
-					panel.setAttribute(key, attributes[key]);
-				}
-			});
-		});
-	}
-
-/***/ },
-/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2529,651 +2643,11 @@
 	});
 	exports.contact = contact;
 
-	var _axios = __webpack_require__(5);
+	var _axios = __webpack_require__(6);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
-	var _notifications = __webpack_require__(36);
-
-	var _notifications2 = _interopRequireDefault(_notifications);
-
-	var _validator = __webpack_require__(37);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function contact() {
-		var formWrapper = document.querySelectorAll('.form-wrapper');
-		var formInputs = document.querySelectorAll('.form-input');
-		var submitButton = document.querySelector('.contact-send');
-		var name = document.getElementById('contact-name');
-		var email = document.getElementById('contact-email');
-		var phone = document.getElementById('contact-phone');
-		var message = document.getElementById('contact-message');
-
-		var successContent = document.getElementById('contact-success');
-		var failureContent = document.getElementById('contact-failure');
-		var errorContent = document.getElementById('contact-error');
-
-		function submit() {
-			if (submitButton.classList.contains('form-valid')) {
-				submitButton.classList.add('form-loading');
-
-				var data = {};
-				data.name = name.value;
-				data.email = email.value;
-				data.phone = phone.value;
-				data.message = message.value;
-
-				_axios2.default.post('http://localhost:8000/contact', {
-					name: data.name,
-					email: data.email,
-					phone: data.phone,
-					message: data.message,
-
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				}).then(function (response) {
-					if (response.data.success) {
-						resetForm();
-						submitButton.classList.remove('form-loading');
-						submitButton.classList.add("form-success");
-
-						var success = new Event('message-delivered');
-						window.dispatchEvent(success);
-						removeEvents();
-					} else {
-						submitButton.classList.remove('form-loading');
-						submitButton.classList.add('form-failure');
-
-						var failure = new Event('message-failed');
-						window.dispatchEvent(failure);
-					}
-				});
-			} else {
-				var error = new Event('message-error');
-				window.dispatchEvent(error);
-			}
-		}
-
-		function resetForm() {
-			Array.prototype.forEach.call(formInputs, function (input) {
-				input.value = "";
-
-				if (input.parentNode.classList.contains('valid')) {
-					input.parentNode.classList.remove('valid');
-				}
-
-				if (input.parentNode.classList.contains('email-valid')) {
-					input.parentNode.classList.remove('email-valid');
-				}
-			});
-		}
-
-		function removeEvents() {
-			submitButton.removeEventListener('click', submit);
-			(0, _validator.removeBlur)(formInputs);
-		}
-
-		var successNotify = new _notifications2.default({
-			content: successContent,
-			type: 'success',
-			timeout: 2500
-		});
-
-		var failureNotify = new _notifications2.default({
-			content: failureContent,
-			type: 'danger',
-			timeout: 2500
-		});
-
-		var errorNotify = new _notifications2.default({
-			content: errorContent,
-			type: 'warning',
-			timeout: 2500
-		});
-
-		(0, _validator.onBlur)(formInputs);
-
-		submitButton.addEventListener('click', submit);
-		window.addEventListener('message-delivered', successNotify.open);
-		window.addEventListener('message-failed', failureNotify.open);
-		window.addEventListener('message-error', errorNotify.open);
-	}
-
-/***/ },
-/* 36 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var notifications = function () {
-		function notifications(options) {
-			_classCallCheck(this, notifications);
-
-			this.container = null;
-			this.count = 0;
-
-			this.defaults = {
-				notification: null,
-				timeout: 0,
-				type: 'alert',
-				content: "",
-				posX: 'right',
-				posY: 'bottom'
-			};
-
-			this.open = this._open.bind(this);
-			this.close = this._close.bind(this);
-			this._applySettings(options);
-		}
-
-		_createClass(notifications, [{
-			key: '_applySettings',
-			value: function _applySettings(options) {
-				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-					for (var i in options) {
-						if (options.hasOwnProperty(i)) {
-							this.defaults[i] = options[i];
-						}
-					}
-				}
-			}
-		}, {
-			key: '_open',
-			value: function _open() {
-				var _this = this;
-
-				var notifyId = "notification-" + this.count;
-
-				this._buildOut.call(this);
-
-				setTimeout(function () {
-					_this.container.classList.add('shown');
-					_this.container.setAttribute('id', notifyId);
-				}, 100);
-
-				if (this.defaults.timeout > 0) {
-					setTimeout(function () {
-						_this.close(notifyId);
-					}, this.defaults.timeout);
-				}
-
-				this.count += 1;
-
-				return notifyId;
-			}
-		}, {
-			key: '_close',
-			value: function _close(notificationId) {
-				var notification = document.getElementById(notificationId);
-
-				if (notification) {
-					notification.classList.remove('shown');
-
-					setTimeout(function () {
-						notification.parentNode.removeChild(notification);
-					}, 600);
-
-					return true;
-				} else {
-					return false;
-				}
-			}
-		}, {
-			key: '_buildOut',
-			value: function _buildOut() {
-				var _container = document.createElement('div');
-				var _contentHolder = document.createElement('div');
-				var _content;
-
-				_container.className = 'notification-container';
-				_contentHolder.className = 'notification';
-
-				this.container = _container;
-				this.container.style.position = "fixed";
-
-				if (this.defaults.content === 'string') {
-					_content = this.defaults.content;
-				} else {
-					_content = this.defaults.content.innerHTML;
-				}
-
-				this._checkType(_contentHolder);
-				this._checkPosition();
-
-				_contentHolder.innerHTML = _content;
-				this.container.appendChild(_contentHolder);
-				document.body.appendChild(this.container);
-			}
-		}, {
-			key: '_checkType',
-			value: function _checkType(item) {
-				switch (this.defaults.type) {
-					case "success":
-						item.classList.add('success');
-						break;
-					case "danger":
-						item.classList.add('danger');
-						break;
-					case "warning":
-						item.classList.add('warning');
-						break;
-					case "alert":
-						item.classList.add('alert');
-					default:
-						item.classList.add('alert');
-				}
-			}
-		}, {
-			key: '_checkPosition',
-			value: function _checkPosition() {
-				switch (this.defaults.posX) {
-					case "right":
-						this.container.style.right = 20 + "px";
-						break;
-					case "left":
-						this.container.style.left = 20 + "px";
-						break;
-					default:
-						this.container.style.right = 20 + "px";
-				}
-
-				switch (this.defaults.posY) {
-					case "top":
-						this.container.style.top = 20 + "px";
-						break;
-					case "bottom":
-						this.container.style.bottom = 20 + "px";
-						break;
-					default:
-						this.container.style.bottom = 20 + "px";
-				}
-			}
-		}]);
-
-		return notifications;
-	}();
-
-	exports.default = notifications;
-
-/***/ },
-/* 37 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.onBlur = onBlur;
-	exports.removeBlur = removeBlur;
-	function onBlur(nodes) {
-		Array.prototype.forEach.call(nodes, function (node) {
-			node.addEventListener('blur', inputBlur);
-		});
-	}
-
-	function removeBlur(nodes) {
-		Array.prototype.forEach.call(nodes, function (node) {
-			node.removeEventListener('blur', inputBlur);
-		});
-	}
-
-	function validateEmail(node) {
-		var value = node.value;
-		var atpos = value.indexOf('@');
-		var dotpos = value.lastIndexOf('.');
-
-		if (atpos < 1 || dotpos - atpos < 2) {
-			if (node.parentNode.classList.contains('blank')) {
-				node.parentNode.classList.remove('blank');
-			}
-
-			node.parentNode.classList.add('email-invalid');
-		} else {
-			if (node.parentNode.classList.contains('blank')) {
-				node.parentNode.classList.remove('blank');
-			}
-
-			if (node.parentNode.classList.contains('email-invalid')) {
-				node.parentNode.classList.remove('email-invalid');
-			}
-
-			node.parentNode.classList.add('email-valid');
-		}
-	}
-
-	function inputBlur() {
-		var formContent = this.value;
-
-		if (formContent == '') {
-			this.parentNode.classList.add('blank');
-		}
-
-		if (this.parentNode.classList.contains('form-email')) {
-			validateEmail(this);
-		}
-
-		if (formContent != '' && !this.parentNode.classList.contains('form-email')) {
-			if (this.parentNode.classList.contains('blank')) {
-				this.parentNode.classList.remove('blank');
-			}
-
-			this.parentNode.classList.add('valid');
-		}
-
-		checkValidForm();
-	}
-
-	function checkValidForm() {
-		var formWrappers = document.querySelectorAll('.form-wrapper');
-		var submitButton = document.querySelector('.form-send');
-		var valid = 0;
-
-		Array.prototype.forEach.call(formWrappers, function (wrapper) {
-			if (wrapper.classList.contains('valid') || wrapper.classList.contains('email-valid')) {
-				valid++;
-			}
-		});
-
-		if (valid == 4) {
-			submitButton.classList.add('form-valid');
-		}
-	}
-
-/***/ },
-/* 38 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var modal = function () {
-		function modal(options) {
-			_classCallCheck(this, modal);
-
-			this.dialog = null;
-			this.overlay = null;
-			this.closeButton = null;
-
-			this.defaults = {
-				className: 'dialog-effect',
-				content: "",
-				overlay: true,
-				closeKeys: [27],
-				closeButton: true,
-				onBeforeOpen: null,
-				onBeforeClose: null,
-				transitions: true,
-				onOpen: null,
-				onClose: null
-			};
-
-			this._applySettings(options);
-			this.open = this._open.bind(this);
-			this.close = this._close.bind(this);
-			//this.transitionEnd = this._transitionSniff();
-		}
-
-		_createClass(modal, [{
-			key: '_applySettings',
-			value: function _applySettings(options) {
-				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-					for (var i in options) {
-						if (options.hasOwnProperty(i)) {
-							this.defaults[i] = options[i];
-						}
-					}
-				}
-			}
-		}, {
-			key: '_open',
-			value: function _open() {
-				document.body.classList.add('dialog-open');
-				this._buildOut.call(this);
-				this._checkOverflow.call(this);
-
-				this.dialog.classList.add('dialog-open');
-				this.overlay.classList.add('dialog-open');
-
-				this._checkOverflow.call(this);
-				this._attachEvents();
-			}
-		}, {
-			key: '_close',
-			value: function _close() {
-				var _this = this;
-
-				this.overlay.classList.remove('dialog-open');
-				this.dialog.classList.remove('dialog-open');
-				document.body.classList.remove('dialog-open');
-
-				this._destroyEvents();
-
-				this.overlay.addEventListener('transitionend', function () {
-					_this.overlay.parentNode.removeChild(_this.overlay);
-				});
-			}
-		}, {
-			key: '_buildOut',
-			value: function _buildOut() {
-				var content;
-				var contentHolder = document.createElement('div');
-				contentHolder.classList.add('dialog-content');
-
-				this.overlay = document.createElement('div');
-				this.overlay.classList.add('dialog-overlay');
-
-				this.dialog = document.createElement('div');
-				this.dialog.classList.add('dialog');
-
-				if (typeof this.defaults.content === 'string') {
-					content = this.defaults.content;
-				} else {
-					content = this.defaults.content.innerHTML;
-				}
-
-				if (this.defaults.closeButton === true) {
-					this.closeButton = document.createElement('button');
-					this.closeButton.innerHTML = '<span class=\'icon-close\'>X</span>';
-					this.closeButton.classList.add('dialog-close-button');
-					this.dialog.appendChild(this.closeButton);
-				}
-
-				contentHolder.innerHTML = content;
-				this.dialog.appendChild(contentHolder);
-				this.overlay.appendChild(this.dialog);
-				document.body.insertBefore(this.overlay, document.body.firstChild);
-			}
-
-			/* _transitionSniff() {
-	  	if (this.defaults.transitions === false) {
-	  		return;
-	  	}
-	  		var el = document.createElement('div');
-	  	var transitions = {
-	  		'transition': 'transitionend',
-	  		'OTransition': 'otransitionend',
-	  		'MozTransition': 'transitionend',
-	  		'WebkitTransition': 'webkitTransitionEnd'
-	  	};
-	  		for (var i in transitions) {
-	  		if (transitions.hasOwnProperty(i) && el.style[i] !== undefined) {
-	  			return transitions[i];
-	  		}
-	  	}
-	  	}
-	  	_open() {
-	  	if (typeof this.defaults.onBeforeOpen === 'function') {
-	  		this.defaults.onBeforeOpen.call(this, e);
-	  	}
-	  		this._buildOut.call(this);
-	  	this._checkOverflow.call(this);
-	  		/* window.getComputedStyle(this.dialog).height;
-	  	if (this.dialog.offsetHeight > window.innerHeight) {
-	  		this.dialog.classList.add('dialog-anchored');
-	  		this.dialog.style.top = 20 + "px";
-	  	} 
-	  		this.dialog.classList.add('dialog-open');
-	  	this.overlay.classList.add('dialog-open');
-	  	document.body.classList.add('dialog-open');
-	  	
-	  	//document.querySelector('.landing-page-content').classList.add('dialog-open');
-	  		document.body.style.overflowY = 'hidden';
-	  	this._checkOverflow.call(this);
-	  		this._attachEvents();
-	  		if (typeof this.defaults.onOpen === 'function') {
-	  		this.defaults.onOpen.call(this, e);
-	  	}
-	  }
-	  	_close() {
-	  		if (typeof this.defaults.onBeforeClose === 'function') {
-	  		this.defaults.onBeforeClose.call(this, e);
-	  	}
-	  		this.dialog.className = this.dialog.className.replace(" dialog-open", "");
-	  	this.overlay.className = this.overlay.className.replace(" dialog-open", "");
-	  	document.querySelector('.landing-page-content').classList.remove('dialog-open');
-	  	document.body.style.overflowY = 'auto';
-	  		this._destroyEvents();
-	  		this.dialog.addEventListener('transitionend', () => {
-	  		this.dialog.parentNode.removeChild(this.dialog);
-	  	}, false);
-	  		this.overlay.addEventListener('transitionend', () => {
-	  		this.overlay.parentNode.removeChild(this.overlay);
-	  	}, false);
-	  		document.body.style.height = 'auto';
-	  	document.body.style.overflowY = 'auto';
-	  		if (typeof this.defaults.onClose === 'function') {
-	  		this.defaults.onClose.call(this, e);
-	  	}
-	  }
-	  	_buildOut() {
-	  	let content;
-	  	let contentHolder;
-	  	let docFrag;
-	  		if (typeof this.defaults.content === 'string') {
-	  		content = this.defaults.content;
-	  	} else {
-	  		content = this.defaults.content.innerHTML;
-	  	}
-	  		docFrag = document.createDocumentFragment();
-	  		this.dialog = document.createElement("div");
-	  	this.dialog.className = 'dialog ' + this.defaults.className;
-	  
-	  	//this.dialog.style.top = window.pageYOffset + (window.innerHeight / 2) + "px";
-	  	//this.dialog.style.left = (window.innerWidth + this.dialog.offsetWidth) / 2 + "px";
-	  		if (this.defaults.closeButton === true) {
-	  		this.closeButton = document.createElement('button');
-	  		this.closeButton.innerHTML = 	`<span class='icon-close'>X</span>`;
-	  		this.closeButton.classList.add('dialog-close-button');
-	  		this.dialog.appendChild(this.closeButton);
-	  	}
-	  		if (this.defaults.overlay === true) {
-	  		this.overlay = document.createElement('div');
-	  		this.overlay.className = "dialog-overlay " + this.defaults.className;
-	  		docFrag.appendChild(this.overlay);
-	  	}
-	  		contentHolder = document.createElement('div');
-	  	contentHolder.className = "dialog-content";
-	  	contentHolder.innerHTML = content;
-	  	this.dialog.appendChild(contentHolder);
-	  	docFrag.appendChild(this.dialog);
-	  	document.body.appendChild(docFrag);
-	  } */
-
-		}, {
-			key: '_isOverflow',
-			value: function _isOverflow() {
-				var viewportHeight = window.innerHeight;
-				var dialogHeight = this.dialog.clientHeight;
-				var isOverflow = dialogHeight < viewportHeight ? false : true;
-
-				return isOverflow;
-			}
-		}, {
-			key: '_checkOverflow',
-			value: function _checkOverflow() {
-				if (this.dialog.classList.contains('dialog-open')) {
-					if (this._isOverflow()) {
-						this.overlay.classList.add('dialog-overflow');
-					} else {
-						this.overlay.classList.remove('dialog-overflow');
-					}
-				}
-			}
-		}, {
-			key: '_closeKeyHandler',
-			value: function _closeKeyHandler(e) {
-				if (this.defaults.closeKeys.indexOf(e.which) > -1) {
-					e.preventDefault();
-					this.close();
-				}
-			}
-		}, {
-			key: '_attachEvents',
-			value: function _attachEvents() {
-				var _closeKeyHandler = this._closeKeyHandler.bind(this);
-
-				//	this.overlay.addEventListener('click', this.close, false);
-
-				if (this.closeButton) {
-					this.closeButton.addEventListener('click', this.close);
-				}
-
-				document.body.addEventListener('keydown', _closeKeyHandler, false);
-			}
-		}, {
-			key: '_destroyEvents',
-			value: function _destroyEvents() {
-				var _closeKeyHandler = this._closeKeyHandler.bind(this);
-
-				this.overlay.removeEventListener('click', this.close);
-				this.closeButton.removeEventListener('click', this.close);
-				document.body.addEventListener('keydown', _closeKeyHandler);
-			}
-		}]);
-
-		return modal;
-	}();
-
-	exports.default = modal;
-
-/***/ },
-/* 39 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.contact = contact;
-
-	var _axios = __webpack_require__(5);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	var _notifications = __webpack_require__(36);
+	var _notifications = __webpack_require__(5);
 
 	var _notifications2 = _interopRequireDefault(_notifications);
 
@@ -3341,6 +2815,542 @@
 
 		window.addEventListener('message-delivered', handleClose);
 		window.addEventListener('message-failed', failureNotify.open);
+	}
+
+/***/ },
+/* 33 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.onBlur = onBlur;
+	exports.removeBlur = removeBlur;
+	function onBlur(nodes) {
+		Array.prototype.forEach.call(nodes, function (node) {
+			node.addEventListener('blur', inputBlur);
+		});
+	}
+
+	function removeBlur(nodes) {
+		Array.prototype.forEach.call(nodes, function (node) {
+			node.removeEventListener('blur', inputBlur);
+		});
+	}
+
+	function validateEmail(node) {
+		var value = node.value;
+		var atpos = value.indexOf('@');
+		var dotpos = value.lastIndexOf('.');
+
+		if (atpos < 1 || dotpos - atpos < 2) {
+			if (node.parentNode.classList.contains('blank')) {
+				node.parentNode.classList.remove('blank');
+			}
+
+			node.parentNode.classList.add('email-invalid');
+		} else {
+			if (node.parentNode.classList.contains('blank')) {
+				node.parentNode.classList.remove('blank');
+			}
+
+			if (node.parentNode.classList.contains('email-invalid')) {
+				node.parentNode.classList.remove('email-invalid');
+			}
+
+			node.parentNode.classList.add('email-valid');
+		}
+	}
+
+	function inputBlur() {
+		var formContent = this.value;
+
+		if (formContent == '') {
+			this.parentNode.classList.add('blank');
+		}
+
+		if (this.parentNode.classList.contains('form-email')) {
+			validateEmail(this);
+		}
+
+		if (formContent != '' && !this.parentNode.classList.contains('form-email')) {
+			if (this.parentNode.classList.contains('blank')) {
+				this.parentNode.classList.remove('blank');
+			}
+
+			this.parentNode.classList.add('valid');
+		}
+
+		checkValidForm();
+	}
+
+	function checkValidForm() {
+		var formWrappers = document.querySelectorAll('.form-wrapper');
+		var submitButton = document.querySelector('.form-send');
+		var valid = 0;
+
+		Array.prototype.forEach.call(formWrappers, function (wrapper) {
+			if (wrapper.classList.contains('valid') || wrapper.classList.contains('email-valid')) {
+				valid++;
+			}
+		});
+
+		if (valid == 4) {
+			submitButton.classList.add('form-valid');
+		}
+	}
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.signup = signup;
+
+	var _axios = __webpack_require__(6);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function signup() {
+		var submitButton = document.getElementById('signup-submit');
+		var email = document.getElementById('signup-email');
+		var password = document.getElementById('signup-password');
+		var name = document.getElementById('signup-name');
+		var username = document.getElementById('signup-username');
+
+		function submit() {
+			var data = {};
+
+			data.name = name;
+			data.email = email;
+			data.password = password;
+
+			_axios2.default.post('http://localhost:8000/users', {
+				name: data.name.value,
+				email: data.email.value,
+				password: data.password.value,
+
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}).then(function (response) {
+				if (response.data.success) {
+					var admin = JSON.stringify(response.data.res.record);
+
+					window.localStorage.setItem('admin', admin);
+					window.localStorage.setItem('golondrina-token', response.data.res.token);
+				}
+			});
+		}
+
+		submitButton.addEventListener('click', submit);
+	}
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.login = login;
+
+	var _axios = __webpack_require__(6);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function login() {
+		var loginEmail = document.getElementById('login-email');
+		var loginPassword = document.getElementById('login-password');
+		var submitButton = document.getElementById('login-submit');
+
+		function submit() {
+			var data = {};
+
+			data.email = loginEmail;
+			data.password = loginPassword;
+
+			_axios2.default.post('http://localhost:8000/users/authenticate', {
+				email: data.email.value,
+				password: data.password.value,
+
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}).then(function (response) {
+				if (response.data.success) {
+					var admin = JSON.stringify(response.data.res.record);
+
+					window.localStorage.setItem('admin', admin);
+					window.localStorage.setItem('golondrina-token', response.data.res.token);
+				}
+			});
+		}
+
+		submitButton.addEventListener('click', submit);
+	}
+
+/***/ },
+/* 36 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.admin = admin;
+	function admin() {
+
+		function checkAdmin() {
+
+			var admin = JSON.parse(window.localStorage.getItem('admin'));
+
+			if (admin) {
+				if (admin.roles.indexOf('admin') == -1) {
+					window.location.href = '/';
+				} else {
+					return;
+				}
+			} else {
+				window.location.href = '/';
+			}
+		}
+
+		checkAdmin();
+	}
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.gallery = gallery;
+
+	var _tabs = __webpack_require__(38);
+
+	function gallery() {
+		(0, _tabs.tabs)();
+
+		baguetteBox.run('.gallery', {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			},
+			animation: 'fadeIn'
+		});
+
+		baguetteBox.run('.gallery-2', {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			}
+		});
+
+		baguetteBox.run('.gallery-3', {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			}
+		});
+
+		baguetteBox.run('.gallery-4', {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			}
+		});
+
+		baguetteBox.run('.gallery-5', {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			}
+		});
+	}
+
+/***/ },
+/* 38 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.tabs = tabs;
+	function tabs() {
+		var tabWidget = Array.prototype.slice.call(document.querySelectorAll('.js-tab')) || [];
+
+		var tabClickEvent = function tabClickEvent(tabLink, tabLinks, tabPanels, linkIndex, e) {
+			tabLinks.forEach(function (link) {
+				link.setAttribute('tabindex', '-1');
+				link.setAttribute('aria-selected', 'false');
+				link.parentNode.removeAttribute('data-tab-active');
+				link.removeAttribute('data-tab-active');
+			});
+
+			tabLink.setAttribute('tabindex', '0');
+			tabLink.setAttribute('aria-selected', 'true');
+			tabLink.parentNode.setAttribute('data-tab-active', '');
+			tabLink.setAttribute('data-tab-active', '');
+
+			tabPanels.forEach(function (panel, index) {
+				if (index != linkIndex) {
+					panel.setAttribute('aria-hidden', 'true');
+					panel.removeAttribute('data-tab-active');
+				} else {
+					panel.setAttribute('aria-hidden', 'false');
+					panel.setAttribute('data-tab-active', '');
+				}
+			});
+		};
+
+		var keyBoardEvent = function keyBoardEvent(tabLink, tabLinks, tabPanels, tabItems, index, e) {
+			var keyCode = e.key || e.which,
+			    currentTab = tabLinks[index],
+			    previousTab = tabLinks[index - 1],
+			    nextTab = tabLinks[index + 1],
+			    firstTab = tabLinks[0],
+			    lastTab = tabLinks[tabLinks.length - 1];
+
+			switch (keyCode) {
+				case 'ArrowLeft':
+				case 37:
+					e.preventDefault();
+
+					if (!previousTab) {
+						lastTab.focus();
+					} else {
+						previousTab.focus();
+					}
+					break;
+
+				case 'ArrowRight':
+				case 39:
+					e.preventDefault();
+
+					if (!nextTab) {
+						firstTab.focus();
+					} else {
+						nextTab.focus();
+					}
+					break;
+			}
+		};
+
+		tabWidget.forEach(function (tabWidgetInstance, i) {
+			var tabList = tabWidgetInstance.getElementsByTagName('ul')[0],
+			    tabItems = Array.prototype.slice.call(tabList.getElementsByTagName('li')),
+			    tabLinks = [],
+			    tabPanels = Array.prototype.slice.call(tabWidgetInstance.getElementsByTagName('section'));
+
+			tabList.setAttribute('role', 'tablist');
+
+			tabItems.forEach(function (item, index) {
+				var link = item.getElementsByTagName('a')[0];
+
+				tabLinks.push(link);
+
+				item.setAttribute('role', 'presentation');
+
+				if (index == 0) {
+					item.setAttribute('data-tab-active', '');
+				}
+			});
+
+			tabLinks.forEach(function (link, i) {
+				var anchor = link.getAttribute('href').split("#")[1];
+				var attributes = {
+					'id': 'tab-link' + i,
+					'role': 'tab',
+					'tabIndex': '-1',
+					'aria-selected': 'false',
+					'aria-controls': anchor
+				};
+
+				if (i == 0) {
+					attributes['aria-selected'] = 'true';
+					attributes.tabIndex = '0';
+
+					link.setAttribute('data-tab-active', '');
+				}
+
+				for (var key in attributes) {
+					link.setAttribute(key, attributes[key]);
+				}
+
+				link.addEventListener('click', function (e) {
+					e.preventDefault();
+				});
+
+				link.addEventListener('focus', function (e) {
+					tabClickEvent(this, tabLinks, tabPanels, i, e);
+				});
+
+				link.addEventListener('keydown', function (e) {
+					keyBoardEvent(link, tabLinks, tabPanels, tabItems, i, e);
+				});
+			});
+
+			tabPanels.forEach(function (panel, i) {
+				var nextTabLink = document.createElement('a'),
+				    nextTabLinkIndex = i < tabPanels.length - 1 ? i + 1 : 0;
+
+				var attributes = {
+					'role': 'tabpanel',
+					'aria-hidden': 'true',
+					'aria-labelledyby': 'tab-link-' + i
+				};
+
+				nextTabLink.setAttribute('href', '#tab-link-' + nextTabLinkIndex);
+				nextTabLink.textContext = 'Next Tab';
+				panel.appendChild(nextTabLink);
+
+				if (i == 0) {
+					attributes['aria-hidden'] = 'false';
+					panel.setAttribute('data-tab-active', '');
+				}
+
+				for (var key in attributes) {
+					panel.setAttribute(key, attributes[key]);
+				}
+			});
+		});
+	}
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.contact = contact;
+
+	var _axios = __webpack_require__(6);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _notifications = __webpack_require__(5);
+
+	var _notifications2 = _interopRequireDefault(_notifications);
+
+	var _validator = __webpack_require__(33);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function contact() {
+		var formWrapper = document.querySelectorAll('.form-wrapper');
+		var formInputs = document.querySelectorAll('.form-input');
+		var submitButton = document.querySelector('.contact-send');
+		var name = document.getElementById('contact-name');
+		var email = document.getElementById('contact-email');
+		var phone = document.getElementById('contact-phone');
+		var message = document.getElementById('contact-message');
+
+		var successContent = document.getElementById('contact-success');
+		var failureContent = document.getElementById('contact-failure');
+		var errorContent = document.getElementById('contact-error');
+
+		function submit() {
+			if (submitButton.classList.contains('form-valid')) {
+				submitButton.classList.add('form-loading');
+
+				var data = {};
+				data.name = name.value;
+				data.email = email.value;
+				data.phone = phone.value;
+				data.message = message.value;
+
+				_axios2.default.post('http://localhost:8000/contact', {
+					name: data.name,
+					email: data.email,
+					phone: data.phone,
+					message: data.message,
+
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function (response) {
+					if (response.data.success) {
+						resetForm();
+						submitButton.classList.remove('form-loading');
+						submitButton.classList.add("form-success");
+
+						var success = new Event('message-delivered');
+						window.dispatchEvent(success);
+						removeEvents();
+					} else {
+						submitButton.classList.remove('form-loading');
+						submitButton.classList.add('form-failure');
+
+						var failure = new Event('message-failed');
+						window.dispatchEvent(failure);
+					}
+				});
+			} else {
+				var error = new Event('message-error');
+				window.dispatchEvent(error);
+			}
+		}
+
+		function resetForm() {
+			Array.prototype.forEach.call(formInputs, function (input) {
+				input.value = "";
+
+				if (input.parentNode.classList.contains('valid')) {
+					input.parentNode.classList.remove('valid');
+				}
+
+				if (input.parentNode.classList.contains('email-valid')) {
+					input.parentNode.classList.remove('email-valid');
+				}
+			});
+		}
+
+		function removeEvents() {
+			submitButton.removeEventListener('click', submit);
+			(0, _validator.removeBlur)(formInputs);
+		}
+
+		var successNotify = new _notifications2.default({
+			content: successContent,
+			type: 'success',
+			timeout: 2500
+		});
+
+		var failureNotify = new _notifications2.default({
+			content: failureContent,
+			type: 'danger',
+			timeout: 2500
+		});
+
+		var errorNotify = new _notifications2.default({
+			content: errorContent,
+			type: 'warning',
+			timeout: 2500
+		});
+
+		(0, _validator.onBlur)(formInputs);
+
+		submitButton.addEventListener('click', submit);
+		window.addEventListener('message-delivered', successNotify.open);
+		window.addEventListener('message-failed', failureNotify.open);
+		window.addEventListener('message-error', errorNotify.open);
 	}
 
 /***/ }

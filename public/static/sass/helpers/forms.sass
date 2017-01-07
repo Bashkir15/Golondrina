@@ -94,6 +94,7 @@
 	align-items: center
 	justify-content: center
 	position: relative
+	overflow: hidden
 
 
 	&.form-valid
@@ -106,6 +107,7 @@
 			font-size: 0
 
 		.loader
+			display: inline-block
 			opacity: 1
 
 
@@ -113,13 +115,6 @@
 		span
 			color: transparent
 			font-size: 0
-
-		&:before
-			position: absolute
-			left: 0
-			width: 40%
-			color: #0a833d
-			content: "\e001"
 
 		&:after
 			position: absolute
@@ -135,13 +130,14 @@
 
 .loader
 	border: 2px solid #f3f3f3
-	border-top: 12x solid #666
+	border-top: 2px solid #666
 	border-radius: 50%
 	width: 15px
 	height: 15px
 	animation: spin 2s linear infinite
 	opacity: 0
-	transition: opacity .4s ease
+	transition: all .4s ease
+	display: none
 
 
 @keyframes moveUp 
