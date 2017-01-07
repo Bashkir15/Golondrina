@@ -481,6 +481,11 @@
 
 						var success = new Event('newsletter-success');
 						window.dispatchEvent(success);
+
+						setTimeout(function () {
+							formWrapper.classList.remove('email-valid');
+							signupButton.classList.remove('form-success');
+						}, 1000);
 					} else {
 						signupButton.classList.remove('form-loading');
 
