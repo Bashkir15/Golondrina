@@ -34,7 +34,7 @@ export function landing() {
 			let data = {};
 			data.email = email.value;
 
-			axios.post('http://localhost:8000/contact/newsletter', {
+			axios.post('http://golondrina.herokuapp.com/contact/newsletter', {
 				email: data.email,
 
 				headers: {

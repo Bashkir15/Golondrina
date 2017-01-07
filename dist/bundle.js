@@ -467,7 +467,7 @@
 				var data = {};
 				data.email = email.value;
 
-				_axios2.default.post('http://localhost:8000/contact/newsletter', {
+				_axios2.default.post('http://golondrina.herokuapp.com/contact/newsletter', {
 					email: data.email,
 
 					headers: {
@@ -3281,7 +3281,7 @@
 				data.phone = phone.value;
 				data.message = message.value;
 
-				_axios2.default.post('http://localhost:8000/contact', {
+				_axios2.default.post('http://golondrina.herokuapp.com/contact', {
 					name: data.name,
 					email: data.email,
 					phone: data.phone,
