@@ -89,12 +89,25 @@
 			border-color: #fa5c54
 
 .form-send
+	display: flex
+	flex-direction: column
+	align-items: center
+	justify-content: center
 	position: relative
 
 
 	&.form-valid
 		background-color: #a3d39c
 		border-bottom: 5px solid darken(#a3d39c, 10%)
+
+	&.form-loading
+		span
+			color: transparent
+			font-size: 0
+
+		.loader
+			opacity: 1
+
 
 	&.form-success
 		span
@@ -120,6 +133,17 @@
 			font-size: 24px
 			animation: moveUp 0.5s
 
+.loader
+	border: 2px solid #f3f3f3
+	border-top: 12x solid #666
+	border-radius: 50%
+	width: 15px
+	height: 15px
+	animation: spin 2s linear infinite
+	opacity: 0
+	transition: opacity .4s ease
+
+
 @keyframes moveUp 
 	0% 
 		transform: translateY(130%)
@@ -129,4 +153,11 @@
 	100% 
 		opacity: 1
 		transform: translateY(0)
+
+@keyframes spin
+	0%
+		transform: rotate(0deg)
+
+	100%
+		transform: rotate(360deg)
 	
