@@ -11,7 +11,7 @@ import indexRoutes from '../routes/index.server.routes';
 import contactRoutes from '../routes/contact.server.routes'
 
 
-module.exports = (db) => {
+module.exports = () => {
 	const app = express();
 
 	app.set('view engine', 'ejs');
