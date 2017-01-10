@@ -46,6 +46,11 @@ class lazy {
 		elem.src = src;
 	}
 
+	_setInitialStyle(elem) {
+		elem.style.transition = "all " + (this.defaults.duration / 1000) + "s ease-out";
+		elem.style.opacity = 0;
+	}
+
 
 	_viewPortChange() {
 		Array.prototype.map.call(this.elements, (item) => {
@@ -65,6 +70,7 @@ class lazy {
 		this.elements = document.querySelectorAll('.lazy');
 
 		Array.prototype.map.call(this.elements, (item) => {
+			this._setInitialStyle(item);
 
 			if (this._isInView(item)) {
 				window.addEventListener('load', () => {
