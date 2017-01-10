@@ -6,8 +6,8 @@ import ejs from 'ejs';
 import bodyParser from 'body-parser'
 
 import indexRoutes from '../routes/index.server.routes';
-import userRoutes from '../routes/users.server.routes';
-import adminRoutes from '../routes/admin.server.routes'
+//import userRoutes from '../routes/users.server.routes';
+//import adminRoutes from '../routes/admin.server.routes'
 import contactRoutes from '../routes/contact.server.routes'
 
 
@@ -34,8 +34,8 @@ module.exports = (db) => {
 	app.use(express.static(path.join(__dirname, '../../node_modules')));
 
 	app.use('/', indexRoutes);
-	app.use('/users', userRoutes);
-	app.use('/admin', adminRoutes);
+//	app.use('/users', userRoutes);
+	//app.use('/admin', adminRoutes);
 	app.use('/contact', contactRoutes);
 
 	return app;

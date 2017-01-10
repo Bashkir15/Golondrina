@@ -12,21 +12,15 @@
     "cluster": "^0.7.7",
     "compression": "^1.6.2",
     "crypto": "0.0.3",
-    "director": "^1.2.8",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
     "fs": "0.0.1-security",
     "http": "0.0.0",
     "http-proxy": "^1.15.1",
-    "jsonwebtoken": "^7.1.9",
-    "lory.js": "^2.2.1",
     "mongoose": "^4.6.3",
     "morgan": "^1.7.0",
-    "node-jsx": "^0.13.3",
     "nodemailer": "^2.6.4",
-    "path": "^0.12.7",
-    "react": "^15.3.2",
-    "superagent": "^2.3.0"
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "babel": "^6.5.2",

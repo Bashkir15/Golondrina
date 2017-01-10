@@ -17,7 +17,7 @@ const paths = {
 		ejs: './public/*.ejs',
 		sass: './public/static/sass/main.sass',
 		sass2: '/public/static/sass/**',
-		images: './public/static/images/*',
+		images: './public/static/images/**/*.*',
 		js: './dist/bundle.js'
 	},
 
@@ -39,6 +39,12 @@ gulp.task('browserSync', () => {
 
 gulp.task('images', () => {
 	gulp.src(paths.dev.images)
+		.pipe(plumber({
+			errorHandler: function(err) {
+				console.log(err);
+				this.emit('end');
+			}
+		}))
 		.pipe(imagemin({
 			progressive: true,
 			use: [pngquant()]

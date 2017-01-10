@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
 import async from 'async';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
