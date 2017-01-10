@@ -1,7 +1,11 @@
 import { tabs } from '../../components/tabs'
+import lazy from '../../utils/lazy.load'
+
 
 export function gallery() {
 	tabs();
+
+	var lazyLoader = new lazy();
 
 	baguetteBox.run('.gallery', {
 		captions: (element) => {
@@ -33,6 +37,14 @@ export function gallery() {
 			return element.getElementsByTagName('img')[0].alt;
 		}
 	});
+
+	/* function handleImages() {
+		let query = document.querySelectorAll('.lazy');
+
+		Array.prototype.map.call(query, (item) => {
+			if (isInView)
+		})
+	}
 
 
 
@@ -78,5 +90,8 @@ export function gallery() {
 	}
 
 	progressScroll();
-	window.addEventListener('scroll', progressScroll);
+	window.addEventListener('scroll', progressScroll); */
+
+	window.addEventListener('DOMContentLoaded', lazyLoader.init, false);
+	window.addEventListener('scroll', lazyLoader.viewPortChange, false);
 }
