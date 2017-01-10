@@ -41,7 +41,8 @@
     "gulp-sourcemaps": "^2.0.0",
     "gulp-uglify": "^2.0.0",
     "gulp-uglifycss": "^1.0.6",
-    "imagemin-pngquant": "^5.0.0"
+    "imagemin-pngquant": "^5.0.0",
+    "webpack": "^1.14.0"
   },
   "scripts": {
     "postinstall": "webpack --config ./webpack.config.js",
