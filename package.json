@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "async": "^2.1.2",
+    "aws-sdk": "^2.7.21",
     "axios": "^0.15.3",
     "baguettebox.js": "^1.8.1",
     "bcrypt": "^0.8.7",
@@ -42,6 +43,7 @@
     "gulp-uglify": "^2.0.0",
     "gulp-uglifycss": "^1.0.6",
     "imagemin-pngquant": "^5.0.0",
+    "json-loader": "^0.5.4",
     "webpack": "^1.14.0"
   },
   "scripts": {

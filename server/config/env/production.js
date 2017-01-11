@@ -4,7 +4,7 @@ module.exports = {
 		port: process.env.PORT
 	},
 
-	mailer: {
+	/*mailer: {
 		service: 'Gmail',
 		auth: {
 			user: process.env.USER,
@@ -12,5 +12,5 @@ module.exports = {
 		}
 	},
 
-	db: process.env.MONGODB_URI
+	//db: process.env.MONGODB_URI */
 };
