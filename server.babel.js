@@ -13,7 +13,6 @@ var server = require('http').Server(app);
 server.listen(config.server.port, () => {
 	console.log('Application is up and running at: ' + config.server.host + config.server.port + ' , and the environment is currently: ' + (process.env.NODE_ENV || 'development'));
 });
-console.log('Worker %d running!', cluster.worker.id);
 
 
 global = {};
