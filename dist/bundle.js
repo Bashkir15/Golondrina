@@ -64,7 +64,7 @@
 
 	var _gallery = __webpack_require__(37);
 
-	var _contact = __webpack_require__(39);
+	var _contact = __webpack_require__(40);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3050,7 +3050,7 @@
 
 	var _tabs = __webpack_require__(38);
 
-	var _lazy = __webpack_require__(40);
+	var _lazy = __webpack_require__(39);
 
 	var _lazy2 = _interopRequireDefault(_lazy);
 
@@ -3291,6 +3291,117 @@
 
 /***/ },
 /* 39 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var lazy = function () {
+		function lazy(options) {
+			_classCallCheck(this, lazy);
+
+			this.elements = null;
+
+			this.defaults = {
+				duration: '1000',
+				distance: '200',
+				heightOffset: 200
+			};
+
+			this.enter = this._enter.bind(this);
+			this.init = this._init.bind(this);
+			this.viewPortChange = this._viewPortChange.bind(this);
+			this._applySettings(options);
+		}
+
+		_createClass(lazy, [{
+			key: '_applySettings',
+			value: function _applySettings(options) {
+				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+					for (var i in options) {
+						if (options.hasOwnProperty(i)) {
+							this.defaults[i] = options[i];
+						}
+					}
+				}
+			}
+		}, {
+			key: '_isInView',
+			value: function _isInView(elem) {
+				var rect = elem.getBoundingClientRect();
+
+				return rect.top + this.defaults.heightOffset >= 0 && rect.top + this.defaults.heightOffset <= window.innerHeight || rect.bottom + this.defaults.heightOffset >= 0 && rect.bottom + this.defaults.heightOffset <= window.innerHeight || rect.bottom + this.defaults.heightOffset < 0 && rect.bottom + this.defaults.heightOffset > window.innerHeight;
+			}
+		}, {
+			key: '_enter',
+			value: function _enter(elem) {
+				var src = elem.getAttribute('data-src');
+
+				elem.style.visibility = "visible";
+				elem.style.opacity = "1";
+				elem.style.transform = "translate(0,0)";
+				elem.classList.add("has-entered");
+
+				elem.src = src;
+			}
+		}, {
+			key: '_setInitialStyle',
+			value: function _setInitialStyle(elem) {
+				elem.style.transition = "all " + this.defaults.duration / 1000 + "s ease-out";
+				elem.style.opacity = 0;
+			}
+		}, {
+			key: '_viewPortChange',
+			value: function _viewPortChange() {
+				var _this = this;
+
+				Array.prototype.map.call(this.elements, function (item) {
+					var isInView = _this._isInView(item);
+
+					if (isInView) {
+						var hasEntered = item.classList.contains('has-entered');
+
+						if (!hasEntered) {
+							_this._enter(item);
+						}
+					}
+				});
+			}
+		}, {
+			key: '_init',
+			value: function _init() {
+				var _this2 = this;
+
+				this.elements = document.querySelectorAll('.lazy');
+
+				Array.prototype.map.call(this.elements, function (item) {
+					_this2._setInitialStyle(item);
+
+					if (_this2._isInView(item)) {
+						window.addEventListener('load', function () {
+							_this2.enter(item);
+						}, false);
+					}
+				});
+			}
+		}]);
+
+		return lazy;
+	}();
+
+	exports.default = lazy;
+
+/***/ },
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3411,117 +3522,6 @@
 		window.addEventListener('message-failed', failureNotify.open);
 		window.addEventListener('message-error', errorNotify.open);
 	}
-
-/***/ },
-/* 40 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var lazy = function () {
-		function lazy(options) {
-			_classCallCheck(this, lazy);
-
-			this.elements = null;
-
-			this.defaults = {
-				duration: '1000',
-				distance: '200',
-				heightOffset: 200
-			};
-
-			this.enter = this._enter.bind(this);
-			this.init = this._init.bind(this);
-			this.viewPortChange = this._viewPortChange.bind(this);
-			this._applySettings(options);
-		}
-
-		_createClass(lazy, [{
-			key: '_applySettings',
-			value: function _applySettings(options) {
-				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-					for (var i in options) {
-						if (options.hasOwnProperty(i)) {
-							this.defaults[i] = options[i];
-						}
-					}
-				}
-			}
-		}, {
-			key: '_isInView',
-			value: function _isInView(elem) {
-				var rect = elem.getBoundingClientRect();
-
-				return rect.top + this.defaults.heightOffset >= 0 && rect.top + this.defaults.heightOffset <= window.innerHeight || rect.bottom + this.defaults.heightOffset >= 0 && rect.bottom + this.defaults.heightOffset <= window.innerHeight || rect.bottom + this.defaults.heightOffset < 0 && rect.bottom + this.defaults.heightOffset > window.innerHeight;
-			}
-		}, {
-			key: '_enter',
-			value: function _enter(elem) {
-				var src = elem.getAttribute('data-src');
-
-				elem.style.visibility = "visible";
-				elem.style.opacity = "1";
-				elem.style.transform = "translate(0,0)";
-				elem.classList.add("has-entered");
-
-				elem.src = src;
-			}
-		}, {
-			key: '_setInitialStyle',
-			value: function _setInitialStyle(elem) {
-				elem.style.transition = "all " + this.defaults.duration / 1000 + "s ease-out";
-				elem.style.opacity = 0;
-			}
-		}, {
-			key: '_viewPortChange',
-			value: function _viewPortChange() {
-				var _this = this;
-
-				Array.prototype.map.call(this.elements, function (item) {
-					var isInView = _this._isInView(item);
-
-					if (isInView) {
-						var hasEntered = item.classList.contains('has-entered');
-
-						if (!hasEntered) {
-							_this._enter(item);
-						}
-					}
-				});
-			}
-		}, {
-			key: '_init',
-			value: function _init() {
-				var _this2 = this;
-
-				this.elements = document.querySelectorAll('.lazy');
-
-				Array.prototype.map.call(this.elements, function (item) {
-					_this2._setInitialStyle(item);
-
-					if (_this2._isInView(item)) {
-						window.addEventListener('load', function () {
-							_this2.enter(item);
-						}, false);
-					}
-				});
-			}
-		}]);
-
-		return lazy;
-	}();
-
-	exports.default = lazy;
 
 /***/ }
 /******/ ]);
