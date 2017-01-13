@@ -64,7 +64,7 @@
 
 	var _gallery = __webpack_require__(37);
 
-	var _contact = __webpack_require__(40);
+	var _contact = __webpack_require__(41);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3054,6 +3054,10 @@
 
 	var _lazy2 = _interopRequireDefault(_lazy);
 
+	var _windows = __webpack_require__(40);
+
+	var _windows2 = _interopRequireDefault(_windows);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function gallery() {
@@ -3091,6 +3095,24 @@
 				return element.getElementsByTagName('img')[0].alt;
 			}
 		});
+
+		function buildImages() {
+			var images = [];
+
+			for (var i in _windows2.default) {
+				if (_windows2.default.hasOwnProperty(i)) {
+					var item = _windows2.default[i];
+					images.push({
+						src: item.src,
+						caption: item.caption
+					});
+				}
+			}
+
+			console.log(images);
+		}
+
+		buildImages();
 
 		/* function handleImages() {
 	 	let query = document.querySelectorAll('.lazy');
@@ -3402,6 +3424,31 @@
 
 /***/ },
 /* 40 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"category": "Windows",
+			"business": "Authentic Yoga Life",
+			"src": "'./images/Gallery/Commercial/Windows/Window_AuthenticYogaLife_30Days.jpg'",
+			"caption": "Authentic Yoga Life -- 30Days"
+		},
+		{
+			"category": "Windows",
+			"business": "Authentic Yoga Life",
+			"src": "'./images/Gallery/Commercial/Windows/Window_AuthenticYogaLife_40days.jpg'",
+			"caption": "Authentic Yoga Life -- 40 Days"
+		},
+		{
+			"category": "Windows",
+			"business": "Backyard On Bell",
+			"src": "'./images/Gallery/Commercial/Windows/Window_BackYardOnBell_Christmas.jpg",
+			"caption": "Back Yard On Bell -- Christmas"
+		}
+	];
+
+/***/ },
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

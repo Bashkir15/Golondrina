@@ -1,0 +1,22 @@
+[
+	{
+		"category": "Windows",
+		"business": "Authentic Yoga Life",
+		"src": "'./images/Gallery/Commercial/Windows/Window_AuthenticYogaLife_30Days.jpg'",
+		"caption": "Authentic Yoga Life -- 30Days"
+	},
+
+	{
+		"category": "Windows",
+		"business": "Authentic Yoga Life",
+		"src": "'./images/Gallery/Commercial/Windows/Window_AuthenticYogaLife_40days.jpg'",
+		"caption": "Authentic Yoga Life -- 40 Days"
+	},
+
+	{
+		"category": "Windows",
+		"business": "Backyard On Bell",
+		"src": "'./images/Gallery/Commercial/Windows/Window_BackYardOnBell_Christmas.jpg",
+		"caption": "Back Yard On Bell -- Christmas"
+	}
+]

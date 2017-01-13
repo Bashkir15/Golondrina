@@ -24,7 +24,7 @@ const paths = {
 	prod: {
 		css: './dist/styles',
 		js: './dist/scripts',
-		images: './dist/static/images'
+		images: './dist/images'
 	}
 };
 

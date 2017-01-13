@@ -1,5 +1,6 @@
 import { tabs } from '../../components/tabs'
 import lazy from '../../utils/lazy.load'
+import windows from '../../../../../dist/images/Gallery/windows.json'
 
 
 export function gallery() {
@@ -37,6 +38,24 @@ export function gallery() {
 			return element.getElementsByTagName('img')[0].alt;
 		}
 	});
+
+	function buildImages() {
+		var images = [];
+
+		for (var i in windows) {
+			if (windows.hasOwnProperty(i)) {
+				var item = windows[i];
+				images.push({
+					src: item.src,
+					caption: item.caption
+				});
+			}
+		}
+
+		console.log(images);
+	}
+
+	buildImages();
 
 	/* function handleImages() {
 		let query = document.querySelectorAll('.lazy');
