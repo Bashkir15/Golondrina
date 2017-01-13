@@ -8,6 +8,7 @@ export function gallery() {
 	var loadMoreButton = document.getElementById('load-more');
 	var windowPage = 0;
 	var images = [];
+	var displayedImages = [];
 
 	tabs();
 
@@ -56,21 +57,22 @@ export function gallery() {
 			}
 		}
 
-		loadImages(2);
+		loadImages(0, 2);
 	}
 
-	function loadImages(sliceCount) {
+	function loadImages(sliceStart, sliceEnd) {
 		var previousSliceCount;
 		var page1 = [];
 		var page2 = [];
 		if (windowPage === 0) {
-			page1 = images.slice(0, sliceCount);
+			page1 = images.slice(sliceStart, sliceEnd);
 			insertImages(page1);
-			previousSliceCount = sliceCount;
+			//previousSliceCount = sliceCount;
+			//console.log(previousSliceCount);
 		} else if (windowPage === 1) {
-			page2 = images.slice(previousSliceCount, sliceCount);
+			page2 = images.slice(sliceStart, sliceEnd);
 			insertImages(page2);
-			previousSliceCount = sliceCount;
+			//previousSliceCount = sliceCount;
 		}
 	}
 
@@ -89,6 +91,7 @@ export function gallery() {
 
 				lightboxSrc.appendChild(image);
 				imageContainer1.appendChild(lightboxSrc);
+				displayedImages.push(images[i]);
 			}
 
 			resolve();
@@ -104,14 +107,15 @@ export function gallery() {
 	}
 
 	function loadMoreImages() {
-		var newSliceCount;
+		var newSliceStart = displayedImages.length;
+		var newSliceEnd;
 		windowPage++;
 
 		if (windowPage === 1) {
-			newSliceCount = 4;
+			newSliceEnd = 4;
 		}
 
-		loadImages(newSliceCount);
+		loadImages(newSliceStart, newSliceEnd);
 
 	}
 
