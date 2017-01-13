@@ -12,12 +12,12 @@ export function gallery() {
 
 	var lazyLoader = new lazy();
 
-	baguetteBox.run('.gallery', {
+/*	baguetteBox.run('.gallery', {
 		captions: (element) => {
 			return element.getElementsByTagName('img')[0].alt;
 		},
 		animation: 'fadeIn'
-	});
+	}); */
 
 	baguetteBox.run('.gallery-2', {
 		captions: (element) => {
@@ -67,18 +67,31 @@ export function gallery() {
 	}
 
 	function insertImages(images) {
-		for (let i = 0; i < images.length; i++) {
-			var lightboxSrc = document.createElement('a');
-			var image = document.createElement('img');
-			console.log(images[i]);
+		//let currentPage = windowPage;
+		return new Promise((resolve, reject) => {
+			for (let i = 0; i < images.length; i++) {
+				var lightboxSrc = document.createElement('a');
+				var image = document.createElement('img');
+				console.log(images[i]);
 
-			lightboxSrc.setAttribute('href', images[i].src);
-			image.setAttribute('data-src', images[i].src);
-			image.setAttribute('alt', images[i].caption);
+				lightboxSrc.setAttribute('href', images[i].src);
+				image.setAttribute('data-src', images[i].src);
+				image.setAttribute('alt', images[i].caption);
 
-			lightboxSrc.appendChild(image);
-			imageContainer1.appendChild(lightboxSrc);
-		}
+				lightboxSrc.appendChild(image);
+				imageContainer1.appendChild(lightboxSrc);
+			}
+
+			resolve();
+		})
+		.then(() => {
+			baguetteBox.run('.gallery', {
+				captions: (element) => {
+					return element.getElementsByTagName('img')[0].alt;
+				},
+				animation: 'fadeIn'
+			});
+		});
 	}
 
 	buildImages();

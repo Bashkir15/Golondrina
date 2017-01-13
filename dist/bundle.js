@@ -3069,12 +3069,12 @@
 
 		var lazyLoader = new _lazy2.default();
 
-		baguetteBox.run('.gallery', {
-			captions: function captions(element) {
-				return element.getElementsByTagName('img')[0].alt;
-			},
-			animation: 'fadeIn'
-		});
+		/*	baguetteBox.run('.gallery', {
+	 		captions: (element) => {
+	 			return element.getElementsByTagName('img')[0].alt;
+	 		},
+	 		animation: 'fadeIn'
+	 	}); */
 
 		baguetteBox.run('.gallery-2', {
 			captions: function captions(element) {
@@ -3124,18 +3124,30 @@
 		}
 
 		function insertImages(images) {
-			for (var i = 0; i < images.length; i++) {
-				var lightboxSrc = document.createElement('a');
-				var image = document.createElement('img');
-				console.log(images[i]);
+			//let currentPage = windowPage;
+			return new Promise(function (resolve, reject) {
+				for (var i = 0; i < images.length; i++) {
+					var lightboxSrc = document.createElement('a');
+					var image = document.createElement('img');
+					console.log(images[i]);
 
-				lightboxSrc.setAttribute('href', images[i].src);
-				image.src = images[i].src;
-				image.setAttribute('alt', images[i].caption);
+					lightboxSrc.setAttribute('href', images[i].src);
+					image.setAttribute('data-src', images[i].src);
+					image.setAttribute('alt', images[i].caption);
 
-				lightboxSrc.appendChild(image);
-				imageContainer1.appendChild(lightboxSrc);
-			}
+					lightboxSrc.appendChild(image);
+					imageContainer1.appendChild(lightboxSrc);
+				}
+
+				resolve();
+			}).then(function () {
+				baguetteBox.run('.gallery', {
+					captions: function captions(element) {
+						return element.getElementsByTagName('img')[0].alt;
+					},
+					animation: 'fadeIn'
+				});
+			});
 		}
 
 		buildImages();
