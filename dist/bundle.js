@@ -3062,6 +3062,7 @@
 
 	function gallery() {
 		var imageContainer1 = document.querySelector('.gallery');
+		var loadMoreButton = document.getElementById('load-more');
 		var windowPage = 0;
 		var images = [];
 
@@ -3116,10 +3117,17 @@
 		}
 
 		function loadImages(sliceCount) {
+			var previousSliceCount;
 			var page1 = [];
+			var page2 = [];
 			if (windowPage === 0) {
 				page1 = images.slice(0, sliceCount);
 				insertImages(page1);
+				previousSliceCount = sliceCount;
+			} else if (windowPage === 1) {
+				page2 = images.slice(previousSliceCount, sliceCount);
+				insertImages(page2);
+				previousSliceCount = sliceCount;
 			}
 		}
 
@@ -3149,6 +3157,17 @@
 					animation: 'fadeIn'
 				});
 			});
+		}
+
+		function loadMoreImages() {
+			var newSliceCount;
+			windowPage++;
+
+			if (windowPage === 1) {
+				newSliceCount = 4;
+			}
+
+			loadImages(newSliceCount);
 		}
 
 		buildImages();
@@ -3196,6 +3215,7 @@
 	 	progressScroll();
 	 window.addEventListener('scroll', progressScroll); */
 
+		loadMoreButton.addEventListener('click', loadMoreImages, false);
 		window.addEventListener('DOMContentLoaded', lazyLoader.init, false);
 		window.addEventListener('scroll', lazyLoader.viewPortChange, false);
 	}
