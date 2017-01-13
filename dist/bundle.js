@@ -3134,6 +3134,7 @@
 					lightboxSrc.setAttribute('href', images[i].src);
 					image.setAttribute('data-src', images[i].src);
 					image.setAttribute('alt', images[i].caption);
+					image.src = images[i].src;
 
 					lightboxSrc.appendChild(image);
 					imageContainer1.appendChild(lightboxSrc);
