@@ -3061,6 +3061,10 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function gallery() {
+		var imageContainer1 = document.querySelector('.gallery');
+		var windowPage = 0;
+		var images = [];
+
 		(0, _tabs.tabs)();
 
 		var lazyLoader = new _lazy2.default();
@@ -3097,7 +3101,6 @@
 		});
 
 		function buildImages() {
-			var images = [];
 
 			for (var i in _windows2.default) {
 				if (_windows2.default.hasOwnProperty(i)) {
@@ -3109,7 +3112,30 @@
 				}
 			}
 
-			console.log(images);
+			loadImages(2);
+		}
+
+		function loadImages(sliceCount) {
+			var page1 = [];
+			if (windowPage === 0) {
+				page1 = images.slice(0, sliceCount);
+				insertImages(page1);
+			}
+		}
+
+		function insertImages(images) {
+			for (var i = 0; i < images.length; i++) {
+				var lightboxSrc = document.createElement('a');
+				var image = document.createElement('img');
+				console.log(images[i]);
+
+				lightboxSrc.setAttribute('href', images[i].src);
+				image.src = images[i].src;
+				image.setAttribute('alt', images[i].caption);
+
+				lightboxSrc.appendChild(image);
+				imageContainer1.appendChild(lightboxSrc);
+			}
 		}
 
 		buildImages();
@@ -3430,19 +3456,19 @@
 		{
 			"category": "Windows",
 			"business": "Authentic Yoga Life",
-			"src": "'./images/Gallery/Commercial/Windows/Window_AuthenticYogaLife_30Days.jpg'",
+			"src": "/images/Gallery/Commercial/Windows/Window_AuthenticYogaLife_30Days.jpg",
 			"caption": "Authentic Yoga Life -- 30Days"
 		},
 		{
 			"category": "Windows",
 			"business": "Authentic Yoga Life",
-			"src": "'./images/Gallery/Commercial/Windows/Window_AuthenticYogaLife_40days.jpg'",
+			"src": "/images/Gallery/Commercial/Windows/Window_AuthenticYogaLife_40days.jpg",
 			"caption": "Authentic Yoga Life -- 40 Days"
 		},
 		{
 			"category": "Windows",
 			"business": "Backyard On Bell",
-			"src": "'./images/Gallery/Commercial/Windows/Window_BackYardOnBell_Christmas.jpg",
+			"src": "/images/Gallery/Commercial/Windows/Window_BackYardOnBell_Christmas.jpg",
 			"caption": "Back Yard On Bell -- Christmas"
 		}
 	];

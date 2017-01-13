@@ -4,6 +4,10 @@ import windows from '../../../../../dist/images/Gallery/windows.json'
 
 
 export function gallery() {
+	var imageContainer1 = document.querySelector('.gallery');
+	var windowPage = 0;
+	var images = [];
+
 	tabs();
 
 	var lazyLoader = new lazy();
@@ -40,7 +44,6 @@ export function gallery() {
 	});
 
 	function buildImages() {
-		var images = [];
 
 		for (var i in windows) {
 			if (windows.hasOwnProperty(i)) {
@@ -52,10 +55,34 @@ export function gallery() {
 			}
 		}
 
-		console.log(images);
+		loadImages(2);
+	}
+
+	function loadImages(sliceCount) {
+		var page1 = [];
+		if (windowPage === 0) {
+			page1 = images.slice(0, sliceCount);
+			insertImages(page1);
+		}
+	}
+
+	function insertImages(images) {
+		for (let i = 0; i < images.length; i++) {
+			var lightboxSrc = document.createElement('a');
+			var image = document.createElement('img');
+			console.log(images[i]);
+
+			lightboxSrc.setAttribute('href', images[i].src);
+			image.setAttribute('data-src', images[i].src);
+			image.setAttribute('alt', images[i].caption);
+
+			lightboxSrc.appendChild(image);
+			imageContainer1.appendChild(lightboxSrc);
+		}
 	}
 
 	buildImages();
+
 
 	/* function handleImages() {
 		let query = document.querySelectorAll('.lazy');
