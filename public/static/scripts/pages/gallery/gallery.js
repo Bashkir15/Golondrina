@@ -39,6 +39,7 @@ export function gallery() {
 		}
 	});
 
+
 	function buildImages() {
 		let i;
 		let item;
@@ -51,36 +52,24 @@ export function gallery() {
 			});
 		}
 
-		loadImages(0, 10);
+		insertImages(images.slice(0, 10));
 	}
 
-	function loadImages(sliceStart, sliceEnd) {
-		var previousSliceCount;
-		var page1 = [];
-		var page2 = [];
-		if (windowPage === 0) {
-			page1 = images.slice(sliceStart, sliceEnd);
-			insertImages(page1);
-		} else if (windowPage === 1) {
-			page2 = images.slice(sliceStart, sliceEnd);
-			insertImages(page2);
-		}
-	}
 
-	function insertImages(images) {
-		return new Promise((resolve, reject) => {
+	function insertImages(newImages) {
+		return new Promise((resolve) => {
 			let i;
-			for (i = 0; i < images.length; i++) {
+			for (i = 0; i < newImages.length; i++) {
 				let lightboxSrc = document.createElement('a');
 				let image = document.createElement('img');
-				lightboxSrc.setAttribute('href', images[i].src);
-				image.setAttribute('data-src', images[i].src);
-				image.setAttribute('alt', images[i].caption);
-				image.src = images[i].src;
+				lightboxSrc.setAttribute('href', newImages[i].src);
+				//image.setAttribute('data-src', startingImages[i].src);
+				image.setAttribute('alt', newImages[i].caption);
+				image.src = newImages[i].src;
 
 				lightboxSrc.appendChild(image);
 				imageContainer1.appendChild(lightboxSrc);
-				displayedImages.push(images[i]);
+				displayedImages.push(newImages[i]);
 			}
 
 			resolve();
@@ -92,78 +81,40 @@ export function gallery() {
 				},
 				animation: 'fadeIn'
 			});
-		}); 
+		});
 	}
 
-	function loadMoreImages() {
-		var newSliceStart = displayedImages.length;
-		var newSliceEnd;
-		windowPage++;
 
-		if (windowPage === 1) {
-			newSliceEnd = 4;
+
+	function loadMoreImages() {
+		var page1 = images.slice(10, 20);
+		var page2 = images.slice(20, 30);
+		var page3 = images.slice(30, 40);
+
+		
+		if (windowPage === 0) {
+			insertImages(page1);
 		}
 
-		loadImages(newSliceStart, newSliceEnd);
+		if (windowPage === 1) {
+			insertImages(page2);
+		}
+
+		if (windowPage === 2) {
+			insertImages(page3);
+		}
+
+		if (windowPage === 3) {
+			insertImages(page4);
+		}
+
+		windowPage++;
 
 	}
 
 	buildImages();
 
 
-	/* function handleImages() {
-		let query = document.querySelectorAll('.lazy');
-
-		Array.prototype.map.call(query, (item) => {
-			if (isInView)
-		})
-	}
-
-
-
-	function loadImage(element, fn) {
-		var img = new Image();
-		var src = element.getAttribute('data-src');
-
-		img.onload = () => {
-			if (!!element.parent) {
-				element.parent.replaceChild(img, element);
-			} else {
-				element.src = src;
-			}
-
-			fn ? fn() : null;
-		}
-
-		img.src = src;
-	}
-
-	function isInViewport(element) {
-		var rect = element.getBoundingClientRect();
-
-		return (
-			rect.top >= 0 && rect.left >= 0 && rect.top <= (window.innerHeight || document.documentElement.clientHeight)
-		);
-	}
-
-	var images = new Array();
-	var query = document.querySelectorAll('.lazy');
-	var progressScroll = function() {
-		for (var i = 0; i < images.length; i++) {
-			if (isInViewport(images[i])) {
-				loadImage(images[i], () => {
-					images.splice(i,i);
-				})
-			}
-		}
-	};
-
-	for (var i = 0; i < query.length; i++) {
-		images.push(query[i]);
-	}
-
-	progressScroll();
-	window.addEventListener('scroll', progressScroll); */
 
 	loadMoreButton.addEventListener('click', loadMoreImages, false);
 	window.addEventListener('DOMContentLoaded', lazyLoader.init, false);
