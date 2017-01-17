@@ -1,0 +1,71 @@
+[
+	{
+		"business": "Authentic-Yoga-Life",
+		"category": "windows",
+		"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_AuthenticYogaLife_30Days-min.jpg",
+		"caption": "Authentic Yoga Life -- 30 Days"
+	},
+
+	{
+		"business": "Authentic-Yoga-Life",
+		"category": "windows",
+		"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_AuthenticYogaLife_40days-min.jpg",
+		"caption": "Authentic Yoga Life -- 40 Days"
+	},
+
+	{
+		"business": "Back-Yard-On-Bell",
+		"category": "windows",
+		"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_BackYardOnBell_Christmas-min.jpg",
+		"caption": "Back Yard On Bell -- Christmas"
+	},
+
+	{
+		"business": "Back-Yard-On-Bell",
+		"category": "windows",
+		"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_BackYardOnBell_It'sAline02-min.jpg",
+		"caption": "Back Yard On Bell -- It's Alive!"
+	},
+
+	{
+		"business": "Back-Yard-On-Bell",
+		"category": "windows",
+		"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_BackYardOnBell_ItsAlive-min.jpg",
+		"caption": "Back Yard On Bell -- It's Alive!"
+	},
+
+	{
+		"business": "Cafe-Brazil",
+		"category": "windows",
+		"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_CafeBrazil_Christmas2015-min.jpg",
+		"caption": "Cafe Brazil -- Christmas 2015"
+	},
+
+	{
+		"business": "Dark-Age",
+		"caregory": "windows",
+		"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_DarkAge_Christmas-min.jpg",
+		"caption": "Dark Age -- Christmas"
+	},
+
+	{
+		"business": "Dark-Age",
+		"caregory": "windows",
+		"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_DarkAge_Lettering-min.jpg",
+		"caption": "Dark Age -- Lettering"
+	},
+
+	{
+		"business": "Discover-Denton",
+		"category": "windows",
+		"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_DiscoverDenton_Dod-min.jpg",
+		"caption": "Discover Denton -- Day of the Dead"
+	},
+
+	{
+		"business": "Discover-Denton",
+		"category": "windows",
+		"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_DiscoverDenton_Poets-min.jpg",
+		"caption": "Discover Denton -- Dead Poets"
+	}
+]

@@ -64,7 +64,7 @@
 
 	var _gallery = __webpack_require__(37);
 
-	var _contact = __webpack_require__(41);
+	var _contact = __webpack_require__(40);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3054,7 +3054,7 @@
 
 	var _lazy2 = _interopRequireDefault(_lazy);
 
-	var _windows = __webpack_require__(40);
+	var _windows = __webpack_require__(41);
 
 	var _windows2 = _interopRequireDefault(_windows);
 
@@ -3070,13 +3070,6 @@
 		(0, _tabs.tabs)();
 
 		var lazyLoader = new _lazy2.default();
-
-		/*	baguetteBox.run('.gallery', {
-	 		captions: (element) => {
-	 			return element.getElementsByTagName('img')[0].alt;
-	 		},
-	 		animation: 'fadeIn'
-	 	}); */
 
 		baguetteBox.run('.gallery-2', {
 			captions: function captions(element) {
@@ -3103,18 +3096,18 @@
 		});
 
 		function buildImages() {
+			var i = void 0;
+			var item = void 0;
 
-			for (var i in _windows2.default) {
-				if (_windows2.default.hasOwnProperty(i)) {
-					var item = _windows2.default[i];
-					images.push({
-						src: item.src,
-						caption: item.caption
-					});
-				}
+			for (i = 0; i < _windows2.default.length; i++) {
+				item = _windows2.default[i];
+				images.push({
+					src: item.src,
+					caption: item.caption
+				});
 			}
 
-			loadImages(0, 2);
+			loadImages(0, 10);
 		}
 
 		function loadImages(sliceStart, sliceEnd) {
@@ -3124,23 +3117,18 @@
 			if (windowPage === 0) {
 				page1 = images.slice(sliceStart, sliceEnd);
 				insertImages(page1);
-				//previousSliceCount = sliceCount;
-				//console.log(previousSliceCount);
 			} else if (windowPage === 1) {
 				page2 = images.slice(sliceStart, sliceEnd);
 				insertImages(page2);
-				//previousSliceCount = sliceCount;
 			}
 		}
 
 		function insertImages(images) {
-			//let currentPage = windowPage;
 			return new Promise(function (resolve, reject) {
-				for (var i = 0; i < images.length; i++) {
+				var i = void 0;
+				for (i = 0; i < images.length; i++) {
 					var lightboxSrc = document.createElement('a');
 					var image = document.createElement('img');
-					console.log(images[i]);
-
 					lightboxSrc.setAttribute('href', images[i].src);
 					image.setAttribute('data-src', images[i].src);
 					image.setAttribute('alt', images[i].caption);
@@ -3487,31 +3475,6 @@
 
 /***/ },
 /* 40 */
-/***/ function(module, exports) {
-
-	module.exports = [
-		{
-			"category": "Windows",
-			"business": "Authentic Yoga Life",
-			"src": "/images/Gallery/Commercial/Windows/Window_AuthenticYogaLife_30Days.jpg",
-			"caption": "Authentic Yoga Life -- 30Days"
-		},
-		{
-			"category": "Windows",
-			"business": "Authentic Yoga Life",
-			"src": "/images/Gallery/Commercial/Windows/Window_AuthenticYogaLife_40days.jpg",
-			"caption": "Authentic Yoga Life -- 40 Days"
-		},
-		{
-			"category": "Windows",
-			"business": "Backyard On Bell",
-			"src": "/images/Gallery/Commercial/Windows/Window_BackYardOnBell_Christmas.jpg",
-			"caption": "Back Yard On Bell -- Christmas"
-		}
-	];
-
-/***/ },
-/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3632,6 +3595,73 @@
 		window.addEventListener('message-failed', failureNotify.open);
 		window.addEventListener('message-error', errorNotify.open);
 	}
+
+/***/ },
+/* 41 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"business": "Authentic-Yoga-Life",
+			"category": "windows",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_AuthenticYogaLife_30Days-min.jpg",
+			"caption": "Authentic Yoga Life -- 30 Days"
+		},
+		{
+			"business": "Authentic-Yoga-Life",
+			"category": "windows",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_AuthenticYogaLife_40days-min.jpg",
+			"caption": "Authentic Yoga Life -- 40 Days"
+		},
+		{
+			"business": "Back-Yard-On-Bell",
+			"category": "windows",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_BackYardOnBell_Christmas-min.jpg",
+			"caption": "Back Yard On Bell -- Christmas"
+		},
+		{
+			"business": "Back-Yard-On-Bell",
+			"category": "windows",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_BackYardOnBell_It'sAline02-min.jpg",
+			"caption": "Back Yard On Bell -- It's Alive!"
+		},
+		{
+			"business": "Back-Yard-On-Bell",
+			"category": "windows",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_BackYardOnBell_ItsAlive-min.jpg",
+			"caption": "Back Yard On Bell -- It's Alive!"
+		},
+		{
+			"business": "Cafe-Brazil",
+			"category": "windows",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_CafeBrazil_Christmas2015-min.jpg",
+			"caption": "Cafe Brazil -- Christmas 2015"
+		},
+		{
+			"business": "Dark-Age",
+			"caregory": "windows",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_DarkAge_Christmas-min.jpg",
+			"caption": "Dark Age -- Christmas"
+		},
+		{
+			"business": "Dark-Age",
+			"caregory": "windows",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_DarkAge_Lettering-min.jpg",
+			"caption": "Dark Age -- Lettering"
+		},
+		{
+			"business": "Discover-Denton",
+			"category": "windows",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_DiscoverDenton_Dod-min.jpg",
+			"caption": "Discover Denton -- Day of the Dead"
+		},
+		{
+			"business": "Discover-Denton",
+			"category": "windows",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_DiscoverDenton_Poets-min.jpg",
+			"caption": "Discover Denton -- Dead Poets"
+		}
+	];
 
 /***/ }
 /******/ ]);

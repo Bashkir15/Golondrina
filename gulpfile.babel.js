@@ -9,15 +9,18 @@ import cmq from 'gulp-combine-media-queries';
 import rename from 'gulp-rename';
 import browserSync from 'browser-sync';
 import sourceMaps from 'gulp-sourcemaps';
+import image from 'gulp-image';
 import imagemin from 'gulp-imagemin'
 import pngquant from 'imagemin-pngquant'
+import mozjpeg from 'imagemin-mozjpeg'
+import webp from 'imagemin-webp'
 
 const paths = {
 	dev: {
 		ejs: './public/*.ejs',
 		sass: './public/static/sass/main.sass',
 		sass2: '/public/static/sass/**',
-		images: './public/static/images/**/*.*',
+		images: './public/static/images/**/*.+(png|jpg|gif|svg)',
 		js: './dist/bundle.js'
 	},
 
@@ -38,7 +41,7 @@ gulp.task('browserSync', () => {
 });
 
 gulp.task('images', () => {
-	gulp.src(paths.dev.images)
+	gulp.src('./public/static/images/Gallery/Commercial/Windows/*.jpg')
 		.pipe(plumber({
 			errorHandler: function(err) {
 				console.log(err);
@@ -47,9 +50,11 @@ gulp.task('images', () => {
 		}))
 		.pipe(imagemin({
 			progressive: true,
-			use: [pngquant()]
+			use: [webp({
+				quality: 20
+			})]
 		}))
-		.pipe(gulp.dest(paths.prod.images))
+		.pipe(gulp.dest('./dist/images/Gallery/Commercial/Windows'))
 });
 
 gulp.task('styles', () => {
