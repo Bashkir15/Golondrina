@@ -3141,6 +3141,8 @@
 			var page1 = images.slice(10, 20);
 			var page2 = images.slice(20, 30);
 			var page3 = images.slice(30, 40);
+			var page4 = images.slice(40, 50);
+			var page5 = images.slice(50, 60);
 
 			if (windowPage === 0) {
 				insertImages(page1);
@@ -3158,7 +3160,16 @@
 				insertImages(page4);
 			}
 
-			windowPage++;
+			if (windowPage === 4) {
+				insertImages(page5);
+			}
+
+			if (displayedImages.length !== images.length) {
+				windowPage++;
+			} else {
+				loadMoreButton.removeEventListener('click', loadMoreImages, false);
+				loadMoreButton.classList.add('no-more-images');
+			}
 		}
 
 		buildImages();
@@ -3683,7 +3694,7 @@
 		{
 			"business": "Mellow-Mushroom",
 			"category": "windows",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_MellowMushroom-Dod-min.jpg",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_MellowMushroom_Dod-min.jpg",
 			"caption": "Mellow Mushroom -- Day of the Dead"
 		},
 		{

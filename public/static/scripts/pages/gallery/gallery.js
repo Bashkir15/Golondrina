@@ -90,6 +90,8 @@ export function gallery() {
 		var page1 = images.slice(10, 20);
 		var page2 = images.slice(20, 30);
 		var page3 = images.slice(30, 40);
+		var page4 = images.slice(40, 50);
+		var page5 = images.slice(50, 60);
 
 		
 		if (windowPage === 0) {
@@ -108,7 +110,16 @@ export function gallery() {
 			insertImages(page4);
 		}
 
-		windowPage++;
+		if (windowPage === 4) {
+			insertImages(page5);
+		}
+
+		if (displayedImages.length !== images.length) {
+			windowPage++;
+		} else {
+			loadMoreButton.removeEventListener('click', loadMoreImages, false);
+			loadMoreButton.classList.add('no-more-images');
+		}
 
 	}
 

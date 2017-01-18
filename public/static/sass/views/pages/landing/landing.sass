@@ -61,24 +61,31 @@
 	align-items: center
 	padding-top: 150px
 	padding-bottom: 70px
-	background: linear-gradient(-12deg, #4cddff, #3b9aca 12%, #2d6ca5 30%, #2a5291 41%, #283d81 51%, #222654 70%, #1e1635 90%)
+	background: #0AB6A2
 
-	h1
+	h1,
+	h2
 		@include lato()
 		font-weight: 400
 		letter-spacing: 2px
-		font-size: 40px
-		padding-bottom: 30px
+		font-size: 50px
+		padding-bottom: 20px
 		color: #fff
+
+	h2
+		font-weight: 300
+		font-size: 42px
+		padding-bottom: 35px
+
 
 	p
 		@include open()
 		font-weight: 400
 		letter-spacing: 1px
-		font-size: 19px
+		font-size: 20px
 		line-height: 28px
-		padding-bottom: 50px
-		color: #fff
+		padding-bottom: 65px
+		color: #dedede
 
 
 
@@ -96,6 +103,8 @@
 			font-weight: 400
 			letter-spacing: 2px
 			color: #fff
+			font-size: 16px
+			text-transform: uppercase
 
 		&:hover
 			background: rgba(0,0,0,0.35)

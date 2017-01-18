@@ -2,8 +2,8 @@
 	display: flex
 	flex-direction: column
 	align-items: center
-	padding-top: 55px
-	padding-bottom: 35px
+	padding-top: 100px
+	padding-bottom: 50px
 	width: 90%
 	margin: 0 auto
 
@@ -14,25 +14,32 @@
 	width: 85%
 	margin: 0 auto
 
+	> .mission-decorator-top,
+	> .mission-diamond
+		margin-bottom: 0
+
 	> div
 		display: flex
 		flex-direction: column
-		margin-bottom: 70px
+		align-items: center
+		margin-bottom: 40px
 
 		h3
 			@include lato()
-			font-weight: 400px
+			font-weight: 400
 			font-size: 22px
 			letter-spacing: 1px
 			margin-bottom: 18px
 			line-height: 28px
 			text-transform: uppercase
 			text-align: center
+			color:#4b4d4f
 
 			span
 				display: inline-block
 				margin-right: 8px
-				color: #2292d6
+				font-size: 22px
+				color: #53d4e9
 
 		p
 			@include open()
@@ -43,6 +50,33 @@
 			margin-left: 14px
 			text-align: center
 			color: #88909a
+
+.mission-decorator-top,
+.mission-decorator-bottom
+	height: 75px
+	width: 1px
+	background-image: linear-gradient(#d6d9d8 33%, rgba(225, 225, 225, 0) 0%)
+	background-position: right
+	background-size: 3px 5px 
+	background-repeat: repeat-y
+
+.mission-diamond
+	position: relative
+	top: -20px
+	width: 0
+	height: 0
+	border: 20px solid transparent
+	border-bottom-color: #9ce1de
+
+	&:after
+		content: ''
+		position: absolute
+		top: 20px
+		left: -20px
+		width: 0
+		height: 0
+		border: 20px solid transparent
+		border-top-color: #9ce1de
 
 @media screen and (min-width: 1200px)
 	.landing-mission
@@ -55,44 +89,28 @@
 		justify-content: space-around
 
 		> div
-			width: 48%
-			height: 250px
+			width: 40%
 
-			&:nth-of-type(3)
-				width: 60%
+			&.mission-decorator-top,
+			&.mission-decorator-bottom
+				width: 7%
+				height: 1px
 				margin-bottom: 0
+				background-image: linear-gradient(to right, #d6d9d8 33%, rgba(225, 225, 225, 0) 0%)
+				background-position: bottom
+				background-size: 5px 3px
+				background-repeat: repeat-x
 
-@media screen and (min-width: 1400px)
-	.landing-mission-columns
-		width: 95%
+				&.second
+					display: none
 
-		> div
-			display: flex
-			align-items: center
-			width: 30%
-			height: 250px
+			&.mission-diamond
+				width: 0
+				height: 0
 
-			&:nth-of-type(3)
-				width: 30%
-				margin-bottom: 70px
+				&.second
+					display: none
 
-@media screen and (min-width: 1650px)
-	.landing-mission
-		margin-top: -155px
+	.landing-mission-last
+		margin-top: 60px
 
-	.landing-mission-columns
-		padding-bottom: 30px
-
-		> div
-			margin-bottom: 0
-
-			&:nth-of-type(3)
-				margin-bottom: 0
-
-			h3
-				color: #fff
-				padding-bottom: 50px
-
-				span
-					color: lighten(#2292d6, 15%)
-					font-size: 25px

@@ -19,6 +19,7 @@
 		font-size: 16px
 		line-height: 22px
 		padding-top: 8px
+		color: #575757
 		padding-left: 16px
 
 		&:before
@@ -26,7 +27,7 @@
 			padding-left: 10px
 			content: "\201C"
 			font-size: 60px
-			color: #666
+			color: darken(#575757, 15%)
 			position: absolute
 			left: -20px
 			top: 20px
@@ -55,7 +56,7 @@
 				letter-spacing: 2px
 				font-size: 17px
 				line-height: 21px
-				color: rgba(0,0,0,0.5)
+				color: rgba(0,0,0,0.6)
 
 				&:before
 					content: "\2014 \2009"
@@ -66,7 +67,7 @@
 				letter-spacing: 1px
 				font-size: 16px
 				line-height: 21px
-				color: rgba(0,0,0,0.4)
+				color: #c2c3c4
 
 	img
 		height: 60px
@@ -89,11 +90,17 @@
 		flex: 1
 		height: 60px
 		z-index: 30
-		color: #bcbcbc
+		color: #ccc
 		@include open()
 		font-weight: 400
 		letter-spacing: 2px
 		background: rgba(0,0,0,0.23)
+
+	> .business-above-mobile
+		display: none
+
+	> .business-desktop
+		display: none
 
 
 .landing-newsletter
@@ -104,10 +111,7 @@
 	padding-top: 130px
 	padding-bottom: 160px
 	margin-top: -90px
-	background: #1c907f
-	background: #204a65
-	//background-color: #52418f
-	//background-image: linear-gradient(to right bottom, #290830 0, #52418F 50%, #72B7E3 100%)
+	background: #0AB6A2
 
 	h3
 		@include lato()
@@ -119,38 +123,48 @@
 .landing-newsletter-input
 	width: 80%
 	margin: 0 auto
-	padding-top: 30px
+	padding-top: 55px
 
 .landing-form-wrapper
 	position: relative
 	display: flex
 	width: 100%
 
+	&.form-wrapper
+		label
+			top: 13px
+			left: 19px
+			color: #575757
 
-	label
-		position: absolute
-		top: 13px
-		left: 12px
-		@include lato()
-		font-weight: 300
-		letter-spacing: 1px
-		font-size: 16px
-		color: #fff
-		opacity: 1
-		transition: all .4s ease-out
+			span
+				color: #575757
 
-		span
-			display: inline-block
-			margin-right: 4px
-			color: #fff
+		input
+			height: 40px
+			background: #fff
 
+			&:focus
+				height: 42px
+				border-width: 1px
+				border-color: #fff
+
+				& + label
+					color: #fff
+
+					span
+						color: #fff
+
+		&.email-invalid
+			input
+				height: 42px
+				border-width: 1px
+				color: #b60a1e
 	input
 		display: flex
 		flex: 1
 		border: 1px solid rgba(0,0,0,0.23)
 		border-right: 0
-		background: none
-		height: 43px
+		background: rgba(0,0,0,0.3)
 		padding: 0
 		padding-left: 7px
 		@include lato()
@@ -161,19 +175,13 @@
 		border-color: rgba(0,0,0,0.23)
 		outline: none
 
-		&:focus
-			& + label
-				left: -33px
-				opacity: 0
 
 	button
-		height: 45px
+		height: 44px
 		width: 120px
-		border: 1px solid rgba(0,0,0,0.23)
-		border-left: none
+		border: none
 		border-top-right-radius: 23px
 		border-bottom-right-radius: 23px
-		border-color: rgba(0,0,0,0.23)
 		background: rgba(0,0,0,0.4)
 		transition: all .4s ease-out
 
@@ -186,6 +194,11 @@
 
 		&:hover
 			background: rgba(0,0,0,0.2)
+
+@media screen and (min-width: 768px)
+	.landing-business
+		.business-above-mobile
+			display: flex
 
 @media screen and (min-width: 1200px)
 	.landing-about-text
@@ -209,6 +222,10 @@
 
 		button
 			width: 180px
+
+	.landing-business
+		> .business-desktop
+			display: flex
 
 @media screen and (min-width: 1650px)
 	.landing-about

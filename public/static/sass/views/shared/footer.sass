@@ -161,6 +161,20 @@
 		&.above-tablet
 			display: flex
 
+			a
+				height: 40px
+				width: 100px
+
+				button
+					border: none
+
+					span
+						@include lato()
+						font-weight: 400
+						letter-spacing: 2px
+						font-size: 17px
+						color: #fff
+
 @media screen and (min-width: 1271px)
 	.footer
 		flex-direction: initial
@@ -197,31 +211,3 @@
 		align-items: center
 		justify-content: center
 		margin-right: 25px
-
-		&.above-tablet
-			> a
-				display: flex
-				align-items: center
-				justify-content: center
-
-				button
-					height: 40px
-					width: 95px
-					border: none
-					transition: all .4s ease-out
-
-					span
-						@include lato()
-						font-weight: 400
-						font-size: 18px
-						letter-spacing: 1px
-						color: #3f4c5b
-						transition: color .4s ease-out, transform .4s ease-out
-
-				&:hover
-					button
-						//background: darken(#1f2439, 5%)
-						background: rgba(0,0,0,0.6)
-
-						span
-							color: #f1f3f3
