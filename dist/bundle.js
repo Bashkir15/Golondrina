@@ -3048,12 +3048,11 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 	exports.gallery = gallery;
 
 	var _tabs = __webpack_require__(38);
+
+	var _images = __webpack_require__(43);
 
 	var _lazy = __webpack_require__(39);
 
@@ -3070,9 +3069,13 @@
 		var loadMoreButton = document.getElementById('load-more');
 		var galleryLinks = document.querySelectorAll('.tab-link');
 		var windowPage = 0;
+		var galleryLoaded = false;
 		var images = [];
 		var hiddenImages = [];
 		var displayedImages = [];
+		var windowGallery = (0, _images.buildGallery)(_windows2.default);
+
+		insertImages(windowGallery.slice(0, 10));
 
 		Array.prototype.forEach.call(galleryLinks, function (link) {
 			if (!link.classList.contains('gallery-loaded')) {
@@ -3138,34 +3141,13 @@
 			}
 		});
 
-		function buildImages(gallery) {
-			var i = void 0;
-			var item = void 0;
-
-			gallery = gallery || {};
-
-			if ((typeof gallery === 'undefined' ? 'undefined' : _typeof(gallery)) !== 'object' && gallery == 'windows' || (typeof gallery === 'undefined' ? 'undefined' : _typeof(gallery)) === 'object') {
-
-				for (i = 0; i < _windows2.default.length; i++) {
-					item = _windows2.default[i];
-					images.push({
-						src: item.src,
-						caption: item.caption
-					});
-				}
-
-				insertImages(images.slice(0, 10));
-			} else {
-				console.log('no images yet');
-			}
-		}
-
 		function insertImages(newImages) {
 			return new Promise(function (resolve) {
 				var i = void 0;
 				for (i = 0; i < newImages.length; i++) {
 					var lightboxSrc = document.createElement('a');
 					var image = document.createElement('img');
+					lightboxSrc.setAttribute("href", newImages[i].src);
 					image.setAttribute('alt', newImages[i].caption);
 
 					lightboxSrc.appendChild(image);
@@ -3173,11 +3155,9 @@
 
 					if (lightboxSrc.getBoundingClientRect().top <= window.innerHeight + 100 && lightboxSrc.getBoundingClientRect().top > 0) {
 						image.src = newImages[i].src;
-						lightboxSrc.setAttribute("href", newImages[i].src);
 						displayedImages.push(newImages[i]);
 					} else {
-						hiddenImages.push(newImages[i]);
-						console.log(hiddenImages);
+						hiddenImages.push({ image: newImages[i], container: lightboxSrc });
 					}
 				}
 
@@ -3189,6 +3169,19 @@
 					},
 					animation: 'fadeIn'
 				});
+
+				window.addEventListener('scroll', checkViewport, false);
+			});
+		}
+
+		function checkViewport() {
+			hiddenImages.forEach(function (item) {
+				var rect = item.container.getBoundingClientRect();
+				if (rect.top <= window.innerHeight + 100 && rect.top > 0) {
+					item.container.firstChild.src = item.image.src;
+				} else {
+					return;
+				}
 			});
 		}
 
@@ -3226,8 +3219,6 @@
 				loadMoreButton.classList.add('no-more-images');
 			}
 		}
-
-		buildImages();
 
 		loadMoreButton.addEventListener('click', loadMoreImages, false);
 		window.addEventListener('DOMContentLoaded', lazyLoader.init, false);
@@ -3984,6 +3975,55 @@
 		window.addEventListener('message-failed', failureNotify.open);
 		window.addEventListener('message-error', errorNotify.open);
 	}
+
+/***/ },
+/* 42 */,
+/* 43 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	function buildGallery(images) {
+		var i = void 0;
+		var len = void 0;
+		var image = void 0;
+
+		var galleryIamges = [];
+
+		for (i = 0, len = images.length; i < len - 1; i++) {
+			image = images[i];
+
+			galleryIamges.push({
+				src: image.src,
+				caption: image.caption
+			});
+		}
+
+		return galleryIamges;
+	}
+
+	function loadMoreImages(galleryIamges, page) {
+		page = page || 0;
+
+		if (page == 0) {
+			return galleryIamges.slice(0, 10);
+		} else if (page == 1) {
+			return galleryIamges.slice(10, 20);
+		} else if (page == 2) {
+			return galleryIamges.slice(20, 30);
+		} else if (page == 3) {
+			return galleryIamges.slice(30, 40);
+		} else if (page == 4) {
+			return galleryIamges.slice(40, 50);
+		} else if (page == 5) {
+			return galleryIamges.slice(50, 60);
+		}
+	}
+
+	exports.buildGallery = buildGallery;
 
 /***/ }
 /******/ ]);

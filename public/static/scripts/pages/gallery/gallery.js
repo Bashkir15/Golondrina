@@ -1,4 +1,5 @@
 import { tabs } from '../../components/tabs'
+import { buildGallery } from './images'
 import lazy from '../../utils/lazy.load'
 import windows from '../../../../../dist/images/windows.json'
 
@@ -8,9 +9,14 @@ export function gallery() {
 	var loadMoreButton = document.getElementById('load-more');
 	var galleryLinks = document.querySelectorAll('.tab-link');
 	var windowPage = 0;
+	var galleryLoaded = false;
 	var images = [];
 	var hiddenImages = [];
 	var displayedImages = [];
+	var windowGallery = buildGallery(windows);
+
+
+	insertImages(windowGallery.slice(0, 10));
 
 
 	Array.prototype.forEach.call(galleryLinks, (link) => {
@@ -78,28 +84,6 @@ export function gallery() {
 	});
 
 
-	function buildImages(gallery) {
-		let i;
-		let item;
-
-		gallery = gallery || {}
-
-		if (typeof gallery !== 'object' && gallery == 'windows' || typeof gallery === 'object') {
-
-			for (i = 0; i < windows.length; i++) {
-				item = windows[i];
-				images.push({
-					src: item.src,
-					caption: item.caption
-				});
-			}
-
-			insertImages(images.slice(0, 10));
-		} else {
-			console.log('no images yet');
-		}
-	}
-
 
 	function insertImages(newImages) {
 		return new Promise((resolve) => {
@@ -107,6 +91,7 @@ export function gallery() {
 			for (i = 0; i < newImages.length; i++) {
 				let lightboxSrc = document.createElement('a');
 				let image = document.createElement('img');
+				lightboxSrc.setAttribute("href", newImages[i].src);
 				image.setAttribute('alt', newImages[i].caption);
 
 				lightboxSrc.appendChild(image);
@@ -114,11 +99,9 @@ export function gallery() {
 
 				if (lightboxSrc.getBoundingClientRect().top <= window.innerHeight + 100 && lightboxSrc.getBoundingClientRect().top > 0) {
 					image.src = newImages[i].src;
-					lightboxSrc.setAttribute("href", newImages[i].src);
 					displayedImages.push(newImages[i]);
 				} else {
-					hiddenImages.push(newImages[i]);
-					console.log(hiddenImages);
+					hiddenImages.push({image: newImages[i], container: lightboxSrc});
 				}
 
 			}
@@ -132,9 +115,21 @@ export function gallery() {
 				},
 				animation: 'fadeIn'
 			});
+
+			window.addEventListener('scroll', checkViewport, false);
 		});
 	}
 
+	function checkViewport() {
+		hiddenImages.forEach((item) => {
+			let rect = item.container.getBoundingClientRect();
+			if (rect.top <= window.innerHeight + 100 && rect.top > 0) {
+				item.container.firstChild.src = item.image.src;
+			} else {
+				return;
+			}
+		});
+	}
 
 
 	function loadMoreImages() {
@@ -173,9 +168,6 @@ export function gallery() {
 		}
 
 	}
-
-	buildImages();
-
 
 
 	loadMoreButton.addEventListener('click', loadMoreImages, false);
