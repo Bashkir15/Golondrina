@@ -3062,18 +3062,25 @@
 
 	var _windows2 = _interopRequireDefault(_windows);
 
+	var _residential = __webpack_require__(44);
+
+	var _residential2 = _interopRequireDefault(_residential);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function gallery() {
 		var windowsContainer = document.querySelector('.gallery');
+		var residentialContainer = document.querySelector('.gallery-3');
 		var loadMoreButton = document.getElementById('load-more');
 		var galleryLinks = document.querySelectorAll('.tab-link');
-		var images = [];
-		var hiddenImages = [];
-		var displayedImages = [];
+
 		var windowGallery = (0, _images.buildGallery)(_windows2.default);
 		var windowsVisible = [];
 		var windowsHidden = [];
+
+		var residentialGallery = (0, _images.buildGallery)(_residential2.default);
+		var residentialVisible = [];
+		var residentialHidden = [];
 
 		loadMoreWindows();
 
@@ -3095,57 +3102,26 @@
 		});
 
 		function setupGallery(item) {
-			var galleryName = '';
-
-			if (!item.classList.contains('gallery-loaded')) {
-				if (item.classList.contains('window-link')) {
-					galleryName = 'windows';
-					loadGallery(item, galleryName);
-				} else if (item.classList.contains('canvas-link')) {
-					galleryName = 'canvas';
-					loadGallery(item, galleryName);
-				}
+			if (item.classList.contains('canvas-link')) {
+				// loadMoreCanvas();
+			} else if (item.classList.contains('residential-link')) {
+				loadMoreResidential();
 			}
-		}
-
-		function loadGallery(item, gallery) {
-			(0, _images.buildImages)(gallery);
-			item.classList.add('gallery-loaded');
 		}
 
 		function loadMoreWindows() {
 			var page = page || 0;
-
 			(0, _images.buildImages)(windowGallery, windowsVisible, windowsHidden, windowsContainer, page);
+			page++;
+		}
 
+		function loadMoreResidential() {
+			var page = page || 0;
+			(0, _images.buildImages)(residentialGallery, residentialVisible, residentialHidden, residentialContainer, page);
 			page++;
 		}
 
 		(0, _tabs.tabs)();
-
-		baguetteBox.run('.gallery-2', {
-			captions: function captions(element) {
-				return element.getElementsByTagName('img')[0].alt;
-			}
-		});
-
-		baguetteBox.run('.gallery-3', {
-			captions: function captions(element) {
-				return element.getElementsByTagName('img')[0].alt;
-			}
-		});
-
-		baguetteBox.run('.gallery-4', {
-			captions: function captions(element) {
-				return element.getElementsByTagName('img')[0].alt;
-			}
-		});
-
-		baguetteBox.run('.gallery-5', {
-			captions: function captions(element) {
-				return element.getElementsByTagName('img')[0].alt;
-			}
-		});
 
 		loadMoreButton.addEventListener('click', loadMoreWindows, false);
 	}
@@ -3939,7 +3915,10 @@
 				var lightboxSrc = document.createElement('a');
 				var image = document.createElement('img');
 				lightboxSrc.setAttribute("href", newest[i].src);
-				image.setAttribute('alt', newest[i].caption);
+
+				if (typeof newest[i].caption !== 'undefined') {
+					image.setAttribute('alt', newest[i].caption);
+				}
 
 				lightboxSrc.appendChild(image);
 				container.appendChild(lightboxSrc);
@@ -3995,6 +3974,77 @@
 	exports.buildImages = buildImages;
 	exports.restartGallery = restartGallery;
 	exports.checkViewport = checkViewport;
+
+/***/ },
+/* 44 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural01-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural02-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural03-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural04-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural05-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural06-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural07-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural08-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural09-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural10-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural11-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural12-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural13-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/PropaneTank-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Table01-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Table02min.jpg"
+		}
+	];
 
 /***/ }
 /******/ ]);

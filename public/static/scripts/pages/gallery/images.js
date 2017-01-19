@@ -26,7 +26,10 @@ function loadMoreImages(newest, visible, hidden, container) {
 			let lightboxSrc = document.createElement('a');
 			let image = document.createElement('img');
 			lightboxSrc.setAttribute("href", newest[i].src);
-			image.setAttribute('alt', newest[i].caption);
+
+			if (typeof newest[i].caption !== 'undefined') {
+				image.setAttribute('alt', newest[i].caption);
+			}
 
 			lightboxSrc.appendChild(image);
 			container.appendChild(lightboxSrc);

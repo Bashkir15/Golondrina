@@ -2,18 +2,23 @@ import { tabs } from '../../components/tabs'
 import { buildGallery, loadMoreImages, buildImages, restartGallery} from './images'
 import lazy from '../../utils/lazy.load'
 import windows from '../../../../../dist/images/windows.json'
+import residential from '../../../../../dist/images/residential.json'
 
 
 export function gallery() {
 	var windowsContainer = document.querySelector('.gallery');
+	var residentialContainer = document.querySelector('.gallery-3');
 	var loadMoreButton = document.getElementById('load-more');
 	var galleryLinks = document.querySelectorAll('.tab-link');
-	var images = [];
-	var hiddenImages = [];
-	var displayedImages = [];
+
 	var windowGallery = buildGallery(windows);
 	var windowsVisible = [];
 	var windowsHidden = [];
+
+	var residentialGallery = buildGallery(residential);
+	var residentialVisible = [];
+	var residentialHidden = [];
+
 
 
 	loadMoreWindows();
@@ -35,57 +40,27 @@ export function gallery() {
 	});
 
 	function setupGallery(item) {
-		var galleryName = '';
-
-		if (!item.classList.contains('gallery-loaded')) {
-			if (item.classList.contains('window-link')) {
-				galleryName = 'windows';
-				loadGallery(item, galleryName);
-			} else if (item.classList.contains('canvas-link')) {
-				galleryName = 'canvas';
-				loadGallery(item, galleryName)
-			}
+		if (item.classList.contains('canvas-link')) {
+			// loadMoreCanvas();
+		} else if (item.classList.contains('residential-link')) {
+			loadMoreResidential();
 		}
 	}
 
-	function loadGallery(item, gallery) {
-		buildImages(gallery);
-		item.classList.add('gallery-loaded');
-	}
 
 	function loadMoreWindows() {
 		var page = page || 0;
-
 		buildImages(windowGallery, windowsVisible, windowsHidden, windowsContainer, page);
+		page++;
+	}
 
+	function loadMoreResidential() {
+		var page = page || 0;
+		buildImages(residentialGallery, residentialVisible, residentialHidden, residentialContainer, page);
 		page++;
 	}
 
 	tabs();
-
-	baguetteBox.run('.gallery-2', {
-		captions: (element) => {
-			return element.getElementsByTagName('img')[0].alt;
-		}
-	});
-
-	baguetteBox.run('.gallery-3', {
-		captions: (element) => {
-			return element.getElementsByTagName('img')[0].alt;
-		}
-	});
-
-	baguetteBox.run('.gallery-4', {
-		captions: (element) => {
-			return element.getElementsByTagName('img')[0].alt;
-		}
-	});
-
-	baguetteBox.run('.gallery-5', {
-		captions: (element) => {
-			return element.getElementsByTagName('img')[0].alt;
-		}
-	});
 
 
 	loadMoreButton.addEventListener('click', loadMoreWindows, false);
