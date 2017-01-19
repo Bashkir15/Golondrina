@@ -3048,6 +3048,9 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 	exports.gallery = gallery;
 
 	var _tabs = __webpack_require__(38);
@@ -3065,9 +3068,46 @@
 	function gallery() {
 		var imageContainer1 = document.querySelector('.gallery');
 		var loadMoreButton = document.getElementById('load-more');
+		var galleryLinks = document.querySelectorAll('.tab-link');
 		var windowPage = 0;
 		var images = [];
 		var displayedImages = [];
+
+		Array.prototype.forEach.call(galleryLinks, function (link) {
+			if (!link.classList.contains('gallery-loaded')) {
+				(function () {
+
+					var clickHandler = function clickHandler() {
+						setupGallery(link);
+
+						setTimeout(function () {
+							link.removeEventListener('click', clickHandler, false);
+						}, 1000);
+					};
+
+					link.addEventListener('click', clickHandler, false);
+				})();
+			}
+		});
+
+		function setupGallery(item) {
+			var galleryName = '';
+
+			if (!item.classList.contains('gallery-loaded')) {
+				if (item.classList.contains('window-link')) {
+					galleryName = 'windows';
+					loadGallery(item, galleryName);
+				} else if (item.classList.contains('canvas-link')) {
+					galleryName = 'canvas';
+					loadGallery(item, galleryName);
+				}
+			}
+		}
+
+		function loadGallery(item, gallery) {
+			buildImages(gallery);
+			item.classList.add('gallery-loaded');
+		}
 
 		(0, _tabs.tabs)();
 
@@ -3097,19 +3137,26 @@
 			}
 		});
 
-		function buildImages() {
+		function buildImages(gallery) {
 			var i = void 0;
 			var item = void 0;
 
-			for (i = 0; i < _windows2.default.length; i++) {
-				item = _windows2.default[i];
-				images.push({
-					src: item.src,
-					caption: item.caption
-				});
-			}
+			gallery = gallery || {};
 
-			insertImages(images.slice(0, 10));
+			if ((typeof gallery === 'undefined' ? 'undefined' : _typeof(gallery)) !== 'object' && gallery == 'windows' || (typeof gallery === 'undefined' ? 'undefined' : _typeof(gallery)) === 'object') {
+
+				for (i = 0; i < _windows2.default.length; i++) {
+					item = _windows2.default[i];
+					images.push({
+						src: item.src,
+						caption: item.caption
+					});
+				}
+
+				insertImages(images.slice(0, 10));
+			} else {
+				console.log('no images yet');
+			}
 		}
 
 		function insertImages(newImages) {
@@ -3119,7 +3166,6 @@
 					var lightboxSrc = document.createElement('a');
 					var image = document.createElement('img');
 					lightboxSrc.setAttribute('href', newImages[i].src);
-					//image.setAttribute('data-src', startingImages[i].src);
 					image.setAttribute('alt', newImages[i].caption);
 					image.src = newImages[i].src;
 

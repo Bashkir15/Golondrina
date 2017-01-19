@@ -6,14 +6,51 @@ import windows from '../../../../../dist/images/windows.json'
 export function gallery() {
 	var imageContainer1 = document.querySelector('.gallery');
 	var loadMoreButton = document.getElementById('load-more');
+	var galleryLinks = document.querySelectorAll('.tab-link');
 	var windowPage = 0;
 	var images = [];
 	var displayedImages = [];
 
+
+	Array.prototype.forEach.call(galleryLinks, (link) => {
+		if (!link.classList.contains('gallery-loaded')) {
+
+			let clickHandler = () => {
+				setupGallery(link);
+
+				setTimeout(() => {
+					link.removeEventListener('click', clickHandler, false);
+				}, 1000);
+			};
+
+			link.addEventListener('click', clickHandler, false);
+		}
+	});
+
+	function setupGallery(item) {
+		var galleryName = '';
+
+		if (!item.classList.contains('gallery-loaded')) {
+			if (item.classList.contains('window-link')) {
+				galleryName = 'windows';
+				loadGallery(item, galleryName);
+			} else if (item.classList.contains('canvas-link')) {
+				galleryName = 'canvas';
+				loadGallery(item, galleryName)
+			}
+		}
+	}
+
+	function loadGallery(item, gallery) {
+		buildImages(gallery);
+		item.classList.add('gallery-loaded');
+	}
+
+
+
 	tabs();
 
 	var lazyLoader = new lazy();
-
 
 	baguetteBox.run('.gallery-2', {
 		captions: (element) => {
@@ -40,19 +77,26 @@ export function gallery() {
 	});
 
 
-	function buildImages() {
+	function buildImages(gallery) {
 		let i;
 		let item;
 
-		for (i = 0; i < windows.length; i++) {
-			item = windows[i];
-			images.push({
-				src: item.src,
-				caption: item.caption
-			});
-		}
+		gallery = gallery || {}
 
-		insertImages(images.slice(0, 10));
+		if (typeof gallery !== 'object' && gallery == 'windows' || typeof gallery === 'object') {
+
+			for (i = 0; i < windows.length; i++) {
+				item = windows[i];
+				images.push({
+					src: item.src,
+					caption: item.caption
+				});
+			}
+
+			insertImages(images.slice(0, 10));
+		} else {
+			console.log('no images yet');
+		}
 	}
 
 
@@ -63,7 +107,6 @@ export function gallery() {
 				let lightboxSrc = document.createElement('a');
 				let image = document.createElement('img');
 				lightboxSrc.setAttribute('href', newImages[i].src);
-				//image.setAttribute('data-src', startingImages[i].src);
 				image.setAttribute('alt', newImages[i].caption);
 				image.src = newImages[i].src;
 
@@ -87,7 +130,7 @@ export function gallery() {
 
 
 	function loadMoreImages() {
-		var page1 = images.slice(10, 20);
+		var page1 =	images.slice(10, 20);
 		var page2 = images.slice(20, 30);
 		var page3 = images.slice(30, 40);
 		var page4 = images.slice(40, 50);
