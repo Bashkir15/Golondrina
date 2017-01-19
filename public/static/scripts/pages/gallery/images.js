@@ -22,6 +22,10 @@ function loadMoreImages(newest, visible, hidden, container) {
 		let i;
 		let len;
 
+		console.time('build');
+
+		var docFrag = document.createDocumentFragment();
+
 		for (i = 0, len = newest.length - 1; i < len; i++) {
 			let lightboxSrc = document.createElement('a');
 			let image = document.createElement('img');
@@ -31,8 +35,9 @@ function loadMoreImages(newest, visible, hidden, container) {
 				image.setAttribute('alt', newest[i].caption);
 			}
 
+			docFrag.appendChild(lightboxSrc);
 			lightboxSrc.appendChild(image);
-			container.appendChild(lightboxSrc);
+
 
 			if (lightboxSrc.getBoundingClientRect().top <= window.innerHeight + 100 && lightboxSrc.getBoundingClientRect().top > 0) {
 				image.src = newest[i].src;
@@ -42,6 +47,10 @@ function loadMoreImages(newest, visible, hidden, container) {
 			}
 
 		}
+
+		container.appendChild(docFrag);
+
+		console.timeEnd('build');
 
 		resolve();			
 	})

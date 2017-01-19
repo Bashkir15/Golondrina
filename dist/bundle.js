@@ -2605,18 +2605,20 @@
 		var windowsContainer = document.querySelector('.gallery');
 		var canvasContainer = document.querySelector('.gallery-2');
 		var residentialContainer = document.querySelector('.gallery-3');
-		var loadMoreButton = document.getElementById('load-more');
 		var galleryLinks = document.querySelectorAll('.tab-link');
 
 		var windowGallery = (0, _images.buildGallery)(_windows2.default);
+		var loadWindowsButton = document.getElementById('load-more-windows');
 		var windowsVisible = [];
 		var windowsHidden = [];
 
 		var residentialGallery = (0, _images.buildGallery)(_residential2.default);
+		var loadResidentialButton = document.getElementById('load-more-residential');
 		var residentialVisible = [];
 		var residentialHidden = [];
 
 		var canvasGallery = (0, _images.buildGallery)(_canvas2.default);
+		var loadCanvasButton = document.getElementById('load-more-canvas');
 		var canvasVisible = [];
 		var canvasHidden = [];
 
@@ -2649,8 +2651,15 @@
 
 		function loadMoreWindows() {
 			var page = page || 0;
-			(0, _images.buildImages)(windowGallery, windowsVisible, windowsHidden, windowsContainer, page);
-			page++;
+			if (windowGallery.length != windowsVisible.length) {
+				(0, _images.buildImages)(windowGallery, windowsVisible, windowsHidden, windowsContainer, page);
+				page++;
+			}
+
+			if (windowGallery.length == windowsVisible.length) {
+				loadWindowsButton.classList.add('no-more-images');
+				loadWindowsButton.removeEventListener('click', loadMoreWindows);
+			}
 		}
 
 		function loadMoreResidential() {
@@ -2667,7 +2676,8 @@
 
 		(0, _tabs.tabs)();
 
-		loadMoreButton.addEventListener('click', loadMoreWindows, false);
+		loadWindowsButton.addEventListener('click', loadMoreWindows, false);
+		loadCanvasButton.addEventListener('click', loadMoreCanvas, false);
 	}
 
 /***/ },
@@ -3345,6 +3355,10 @@
 			var i = void 0;
 			var len = void 0;
 
+			console.time('build');
+
+			var docFrag = document.createDocumentFragment();
+
 			for (i = 0, len = newest.length - 1; i < len; i++) {
 				var lightboxSrc = document.createElement('a');
 				var image = document.createElement('img');
@@ -3354,8 +3368,8 @@
 					image.setAttribute('alt', newest[i].caption);
 				}
 
+				docFrag.appendChild(lightboxSrc);
 				lightboxSrc.appendChild(image);
-				container.appendChild(lightboxSrc);
 
 				if (lightboxSrc.getBoundingClientRect().top <= window.innerHeight + 100 && lightboxSrc.getBoundingClientRect().top > 0) {
 					image.src = newest[i].src;
@@ -3364,6 +3378,10 @@
 					hidden.push({ image: newest[i], container: lightboxSrc });
 				}
 			}
+
+			container.appendChild(docFrag);
+
+			console.timeEnd('build');
 
 			resolve();
 		});
