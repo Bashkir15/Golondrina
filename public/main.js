@@ -13,6 +13,7 @@ import { contact } from './static/scripts/pages/contact/contact'
 var navTrigger = document.getElementById('nav-trigger');
 var footer = document.getElementById('footer');
 var navLinks = document.querySelectorAll('.nav-link');
+var nav = document.getElementById('nav');
 var scrollTimeout;
 var resizeTimeout;
 
@@ -30,11 +31,14 @@ function activeUrl() {
 
 	Array.prototype.forEach.call(navLinks, (link) => {
 		if (pathNames.indexOf(link.getAttribute("href")) != -1 && link.getAttribute("href") == window.location.pathname) {
-			link.classList.add('active')
+			link.classList.add('active');
+			nav.classList.add('normal-nav');
 		} else  if (link.getAttribute("href") == window.location.pathname) {
-			link.classList.add('landing-active');
+			link.classList.add('active');
 		}
 	});
+
+	
 }
 
 function fixElements() {

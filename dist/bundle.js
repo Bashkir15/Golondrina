@@ -75,6 +75,7 @@
 	var navTrigger = document.getElementById('nav-trigger');
 	var footer = document.getElementById('footer');
 	var navLinks = document.querySelectorAll('.nav-link');
+	var nav = document.getElementById('nav');
 	var scrollTimeout;
 	var resizeTimeout;
 
@@ -91,8 +92,9 @@
 		Array.prototype.forEach.call(navLinks, function (link) {
 			if (pathNames.indexOf(link.getAttribute("href")) != -1 && link.getAttribute("href") == window.location.pathname) {
 				link.classList.add('active');
+				nav.classList.add('normal-nav');
 			} else if (link.getAttribute("href") == window.location.pathname) {
-				link.classList.add('landing-active');
+				link.classList.add('active');
 			}
 		});
 	}

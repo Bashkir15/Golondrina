@@ -2,7 +2,8 @@
 	position: relative
 
 .tab-item[data-tab-active]
-	&:before
+	&:before,
+	&:after
 		transform: scale3d(7,7,1)
 
 .tab-list
@@ -10,28 +11,39 @@
 	align-items: center
 	position: relative
 	justify-content: flex-start
-	border-top: 1px solid #204a65
-	border-bottom: 1px solid #204a65
+	border-top: 1px solid #0AB6A2
+	border-bottom: 1px solid #0AB6A2
 
 	> li
 		display: flex
 		align-items: center
 		justify-content: center
 		flex: 1
-		border-right: 1px solid #204a65
+		border-right: 1px solid #0AB6A2
 		overflow: hidden
 		position: relative
 		height: 100px
 
 		a
-			display: inline-block
-			padding: 10px 0
+			display: flex
+			align-items: center
+			justify-content: center
 			color: #fff
+			height: 52px
+			width: 52px
+			border-radius: 50%
+			margin-left: -2px
+			margin-top: -1px
 			font-size: 24px
 			overflow: hidden
 			text-overflow: ellipsis
 			white-space: nowrap
 			transition: color 0.4s
+
+			span
+				position: relative
+				color: #fff
+				z-index: 50
 
 		&:before
 			position: absolute
@@ -40,10 +52,25 @@
 			margin: -30px 0 0 -30px
 			width: 50px
 			height: 50px
-			border: 1px solid #204a65
+			border: 1px solid #0AB6A2
+			border-radius: 50%
+			background: #0AB6A2
+			content: ''
+			transition: transform 0.4s
+			pointer-events: none
+
+		&:after
+			position: absolute
+			top: 53%
+			left: 52%
+			margin: -30px 0 0 -30px
+			width: 50px
+			height: 50px
+			border: 1px solid rgba(0,0,0,0.3)
 			border-radius: 50%
 			background: #1c907f
 			background: darken(#204a65, 5%)
+			background: rgba(0,0,0,0.3)
 			content: ''
 			transition: transform 0.4s
 			pointer-events: none
@@ -80,58 +107,76 @@
 @media screen and (min-device-width: 400px) and (max-device-width: 680px)
 	.tab-list
 		li
-			&:before
+			&:before,
+			&:after
 				left: 60%
 
 			a
-				font-size: 18px
-				margin-top: 3px
-				margin-left: 3px
+				margin-top: 1px
+				
+				span
+					font-size: 18px
 
 @media screen and (min-width: 680px)
 	.tab-list
 		li
-			a
-				padding: 25px 
 
-			&:before
+			&:before,
+			&:after
 				height: 85px
 				width: 85px
 				left: 42%
 				top: 37%
 
+			a
+				height: 87px
+				width: 87px
+
+				span
+					font-size: 28px
+
 @media screen and (min-width: 830px)
 	.tab-list
 		li
-			&:before
+			&:before,
+			&:after
 				left: 43%
 
 @media screen and (min-width: 1000px)
 	.tab-list
 		li
-			&:before
+			&:before,
+			&:after
 				left: 44%
 
 @media screen and (min-width: 1200px)
 	.tab-list
 		li
-			&:before
+			&:before,
+			&:after
 				left: 45%
 
 @media screen and (min-width: 1400px)
 	.tab-list
 		li
-			&:before
+			&:before,
+			&:after
 				left: 46%
 
 @media screen and (min-width: 1600px)
 	.tab-list
 		li
-			&:before
+			&:before,
+			&:after
 				left: 47%
+
+			a
+				span
+					font-size: 30px
 
 @media screen and (min-width: 1800px)
 	.tab-list
 		li
-			&:before
+			&:before,
+			&:after
 				left: 47%
