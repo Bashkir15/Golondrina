@@ -3065,17 +3065,17 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function gallery() {
-		var imageContainer1 = document.querySelector('.gallery');
+		var windowsContainer = document.querySelector('.gallery');
 		var loadMoreButton = document.getElementById('load-more');
 		var galleryLinks = document.querySelectorAll('.tab-link');
-		var windowPage = 0;
-		var galleryLoaded = false;
 		var images = [];
 		var hiddenImages = [];
 		var displayedImages = [];
 		var windowGallery = (0, _images.buildGallery)(_windows2.default);
+		var windowsVisible = [];
+		var windowsHidden = [];
 
-		insertImages(windowGallery.slice(0, 10));
+		loadMoreWindows();
 
 		Array.prototype.forEach.call(galleryLinks, function (link) {
 			if (!link.classList.contains('gallery-loaded')) {
@@ -3109,13 +3109,19 @@
 		}
 
 		function loadGallery(item, gallery) {
-			buildImages(gallery);
+			(0, _images.buildImages)(gallery);
 			item.classList.add('gallery-loaded');
 		}
 
-		(0, _tabs.tabs)();
+		function loadMoreWindows() {
+			var page = page || 0;
 
-		var lazyLoader = new _lazy2.default();
+			(0, _images.buildImages)(windowGallery, windowsVisible, windowsHidden, windowsContainer, page);
+
+			page++;
+		}
+
+		(0, _tabs.tabs)();
 
 		baguetteBox.run('.gallery-2', {
 			captions: function captions(element) {
@@ -3141,88 +3147,7 @@
 			}
 		});
 
-		function insertImages(newImages) {
-			return new Promise(function (resolve) {
-				var i = void 0;
-				for (i = 0; i < newImages.length; i++) {
-					var lightboxSrc = document.createElement('a');
-					var image = document.createElement('img');
-					lightboxSrc.setAttribute("href", newImages[i].src);
-					image.setAttribute('alt', newImages[i].caption);
-
-					lightboxSrc.appendChild(image);
-					imageContainer1.appendChild(lightboxSrc);
-
-					if (lightboxSrc.getBoundingClientRect().top <= window.innerHeight + 100 && lightboxSrc.getBoundingClientRect().top > 0) {
-						image.src = newImages[i].src;
-						displayedImages.push(newImages[i]);
-					} else {
-						hiddenImages.push({ image: newImages[i], container: lightboxSrc });
-					}
-				}
-
-				resolve();
-			}).then(function () {
-				baguetteBox.run('.gallery', {
-					captions: function captions(element) {
-						return element.getElementsByTagName('img')[0].alt;
-					},
-					animation: 'fadeIn'
-				});
-
-				window.addEventListener('scroll', checkViewport, false);
-			});
-		}
-
-		function checkViewport() {
-			hiddenImages.forEach(function (item) {
-				var rect = item.container.getBoundingClientRect();
-				if (rect.top <= window.innerHeight + 100 && rect.top > 0) {
-					item.container.firstChild.src = item.image.src;
-				} else {
-					return;
-				}
-			});
-		}
-
-		function loadMoreImages() {
-			var page1 = images.slice(10, 20);
-			var page2 = images.slice(20, 30);
-			var page3 = images.slice(30, 40);
-			var page4 = images.slice(40, 50);
-			var page5 = images.slice(50, 60);
-
-			if (windowPage === 0) {
-				insertImages(page1);
-			}
-
-			if (windowPage === 1) {
-				insertImages(page2);
-			}
-
-			if (windowPage === 2) {
-				insertImages(page3);
-			}
-
-			if (windowPage === 3) {
-				insertImages(page4);
-			}
-
-			if (windowPage === 4) {
-				insertImages(page5);
-			}
-
-			if (displayedImages.length !== images.length) {
-				windowPage++;
-			} else {
-				loadMoreButton.removeEventListener('click', loadMoreImages, false);
-				loadMoreButton.classList.add('no-more-images');
-			}
-		}
-
-		loadMoreButton.addEventListener('click', loadMoreImages, false);
-		window.addEventListener('DOMContentLoaded', lazyLoader.init, false);
-		window.addEventListener('scroll', lazyLoader.viewPortChange, false);
+		loadMoreButton.addEventListener('click', loadMoreWindows, false);
 	}
 
 /***/ },
@@ -3981,7 +3906,7 @@
 /* 43 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -4005,25 +3930,71 @@
 		return galleryIamges;
 	}
 
-	function loadMoreImages(galleryIamges, page) {
-		page = page || 0;
+	function loadMoreImages(newest, visible, hidden, container) {
+		return new Promise(function (resolve) {
+			var i = void 0;
+			var len = void 0;
 
+			for (i = 0, len = newest.length - 1; i < len; i++) {
+				var lightboxSrc = document.createElement('a');
+				var image = document.createElement('img');
+				lightboxSrc.setAttribute("href", newest[i].src);
+				image.setAttribute('alt', newest[i].caption);
+
+				lightboxSrc.appendChild(image);
+				container.appendChild(lightboxSrc);
+
+				if (lightboxSrc.getBoundingClientRect().top <= window.innerHeight + 100 && lightboxSrc.getBoundingClientRect().top > 0) {
+					image.src = newest[i].src;
+					visible.push(newest[i]);
+				} else {
+					hidden.push({ image: newest[i], container: lightboxSrc });
+				}
+			}
+
+			resolve();
+		});
+	}
+
+	function buildImages(gallery, galleryVisible, galleryHidden, galleryContainer, page) {
+		var imageContainer = galleryContainer;
 		if (page == 0) {
-			return galleryIamges.slice(0, 10);
+			loadMoreImages(gallery.splice(0, 10), galleryVisible, galleryHidden, imageContainer).then(restartGallery(imageContainer, galleryHidden));
 		} else if (page == 1) {
-			return galleryIamges.slice(10, 20);
-		} else if (page == 2) {
-			return galleryIamges.slice(20, 30);
-		} else if (page == 3) {
-			return galleryIamges.slice(30, 40);
-		} else if (page == 4) {
-			return galleryIamges.slice(40, 50);
-		} else if (page == 5) {
-			return galleryIamges.slice(50, 60);
+			loadMoreImages(gallery.splice(10, 20), galleryVisible, galleryHidden, imageContainer).then(restartGallery(imageContainer));
 		}
 	}
 
+	function restartGallery(container, galleryHidden) {
+		var gallery = container.className.split(" ")[0];
+
+		baguetteBox.run('.' + gallery, {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			}
+		});
+
+		window.addEventListener("scroll", function () {
+			checkViewport(galleryHidden);
+		}, false);
+	}
+
+	function checkViewport(hiddenImages) {
+		hiddenImages.forEach(function (item) {
+			var rect = item.container.getBoundingClientRect();
+			if (rect.top <= window.innerHeight + 100 && rect.top > 0) {
+				item.container.firstChild.src = item.image.src;
+			} else {
+				return;
+			}
+		});
+	}
+
 	exports.buildGallery = buildGallery;
+	exports.loadMoreImages = loadMoreImages;
+	exports.buildImages = buildImages;
+	exports.restartGallery = restartGallery;
+	exports.checkViewport = checkViewport;
 
 /***/ }
 /******/ ]);
