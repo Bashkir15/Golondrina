@@ -422,10 +422,6 @@
 	});
 	exports.landing = landing;
 
-	var _dialog = __webpack_require__(4);
-
-	var _dialog2 = _interopRequireDefault(_dialog);
-
 	var _notifications = __webpack_require__(5);
 
 	var _notifications2 = _interopRequireDefault(_notifications);
@@ -434,16 +430,12 @@
 
 	var _axios2 = _interopRequireDefault(_axios);
 
-	var _contact = __webpack_require__(32);
-
 	var _validator = __webpack_require__(33);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function landing() {
-		//	let contactDialogTrigger = document.getElementById('landing-contact');
 		var input = document.querySelectorAll('.form-input');
-		var contactContent = document.getElementById('contact-dialog');
 		var formWrapper = document.getElementById('landing-form-wrapper');
 		var email = document.getElementById('landing-email');
 		var signupButton = document.getElementById('signup-button');
@@ -451,15 +443,6 @@
 		var successContent = document.getElementById('newsletter-success');
 		var failureContent = document.getElementById('newsletter-failure');
 		var errorContent = document.getElementById('newsletter-error');
-
-		/*	let contactDialog = new modal({
-	 		content: contactContent
-	 	});
-	 
-	 	function openContact() {
-	 		contactDialog.open();
-	 		contact();
-	 	} */
 
 		function newsletter() {
 			console.log('meh');
@@ -529,276 +512,10 @@
 		window.addEventListener('newsletter-failure', newsletterFailure.open, false);
 		window.addEventListener('newsletter-error', newsletterError.open, false);
 		signupButton.addEventListener('click', newsletter, false);
-		//contactDialogTrigger.addEventListener('click', openContact, false);
 	}
 
 /***/ },
-/* 4 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var modal = function () {
-		function modal(options) {
-			_classCallCheck(this, modal);
-
-			this.dialog = null;
-			this.overlay = null;
-			this.closeButton = null;
-
-			this.defaults = {
-				className: 'dialog-effect',
-				content: "",
-				overlay: true,
-				closeKeys: [27],
-				closeButton: true,
-				onBeforeOpen: null,
-				onBeforeClose: null,
-				transitions: true,
-				onOpen: null,
-				onClose: null
-			};
-
-			this._applySettings(options);
-			this.open = this._open.bind(this);
-			this.close = this._close.bind(this);
-			//this.transitionEnd = this._transitionSniff();
-		}
-
-		_createClass(modal, [{
-			key: '_applySettings',
-			value: function _applySettings(options) {
-				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-					for (var i in options) {
-						if (options.hasOwnProperty(i)) {
-							this.defaults[i] = options[i];
-						}
-					}
-				}
-			}
-		}, {
-			key: '_open',
-			value: function _open() {
-				document.body.classList.add('dialog-open');
-				this._buildOut.call(this);
-				this._checkOverflow.call(this);
-
-				this.dialog.classList.add('dialog-open');
-				this.overlay.classList.add('dialog-open');
-
-				this._checkOverflow.call(this);
-				this._attachEvents();
-			}
-		}, {
-			key: '_close',
-			value: function _close() {
-				var _this = this;
-
-				this.overlay.classList.remove('dialog-open');
-				this.dialog.classList.remove('dialog-open');
-				document.body.classList.remove('dialog-open');
-
-				this._destroyEvents();
-
-				this.overlay.addEventListener('transitionend', function () {
-					_this.overlay.parentNode.removeChild(_this.overlay);
-				});
-			}
-		}, {
-			key: '_buildOut',
-			value: function _buildOut() {
-				var content;
-				var contentHolder = document.createElement('div');
-				contentHolder.classList.add('dialog-content');
-
-				this.overlay = document.createElement('div');
-				this.overlay.classList.add('dialog-overlay');
-
-				this.dialog = document.createElement('div');
-				this.dialog.classList.add('dialog');
-
-				if (typeof this.defaults.content === 'string') {
-					content = this.defaults.content;
-				} else {
-					content = this.defaults.content.innerHTML;
-				}
-
-				if (this.defaults.closeButton === true) {
-					this.closeButton = document.createElement('button');
-					this.closeButton.innerHTML = '<span class=\'icon-close\'>X</span>';
-					this.closeButton.classList.add('dialog-close-button');
-					this.dialog.appendChild(this.closeButton);
-				}
-
-				contentHolder.innerHTML = content;
-				this.dialog.appendChild(contentHolder);
-				this.overlay.appendChild(this.dialog);
-				document.body.insertBefore(this.overlay, document.body.firstChild);
-			}
-
-			/* _transitionSniff() {
-	  	if (this.defaults.transitions === false) {
-	  		return;
-	  	}
-	  		var el = document.createElement('div');
-	  	var transitions = {
-	  		'transition': 'transitionend',
-	  		'OTransition': 'otransitionend',
-	  		'MozTransition': 'transitionend',
-	  		'WebkitTransition': 'webkitTransitionEnd'
-	  	};
-	  		for (var i in transitions) {
-	  		if (transitions.hasOwnProperty(i) && el.style[i] !== undefined) {
-	  			return transitions[i];
-	  		}
-	  	}
-	  	}
-	  	_open() {
-	  	if (typeof this.defaults.onBeforeOpen === 'function') {
-	  		this.defaults.onBeforeOpen.call(this, e);
-	  	}
-	  		this._buildOut.call(this);
-	  	this._checkOverflow.call(this);
-	  		/* window.getComputedStyle(this.dialog).height;
-	  	if (this.dialog.offsetHeight > window.innerHeight) {
-	  		this.dialog.classList.add('dialog-anchored');
-	  		this.dialog.style.top = 20 + "px";
-	  	} 
-	  		this.dialog.classList.add('dialog-open');
-	  	this.overlay.classList.add('dialog-open');
-	  	document.body.classList.add('dialog-open');
-	  	
-	  	//document.querySelector('.landing-page-content').classList.add('dialog-open');
-	  		document.body.style.overflowY = 'hidden';
-	  	this._checkOverflow.call(this);
-	  		this._attachEvents();
-	  		if (typeof this.defaults.onOpen === 'function') {
-	  		this.defaults.onOpen.call(this, e);
-	  	}
-	  }
-	  	_close() {
-	  		if (typeof this.defaults.onBeforeClose === 'function') {
-	  		this.defaults.onBeforeClose.call(this, e);
-	  	}
-	  		this.dialog.className = this.dialog.className.replace(" dialog-open", "");
-	  	this.overlay.className = this.overlay.className.replace(" dialog-open", "");
-	  	document.querySelector('.landing-page-content').classList.remove('dialog-open');
-	  	document.body.style.overflowY = 'auto';
-	  		this._destroyEvents();
-	  		this.dialog.addEventListener('transitionend', () => {
-	  		this.dialog.parentNode.removeChild(this.dialog);
-	  	}, false);
-	  		this.overlay.addEventListener('transitionend', () => {
-	  		this.overlay.parentNode.removeChild(this.overlay);
-	  	}, false);
-	  		document.body.style.height = 'auto';
-	  	document.body.style.overflowY = 'auto';
-	  		if (typeof this.defaults.onClose === 'function') {
-	  		this.defaults.onClose.call(this, e);
-	  	}
-	  }
-	  	_buildOut() {
-	  	let content;
-	  	let contentHolder;
-	  	let docFrag;
-	  		if (typeof this.defaults.content === 'string') {
-	  		content = this.defaults.content;
-	  	} else {
-	  		content = this.defaults.content.innerHTML;
-	  	}
-	  		docFrag = document.createDocumentFragment();
-	  		this.dialog = document.createElement("div");
-	  	this.dialog.className = 'dialog ' + this.defaults.className;
-	  
-	  	//this.dialog.style.top = window.pageYOffset + (window.innerHeight / 2) + "px";
-	  	//this.dialog.style.left = (window.innerWidth + this.dialog.offsetWidth) / 2 + "px";
-	  		if (this.defaults.closeButton === true) {
-	  		this.closeButton = document.createElement('button');
-	  		this.closeButton.innerHTML = 	`<span class='icon-close'>X</span>`;
-	  		this.closeButton.classList.add('dialog-close-button');
-	  		this.dialog.appendChild(this.closeButton);
-	  	}
-	  		if (this.defaults.overlay === true) {
-	  		this.overlay = document.createElement('div');
-	  		this.overlay.className = "dialog-overlay " + this.defaults.className;
-	  		docFrag.appendChild(this.overlay);
-	  	}
-	  		contentHolder = document.createElement('div');
-	  	contentHolder.className = "dialog-content";
-	  	contentHolder.innerHTML = content;
-	  	this.dialog.appendChild(contentHolder);
-	  	docFrag.appendChild(this.dialog);
-	  	document.body.appendChild(docFrag);
-	  } */
-
-		}, {
-			key: '_isOverflow',
-			value: function _isOverflow() {
-				var viewportHeight = window.innerHeight;
-				var dialogHeight = this.dialog.clientHeight;
-				var isOverflow = dialogHeight < viewportHeight ? false : true;
-
-				return isOverflow;
-			}
-		}, {
-			key: '_checkOverflow',
-			value: function _checkOverflow() {
-				if (this.dialog.classList.contains('dialog-open')) {
-					if (this._isOverflow()) {
-						this.overlay.classList.add('dialog-overflow');
-					} else {
-						this.overlay.classList.remove('dialog-overflow');
-					}
-				}
-			}
-		}, {
-			key: '_closeKeyHandler',
-			value: function _closeKeyHandler(e) {
-				if (this.defaults.closeKeys.indexOf(e.which) > -1) {
-					e.preventDefault();
-					this.close();
-				}
-			}
-		}, {
-			key: '_attachEvents',
-			value: function _attachEvents() {
-				var _closeKeyHandler = this._closeKeyHandler.bind(this);
-
-				//	this.overlay.addEventListener('click', this.close, false);
-
-				if (this.closeButton) {
-					this.closeButton.addEventListener('click', this.close);
-				}
-
-				document.body.addEventListener('keydown', _closeKeyHandler, false);
-			}
-		}, {
-			key: '_destroyEvents',
-			value: function _destroyEvents() {
-				var _closeKeyHandler = this._closeKeyHandler.bind(this);
-
-				this.overlay.removeEventListener('click', this.close);
-				this.closeButton.removeEventListener('click', this.close);
-				document.body.addEventListener('keydown', _closeKeyHandler);
-			}
-		}]);
-
-		return modal;
-	}();
-
-	exports.default = modal;
-
-/***/ },
+/* 4 */,
 /* 5 */
 /***/ function(module, exports) {
 
@@ -2640,191 +2357,7 @@
 
 
 /***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.contact = contact;
-
-	var _axios = __webpack_require__(6);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	var _notifications = __webpack_require__(5);
-
-	var _notifications2 = _interopRequireDefault(_notifications);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function contact() {
-		var formWrappers = document.querySelectorAll('.contact-form-wrapper');
-		var formInputs = document.querySelectorAll('.contact-form-input');
-		var submitButton = document.getElementById('contact-send');
-		var successContent = document.getElementById('contact-success');
-		var failureContent = document.getElementById('contact-failure');
-
-		function onFocus() {
-			Array.prototype.forEach.call(formInputs, function (input) {
-				input.addEventListener('focus', inputFocus);
-			});
-		}
-
-		function onBlur() {
-			Array.prototype.forEach.call(formInputs, function (input) {
-				input.addEventListener('blur', inputBlur);
-			});
-		}
-
-		function inputFocus() {
-			if (!this.parentNode.classList.contains('focused')) {
-				this.parentNode.classList.add('focused');
-			} else {
-				return;
-			}
-		}
-
-		function inputBlur() {
-			var formContent = this.value;
-
-			if (this.parentNode.classList.contains('focused')) {
-				this.parentNode.classList.remove('focused');
-			}
-
-			if (formContent == '') {
-				this.parentNode.classList.add('blank');
-			}
-
-			if (this.parentNode.classList.contains('contact-form-email')) {
-				validateEmail();
-			}
-
-			if (formContent !== '' && !this.parentNode.classList.contains('contact-form-email')) {
-				if (this.parentNode.classList.contains('blank')) {
-					this.parentNode.classList.remove('blank');
-				}
-
-				this.parentNode.classList.add('valid');
-			}
-
-			checkValidForm();
-		}
-
-		function validateEmail() {
-			var input = document.getElementById('contact-email');
-			var formValue = input.value;
-			var atpos = formValue.indexOf('@');
-			var dotpos = formValue.lastIndexOf(".");
-
-			if (atpos < 1 || dotpos - atpos < 2) {
-				if (input.parentNode.classList.contains('blank')) {
-					console.log('grrr');
-					input.parentNode.classList.remove('blank');
-				}
-
-				input.parentNode.classList.add('email-invalid');
-			} else {
-				if (input.parentNode.classList.contains('blank')) {
-					input.parentNode.classList.remove('blank');
-				}
-
-				if (input.parentNode.classList.contains('email-invalid')) {
-					input.parentNode.classList.remove('email-invalid');
-				}
-
-				input.parentNode.classList.add('email-valid');
-			}
-		}
-
-		function checkValidForm() {
-			var validForm = 0;
-
-			Array.prototype.forEach.call(formWrappers, function (wrapper) {
-				if (wrapper.classList.contains('valid') || wrapper.classList.contains('email-valid')) {
-					validForm++;
-				}
-			});
-
-			if (validForm == 4) {
-				submitButton.classList.add('contact-form-valid');
-				submitButton.addEventListener('click', sendMessage);
-			}
-		}
-
-		function sendMessage() {
-			if (submitButton.classList.contains('contact-form-valid')) {
-				submitButton.classList.add('contact-show-loading');
-
-				var data = {};
-				data.name = name.value;
-				data.email = email.value;
-				data.phone = phone.value;
-				data.message = message.value;
-
-				_axios2.default.post('http://localhost:7000/contact', {
-					name: data.name,
-					email: data.email,
-					phone: data.phone,
-					message: data.message,
-
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				}).then(function (response) {
-					if (response.data.success) {
-						submitButton.classList.remove('contact-show-loading');
-						var success = new Event('message-delivered');
-						window.dispatchEvent(success);
-						removeEvents();
-					} else {
-						submitButton.classList.remove('contact-show-loading');
-						var failure = new Event('message-failed');
-						window.dispatchEvent(failure);
-					}
-				});
-			}
-		}
-
-		function removeEvents() {
-			submitButton.removeEventListener('click', sendMessage);
-
-			Array.prototype.forEach.call(formInputs, function (input) {
-				input.removeEventListener('focus', inputFocus);
-			});
-
-			Array.prototype.forEach.call(formInputs, function (input) {
-				input.removeEventListener('blur', inputBlur);
-			});
-		}
-
-		function handleClose() {
-			contactDialog.close();
-			successNotify.open();
-		}
-
-		var successNotify = new _notifications2.default({
-			content: successContent,
-			timeout: 2500,
-			type: 'success'
-		});
-
-		var failureNotify = new _notifications2.default({
-			content: failureContent,
-			timeout: 2500,
-			type: 'danger'
-		});
-
-		onBlur();
-		onFocus();
-
-		window.addEventListener('message-delivered', handleClose);
-		window.addEventListener('message-failed', failureNotify.open);
-	}
-
-/***/ },
+/* 32 */,
 /* 33 */
 /***/ function(module, exports) {
 
@@ -3054,10 +2587,6 @@
 
 	var _images = __webpack_require__(43);
 
-	var _lazy = __webpack_require__(39);
-
-	var _lazy2 = _interopRequireDefault(_lazy);
-
 	var _windows = __webpack_require__(40);
 
 	var _windows2 = _interopRequireDefault(_windows);
@@ -3066,10 +2595,15 @@
 
 	var _residential2 = _interopRequireDefault(_residential);
 
+	var _canvas = __webpack_require__(45);
+
+	var _canvas2 = _interopRequireDefault(_canvas);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function gallery() {
 		var windowsContainer = document.querySelector('.gallery');
+		var canvasContainer = document.querySelector('.gallery-2');
 		var residentialContainer = document.querySelector('.gallery-3');
 		var loadMoreButton = document.getElementById('load-more');
 		var galleryLinks = document.querySelectorAll('.tab-link');
@@ -3081,6 +2615,10 @@
 		var residentialGallery = (0, _images.buildGallery)(_residential2.default);
 		var residentialVisible = [];
 		var residentialHidden = [];
+
+		var canvasGallery = (0, _images.buildGallery)(_canvas2.default);
+		var canvasVisible = [];
+		var canvasHidden = [];
 
 		loadMoreWindows();
 
@@ -3103,7 +2641,7 @@
 
 		function setupGallery(item) {
 			if (item.classList.contains('canvas-link')) {
-				// loadMoreCanvas();
+				loadMoreCanvas();
 			} else if (item.classList.contains('residential-link')) {
 				loadMoreResidential();
 			}
@@ -3118,6 +2656,12 @@
 		function loadMoreResidential() {
 			var page = page || 0;
 			(0, _images.buildImages)(residentialGallery, residentialVisible, residentialHidden, residentialContainer, page);
+			page++;
+		}
+
+		function loadMoreCanvas() {
+			var page = page || 0;
+			(0, _images.buildImages)(canvasGallery, canvasVisible, canvasHidden, canvasContainer, page);
 			page++;
 		}
 
@@ -3277,117 +2821,7 @@
 	}
 
 /***/ },
-/* 39 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var lazy = function () {
-		function lazy(options) {
-			_classCallCheck(this, lazy);
-
-			this.elements = null;
-
-			this.defaults = {
-				duration: '1000',
-				distance: '200',
-				heightOffset: 200
-			};
-
-			this.enter = this._enter.bind(this);
-			this.init = this._init.bind(this);
-			this.viewPortChange = this._viewPortChange.bind(this);
-			this._applySettings(options);
-		}
-
-		_createClass(lazy, [{
-			key: '_applySettings',
-			value: function _applySettings(options) {
-				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-					for (var i in options) {
-						if (options.hasOwnProperty(i)) {
-							this.defaults[i] = options[i];
-						}
-					}
-				}
-			}
-		}, {
-			key: '_isInView',
-			value: function _isInView(elem) {
-				var rect = elem.getBoundingClientRect();
-
-				return rect.top + this.defaults.heightOffset >= 0 && rect.top + this.defaults.heightOffset <= window.innerHeight || rect.bottom + this.defaults.heightOffset >= 0 && rect.bottom + this.defaults.heightOffset <= window.innerHeight || rect.bottom + this.defaults.heightOffset < 0 && rect.bottom + this.defaults.heightOffset > window.innerHeight;
-			}
-		}, {
-			key: '_enter',
-			value: function _enter(elem) {
-				var src = elem.getAttribute('data-src');
-
-				elem.style.visibility = "visible";
-				elem.style.opacity = "1";
-				elem.style.transform = "translate(0,0)";
-				elem.classList.add("has-entered");
-
-				elem.src = src;
-			}
-		}, {
-			key: '_setInitialStyle',
-			value: function _setInitialStyle(elem) {
-				elem.style.transition = "all " + this.defaults.duration / 1000 + "s ease-out";
-				elem.style.opacity = 0;
-			}
-		}, {
-			key: '_viewPortChange',
-			value: function _viewPortChange() {
-				var _this = this;
-
-				Array.prototype.map.call(this.elements, function (item) {
-					var isInView = _this._isInView(item);
-
-					if (isInView) {
-						var hasEntered = item.classList.contains('has-entered');
-
-						if (!hasEntered) {
-							_this._enter(item);
-						}
-					}
-				});
-			}
-		}, {
-			key: '_init',
-			value: function _init() {
-				var _this2 = this;
-
-				this.elements = document.querySelectorAll('.lazy');
-
-				Array.prototype.map.call(this.elements, function (item) {
-					_this2._setInitialStyle(item);
-
-					if (_this2._isInView(item)) {
-						window.addEventListener('load', function () {
-							_this2.enter(item);
-						}, false);
-					}
-				});
-			}
-		}]);
-
-		return lazy;
-	}();
-
-	exports.default = lazy;
-
-/***/ },
+/* 39 */,
 /* 40 */
 /***/ function(module, exports) {
 
@@ -4043,6 +3477,41 @@
 		{
 			"category": "residential",
 			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Table02min.jpg"
+		}
+	];
+
+/***/ },
+/* 45 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"category": "canvas",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas1-min.jpg"
+		},
+		{
+			"category": "canvas",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas2-min.jpg"
+		},
+		{
+			"category": "canvas",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas3-min.jpg"
+		},
+		{
+			"category": "canvas",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas4-min.jpg"
+		},
+		{
+			"category": "canvas",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas5-min.jpg"
+		},
+		{
+			"category": "canvas",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas6-min.jpg"
+		},
+		{
+			"category": "canvas",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas7-min.jpg"
 		}
 	];
 

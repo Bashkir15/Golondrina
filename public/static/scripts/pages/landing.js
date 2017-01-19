@@ -1,13 +1,9 @@
-import modal from '../components/dialog'
 import notifications from '../components/notifications'
 import axios from 'axios'
-import { contact } from '../utils/contact'
 import { onBlur, removeBlur } from '../utils/validator'
 
 export function landing() {
-//	let contactDialogTrigger = document.getElementById('landing-contact');
 	let input = document.querySelectorAll('.form-input');
-	let contactContent = document.getElementById('contact-dialog');
 	let formWrapper = document.getElementById('landing-form-wrapper');
 	let email = document.getElementById('landing-email');
 	let signupButton = document.getElementById('signup-button');
@@ -16,14 +12,7 @@ export function landing() {
 	let failureContent = document.getElementById('newsletter-failure');
 	let errorContent = document.getElementById('newsletter-error');
 
-/*	let contactDialog = new modal({
-		content: contactContent
-	});
 
-	function openContact() {
-		contactDialog.open();
-		contact();
-	} */
 
 	function newsletter() {
 		console.log('meh');
@@ -95,5 +84,4 @@ export function landing() {
 	window.addEventListener('newsletter-failure', newsletterFailure.open, false);
 	window.addEventListener('newsletter-error', newsletterError.open, false);
 	signupButton.addEventListener('click', newsletter, false);
-	//contactDialogTrigger.addEventListener('click', openContact, false);
 }
