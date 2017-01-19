@@ -3071,6 +3071,7 @@
 		var galleryLinks = document.querySelectorAll('.tab-link');
 		var windowPage = 0;
 		var images = [];
+		var hiddenImages = [];
 		var displayedImages = [];
 
 		Array.prototype.forEach.call(galleryLinks, function (link) {
@@ -3165,13 +3166,19 @@
 				for (i = 0; i < newImages.length; i++) {
 					var lightboxSrc = document.createElement('a');
 					var image = document.createElement('img');
-					lightboxSrc.setAttribute('href', newImages[i].src);
 					image.setAttribute('alt', newImages[i].caption);
-					image.src = newImages[i].src;
 
 					lightboxSrc.appendChild(image);
 					imageContainer1.appendChild(lightboxSrc);
-					displayedImages.push(newImages[i]);
+
+					if (lightboxSrc.getBoundingClientRect().top <= window.innerHeight + 100 && lightboxSrc.getBoundingClientRect().top > 0) {
+						image.src = newImages[i].src;
+						lightboxSrc.setAttribute("href", newImages[i].src);
+						displayedImages.push(newImages[i]);
+					} else {
+						hiddenImages.push(newImages[i]);
+						console.log(hiddenImages);
+					}
 				}
 
 				resolve();
