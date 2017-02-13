@@ -56,13 +56,13 @@
 
 	var _landing = __webpack_require__(3);
 
-	var _signup = __webpack_require__(34);
+	var _signup = __webpack_require__(32);
 
-	var _login = __webpack_require__(35);
+	var _login = __webpack_require__(33);
 
-	var _admin = __webpack_require__(36);
+	var _admin = __webpack_require__(34);
 
-	var _gallery = __webpack_require__(37);
+	var _gallery = __webpack_require__(35);
 
 	var _contact = __webpack_require__(41);
 
@@ -422,15 +422,15 @@
 	});
 	exports.landing = landing;
 
-	var _notifications = __webpack_require__(5);
+	var _notifications = __webpack_require__(4);
 
 	var _notifications2 = _interopRequireDefault(_notifications);
 
-	var _axios = __webpack_require__(6);
+	var _axios = __webpack_require__(5);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
-	var _validator = __webpack_require__(33);
+	var _validator = __webpack_require__(31);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -515,8 +515,7 @@
 	}
 
 /***/ },
-/* 4 */,
-/* 5 */
+/* 4 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -682,21 +681,21 @@
 	exports.default = notifications;
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(7);
+	module.exports = __webpack_require__(6);
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(8);
-	var bind = __webpack_require__(9);
-	var Axios = __webpack_require__(10);
-	var defaults = __webpack_require__(11);
+	var utils = __webpack_require__(7);
+	var bind = __webpack_require__(8);
+	var Axios = __webpack_require__(9);
+	var defaults = __webpack_require__(10);
 
 	/**
 	 * Create an instance of Axios
@@ -729,15 +728,15 @@
 	};
 
 	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(29);
-	axios.CancelToken = __webpack_require__(30);
-	axios.isCancel = __webpack_require__(26);
+	axios.Cancel = __webpack_require__(28);
+	axios.CancelToken = __webpack_require__(29);
+	axios.isCancel = __webpack_require__(25);
 
 	// Expose all/spread
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(31);
+	axios.spread = __webpack_require__(30);
 
 	module.exports = axios;
 
@@ -746,12 +745,12 @@
 
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bind = __webpack_require__(9);
+	var bind = __webpack_require__(8);
 
 	/*global toString:true*/
 
@@ -1051,7 +1050,7 @@
 
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1068,17 +1067,17 @@
 
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(11);
-	var utils = __webpack_require__(8);
-	var InterceptorManager = __webpack_require__(23);
-	var dispatchRequest = __webpack_require__(24);
-	var isAbsoluteURL = __webpack_require__(27);
-	var combineURLs = __webpack_require__(28);
+	var defaults = __webpack_require__(10);
+	var utils = __webpack_require__(7);
+	var InterceptorManager = __webpack_require__(22);
+	var dispatchRequest = __webpack_require__(23);
+	var isAbsoluteURL = __webpack_require__(26);
+	var combineURLs = __webpack_require__(27);
 
 	/**
 	 * Create a new instance of Axios
@@ -1159,13 +1158,13 @@
 
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(8);
-	var normalizeHeaderName = __webpack_require__(13);
+	var utils = __webpack_require__(7);
+	var normalizeHeaderName = __webpack_require__(12);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -1182,10 +1181,10 @@
 	  var adapter;
 	  if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(14);
+	    adapter = __webpack_require__(13);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(14);
+	    adapter = __webpack_require__(13);
 	  }
 	  return adapter;
 	}
@@ -1256,10 +1255,10 @@
 
 	module.exports = defaults;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -1445,12 +1444,12 @@
 
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(8);
+	var utils = __webpack_require__(7);
 
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -1463,18 +1462,18 @@
 
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(8);
-	var settle = __webpack_require__(15);
-	var buildURL = __webpack_require__(18);
-	var parseHeaders = __webpack_require__(19);
-	var isURLSameOrigin = __webpack_require__(20);
-	var createError = __webpack_require__(16);
-	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(21);
+	var utils = __webpack_require__(7);
+	var settle = __webpack_require__(14);
+	var buildURL = __webpack_require__(17);
+	var parseHeaders = __webpack_require__(18);
+	var isURLSameOrigin = __webpack_require__(19);
+	var createError = __webpack_require__(15);
+	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(20);
 
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -1570,7 +1569,7 @@
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(22);
+	      var cookies = __webpack_require__(21);
 
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -1644,15 +1643,15 @@
 	  });
 	};
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createError = __webpack_require__(16);
+	var createError = __webpack_require__(15);
 
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -1678,12 +1677,12 @@
 
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var enhanceError = __webpack_require__(17);
+	var enhanceError = __webpack_require__(16);
 
 	/**
 	 * Create an Error with the specified message, config, error code, and response.
@@ -1701,7 +1700,7 @@
 
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1726,12 +1725,12 @@
 
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(8);
+	var utils = __webpack_require__(7);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -1800,12 +1799,12 @@
 
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(8);
+	var utils = __webpack_require__(7);
 
 	/**
 	 * Parse headers into an object
@@ -1843,12 +1842,12 @@
 
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(8);
+	var utils = __webpack_require__(7);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -1917,7 +1916,7 @@
 
 
 /***/ },
-/* 21 */
+/* 20 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1959,12 +1958,12 @@
 
 
 /***/ },
-/* 22 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(8);
+	var utils = __webpack_require__(7);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -2018,12 +2017,12 @@
 
 
 /***/ },
-/* 23 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(8);
+	var utils = __webpack_require__(7);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -2076,15 +2075,15 @@
 
 
 /***/ },
-/* 24 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(8);
-	var transformData = __webpack_require__(25);
-	var isCancel = __webpack_require__(26);
-	var defaults = __webpack_require__(11);
+	var utils = __webpack_require__(7);
+	var transformData = __webpack_require__(24);
+	var isCancel = __webpack_require__(25);
+	var defaults = __webpack_require__(10);
 
 	/**
 	 * Throws a `Cancel` if cancellation has been requested.
@@ -2161,12 +2160,12 @@
 
 
 /***/ },
-/* 25 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(8);
+	var utils = __webpack_require__(7);
 
 	/**
 	 * Transform the data for a request or a response
@@ -2187,7 +2186,7 @@
 
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2198,7 +2197,7 @@
 
 
 /***/ },
-/* 27 */
+/* 26 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2218,7 +2217,7 @@
 
 
 /***/ },
-/* 28 */
+/* 27 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2236,7 +2235,7 @@
 
 
 /***/ },
-/* 29 */
+/* 28 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2261,12 +2260,12 @@
 
 
 /***/ },
-/* 30 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Cancel = __webpack_require__(29);
+	var Cancel = __webpack_require__(28);
 
 	/**
 	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -2324,7 +2323,7 @@
 
 
 /***/ },
-/* 31 */
+/* 30 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2357,8 +2356,7 @@
 
 
 /***/ },
-/* 32 */,
-/* 33 */
+/* 31 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2443,7 +2441,7 @@
 	}
 
 /***/ },
-/* 34 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2453,7 +2451,7 @@
 	});
 	exports.signup = signup;
 
-	var _axios = __webpack_require__(6);
+	var _axios = __webpack_require__(5);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
@@ -2495,7 +2493,7 @@
 	}
 
 /***/ },
-/* 35 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2505,7 +2503,7 @@
 	});
 	exports.login = login;
 
-	var _axios = __webpack_require__(6);
+	var _axios = __webpack_require__(5);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
@@ -2543,7 +2541,7 @@
 	}
 
 /***/ },
-/* 36 */
+/* 34 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2573,7 +2571,7 @@
 	}
 
 /***/ },
-/* 37 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2583,19 +2581,19 @@
 	});
 	exports.gallery = gallery;
 
-	var _tabs = __webpack_require__(38);
+	var _tabs = __webpack_require__(36);
 
-	var _images = __webpack_require__(43);
+	var _images = __webpack_require__(37);
 
-	var _windows = __webpack_require__(40);
+	var _windows = __webpack_require__(38);
 
 	var _windows2 = _interopRequireDefault(_windows);
 
-	var _residential = __webpack_require__(44);
+	var _residential = __webpack_require__(39);
 
 	var _residential2 = _interopRequireDefault(_residential);
 
-	var _canvas = __webpack_require__(45);
+	var _canvas = __webpack_require__(40);
 
 	var _canvas2 = _interopRequireDefault(_canvas);
 
@@ -2608,21 +2606,20 @@
 		var galleryLinks = document.querySelectorAll('.tab-link');
 
 		var windowGallery = (0, _images.buildGallery)(_windows2.default);
+		var originalWindowLength = windowGallery.length;
 		var loadWindowsButton = document.getElementById('load-more-windows');
 		var windowsVisible = [];
-		var windowsHidden = [];
 
 		var residentialGallery = (0, _images.buildGallery)(_residential2.default);
 		var loadResidentialButton = document.getElementById('load-more-residential');
 		var residentialVisible = [];
-		var residentialHidden = [];
 
 		var canvasGallery = (0, _images.buildGallery)(_canvas2.default);
 		var loadCanvasButton = document.getElementById('load-more-canvas');
 		var canvasVisible = [];
-		var canvasHidden = [];
 
 		loadMoreWindows();
+		(0, _tabs.tabs)();
 
 		Array.prototype.forEach.call(galleryLinks, function (link) {
 			if (!link.classList.contains('gallery-loaded')) {
@@ -2652,11 +2649,11 @@
 		function loadMoreWindows() {
 			var page = page || 0;
 			if (windowGallery.length != windowsVisible.length) {
-				(0, _images.buildImages)(windowGallery, windowsVisible, windowsHidden, windowsContainer, page);
+				(0, _images.buildImages)(windowGallery, windowsVisible, windowsContainer, page);
 				page++;
 			}
 
-			if (windowGallery.length == windowsVisible.length) {
+			if (originalWindowLength == windowsVisible.length) {
 				loadWindowsButton.classList.add('no-more-images');
 				loadWindowsButton.removeEventListener('click', loadMoreWindows);
 			}
@@ -2664,24 +2661,22 @@
 
 		function loadMoreResidential() {
 			var page = page || 0;
-			(0, _images.buildImages)(residentialGallery, residentialVisible, residentialHidden, residentialContainer, page);
+			(0, _images.buildImages)(residentialGallery, residentialVisible, residentialContainer, page);
 			page++;
 		}
 
 		function loadMoreCanvas() {
 			var page = page || 0;
-			(0, _images.buildImages)(canvasGallery, canvasVisible, canvasHidden, canvasContainer, page);
+			(0, _images.buildImages)(canvasGallery, canvasVisible, canvasContainer, page);
 			page++;
 		}
-
-		(0, _tabs.tabs)();
 
 		loadWindowsButton.addEventListener('click', loadMoreWindows, false);
 		loadCanvasButton.addEventListener('click', loadMoreCanvas, false);
 	}
 
 /***/ },
-/* 38 */
+/* 36 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2831,8 +2826,88 @@
 	}
 
 /***/ },
-/* 39 */,
-/* 40 */
+/* 37 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	function buildGallery(images) {
+		var i = void 0;
+		var len = void 0;
+		var image = void 0;
+
+		var galleryIamges = [];
+
+		for (i = 0, len = images.length; i < len - 1; i++) {
+			image = images[i];
+
+			galleryIamges.push({
+				src: image.src,
+				caption: image.caption
+			});
+		}
+
+		return galleryIamges;
+	}
+
+	function loadMoreImages(newest, visible, container) {
+		return new Promise(function (resolve) {
+			var i = void 0;
+			var len = newest.length;
+
+			var docFrag = document.createDocumentFragment();
+
+			for (i = 0; i < len; i++) {
+				var lightboxSrc = document.createElement('a');
+				var image = document.createElement('img');
+				lightboxSrc.setAttribute("href", newest[i].src);
+
+				if (typeof newest[i].caption !== 'undefined') {
+					image.setAttribute('alt', newest[i].caption);
+				}
+
+				docFrag.appendChild(lightboxSrc);
+				lightboxSrc.appendChild(image);
+
+				image.src = newest[i].src;
+				visible.push(newest[i]);
+			}
+
+			container.appendChild(docFrag);
+
+			resolve();
+		});
+	}
+
+	function buildImages(gallery, galleryVisible, galleryContainer, page) {
+		var imageContainer = galleryContainer;
+		if (page == 0) {
+			loadMoreImages(gallery.splice(0, 10), galleryVisible, imageContainer).then(restartGallery(imageContainer));
+		} else if (page == 1) {
+			loadMoreImages(gallery.splice(10, 20), galleryVisible, imageContainer).then(restartGallery(imageContainer));
+		}
+	}
+
+	function restartGallery(container) {
+		var gallery = container.className.split(" ")[0];
+
+		baguetteBox.run('.' + gallery, {
+			captions: function captions(element) {
+				return element.getElementsByTagName('img')[0].alt;
+			}
+		});
+	}
+
+	exports.buildGallery = buildGallery;
+	exports.loadMoreImages = loadMoreImages;
+	exports.buildImages = buildImages;
+	exports.restartGallery = restartGallery;
+
+/***/ },
+/* 38 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -3199,6 +3274,112 @@
 	];
 
 /***/ },
+/* 39 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural01-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural02-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural03-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural04-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural05-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural06-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural07-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural08-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural09-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural10-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural11-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural12-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural13-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/PropaneTank-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Table01-min.jpg"
+		},
+		{
+			"category": "residential",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Table02min.jpg"
+		}
+	];
+
+/***/ },
+/* 40 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"category": "canvas",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas1-min.jpg"
+		},
+		{
+			"category": "canvas",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas2-min.jpg"
+		},
+		{
+			"category": "canvas",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas3-min.jpg"
+		},
+		{
+			"category": "canvas",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas4-min.jpg"
+		},
+		{
+			"category": "canvas",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas5-min.jpg"
+		},
+		{
+			"category": "canvas",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas6-min.jpg"
+		},
+		{
+			"category": "canvas",
+			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas7-min.jpg"
+		}
+	];
+
+/***/ },
 /* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -3209,15 +3390,15 @@
 	});
 	exports.contact = contact;
 
-	var _axios = __webpack_require__(6);
+	var _axios = __webpack_require__(5);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
-	var _notifications = __webpack_require__(5);
+	var _notifications = __webpack_require__(4);
 
 	var _notifications2 = _interopRequireDefault(_notifications);
 
-	var _validator = __webpack_require__(33);
+	var _validator = __webpack_require__(31);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3320,218 +3501,6 @@
 		window.addEventListener('message-failed', failureNotify.open);
 		window.addEventListener('message-error', errorNotify.open);
 	}
-
-/***/ },
-/* 42 */,
-/* 43 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	function buildGallery(images) {
-		var i = void 0;
-		var len = void 0;
-		var image = void 0;
-
-		var galleryIamges = [];
-
-		for (i = 0, len = images.length; i < len - 1; i++) {
-			image = images[i];
-
-			galleryIamges.push({
-				src: image.src,
-				caption: image.caption
-			});
-		}
-
-		return galleryIamges;
-	}
-
-	function loadMoreImages(newest, visible, hidden, container) {
-		return new Promise(function (resolve) {
-			var i = void 0;
-			var len = void 0;
-
-			console.time('build');
-
-			var docFrag = document.createDocumentFragment();
-
-			for (i = 0, len = newest.length - 1; i < len; i++) {
-				var lightboxSrc = document.createElement('a');
-				var image = document.createElement('img');
-				lightboxSrc.setAttribute("href", newest[i].src);
-
-				if (typeof newest[i].caption !== 'undefined') {
-					image.setAttribute('alt', newest[i].caption);
-				}
-
-				docFrag.appendChild(lightboxSrc);
-				lightboxSrc.appendChild(image);
-
-				if (lightboxSrc.getBoundingClientRect().top <= window.innerHeight + 100 && lightboxSrc.getBoundingClientRect().top > 0) {
-					image.src = newest[i].src;
-					visible.push(newest[i]);
-				} else {
-					hidden.push({ image: newest[i], container: lightboxSrc });
-				}
-			}
-
-			container.appendChild(docFrag);
-
-			console.timeEnd('build');
-
-			resolve();
-		});
-	}
-
-	function buildImages(gallery, galleryVisible, galleryHidden, galleryContainer, page) {
-		var imageContainer = galleryContainer;
-		if (page == 0) {
-			loadMoreImages(gallery.splice(0, 10), galleryVisible, galleryHidden, imageContainer).then(restartGallery(imageContainer, galleryHidden));
-		} else if (page == 1) {
-			loadMoreImages(gallery.splice(10, 20), galleryVisible, galleryHidden, imageContainer).then(restartGallery(imageContainer));
-		}
-	}
-
-	function restartGallery(container, galleryHidden) {
-		var gallery = container.className.split(" ")[0];
-
-		baguetteBox.run('.' + gallery, {
-			captions: function captions(element) {
-				return element.getElementsByTagName('img')[0].alt;
-			}
-		});
-
-		window.addEventListener("scroll", function () {
-			checkViewport(galleryHidden);
-		}, false);
-	}
-
-	function checkViewport(hiddenImages) {
-		hiddenImages.forEach(function (item) {
-			var rect = item.container.getBoundingClientRect();
-			if (rect.top <= window.innerHeight + 100 && rect.top > 0) {
-				item.container.firstChild.src = item.image.src;
-			} else {
-				return;
-			}
-		});
-	}
-
-	exports.buildGallery = buildGallery;
-	exports.loadMoreImages = loadMoreImages;
-	exports.buildImages = buildImages;
-	exports.restartGallery = restartGallery;
-	exports.checkViewport = checkViewport;
-
-/***/ },
-/* 44 */
-/***/ function(module, exports) {
-
-	module.exports = [
-		{
-			"category": "residential",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural01-min.jpg"
-		},
-		{
-			"category": "residential",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural02-min.jpg"
-		},
-		{
-			"category": "residential",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural03-min.jpg"
-		},
-		{
-			"category": "residential",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural04-min.jpg"
-		},
-		{
-			"category": "residential",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural05-min.jpg"
-		},
-		{
-			"category": "residential",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural06-min.jpg"
-		},
-		{
-			"category": "residential",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural07-min.jpg"
-		},
-		{
-			"category": "residential",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural08-min.jpg"
-		},
-		{
-			"category": "residential",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural09-min.jpg"
-		},
-		{
-			"category": "residential",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural10-min.jpg"
-		},
-		{
-			"category": "residential",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural11-min.jpg"
-		},
-		{
-			"category": "residential",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural12-min.jpg"
-		},
-		{
-			"category": "residential",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural13-min.jpg"
-		},
-		{
-			"category": "residential",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/PropaneTank-min.jpg"
-		},
-		{
-			"category": "residential",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Table01-min.jpg"
-		},
-		{
-			"category": "residential",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Table02min.jpg"
-		}
-	];
-
-/***/ },
-/* 45 */
-/***/ function(module, exports) {
-
-	module.exports = [
-		{
-			"category": "canvas",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas1-min.jpg"
-		},
-		{
-			"category": "canvas",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas2-min.jpg"
-		},
-		{
-			"category": "canvas",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas3-min.jpg"
-		},
-		{
-			"category": "canvas",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas4-min.jpg"
-		},
-		{
-			"category": "canvas",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas5-min.jpg"
-		},
-		{
-			"category": "canvas",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas6-min.jpg"
-		},
-		{
-			"category": "canvas",
-			"src": "http://ddtnccrpo7cm5.cloudfront.net/Images/Canvas/canvas7-min.jpg"
-		}
-	];
 
 /***/ }
 /******/ ]);

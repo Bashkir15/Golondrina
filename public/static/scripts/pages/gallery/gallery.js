@@ -6,29 +6,27 @@ import canvas from '../../../../../dist/images/canvas.json'
 
 
 export function gallery() {
-	var windowsContainer = document.querySelector('.gallery');
-	var canvasContainer = document.querySelector('.gallery-2');
-	var residentialContainer = document.querySelector('.gallery-3');
-	var galleryLinks = document.querySelectorAll('.tab-link');
+	const windowsContainer = document.querySelector('.gallery');
+	const canvasContainer = document.querySelector('.gallery-2');
+	const residentialContainer = document.querySelector('.gallery-3');
+	const galleryLinks = document.querySelectorAll('.tab-link');
 
-	var windowGallery = buildGallery(windows);
-	var loadWindowsButton = document.getElementById('load-more-windows');
-	var windowsVisible = [];
-	var windowsHidden = [];
+	const windowGallery = buildGallery(windows);
+	const originalWindowLength = windowGallery.length;
+	const loadWindowsButton = document.getElementById('load-more-windows');
+	const windowsVisible = [];
 
-	var residentialGallery = buildGallery(residential);
-	var loadResidentialButton = document.getElementById('load-more-residential');
-	var residentialVisible = [];
-	var residentialHidden = [];
+	const residentialGallery = buildGallery(residential);
+	const loadResidentialButton = document.getElementById('load-more-residential');
+	const residentialVisible = [];
 
-	var canvasGallery = buildGallery(canvas);
-	var loadCanvasButton = document.getElementById('load-more-canvas');
-	var canvasVisible = [];
-	var canvasHidden = [];
-
+	const canvasGallery = buildGallery(canvas);
+	const loadCanvasButton = document.getElementById('load-more-canvas');
+	const canvasVisible = [];
 
 
 	loadMoreWindows();
+	tabs();
 
 
 	Array.prototype.forEach.call(galleryLinks, (link) => {
@@ -58,11 +56,11 @@ export function gallery() {
 	function loadMoreWindows() {
 		var page = page || 0;
 		if (windowGallery.length != windowsVisible.length) {
-			buildImages(windowGallery, windowsVisible, windowsHidden, windowsContainer, page);
+			buildImages(windowGallery, windowsVisible, windowsContainer, page);
 			page++;
 		}
 
-		if (windowGallery.length == windowsVisible.length) {
+		if (originalWindowLength == windowsVisible.length) {
 			loadWindowsButton.classList.add('no-more-images');
 			loadWindowsButton.removeEventListener('click', loadMoreWindows);
 		}
@@ -70,17 +68,15 @@ export function gallery() {
 
 	function loadMoreResidential() {
 		var page = page || 0;
-		buildImages(residentialGallery, residentialVisible, residentialHidden, residentialContainer, page);
+		buildImages(residentialGallery, residentialVisible, residentialContainer, page);
 		page++;
 	}
 
 	function loadMoreCanvas() {
 		var page = page || 0;
-		buildImages(canvasGallery, canvasVisible, canvasHidden, canvasContainer, page);
+		buildImages(canvasGallery, canvasVisible, canvasContainer, page);
 		page++;
 	}
-
-	tabs();
 
 
 	loadWindowsButton.addEventListener('click', loadMoreWindows, false);

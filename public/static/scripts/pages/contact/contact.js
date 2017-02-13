@@ -4,23 +4,23 @@ import { onBlur, removeBlur } from '../../utils/validator'
 
 
 export function contact() {
-	var formWrapper = document.querySelectorAll('.form-wrapper');
-	var formInputs = document.querySelectorAll('.form-input');
-	var submitButton = document.querySelector('.contact-send');
-	var name = document.getElementById('contact-name');
-	var email = document.getElementById('contact-email');
-	var phone = document.getElementById('contact-phone');
-	var message = document.getElementById('contact-message');
+	const formWrapper = document.querySelectorAll('.form-wrapper');
+	const formInputs = document.querySelectorAll('.form-input');
+	const submitButton = document.querySelector('.contact-send');
+	const name = document.getElementById('contact-name');
+	const email = document.getElementById('contact-email');
+	const phone = document.getElementById('contact-phone');
+	const message = document.getElementById('contact-message');
 
-	var successContent = document.getElementById('contact-success');
-	var failureContent = document.getElementById('contact-failure');
-	var errorContent = document.getElementById('contact-error');
+	const successContent = document.getElementById('contact-success');
+	const failureContent = document.getElementById('contact-failure');
+	const errorContent = document.getElementById('contact-error');
 
 	function submit() {
 		if (submitButton.classList.contains('form-valid')) {
 			submitButton.classList.add('form-loading');
 
-			var data = {};
+			let data = {};
 			data.name = name.value;
 			data.email = email.value;
 			data.phone = phone.value;
@@ -54,7 +54,7 @@ export function contact() {
 				}
 			});
 		} else {
-			var error = new Event('message-error');
+			let error = new Event('message-error');
 			window.dispatchEvent(error);
 		}
 	}
@@ -78,19 +78,19 @@ export function contact() {
 		removeBlur(formInputs);
 	}
 
-	var successNotify = new notifications({
+	const successNotify = new notifications({
 		content: successContent,
 		type: 'success',
 		timeout: 2500
 	});
 
-	var failureNotify = new notifications({
+	const failureNotify = new notifications({
 		content: failureContent,
 		type: 'danger',
 		timeout: 2500
 	});
 
-	var errorNotify = new notifications({
+	const errorNotify = new notifications({
 		content: errorContent,
 		type: 'warning',
 		timeout: 2500

@@ -3,12 +3,15 @@
 	<head>
 		<meta charset='utf-8'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="The gallery of artist Erika Tolbert. Here you'll find here canvas, mural, paintings, and photography">
+		<meta name="keywords" content="Artist, Denton, Texas, Mural, Painting, Seasonal, Windows, Mural, Art">
 		<title>Golondrina Studio</title>
+
 		<link href="https://fonts.googleapis.com/css?family=Lato:300,400i|Open+Sans:300,300i,400,700" rel="stylesheet">
 		<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.css">
 		<link rel='stylesheet' href='./static/icons/style.css'>
 		<link rel='stylesheet' href='./styles/main.min.css'>
-		<link rel='stylesheet' href='../baguettebox.js/dist/baguetteBox.css'>
+		<link rel='stylesheet' href='../baguettebox.js/dist/baguetteBox.min.css'>
 
 
 	</head>
@@ -17,7 +20,7 @@
 		<% include ../shared/nav %>
 		<% include ../shared/mobile-menu %>
 
-		<div class='gallery-page'>
+		<main class='gallery-page'>
 			<div class='gallery-body'>
 				<div class='js-tab'>
 					<ul class='tab-list'>
@@ -77,7 +80,7 @@
 						<div class='mural-header'>
 							<h4>Murals are an investment in your living space</h4>
 							<p>They add value not only monitarily, but can transform a drab room into a lively conversation piece, give the illusion of depth and size to smaller spaces, or turn a child's room into a magical place for them to grow</p>
-							<span><span>-- Every mural is hand painted and customized to accommodate your personal vision</span>
+							<span>-- Every mural is hand painted and customized to accommodate your personal vision</span>
 						<div class='gallery-3 single-gallery'>
 							
 						</div>
@@ -91,12 +94,6 @@
 						<div class='mural-footer'>
 							<p>Mural pricing is on average between $10 and $20 per square foot. This price can be higher or lower depending upon the amount of detail or extra preperation of the wall surface.  If you have a specific budget for a space I will work with you to design the very best option to provide you the enjoyment of custom artwork while remaining in your budget constraints.</p>
 							<p>I provide free consultation for all spaces either in person or by email if you choose . All email consultations require photographs of the space to be painted as well as the demensions of the walls. The price you are quoted after your initial consultation will be the final price unless you choose to add more to the mural. There will never be any hidden extra fees. All materials are included in the mural pricing.</p>
-
-							<a href='/contact'>
-								<button>
-									<span>Contact</span>
-								</button>
-							</a>
 					</section>
 
 					<section id='tab-4' class='tab-panel construction-tab'>
@@ -114,11 +111,11 @@
 					</section>
 				</div>
 			</div>
-		</div>
+		</main>
 
 		<% include ../shared/footer %>
 
-		<script src='../baguettebox.js/dist/baguetteBox.js'></script>
+		<script src='../baguettebox.js/dist/baguetteBox.min.js'></script>
 		<script src='./scripts/bundle.min.js'></script>
 	</body>
 </html>

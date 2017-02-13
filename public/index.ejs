@@ -3,6 +3,9 @@
 	<head>
 		<meta charset='utf-8'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name='description' content="The Portfolio home page of artist Erika Tolbert and Golondrina Studio. A local art studio founded by Erika Tolbert to provide unique paintings, murals, and windows to the Denton community">
+		<meta name='keywords' content='Arist, Erika, Tolbert, Denton, Texas, Art, Murals, Windows, Paintings, Photography, Seasonal, Day of the Dead, Holidays'>
+		
 		<title>Golondrina Studio</title>
 		<link href="https://fonts.googleapis.com/css?family=Lato:300,400i|Open+Sans:300,300i,400,700" rel="stylesheet">
 		<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.css">
@@ -23,8 +26,8 @@
 		<% include ./views/shared/nav %>
 		<% include ./views/shared/mobile-menu %>
 
-		<div class='landing-page-content'>
-			<div class='landing-header'>
+		<main class='landing-page-content'>
+			<header class='landing-header'>
 					<h1>Golondrina Studio</h1>
 					<h2 class='below-desktop'>Custom Art</h2>
 					<h2 class='large-desktop'>
@@ -36,17 +39,19 @@
 					<p class='large-desktop'>
 						Stay one step ahead of your competitors
 					</p>
-						<a href='/contact'>
-							<button class='landing-header-contact'>
-								<span>Contact Us</span>
-							</button>
-						</a>
-			</div>
+
+					<a href='/contact'>
+						<button class='landing-header-contact' type='button' aria-label='go to the contact page'>
+							<span>Contact Us</span>
+						</button>
+					</a>
+			</header>
 
 			<% include ./views/landing/mission %>
 			<% include ./views/landing/works %>
 			<% include ./views/landing/about %>
 
+		</main>
 			<% include ./views/shared/footer %>
 
 			<% include ./views/landing/notifications %>

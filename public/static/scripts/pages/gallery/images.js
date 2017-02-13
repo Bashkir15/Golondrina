@@ -17,16 +17,14 @@ function buildGallery(images) {
 	return galleryIamges;
 }
 
-function loadMoreImages(newest, visible, hidden, container) {
+function loadMoreImages(newest, visible, container) {
 	return new Promise((resolve) => {
 		let i;
-		let len;
+		let len = newest.length;
 
-		console.time('build');
+		let docFrag = document.createDocumentFragment();
 
-		var docFrag = document.createDocumentFragment();
-
-		for (i = 0, len = newest.length - 1; i < len; i++) {
+		for (i = 0; i < len; i++) {
 			let lightboxSrc = document.createElement('a');
 			let image = document.createElement('img');
 			lightboxSrc.setAttribute("href", newest[i].src);
@@ -38,37 +36,29 @@ function loadMoreImages(newest, visible, hidden, container) {
 			docFrag.appendChild(lightboxSrc);
 			lightboxSrc.appendChild(image);
 
-
-			if (lightboxSrc.getBoundingClientRect().top <= window.innerHeight + 100 && lightboxSrc.getBoundingClientRect().top > 0) {
-				image.src = newest[i].src;
-				visible.push(newest[i]);
-			} else {
-				hidden.push({image: newest[i], container: lightboxSrc});
-			}
-
+			image.src = newest[i].src;
+			visible.push(newest[i]);
 		}
 
 		container.appendChild(docFrag);
-
-		console.timeEnd('build');
 
 		resolve();			
 	})
 }
 
-function buildImages(gallery, galleryVisible, galleryHidden, galleryContainer, page) {
+function buildImages(gallery, galleryVisible, galleryContainer, page) {
 	var imageContainer = galleryContainer;
 	if (page == 0) {
-		loadMoreImages(gallery.splice(0, 10), galleryVisible, galleryHidden, imageContainer)
-		.then(restartGallery(imageContainer, galleryHidden));
+		loadMoreImages(gallery.splice(0, 10), galleryVisible, imageContainer)
+		.then(restartGallery(imageContainer));
 	} else if (page == 1) {
-		loadMoreImages(gallery.splice(10, 20), galleryVisible, galleryHidden, imageContainer)
+		loadMoreImages(gallery.splice(10, 20), galleryVisible, imageContainer)
 		.then(restartGallery(imageContainer));
 	}
 
 }
 
-function restartGallery(container, galleryHidden) {
+function restartGallery(container) {
 	let gallery = container.className.split(" ")[0];
 
 	baguetteBox.run(`.${gallery}`, {
@@ -76,27 +66,12 @@ function restartGallery(container, galleryHidden) {
 			return element.getElementsByTagName('img')[0].alt;
 		}
 	});
-
-	window.addEventListener("scroll", () => {
-		checkViewport(galleryHidden);
-	}, false);
 }
 
-function checkViewport(hiddenImages) {
-	hiddenImages.forEach((item) => {
-		let rect = item.container.getBoundingClientRect();
-		if (rect.top <= window.innerHeight + 100 && rect.top > 0) {
-			item.container.firstChild.src = item.image.src;
-		} else {
-			return;
-		}
-	});
-}
 
 export {
 	buildGallery,
 	loadMoreImages,
 	buildImages,
-	restartGallery,
-	checkViewport
+	restartGallery
 }
