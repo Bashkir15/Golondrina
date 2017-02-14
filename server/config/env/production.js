@@ -4,10 +4,10 @@ module.exports = {
 		port: process.env.PORT
 	},
 
-	/*mailer: {
+	mailer: {
 		service: 'Gmail',
 		auth: {
-			user: process.env.USER,
+			user: 'golondrinaStudios@gmail.com',
 			pass: process.env.PASS
 		}
 	},
