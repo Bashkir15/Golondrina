@@ -26,7 +26,7 @@ export function contact() {
 			data.phone = phone.value;
 			data.message = message.value;
 
-			axios.post('http://golondrina.herokuapp.com/contact', {
+			axios.post('www.golondrinastudio.com/contact', {
 				name: data.name,
 				email: data.email,
 				phone: data.phone,
