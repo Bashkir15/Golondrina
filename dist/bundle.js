@@ -452,7 +452,7 @@
 				var data = {};
 				data.email = email.value;
 
-				_axios2.default.post('www.golondrinastudio.com/contact/newsletter', {
+				_axios2.default.post('/contact/newsletter', {
 					email: data.email,
 
 					headers: {
@@ -3425,7 +3425,7 @@
 				data.phone = phone.value;
 				data.message = message.value;
 
-				_axios2.default.post('www.golondrinastudio.com/contact', {
+				_axios2.default.post('/contact', {
 					name: data.name,
 					email: data.email,
 					phone: data.phone,
