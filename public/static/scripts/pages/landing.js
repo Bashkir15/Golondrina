@@ -23,7 +23,7 @@ export function landing() {
 			let data = {};
 			data.email = email.value;
 
-			axios.post('/contact/newsletter', {
+			axios.post('localhost:8000/contact/newsletter', {
 				email: data.email,
 
 				headers: {

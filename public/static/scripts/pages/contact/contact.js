@@ -26,7 +26,7 @@ export function contact() {
 			data.phone = phone.value;
 			data.message = message.value;
 
-			axios.post('/contact', {
+			axios.post('localhost:8000/contact', {
 				name: data.name,
 				email: data.email,
 				phone: data.phone,
