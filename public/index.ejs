@@ -29,14 +29,11 @@
 		<main class='landing-page-content'>
 			<header class='landing-header'>
 					<h1>Golondrina Studio</h1>
-					<h2 class='below-desktop'>Custom Art</h2>
-					<h2 class='large-desktop'>
-						Custom Art in the Heart of Texas
-					</h2>
+					<h2 class='mobile-only'>Custom Art</h2>
 					<p class='mobile-only'>From the heart of Texas</p>
 					<p class='above-mobile-only'>
 						Unique art created in the <span>heart</span> of Texas</p>
-					<p class='large-desktop'>
+					<p class='above-mobile-only header-competitor'>
 						Stay one step ahead of your competitors
 					</p>
 
@@ -52,10 +49,9 @@
 			<% include ./views/landing/about %>
 
 		</main>
-			<% include ./views/shared/footer %>
+		<% include ./views/shared/footer %>
 
-			<% include ./views/landing/notifications %>
-			<% include ./views/landing/dialogs %>
+		<% include ./views/landing/notifications %>
 
 
 		<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js"></script>

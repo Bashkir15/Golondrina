@@ -4,7 +4,9 @@
 	align-items: center
 	padding-top: 75px
 	padding-bottom: 60px
-	background: #fafafa
+	background: #fff
+	width: 85%
+	margin: 0 auto
 
 	h2
 		@include lato()
@@ -22,7 +24,7 @@
 	border-top: 0
 	overflow: hidden
 	text-align: center
-	background: linear-gradient(45deg, #0AB6A2 0%, darken(#0AB6A2, 5%) 100%)
+	background: linear-gradient(45deg, #31aff5 0%, darken(#31aff5, 5%) 100%)
 
 	> div
 		position: absolute
@@ -125,23 +127,26 @@
 	padding-bottom: 60px
 
 	button
-		height: 45px
-		width: 180px
-		border-radius: 22px
-		border: none
-		background: #53d4e9
+		height: 52px
+		width: 220px
+		border: 1px solid #53d4e9
+		background: #fff
 		transition: all .4s ease-out
 
 		span
-			@include lato()
+			@include open()
 			font-weight: 400
-			font-size: 17px
+			font-size: 18px
 			text-transform: uppercase
-			letter-spacing: 2px
-			color: #fff
+			letter-spacing: 4px
+			color: #53d4e9
+			transition: color .4s ease-out
 
 		&:hover
-			background: darken(#53d4e9, 10%)
+			background: #53d4e9
+
+			span
+				color: #fff
 
 @media screen and (min-width: 640px)
 	.landing-latest-works
@@ -153,6 +158,11 @@
 	.landing-work
 		width: 50%
 
+@media screen and (min-width: 800px)
+	.landing-latest-works
+		h2
+			font-size: 42px
+
 @media screen and (min-width: 1000px)
 	.landing-latest-works
 		> div
@@ -161,6 +171,8 @@
 
 @media screen and (min-width: 1200px)
 	.landing-latest-works
+		padding-top: 240px
+
 		> div
 			width: 80%
 

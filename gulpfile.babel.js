@@ -9,7 +9,6 @@ import cmq from 'gulp-combine-media-queries';
 import rename from 'gulp-rename';
 import browserSync from 'browser-sync';
 import sourceMaps from 'gulp-sourcemaps';
-import image from 'gulp-image';
 import imagemin from 'gulp-imagemin'
 import pngquant from 'imagemin-pngquant'
 import mozjpeg from 'imagemin-mozjpeg'

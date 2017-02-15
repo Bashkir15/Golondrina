@@ -2,9 +2,10 @@
 	position: relative
 	display: flex
 	flex-direction: column
-	height: 70px
+	height: 155px
 	padding-bottom: 20px
 	z-index: 100
+	background: #091d25
 
 	p
 		@include lato()
@@ -15,9 +16,6 @@
 		color: #fff
 		text-align: center
 		padding-top: 26px
-
-	&.landing-footer
-		margin-top: -170px
 
 	&.normal-footer
 		margin-top: 0
@@ -55,8 +53,7 @@
 		align-items: center
 		justify-content: center
 		width: 100%
-		padding-top: 35px
-		padding-bottom: 30px
+		margin: 20px 0
 
 .footer-social-buttons
 	display: flex
@@ -95,7 +92,7 @@
 				@include open()
 				font-weight: 300
 				letter-spacing: 1px
-				color: rgba(0,0,0,0.4)
+				color: #31aff5
 				font-size: 18px
 				transition: transform .4s ease-out
 
@@ -108,6 +105,16 @@
 
 	&.above-tablet
 		display: none
+
+@media screen and (min-width: 800px)
+	.footer-button
+		a
+			> div
+				height: 65px
+				width: 65px
+
+				span
+					font-size: 22px
 
 @media screen and (min-width: 1000px)
 	.footer
@@ -133,6 +140,9 @@
 			display: flex
 			align-items: center
 			justify-content: center
+
+			p
+				font-size: 20px
 
 		&.mobile-footer
 			display: none
@@ -170,8 +180,13 @@
 						@include lato()
 						font-weight: 400
 						letter-spacing: 2px
-						font-size: 17px
+						font-size: 24px
 						color: #fff
+
+		a
+			> div
+				height: 55px
+				width: 55px
 
 @media screen and (min-width: 1271px)
 	.footer

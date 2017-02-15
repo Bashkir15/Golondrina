@@ -26,6 +26,11 @@
 
 
 
+.landing-decorator
+	width: 83%
+	margin: 60px auto
+	border-bottom: 1px solid rgba(0,0,0,0.03)
+
 .landing-page-content
 	display: flex
 	flex-direction: column
@@ -45,8 +50,10 @@
 		font-weight: 400
 		letter-spacing: 2px
 		font-size: 50px
+		line-height: 68px
 		padding-bottom: 20px
 		color: #fff
+		text-align: center
 
 	h2
 		font-weight: 300
@@ -92,6 +99,28 @@
 		h2
 			font-size: 24px
 
+@media screen and (min-width: 800px)
+	.landing-header
+		padding-bottom: 130px
+
+		button
+			height: 55px
+			width: 230px
+
+		h1
+			margin-bottom: 45px
+
+		p
+			padding-bottom: 35px
+			font-size: 28px
+
+		.header-competitor
+			@include open()
+			font-weight: normal
+			font-size: 19px
+			padding-bottom: 105px
+
+
 @media screen and (min-width: 1000px)
 	.contact-dialog-header
 		width: 45%
@@ -101,9 +130,7 @@
 
 @media screen and (min-width: 1400px)
 	.landing-header
-		.above-mobile-only
-			display: none
-
+	
 		button
 			width: 240px
 

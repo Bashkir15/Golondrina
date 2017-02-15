@@ -6,20 +6,20 @@
 
 .landing-about-text
 	position: relative
-	width: 60%
+	width: 80%
 	margin: 0 auto
 	padding-top: 15px
 	padding-bottom: 20px
 
 	blockquote
 		position: relative
-		@include lato()
-		font-weight: 400
+		@include open()
+		font-weight: normal
 		letter-spacing: 2px
 		font-size: 16px
 		line-height: 22px
 		padding-top: 8px
-		color: #575757
+		color: #757575
 		padding-left: 16px
 
 		&:before
@@ -27,7 +27,7 @@
 			padding-left: 10px
 			content: "\201C"
 			font-size: 60px
-			color: darken(#575757, 15%)
+			color: darken(#c2c3c4, 10%)
 			position: absolute
 			left: -20px
 			top: 20px
@@ -43,31 +43,30 @@
 	z-index: 30
 
 	> div
-		&:nth-of-type(1)
-			display: flex
-			flex-direction: column
-			text-align: right
-			flex: 1
-			margin-right: 15px
+		display: flex
+		flex-direction: column
+		text-align: right
+		flex: 1
+		margin-right: 15px
 
-			cite
-				@include lato()
-				font-weight: 400
-				letter-spacing: 2px
-				font-size: 17px
-				line-height: 21px
-				color: rgba(0,0,0,0.6)
+		cite
+			@include lato()
+			font-weight: 400
+			letter-spacing: 2px
+			font-size: 17px
+			line-height: 21px
+			color: rgba(0,0,0,0.6)
 
-				&:before
-					content: "\2014 \2009"
+			&:before
+				content: "\2014 \2009"
 
-			> p
-				@include lato()
-				font-weight: 300
-				letter-spacing: 1px
-				font-size: 16px
-				line-height: 21px
-				color: #c2c3c4
+		> p
+			@include lato()
+			font-weight: 300
+			letter-spacing: 1px
+			font-size: 16px
+			line-height: 21px
+			color: #c2c3c4
 
 	img
 		height: 60px
@@ -110,8 +109,7 @@
 	align-items: center
 	padding-top: 130px
 	padding-bottom: 160px
-	margin-top: -90px
-	background: #0AB6A2
+	background: #042532
 
 	h3
 		@include lato()
@@ -146,7 +144,7 @@
 			&:focus
 				height: 42px
 				border-width: 1px
-				border-color: #fff
+				border-color: #31aff5
 
 				& + label
 					color: #fff
@@ -158,7 +156,6 @@
 			input
 				height: 42px
 				border-width: 1px
-				color: #b60a1e
 	input
 		display: flex
 		flex: 1
@@ -169,6 +166,7 @@
 		padding-left: 7px
 		@include lato()
 		font-weight: 400
+		color: #fff
 		border-top-left-radius: 23px
 		border-bottom-left-radius: 23px
 		border-right: none
@@ -178,33 +176,65 @@
 
 	button
 		height: 44px
-		width: 120px
+		width: 90px
 		border: none
 		border-top-right-radius: 23px
 		border-bottom-right-radius: 23px
-		background: rgba(0,0,0,0.4)
+		background: #31aff5
 		transition: all .4s ease-out
 
 		span
-			@include lato()
-			font-weight: 400
-			letter-spacing: 1px
+			@include open()
+			font-weight: normal
+			letter-spacing: 2px
 			font-size: 16px
 			color: #fff
 
 		&:hover
-			background: rgba(0,0,0,0.2)
+			background: darken(#31aff5, 10%)
 
 @media screen and (min-width: 768px)
 	.landing-business
 		.business-above-mobile
 			display: flex
 
+	.landing-about-text
+		blockquote
+			line-height: 25px
+
+	.landing-about-quoted
+		> div
+			cite
+				font-size: 18px
+
+			p
+				font-size: 17px
+
+	.landing-form-wrapper
+		button
+			width: 160px
+
+@media screen and (min-width: 1000px)
+	.landing-newsletter-input
+		width: 65%
+
+
 @media screen and (min-width: 1200px)
 	.landing-about-text
 		width: 50%
 
+		blockquote
+			font-size: 18px
+			line-height: 28px
+
 	.landing-about-quoted
+		width: 55%
+
+		img
+			height: 70px
+			width: 70px
+
+	.landing-newsletter-input
 		width: 55%
 
 

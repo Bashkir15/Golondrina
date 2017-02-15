@@ -53,6 +53,7 @@
 	button
 		border: none
 
+
 		span
 			@include open()
 			font-weight: 300
@@ -60,6 +61,10 @@
 			font-size: 18px
 			color: #ccc
 			transition: all .4s ease
+
+		&:hover
+			span
+				color: #fff
 
 .nav-link
 	&.active
@@ -125,3 +130,8 @@
 @media screen and (min-width: 1400px)
 	.nav-icon
 		display: none
+
+	.nav-item
+		button
+			span
+				font-size: 22px
