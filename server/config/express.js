@@ -4,6 +4,7 @@ import compression from 'compression';
 import morgan from 'morgan';
 import ejs from 'ejs';
 import bodyParser from 'body-parser'
+import cors from 'cors'
 
 import indexRoutes from '../routes/index.server.routes';
 //import userRoutes from '../routes/users.server.routes';
@@ -17,8 +18,8 @@ module.exports = () => {
 	app.set('view engine', 'ejs');
 	app.set('views', path.join(__dirname, '../../public'));
 
-
 	app.use(morgan('dev'));
+	app.use(cors());
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({extended: true}));
 	app.use(compression());
