@@ -26,7 +26,7 @@ export function contact() {
 			data.phone = phone.value;
 			data.message = message.value;
 
-			axios.post('www.golondrinastudio.com/contact', {
+			axios.post('/contact', {
 				name: data.name,
 				email: data.email,
 				phone: data.phone,

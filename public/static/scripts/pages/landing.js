@@ -23,7 +23,7 @@ export function landing() {
 			let data = {};
 			data.email = email.value;
 
-			axios.post('www.golondrinastudio.com/contact/newsletter', {
+			axios.post('/contact/newsletter', {
 				email: data.email,
 
 				headers: {
