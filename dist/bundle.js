@@ -56,31 +56,21 @@
 
 	var _landing = __webpack_require__(3);
 
-	var _signup = __webpack_require__(32);
-
-	var _login = __webpack_require__(33);
-
-	var _admin = __webpack_require__(34);
-
 	var _gallery = __webpack_require__(35);
 
 	var _contact = __webpack_require__(41);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	//import about from './scripts/pages/about'
-	//import portfolio from './scripts/pages/portfolio'
-	//import recent from './scripts/pages/recent'
-
 	var navTrigger = document.getElementById('nav-trigger');
-	var footer = document.getElementById('footer');
 	var navLinks = document.querySelectorAll('.nav-link');
 	var nav = document.getElementById('nav');
-	var scrollTimeout;
-	var resizeTimeout;
 
 	var menu = new _mobileMenu2.default();
 	var scroller = new _scroll2.default();
+
+	var scrollTimeout = void 0;
+	var resizeTimeout = void 0;
 
 	if (navTrigger != 'undefined') {
 		navTrigger.addEventListener('click', menu.toggle, false);
@@ -97,22 +87,6 @@
 				link.classList.add('active');
 			}
 		});
-	}
-
-	function fixElements() {
-		if (footer.classList.contains('landing-footer')) {
-			footer.classList.remove('landing-footer');
-		}
-
-		footer.classList.add('normal-footer');
-	}
-
-	function landingElements() {
-		if (footer.classList.contains('normal-footer')) {
-			footer.classList.remove('normal-footer');
-		}
-
-		footer.classList.add('landing-footer');
 	}
 
 	function scrollThrottle() {
@@ -137,25 +111,10 @@
 		//	portfolio();
 	} else if (window.location.href.indexOf('contact') != -1) {
 		(0, _contact.contact)();
-		fixElements();
-	} else if (window.location.href.indexOf('about') != -1) {
-		//	about();
-	} else if (window.location.href.indexOf('recent') != -1) {
-		//	recent();
-	} else if (window.location.href.indexOf('signup') != -1) {
-		(0, _signup.signup)();
-		fixElements();
-	} else if (window.location.href.indexOf('admin') != -1) {
-		(0, _admin.admin)();
-		fixElements();
 	} else if (window.location.href.indexOf('gallery') != -1) {
 		(0, _gallery.gallery)();
-		fixElements();
-	} else if (window.location.href.indexOf('login') != -1) {
-		(0, _login.login)();
 	} else {
 		(0, _landing.landing)();
-		landingElements();
 	}
 
 	activeUrl();
@@ -2441,136 +2400,9 @@
 	}
 
 /***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.signup = signup;
-
-	var _axios = __webpack_require__(5);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function signup() {
-		var submitButton = document.getElementById('signup-submit');
-		var email = document.getElementById('signup-email');
-		var password = document.getElementById('signup-password');
-		var name = document.getElementById('signup-name');
-		var username = document.getElementById('signup-username');
-
-		function submit() {
-			var data = {};
-
-			data.name = name;
-			data.email = email;
-			data.password = password;
-
-			_axios2.default.post('http://localhost:8000/users', {
-				name: data.name.value,
-				email: data.email.value,
-				password: data.password.value,
-
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}).then(function (response) {
-				if (response.data.success) {
-					var admin = JSON.stringify(response.data.res.record);
-
-					window.localStorage.setItem('admin', admin);
-					window.localStorage.setItem('golondrina-token', response.data.res.token);
-				}
-			});
-		}
-
-		submitButton.addEventListener('click', submit);
-	}
-
-/***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.login = login;
-
-	var _axios = __webpack_require__(5);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function login() {
-		var loginEmail = document.getElementById('login-email');
-		var loginPassword = document.getElementById('login-password');
-		var submitButton = document.getElementById('login-submit');
-
-		function submit() {
-			var data = {};
-
-			data.email = loginEmail;
-			data.password = loginPassword;
-
-			_axios2.default.post('http://localhost:8000/users/authenticate', {
-				email: data.email.value,
-				password: data.password.value,
-
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}).then(function (response) {
-				if (response.data.success) {
-					var admin = JSON.stringify(response.data.res.record);
-
-					window.localStorage.setItem('admin', admin);
-					window.localStorage.setItem('golondrina-token', response.data.res.token);
-				}
-			});
-		}
-
-		submitButton.addEventListener('click', submit);
-	}
-
-/***/ },
-/* 34 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.admin = admin;
-	function admin() {
-
-		function checkAdmin() {
-
-			var admin = JSON.parse(window.localStorage.getItem('admin'));
-
-			if (admin) {
-				if (admin.roles.indexOf('admin') == -1) {
-					window.location.href = '/';
-				} else {
-					return;
-				}
-			} else {
-				window.location.href = '/';
-			}
-		}
-
-		checkAdmin();
-	}
-
-/***/ },
+/* 32 */,
+/* 33 */,
+/* 34 */,
 /* 35 */
 /***/ function(module, exports, __webpack_require__) {
 

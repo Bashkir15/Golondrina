@@ -41,20 +41,8 @@
 		width: 180px
 		border-radius: 23px
 		border: none
-		background: #0AB6A2
-
-		&:before
-			content: ""
-			position: absolute
-			top: 0
-			left: 0
-			height: 50px
-			width: 180px
-			border-radius: 23px
-			border:none
-			background-color: rgba(0,0,0,0.23)
-			box-shadow: 0 2px 4px 0 rgba(0,0,0,0.12), 0 4px 8px 0 rgba(0,0,0,0.08)
-			transition: background-color .4s ease
+		background: #31aff5
+		transition: all .4s ease
 
 		span
 			position: relative
@@ -67,8 +55,8 @@
 			z-index: 35
 
 		&:hover
-			&:before
-				background-color: transparent
+			background: darken(#31aff5, 10%)
+			
 
 		&.no-more-images
 			display: none
@@ -79,31 +67,32 @@
 
 .mural-header
 	width: 90%
-	padding-top: 30px
+	padding-top: 65px
 	margin: 0 auto
 
 	h4
 		@include lato()
 		font-weight: 400
-		letter-spacing: 1px
-		font-size: 20px
-		padding-bottom: 12px
-		color: #204a65
+		letter-spacing: 3px
+		font-size: 22px
+		padding-bottom: 25px
+		color: #323c45
 
 	p
 		@include open()
 		font-weight: normal
-		letter-spacing: 1px
+		letter-spacing: 2px
 		line-height: 23px
 		font-size: 16px
-		padding-bottom: 6px
-		color: #4e4e4d
+		padding-bottom: 15px
+		color: darken(#c2c3c4, 5%)
 
 	span
 		@include open()
-		font-weight: 400
+		font-weight: normal
 		letter-spacing: 2px
-		font-size: 11px
+		font-size: 12px
+		color: #323c45
 
 .mural-footer
 	display: flex
@@ -148,6 +137,11 @@
 
 		a
 			width: 30%
+
+	.load-more-button
+		button
+			height: 55px
+			width: 220px
 
 
 @media screen and (min-width: 1300px)
