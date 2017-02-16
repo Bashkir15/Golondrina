@@ -56,9 +56,9 @@
 
 	var _landing = __webpack_require__(3);
 
-	var _gallery = __webpack_require__(35);
+	var _gallery = __webpack_require__(32);
 
-	var _contact = __webpack_require__(41);
+	var _contact = __webpack_require__(38);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2400,10 +2400,7 @@
 	}
 
 /***/ },
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2413,19 +2410,19 @@
 	});
 	exports.gallery = gallery;
 
-	var _tabs = __webpack_require__(36);
+	var _tabs = __webpack_require__(33);
 
-	var _images = __webpack_require__(37);
+	var _images = __webpack_require__(34);
 
-	var _windows = __webpack_require__(38);
+	var _windows = __webpack_require__(35);
 
 	var _windows2 = _interopRequireDefault(_windows);
 
-	var _residential = __webpack_require__(39);
+	var _residential = __webpack_require__(36);
 
 	var _residential2 = _interopRequireDefault(_residential);
 
-	var _canvas = __webpack_require__(40);
+	var _canvas = __webpack_require__(37);
 
 	var _canvas2 = _interopRequireDefault(_canvas);
 
@@ -2508,7 +2505,7 @@
 	}
 
 /***/ },
-/* 36 */
+/* 33 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2658,7 +2655,7 @@
 	}
 
 /***/ },
-/* 37 */
+/* 34 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2739,7 +2736,7 @@
 	exports.restartGallery = restartGallery;
 
 /***/ },
-/* 38 */
+/* 35 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -3106,7 +3103,7 @@
 	];
 
 /***/ },
-/* 39 */
+/* 36 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -3177,7 +3174,7 @@
 	];
 
 /***/ },
-/* 40 */
+/* 37 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -3212,7 +3209,7 @@
 	];
 
 /***/ },
-/* 41 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
