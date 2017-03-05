@@ -1,4 +1,7 @@
 
+const formWrappers = document.querySelectorAll('.form-wrapper');
+const submitButton = document.querySelector('.form-send');
+
 export function onBlur(nodes) {
 	Array.prototype.forEach.call(nodes, (node) => {
 		node.addEventListener('blur', inputBlur);
@@ -12,9 +15,9 @@ export function removeBlur(nodes) {
 }
 
 function validateEmail(node) {
-	var value = node.value;
-	var atpos = value.indexOf('@');
-	var dotpos = value.lastIndexOf('.');
+	let value = node.value;
+	let atpos = value.indexOf('@');
+	let dotpos = value.lastIndexOf('.');
 
 	if (atpos < 1 || (dotpos - atpos) < 2) {
 		if (node.parentNode.classList.contains('blank')) {
@@ -36,7 +39,7 @@ function validateEmail(node) {
 }
 
 function inputBlur() {
-	var formContent = this.value;
+	let formContent = this.value;
 
 	if (formContent == '') {
 		this.parentNode.classList.add('blank');
@@ -58,8 +61,6 @@ function inputBlur() {
 }
 
 function checkValidForm() {
-	var formWrappers = document.querySelectorAll('.form-wrapper');
-	var submitButton = document.querySelector('.form-send');
 	var valid = 0;
 
 	Array.prototype.forEach.call(formWrappers, (wrapper) => {

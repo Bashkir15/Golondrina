@@ -1,7 +1,7 @@
 .form-wrapper
 	position: relative
 	width: 100%
-	margin-bottom: 55px
+	margin-bottom: 65px
 
 	input
 		width: calc(100% - 10px)
@@ -79,6 +79,12 @@
 			background: transparent
 			border-color: #a3d39c
 
+		.required-message
+			opacity: 0
+
+		.email-invalid-message
+			opacity: 0
+
 	&.email-invalid
 		label
 			transform: translate3d(0, -40px, 0)
@@ -87,6 +93,88 @@
 		input
 			background: transparent
 			border-color: #fa5c54
+
+		.email-invalid-message
+			opacity: 1
+			transform: translateY(15px)
+
+		input
+			&:focus
+				& + label
+					color: #fa5c54
+
+
+	&:not(.form-message)
+		height: 46px
+
+	&.form-message.blank
+		label
+			transform: translate3d(0, -40px, 0)
+			color: #fa5c54
+
+		textarea
+			background: transparent
+			border-color: #fa5c54
+
+			&:focus
+				border-color: #fa5c54
+
+				& + label
+					color: #fa5c54
+
+
+	.required-message
+		opacity: 0
+		transform: translateY(-50px)
+		@include open()
+		font-weight: normal
+		font-size: 16px
+		color: #fa5c54
+		transition: all .4s ease-out
+		pointer-events: none
+
+	.email-invalid-message
+		opacity: 0
+		transform: translateY(-50px)
+		@include open()
+		font-weight: normal
+		font-size: 16px
+		color: #fa5c54
+		transition: all .4s ease-out
+		pointer-events: none
+
+	&.blank
+		.required-message
+			opacity: 1
+			transform: translateY(15px)
+
+.contact-submit
+	display: flex
+	align-items: center
+	justify-content: flex-end
+	padding-top: 30px
+	padding-bottom: 35px
+
+	button
+		position: relative
+		height: 45px
+		width: 160px
+		background-color: #fa5c54
+		border: none
+		border-bottom: 5px solid #9a3834
+		transition: all .125s ease-out
+
+		span
+			@include open()
+			font-weight: 400
+			letter-spacing: 2px
+			font-size: 18px
+			text-transform: uppercase
+			color: #fff
+
+		&.contact-form-valid
+			background-color: #a3d39c
+			border-bottom: 5px solid darken(#a3d39c, 10%)
 
 .form-send
 	display: flex
@@ -121,7 +209,7 @@
 			content: 'Success!'
 			z-index: 5
 			color: #fff
-			left: 25%
+			left: 20%
 			bottom: 10%
 			@include open()
 			font-weight: 400
@@ -138,6 +226,8 @@
 	opacity: 0
 	transition: all .4s ease
 	display: none
+
+
 
 
 @keyframes moveUp 

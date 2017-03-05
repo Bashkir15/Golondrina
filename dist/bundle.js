@@ -381,28 +381,10 @@
 	});
 	exports.landing = landing;
 
-	var _notifications = __webpack_require__(4);
-
-	var _notifications2 = _interopRequireDefault(_notifications);
-
-	var _axios = __webpack_require__(5);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	var _validator = __webpack_require__(31);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var _contact = __webpack_require__(41);
 
 	function landing() {
 		var carouselElement = document.querySelector('.landing-carousel');
-		var input = document.querySelectorAll('.form-input');
-		var formWrapper = document.getElementById('landing-form-wrapper');
-		var email = document.getElementById('landing-email');
-		var signupButton = document.getElementById('signup-button');
-
-		var successContent = document.getElementById('newsletter-success');
-		var failureContent = document.getElementById('newsletter-failure');
-		var errorContent = document.getElementById('newsletter-error');
 
 		var flick = new Flickity(carouselElement, {
 			autoPlay: 3500,
@@ -412,68 +394,7 @@
 			cellSelector: '.landing-cell'
 		});
 
-		/* function newsletter() {
-	 	console.log('meh');
-	 	if (formWrapper.classList.contains('email-valid')) {
-	 		signupButton.classList.add('form-loading');
-	 	
-	 			let data = {};
-	 		data.email = email.value;
-	 			axios.post('localhost:8000/contact/newsletter', {
-	 			email: data.email,
-	 				headers: {
-	 				'Content-Type': 'application/json'
-	 			}
-	 		})
-	 		.then((response) => {
-	 			if (response.data.success) {
-	 				resetForm();
-	 				signupButton.classList.remove('form-loading');
-	 				signupButton.classList.add('form-success');
-	 					var success = new Event('newsletter-success');
-	 				window.dispatchEvent(success);
-	 					setTimeout(() => {
-	 					formWrapper.classList.remove('email-valid');
-	 					signupButton.classList.remove('form-success');
-	 				}, 1000);
-	 			} else {
-	 				signupButton.classList.remove('form-loading');
-	 					var failure = new Event('newsletter-failure');
-	 				window.dispatchEvent(failure);
-	 			}
-	 		});
-	 	} else {
-	 		var error = new Event('newsletter-error');
-	 		window.dispatchEvent(error);
-	 	}
-	 } 
-	 	function resetForm() {
-	 	email.value = "";
-	 }
-	 	onBlur(input); */
-
-		var newsletterSuccess = new _notifications2.default({
-			content: successContent,
-			type: 'success',
-			timeout: 2500
-		});
-
-		var newsletterFailure = new _notifications2.default({
-			content: failureContent,
-			type: 'danger',
-			timeout: 2500
-		});
-
-		var newsletterError = new _notifications2.default({
-			content: errorContent,
-			type: 'warning',
-			timeout: 2500
-		});
-
-		window.addEventListener('newsletter-success', newsletterSuccess.open, false);
-		window.addEventListener('newsletter-failure', newsletterFailure.open, false);
-		window.addEventListener('newsletter-error', newsletterError.open, false);
-		//signupButton.addEventListener('click', newsletter, false);
+		(0, _contact.contact)();
 	}
 
 /***/ },
@@ -2328,6 +2249,10 @@
 	});
 	exports.onBlur = onBlur;
 	exports.removeBlur = removeBlur;
+
+	var formWrappers = document.querySelectorAll('.form-wrapper');
+	var submitButton = document.querySelector('.form-send');
+
 	function onBlur(nodes) {
 		Array.prototype.forEach.call(nodes, function (node) {
 			node.addEventListener('blur', inputBlur);
@@ -2387,8 +2312,6 @@
 	}
 
 	function checkValidForm() {
-		var formWrappers = document.querySelectorAll('.form-wrapper');
-		var submitButton = document.querySelector('.form-send');
 		var valid = 0;
 
 		Array.prototype.forEach.call(formWrappers, function (wrapper) {
@@ -3356,6 +3279,125 @@
 		});
 
 		(0, _validator.onBlur)(formInputs);
+
+		submitButton.addEventListener('click', submit);
+		window.addEventListener('message-delivered', successNotify.open);
+		window.addEventListener('message-failed', failureNotify.open);
+		window.addEventListener('message-error', errorNotify.open);
+	}
+
+/***/ },
+/* 39 */,
+/* 40 */,
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.contact = contact;
+
+	var _axios = __webpack_require__(5);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _notifications = __webpack_require__(4);
+
+	var _notifications2 = _interopRequireDefault(_notifications);
+
+	var _validator = __webpack_require__(31);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function contact() {
+		var formWrapper = document.querySelectorAll('.form-wrapper');
+		var formInputs = document.querySelectorAll('.form-input');
+		var submitButton = document.querySelector('.form-send');
+		var name = document.getElementById('contact-name');
+		var email = document.getElementById('contact-email');
+		var phone = document.getElementById('contact-phone');
+		var message = document.getElementById('contact-message');
+
+		var successContent = document.getElementById('contact-success');
+		var failureContent = document.getElementById('contact-failure');
+		var errorContent = document.getElementById('contact-error');
+
+		var successNotify = new _notifications2.default({
+			content: successContent,
+			type: 'success',
+			timeout: 2500
+		});
+
+		var failureNotify = new _notifications2.default({
+			content: failureContent,
+			type: 'danger',
+			timeout: 2500
+		});
+
+		var errorNotify = new _notifications2.default({
+			content: errorContent,
+			tyoe: 'warning',
+			timeout: 2500
+		});
+
+		(0, _validator.onBlur)(formInputs);
+
+		function submit() {
+			if (submitButton.classList.contains('form-valid')) {
+				submitButton.classList.add('form-loading');
+
+				_axios2.default.post('/contact', {
+					name: name.value,
+					email: email.value,
+					phone: phone.value,
+					message: message.value,
+
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function (response) {
+					if (response.data.success) {
+						resetForm();
+
+						submitButton.classList.remove('form-loading');
+						submitButton.classList.add('form-success');
+
+						var success = new Event('message-delivered');
+						window.dispatchEvent(success);
+					} else {
+						submitButton.classList.remove('form-loading');
+						submitButton.classList.add('form-failure');
+
+						var failure = new Event('message-failed');
+						window.dispatchEvent(failure);
+					}
+				});
+			} else {
+				var error = new Event('message-error');
+				window.dispatchEvent(error);
+			}
+		}
+
+		function resetForm() {
+			var i = void 0;
+			var len = formInputs.length;
+
+			for (i = 0; i < len; i++) {
+				var input = formInputs[i];
+
+				input.value = "";
+
+				if (input.parentNode.classList.contains('valid')) {
+					input.parentNode.classList.remove('valid');
+				}
+
+				if (input.parentNode.classList.contains('email-valid')) {
+					input.parentNode.classList.remove('email-valid');
+				}
+			}
+		}
 
 		submitButton.addEventListener('click', submit);
 		window.addEventListener('message-delivered', successNotify.open);
