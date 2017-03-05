@@ -9,6 +9,7 @@
 		<title>Golondrina Studio</title>
 		<link href="https://fonts.googleapis.com/css?family=Lato:300,400i|Open+Sans:300,300i,400,700" rel="stylesheet">
 		<link rel='stylesheet' href='./static/icons/style.css'>
+		<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 		<link rel='stylesheet' href='./styles/main.min.css'>
 
 
@@ -16,43 +17,86 @@
 
 	<body class='home-body'>
 
-		<div class='preloader'>
-			<div class='loading'></div>
-			<div class='loading-section section-left'></div>
-			<div class='loading-section section-right'></div>
-		</div>
-
 		<% include ./views/shared/nav %>
 		<% include ./views/shared/mobile-menu %>
 
 		<main class='landing-page-content'>
 			<header class='landing-header'>
-					<h1>Golondrina Studio</h1>
-					<h2 class='mobile-only'>Custom Art</h2>
-					<p class='mobile-only'>From the heart of Texas</p>
-					<p class='above-mobile-only'>
-						Unique art created in the <span>heart</span> of Texas</p>
-					<p class='above-mobile-only header-competitor'>
-						Stay one step ahead of your competitors
-					</p>
 
-					<a href='/contact'>
-						<button class='landing-header-contact' type='button' aria-label='go to the contact page'>
-							<span>Contact Us</span>
-						</button>
-					</a>
+				<div class='landing-carousel'>
+					<div class='carousel-gallery-link'>
+						<a href='/gallery'>
+							<button type='button' aria-label='go to gallery'>
+								<span>See All</span>
+							</button>
+						</a>
+					</div>
+
+					<figure class='landing-cell'>
+						<img src='http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural12-min.jpg'  alt='Backyard On Bell Christmas'>
+					</figure>
+
+					<figure class='landing-cell'>
+						<img src='http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_DarkAge_Christmas-min.jpg' alt='Dark Age Christmas'>
+					</figure>
+
+					<figure class='landing-cell'>
+						<img src='http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural08-min.jpg' alt='Eastside Christmas 2016'>
+					</figure>
+
+					<figure class='landing-cell'>
+						<img src='http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_Eastside_Dod2016-min.jpg' alt='Eastside Day of the Dead 2016'>
+					</figure>
+
+					<figure class='landing-cell'>
+						<img src='http://ddtnccrpo7cm5.cloudfront.net/Images/Murals/Mural09-min.jpg' alt='Eastside Newyears'>
+					</figure>
+
+					<figure class='landing-cell'>
+						<img src='http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_GameChangers_Christmas-min.jpg' alt='Denton Arts Council -- Jason Lee Birthday'>
+					</figure>
+
+					<figure class='landing-cell'>
+						<img src='http://ddtnccrpo7cm5.cloudfront.net/Images/Windows/Window_GDAC_Winter-min.jpg' alt='Denton Arts Council Winter'>
+					</figure>
+				</div>
+
 			</header>
 
-			<% include ./views/landing/mission %>
-			<% include ./views/landing/works %>
-			<% include ./views/landing/about %>
+			<section class='landing-about'>
+				<div class='landing-about-text'>
+					<blockquote>When I founded Golondrina Studio I never fathomed it would grow into what it is today. What originally started as a way for me to share one of my greatest passions has blossomed into something that allows me to channel my art directly into the community. Coming from humble beginings to seeing my art adorning my city has been an amazing journey. I didn't, and still don't, have any grandious goals for my work, but watching the community's artistic culture thrive as more artists like myself set out with similar goals makes me strive with impunity to grow larger
+					</blockquote>
+				</div>
 
+				<div class='landing-about-quoted'>
+					<div>
+						<cite>Erika Tolbert</cite>
+						<p>Founder of Golondrina</p>
+					</div>
+
+					<img src='./static/images/erika.jpg'>
+				</div>
+			</section>
+
+			<% include ./views/landing/contact %>
+			<% include ./views/landing/mission %>
 		</main>
+
+
+		<!-- <div class='preloader'>
+			<div class='loading'></div>
+			<div class='loading-section section-left'></div>
+			<div class='loading-section section-right'></div>
+		</div>
+
+
+		</main> -->
 		<% include ./views/shared/footer %>
 
 		<% include ./views/landing/notifications %>
 
-
+		<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 		<script src='./scripts/bundle.min.js'></script>
 	</body>
 </html>

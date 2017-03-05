@@ -3,18 +3,27 @@ import axios from 'axios'
 import { onBlur, removeBlur } from '../utils/validator'
 
 export function landing() {
-	let input = document.querySelectorAll('.form-input');
-	let formWrapper = document.getElementById('landing-form-wrapper');
-	let email = document.getElementById('landing-email');
-	let signupButton = document.getElementById('signup-button');
+	const carouselElement = document.querySelector('.landing-carousel');
+	const input = document.querySelectorAll('.form-input');
+	const formWrapper = document.getElementById('landing-form-wrapper');
+	const email = document.getElementById('landing-email');
+	const signupButton = document.getElementById('signup-button');
 
-	let successContent = document.getElementById('newsletter-success');
-	let failureContent = document.getElementById('newsletter-failure');
-	let errorContent = document.getElementById('newsletter-error');
+	const successContent = document.getElementById('newsletter-success');
+	const failureContent = document.getElementById('newsletter-failure');
+	const errorContent = document.getElementById('newsletter-error');
+
+	const flick = new Flickity(carouselElement, {
+		autoPlay: 3500,
+		pauseAutoPlayOnHover: false,
+		draggable: false,
+		wrapAround: true,
+		cellSelector: '.landing-cell'
+	});
 
 
 
-	function newsletter() {
+	/* function newsletter() {
 		console.log('meh');
 		if (formWrapper.classList.contains('email-valid')) {
 			signupButton.classList.add('form-loading');
@@ -54,13 +63,13 @@ export function landing() {
 			var error = new Event('newsletter-error');
 			window.dispatchEvent(error);
 		}
-	}
+	} 
 
 	function resetForm() {
 		email.value = "";
 	}
 
-	onBlur(input);
+	onBlur(input); */
 
 	var newsletterSuccess = new notifications({
 		content: successContent,
@@ -83,5 +92,5 @@ export function landing() {
 	window.addEventListener('newsletter-success', newsletterSuccess.open, false);
 	window.addEventListener('newsletter-failure', newsletterFailure.open, false);
 	window.addEventListener('newsletter-error', newsletterError.open, false);
-	signupButton.addEventListener('click', newsletter, false);
+	//signupButton.addEventListener('click', newsletter, false);
 }

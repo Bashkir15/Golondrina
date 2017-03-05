@@ -394,6 +394,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function landing() {
+		var carouselElement = document.querySelector('.landing-carousel');
 		var input = document.querySelectorAll('.form-input');
 		var formWrapper = document.getElementById('landing-form-wrapper');
 		var email = document.getElementById('landing-email');
@@ -403,51 +404,53 @@
 		var failureContent = document.getElementById('newsletter-failure');
 		var errorContent = document.getElementById('newsletter-error');
 
-		function newsletter() {
-			console.log('meh');
-			if (formWrapper.classList.contains('email-valid')) {
-				signupButton.classList.add('form-loading');
+		var flick = new Flickity(carouselElement, {
+			autoPlay: 3500,
+			pauseAutoPlayOnHover: false,
+			draggable: false,
+			wrapAround: true,
+			cellSelector: '.landing-cell'
+		});
 
-				var data = {};
-				data.email = email.value;
-
-				_axios2.default.post('localhost:8000/contact/newsletter', {
-					email: data.email,
-
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				}).then(function (response) {
-					if (response.data.success) {
-						resetForm();
-						signupButton.classList.remove('form-loading');
-						signupButton.classList.add('form-success');
-
-						var success = new Event('newsletter-success');
-						window.dispatchEvent(success);
-
-						setTimeout(function () {
-							formWrapper.classList.remove('email-valid');
-							signupButton.classList.remove('form-success');
-						}, 1000);
-					} else {
-						signupButton.classList.remove('form-loading');
-
-						var failure = new Event('newsletter-failure');
-						window.dispatchEvent(failure);
-					}
-				});
-			} else {
-				var error = new Event('newsletter-error');
-				window.dispatchEvent(error);
-			}
-		}
-
-		function resetForm() {
-			email.value = "";
-		}
-
-		(0, _validator.onBlur)(input);
+		/* function newsletter() {
+	 	console.log('meh');
+	 	if (formWrapper.classList.contains('email-valid')) {
+	 		signupButton.classList.add('form-loading');
+	 	
+	 			let data = {};
+	 		data.email = email.value;
+	 			axios.post('localhost:8000/contact/newsletter', {
+	 			email: data.email,
+	 				headers: {
+	 				'Content-Type': 'application/json'
+	 			}
+	 		})
+	 		.then((response) => {
+	 			if (response.data.success) {
+	 				resetForm();
+	 				signupButton.classList.remove('form-loading');
+	 				signupButton.classList.add('form-success');
+	 					var success = new Event('newsletter-success');
+	 				window.dispatchEvent(success);
+	 					setTimeout(() => {
+	 					formWrapper.classList.remove('email-valid');
+	 					signupButton.classList.remove('form-success');
+	 				}, 1000);
+	 			} else {
+	 				signupButton.classList.remove('form-loading');
+	 					var failure = new Event('newsletter-failure');
+	 				window.dispatchEvent(failure);
+	 			}
+	 		});
+	 	} else {
+	 		var error = new Event('newsletter-error');
+	 		window.dispatchEvent(error);
+	 	}
+	 } 
+	 	function resetForm() {
+	 	email.value = "";
+	 }
+	 	onBlur(input); */
 
 		var newsletterSuccess = new _notifications2.default({
 			content: successContent,
@@ -470,7 +473,7 @@
 		window.addEventListener('newsletter-success', newsletterSuccess.open, false);
 		window.addEventListener('newsletter-failure', newsletterFailure.open, false);
 		window.addEventListener('newsletter-error', newsletterError.open, false);
-		signupButton.addEventListener('click', newsletter, false);
+		//signupButton.addEventListener('click', newsletter, false);
 	}
 
 /***/ },

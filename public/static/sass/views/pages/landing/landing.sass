@@ -2,6 +2,7 @@
 @import "testimonials"
 @import "works"
 @import "about"
+@import "contact"
 
 #newsletter-success
 	display: none
@@ -24,120 +25,53 @@
 #landing-error
 	display: none
 
+.flickity-page-dots
+	bottom: 10px
+	z-index: 30
+
+	.dot
+		border: 2px solid #fff
+
+		&.is-selected
+			background: #fff
 
 
-.landing-decorator
-	width: 83%
-	margin: 60px auto
-	border-bottom: 1px solid rgba(0,0,0,0.03)
+.landing-carousel
+	position: relative
 
-.landing-page-content
+.carousel-gallery-link
 	display: flex
-	flex-direction: column
-	margin-top: -80px
+	justify-content: center
+	position: absolute
+	left: 0
+	bottom: 0
+	height: 130px
+	width: 100%
+	background: rgba(0,0,0,0.3)
+	z-index: 30
 
-.landing-header
-	display: flex
-	flex-direction: column
-	align-items: center
-	padding-top: 150px
-	padding-bottom: 70px
-	background: #0AB6A2
-
-	h1,
-	h2
-		@include lato()
-		font-weight: 400
-		letter-spacing: 2px
-		font-size: 50px
-		line-height: 68px
-		padding-bottom: 20px
-		color: #fff
-		text-align: center
-
-	h2
-		font-weight: 300
-		font-size: 42px
-		padding-bottom: 35px
-
-
-	p
-		@include open()
-		font-weight: 400
-		letter-spacing: 1px
-		font-size: 20px
-		line-height: 28px
-		padding-bottom: 65px
-		color: #dedede
-
-
-
+	a
+		margin-top: 30px
+		
 	button
-		height: 50px
-		width: 180px
-		border: none
-		margin-bottom: 40px
-		background: rgba(0,0,0,0.25)
-		border-radius: 23px
-		transition: all .3s ease-out
+		height: 45px
+		width: 160px
+		border: 1px solid #fff
 
 		span
-			@include lato()
+			@include open()
 			font-weight: 400
 			letter-spacing: 2px
+			font-size: 18px
 			color: #fff
-			font-size: 16px
-			text-transform: uppercase
-
-		&:hover
-			background: rgba(0,0,0,0.35)
-
-@media screen and (min-width: 640px)
-	.contact-dialog-header
-		width: 55%
-
-		h2
-			font-size: 24px
-
-@media screen and (min-width: 800px)
-	.landing-header
-		padding-bottom: 130px
-
-		button
-			height: 55px
-			width: 230px
-
-		h1
-			margin-bottom: 45px
-
-		p
-			padding-bottom: 35px
-			font-size: 28px
-
-		.header-competitor
-			@include open()
-			font-weight: normal
-			font-size: 19px
-			padding-bottom: 105px
+			transition: all .4s ease
 
 
-@media screen and (min-width: 1000px)
-	.contact-dialog-header
-		width: 45%
 
-		h2
-			letter-spacing: 2px
+.landing-cell
+	width: 100%
+	height: 320px
 
-@media screen and (min-width: 1400px)
-	.landing-header
-	
-		button
-			width: 240px
-
-@media screen and (min-width: 1650px)
-
-
-	.landing-header
-		button
-			margin-bottom: 120px
-
+	img
+		height: 100%
+		width: 100%
