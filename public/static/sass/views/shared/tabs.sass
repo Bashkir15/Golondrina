@@ -2,95 +2,99 @@
 	position: relative
 
 .tab-item[data-tab-active]
-	&:before,
-	&:after
-		transform: scale3d(7,7,1)
+	z-index: 100
+	background: #fff
 
-.tab-list
-	display: flex
-	align-items: center
-	position: relative
-	justify-content: flex-start
-	border-top: 1px solid #31aff5
-	border-bottom: 1px solid #31aff5
-
-	> li
-		display: flex
-		align-items: center
-		justify-content: center
-		flex: 1
-		border-right: 1px solid #31aff5
-		overflow: hidden
-		position: relative
-		height: 100px
-
-		a
-			display: flex
-			align-items: center
-			justify-content: center
-			color: #fff
-			height: 52px
-			width: 52px
-			border-radius: 50%
-			margin-left: -2px
-			margin-top: -1px
-			font-size: 24px
-			overflow: hidden
-			text-overflow: ellipsis
-			white-space: nowrap
-			transition: color 0.4s
-
-			span
-				position: relative
-				color: #fff
-				z-index: 50
-
-		&:before
-			position: absolute
-			top: 53%
-			left: 52%
-			margin: -30px 0 0 -30px
-			width: 50px
-			height: 50px
-			border: 1px solid #31aff5
-			border-radius: 50%
-			background: #0AB6A2
-			content: ''
-			transition: transform 0.4s
-			pointer-events: none
+	.tab-link
+		background: #fff
+		box-shadow: -1px 0 0 #fff
+		color: darken(#0AB6A2, 10%)
 
 		&:after
 			position: absolute
-			top: 53%
-			left: 52%
-			margin: -30px 0 0 -30px
-			width: 50px
-			height: 50px
-			border: 1px solid rgba(0,0,0,0.3)
-			border-radius: 50%
-			background: #1c907f
-			background: darken(#31aff5, 13%)
+			top: calc(100% + 15px)
+			left: 50%
 			content: ''
-			transition: transform 0.4s
+			margin-left: -10px
+			width: 0
+			height: 0
+			border: solid transparent
+			border-width: 10px
+			border-top-color: #fff
 			pointer-events: none
 
-		&:last-child
-			border-right: none
+.tab-list
+	position: relative
+	display: flex
+	flex-flow: row wrap
+	justify-content: center
+	margin: 0 auto
+	padding: 0
+	list-style: none
+
+.tab-item
+	position: relative
+	display: block
+	flex: 1
+	margin: 0
+	text-align: center
+	z-index: 1
+	background: #e7ecea
+	transition: all .4s ease-out
+
+	&:first-child::before
+		right: auto
+		left: 0
+
+	&:after
+		position: absolute
+		top: 20%
+		right: 0
+		content: ''
+		width: 1px
+		height: 60%
+		z-index: -1
+		background: rgba(0,0,0,0.07)
+
+	&:hover
+		.tab-name
+			opacity: 1
+			transform: translateY(-20px)
 
 .tab-link
-	color: #fff
-	display: block
 	position: relative
+	display: block
+	text-overflow: ellipsis
+	white-spcae: no-wrap
+	overflow: visible
+	margin-top: 15px
+	padding: 2em 0
+	font-size: 27px
+	line-height: 1
+	transition: all .4s ease-out
 	text-decoration: none
 	outline: none
-	transition: all .3s cubic-bezier(0.42, 0, 1, 1)
+	color: #74777b
+
+.tab-name
+	opacity: 0
+	pointer-events: none
+	transform: translateY(30px)
+	transition: all .4s ease
+	@include open()
+	font-weight: normal
+	font-size: 16px
+	letter-spacing: 2px
+	color: #74777b
+
+
 
 .tab-panel
 	background: #f0f0f0
-	padding: 30px 0 30px 30px
+	padding: 50px 0 30px 30px
 
 	h2
-		@include lato()
+		@include cin()
 		font-weight: 400
 		letter-spacing: 2px
 		font-size: 30px
@@ -102,80 +106,3 @@
 
 .tab-panel[aria-hidden="true"]
 	display: none
-
-@media screen and (min-device-width: 400px) and (max-device-width: 680px)
-	.tab-list
-		li
-			&:before,
-			&:after
-				left: 60%
-
-			a
-				margin-top: 1px
-				
-				span
-					font-size: 18px
-
-@media screen and (min-width: 680px)
-	.tab-list
-		li
-
-			&:before,
-			&:after
-				height: 85px
-				width: 85px
-				left: 42%
-				top: 37%
-
-			a
-				height: 87px
-				width: 87px
-
-				span
-					font-size: 28px
-
-@media screen and (min-width: 830px)
-	.tab-list
-		li
-			&:before,
-			&:after
-				left: 43%
-
-@media screen and (min-width: 1000px)
-	.tab-list
-		li
-			&:before,
-			&:after
-				left: 44%
-
-@media screen and (min-width: 1200px)
-	.tab-list
-		li
-			&:before,
-			&:after
-				left: 45%
-
-@media screen and (min-width: 1400px)
-	.tab-list
-		li
-			&:before,
-			&:after
-				left: 46%
-
-@media screen and (min-width: 1600px)
-	.tab-list
-		li
-			&:before,
-			&:after
-				left: 47%
-
-			a
-				span
-					font-size: 30px
-
-@media screen and (min-width: 1800px)
-	.tab-list
-		li
-			&:before,
-			&:after
-				left: 47%

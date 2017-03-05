@@ -27,14 +27,22 @@ function loadMoreImages(newest, visible, container) {
 		for (i = 0; i < len; i++) {
 			let lightboxSrc = document.createElement('a');
 			let image = document.createElement('img');
+			let overlay = document.createElement('div');
+			let title = document.createElement('h3');
+
+
+			overlay.classList.add('gallery-image-overlay');
 			lightboxSrc.setAttribute("href", newest[i].src);
 
 			if (typeof newest[i].caption !== 'undefined') {
 				image.setAttribute('alt', newest[i].caption);
+				title.innerText = newest[i].caption;
 			}
 
-			docFrag.appendChild(lightboxSrc);
+			overlay.appendChild(title);
 			lightboxSrc.appendChild(image);
+			lightboxSrc.appendChild(overlay);
+			docFrag.appendChild(lightboxSrc);
 
 			image.src = newest[i].src;
 			visible.push(newest[i]);
