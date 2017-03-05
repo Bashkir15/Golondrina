@@ -14,6 +14,10 @@ router.get('/gallery', (req, res) => {
 	res.render('./views/gallery/gallery');
 });
 
+router.get('/gallery/windows', (req, res) => {
+	res.render('./views/gallery/windows');
+});
+
 router.get('/recent', (req, res) => {
 	res.render('./views/pages/recent');
 });

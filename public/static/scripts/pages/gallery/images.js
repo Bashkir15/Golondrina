@@ -54,6 +54,21 @@ function buildImages(gallery, galleryVisible, galleryContainer, page) {
 	} else if (page == 1) {
 		loadMoreImages(gallery.splice(10, 20), galleryVisible, imageContainer)
 		.then(restartGallery(imageContainer));
+	} else if (page == 2) {
+		loadMoreImages(gallery.splice(20, 30), galleryVisible, imageContainer)
+		.then(restartGallery(imageContainer));
+	} else if (page == 3) {
+		loadMoreImages(gallery.splice(30, 40), galleryVisible, imageContainer)
+		.then(restartGallery(imageContainer));
+	} else if (page == 4) {
+		loadMoreImages(gallery.splice(40, 50), galleryVisible, imageContainer)
+		.then(restartGallery(imageContainer));
+	} else if (page == 5) {
+		loadMoreImages(gallery.splice(50, 60), galleryVisible, imageContainer)
+		.then(restartGallery(imageContainer));
+	} else if (page == 6) {
+		loadMoreImages(gallery.splice(60, 70), galleryVisible, imageContainer)
+		.then(restartGallery(imageContainer));
 	}
 
 }

@@ -2443,10 +2443,12 @@
 		var windowsVisible = [];
 
 		var residentialGallery = (0, _images.buildGallery)(_residential2.default);
+		var originalResidentialLength = residentialGallery.length;
 		var loadResidentialButton = document.getElementById('load-more-residential');
 		var residentialVisible = [];
 
 		var canvasGallery = (0, _images.buildGallery)(_canvas2.default);
+		var originalCanvasLength = canvasGallery.length;
 		var loadCanvasButton = document.getElementById('load-more-canvas');
 		var canvasVisible = [];
 
@@ -2493,18 +2495,35 @@
 
 		function loadMoreResidential() {
 			var page = page || 0;
-			(0, _images.buildImages)(residentialGallery, residentialVisible, residentialContainer, page);
-			page++;
+
+			if (residentialGallery.length != residentialVisible.length) {
+				(0, _images.buildImages)(residentialGallery, residentialVisible, residentialContainer, page);
+				page++;
+			}
+
+			if (originalResidentialLength == residentialVisible.length) {
+				loadResidentialButton.classList.add('no-more-images');
+				loadResidentialButton.removeEventListener('click', loadMoreResidential);
+			}
 		}
 
 		function loadMoreCanvas() {
 			var page = page || 0;
-			(0, _images.buildImages)(canvasGallery, canvasVisible, canvasContainer, page);
-			page++;
+
+			if (originalCanvasLength != canvasVisible.length) {
+				(0, _images.buildImages)(canvasGallery, canvasVisible, canvasContainer, page);
+				page++;
+			}
+
+			if (originalCanvasLength == canvasVisible.length) {
+				loadCanvasButton.classList.add('no-more-images');
+				loadCanvasButton.removeEventListener('click', loadMoreCanvas);
+			}
 		}
 
 		loadWindowsButton.addEventListener('click', loadMoreWindows, false);
 		loadCanvasButton.addEventListener('click', loadMoreCanvas, false);
+		loadResidentialButton.addEventListener('click', loadMoreResidential);
 	}
 
 /***/ },
@@ -2720,6 +2739,16 @@
 			loadMoreImages(gallery.splice(0, 10), galleryVisible, imageContainer).then(restartGallery(imageContainer));
 		} else if (page == 1) {
 			loadMoreImages(gallery.splice(10, 20), galleryVisible, imageContainer).then(restartGallery(imageContainer));
+		} else if (page == 2) {
+			loadMoreImages(gallery.splice(20, 30), galleryVisible, imageContainer).then(restartGallery(imageContainer));
+		} else if (page == 3) {
+			loadMoreImages(gallery.splice(30, 40), galleryVisible, imageContainer).then(restartGallery(imageContainer));
+		} else if (page == 4) {
+			loadMoreImages(gallery.splice(40, 50), galleryVisible, imageContainer).then(restartGallery(imageContainer));
+		} else if (page == 5) {
+			loadMoreImages(gallery.splice(50, 60), galleryVisible, imageContainer).then(restartGallery(imageContainer));
+		} else if (page == 6) {
+			loadMoreImages(gallery.splice(60, 70), galleryVisible, imageContainer).then(restartGallery(imageContainer));
 		}
 	}
 

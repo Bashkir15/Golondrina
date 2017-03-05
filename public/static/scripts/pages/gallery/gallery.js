@@ -17,10 +17,12 @@ export function gallery() {
 	const windowsVisible = [];
 
 	const residentialGallery = buildGallery(residential);
+	const originalResidentialLength = residentialGallery.length;
 	const loadResidentialButton = document.getElementById('load-more-residential');
 	const residentialVisible = [];
 
 	const canvasGallery = buildGallery(canvas);
+	const originalCanvasLength = canvasGallery.length;
 	const loadCanvasButton = document.getElementById('load-more-canvas');
 	const canvasVisible = [];
 
@@ -47,6 +49,7 @@ export function gallery() {
 	function setupGallery(item) {
 		if (item.classList.contains('canvas-link')) {
 			loadMoreCanvas();
+
 		} else if (item.classList.contains('residential-link')) {
 			loadMoreResidential();
 		}
@@ -68,17 +71,34 @@ export function gallery() {
 
 	function loadMoreResidential() {
 		var page = page || 0;
-		buildImages(residentialGallery, residentialVisible, residentialContainer, page);
-		page++;
+
+		if (residentialGallery.length != residentialVisible.length) {
+			buildImages(residentialGallery, residentialVisible, residentialContainer, page);
+			page++;
+		}
+
+		if (originalResidentialLength == residentialVisible.length) {
+			loadResidentialButton.classList.add('no-more-images');
+			loadResidentialButton.removeEventListener('click', loadMoreResidential);
+		}
 	}
 
 	function loadMoreCanvas() {
 		var page = page || 0;
-		buildImages(canvasGallery, canvasVisible, canvasContainer, page);
-		page++;
+		
+		if (originalCanvasLength != canvasVisible.length) {
+			buildImages(canvasGallery, canvasVisible, canvasContainer, page);
+			page++;
+		}
+
+		if (originalCanvasLength == canvasVisible.length) {
+			loadCanvasButton.classList.add('no-more-images');
+			loadCanvasButton.removeEventListener('click', loadMoreCanvas);
+		}
 	}
 
 
 	loadWindowsButton.addEventListener('click', loadMoreWindows, false);
 	loadCanvasButton.addEventListener('click', loadMoreCanvas, false);
+	loadResidentialButton.addEventListener('click', loadMoreResidential);
 }
