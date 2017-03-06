@@ -1,15 +1,15 @@
 .nav
 	display: flex
 	align-items: stretch
-	position: relative
+	position: fixed
+	top: 0
+	left: 0
 	height: 80px
 	width: 100%
 	z-index: 170
-	padding-bottom: 10px
+	padding: 35px 0
 	background: #0AB6A2
-
-	&.nav--scrolled
-		padding-bottom: 5px
+	transition: all .5s ease-out
 
 	&.nav-mobile--open
 		background: transparent
@@ -18,6 +18,9 @@
 			.nav-item
 				img
 					opacity: 0
+
+	&.nav-small
+		padding: 10px 0
 
 
 .nav-left
