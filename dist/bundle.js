@@ -65,47 +65,50 @@
 	var navTrigger = document.getElementById('nav-trigger');
 	var navLinks = document.querySelectorAll('.nav-link');
 	var nav = document.getElementById('nav');
+	var preloader = document.querySelector('.preloader-container');
 
 	var menu = new _mobileMenu2.default();
-	var scroller = new _scroll2.default();
 
-	var scrollTimeout = void 0;
-	var resizeTimeout = void 0;
+	activeUrl();
 
 	if (navTrigger != 'undefined') {
 		navTrigger.addEventListener('click', menu.toggle, false);
 	}
 
 	function activeUrl() {
-		var pathNames = ['/contact', '/gallery'];
+		var i = void 0;
+		var len = navLinks.length;
 
-		Array.prototype.forEach.call(navLinks, function (link) {
-			if (pathNames.indexOf(link.getAttribute("href")) != -1 && link.getAttribute("href") == window.location.pathname) {
-				link.classList.add('active');
-				nav.classList.add('normal-nav');
-			} else if (link.getAttribute("href") == window.location.pathname) {
+		for (i = 0; i < len; i++) {
+			var link = navLinks[i];
+
+			if (link.getAttribute("href") == window.location.pathname || window.location.pathname == '') {
 				link.classList.add('active');
 			}
+		}
+	}
+
+	HTMLDocument.prototype.ready = function () {
+		return new Promise(function (resolve, reject) {
+			if (document.readyState === 'complete') {
+				resolve(document);
+			} else {
+				document.addEventListener('DOMContentLoaded', function () {
+					resolve(document);
+				});
+			}
 		});
-	}
+	};
 
-	function scrollThrottle() {
-		if (!scrollTimeout) {
-			scrollTimeout = setTimeout(function () {
-				scrollTimeout = null;
-				scroller.viewPortChange();
-			});
-		}
-	}
+	document.ready().then(function () {
+		setTimeout(function () {
+			preloader.classList.add('loaded');
 
-	function resizeThrottle() {
-		if (!resizeTimeout) {
-			resizeTimeout = setTimeout(function () {
-				resizeTimeout = null;
-				scroller.viewPortChange();
-			}, 250);
-		}
-	}
+			setTimeout(function () {
+				document.body.classList.add('loaded');
+			}, 500);
+		}, 1000);
+	});
 
 	if (window.location.href.indexOf('portfolio') != -1) {
 		//	portfolio();
@@ -116,18 +119,6 @@
 	} else {
 		(0, _landing.landing)();
 	}
-
-	activeUrl();
-
-	window.addEventListener('DOMContentLoaded', scroller.init, false);
-	window.addEventListener('scroll', scrollThrottle, false);
-	window.addEventListener('resize', resizeThrottle, false);
-
-	window.onload = function () {
-		setTimeout(function () {
-			document.body.classList.add('loaded');
-		}, 1000);
-	};
 
 /***/ },
 /* 1 */

@@ -7,51 +7,54 @@ import { contact } from './static/scripts/pages/contact/contact'
 const navTrigger = document.getElementById('nav-trigger');
 const navLinks = document.querySelectorAll('.nav-link');
 const nav = document.getElementById('nav');
+const preloader = document.querySelector('.preloader-container');
 
 const menu = new mobileMenu();
-const scroller = new scrollIn();
 
-let scrollTimeout;
-let resizeTimeout;
+activeUrl();
+
 
 if (navTrigger != 'undefined') {
 	navTrigger.addEventListener('click', menu.toggle, false);
 }
 
 function activeUrl() {
-	var pathNames = ['/contact', '/gallery'];
+	let i;
+	let len = navLinks.length;
 
+	for (i = 0; i < len; i++) {
+		let link = navLinks[i];
 
-
-	Array.prototype.forEach.call(navLinks, (link) => {
-		if (pathNames.indexOf(link.getAttribute("href")) != -1 && link.getAttribute("href") == window.location.pathname) {
-			link.classList.add('active');
-			nav.classList.add('normal-nav');
-		} else  if (link.getAttribute("href") == window.location.pathname) {
+		if (link.getAttribute("href") == window.location.pathname || window.location.pathname == '') {
 			link.classList.add('active');
 		}
-	});
+	}
 
 	
 }
 
-function scrollThrottle() {
-	if (!scrollTimeout) {
-		scrollTimeout = setTimeout(() => {
-			scrollTimeout = null;
-			scroller.viewPortChange();
-		}, )
-	}
+
+HTMLDocument.prototype.ready = () => {
+	return new Promise((resolve, reject) => {
+		if (document.readyState === 'complete') {
+			resolve(document);
+		} else {
+			document.addEventListener('DOMContentLoaded', () => {
+				resolve(document);
+			})
+		}
+	})
 }
 
-function resizeThrottle() {
-	if (!resizeTimeout) {
-		resizeTimeout = setTimeout(() => {
-			resizeTimeout = null;
-			scroller.viewPortChange();
-		}, 250);
-	}
-}
+document.ready().then(() => {
+	setTimeout(() => {
+		preloader.classList.add('loaded');
+
+		setTimeout(() => {
+			document.body.classList.add('loaded');
+		}, 500)
+	}, 1000);
+});
 
 
 if (window.location.href.indexOf('portfolio') != -1) {
@@ -64,14 +67,3 @@ if (window.location.href.indexOf('portfolio') != -1) {
 	landing();
 }
 
-activeUrl();
-
-window.addEventListener('DOMContentLoaded', scroller.init, false);
-window.addEventListener('scroll', scrollThrottle, false);
-window.addEventListener('resize', resizeThrottle, false);
-
-window.onload = () => {
-	setTimeout(() => {
-		document.body.classList.add('loaded');
-	}, 1000);
-}
