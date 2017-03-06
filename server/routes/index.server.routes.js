@@ -1,21 +1,22 @@
 import express from 'express';
-import emailHelper from '../helpers/email';
+import contactController from '../controllers/email.server.controller'
 
-var email = emailHelper();
-var router = express.Router();
+let router = express.Router();
+let contact = contactController();
 
 router.get('/', (req, res) => {
 	res.render('index');
 });
 
-router.post('/', email.subscribe);
-
 router.get('/gallery', (req, res) => {
 	res.render('./views/gallery/gallery');
 });
 
-router.get('/murals', (req, res) => {
-	res.render('./views/others/murals');
+router.get('/contact', (req, res) => {
+	res.render('./views/contact/contact');
 });
+
+router.post('/contact', contact.contact);
+
 
 module.exports = router;

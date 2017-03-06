@@ -39,7 +39,7 @@ export function contact() {
 		if (submitButton.classList.contains('form-valid')) {
 			submitButton.classList.add('form-loading');
 
-			axios.post('/contact', {
+			axios.post('www.golondrinastudio.com/contact', {
 				name: name.value,
 				email: email.value,
 				phone: phone.value,
