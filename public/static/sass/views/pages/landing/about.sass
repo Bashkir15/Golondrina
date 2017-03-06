@@ -66,211 +66,120 @@
 			letter-spacing: 1px
 			font-size: 16px
 			line-height: 21px
-			color: #c2c3c4
+			color: darken(#c2c3c4, 10%)
 
 	img
 		height: 60px
 		width: 60px
 		border-radius: 50%
 
-.landing-business
-	display: flex
-	align-items: center
-	justify-content: space-around
-	height: 80px
-	padding: 10px 0
-	background: #ccc
 
-	> div
-		display: flex
-		flex-direction: column
-		align-items: center
-		justify-content: center
-		flex: 1
-		height: 60px
-		z-index: 30
-		color: #ccc
-		@include open()
-		font-weight: 400
-		letter-spacing: 2px
-		background: rgba(0,0,0,0.23)
-
-	> .business-above-mobile
-		display: none
-
-	> .business-desktop
-		display: none
-
-
-.landing-newsletter
-	position: relative
-	display: flex
-	flex-direction: column
-	align-items: center
-	padding-top: 130px
-	padding-bottom: 160px
-	background: #042532
-
-	h3
-		@include lato()
-		font-weight: 300
-		letter-spacing: 2px
-		font-size: 24px
-		color: #fff
-
-.landing-newsletter-input
-	width: 80%
-	margin: 0 auto
-	padding-top: 55px
-
-.landing-form-wrapper
-	position: relative
-	display: flex
-	width: 100%
-
-	&.form-wrapper
-		label
-			top: 13px
-			left: 19px
-			color: #575757
-
-			span
-				color: #575757
-
-		input
-			height: 40px
-			background: #fff
-
-			&:focus
-				height: 42px
-				border-width: 1px
-				border-color: #31aff5
-
-				& + label
-					color: #fff
-
-					span
-						color: #fff
-
-		&.email-invalid
-			input
-				height: 42px
-				border-width: 1px
-	input
-		display: flex
-		flex: 1
-		border: 1px solid rgba(0,0,0,0.23)
-		border-right: 0
-		background: rgba(0,0,0,0.3)
-		padding: 0
-		padding-left: 7px
-		@include lato()
-		font-weight: 400
-		color: #fff
-		border-top-left-radius: 23px
-		border-bottom-left-radius: 23px
-		border-right: none
-		border-color: rgba(0,0,0,0.23)
-		outline: none
-
-
-	button
-		height: 44px
-		width: 90px
-		border: none
-		border-top-right-radius: 23px
-		border-bottom-right-radius: 23px
-		background: #31aff5
-		transition: all .4s ease-out
-
-		span
-			@include open()
-			font-weight: normal
-			letter-spacing: 2px
-			font-size: 16px
-			color: #fff
-
-		&:hover
-			background: darken(#31aff5, 10%)
-
-@media screen and (min-width: 768px)
-	.landing-business
-		.business-above-mobile
-			display: flex
+@media screen and (min-width: 800px)
+	.landing-about
+		padding-top: 145px
 
 	.landing-about-text
 		blockquote
-			line-height: 25px
+			font-size: 17px
+			line-height: 28px
 
 	.landing-about-quoted
 		> div
 			cite
 				font-size: 18px
+				line-height: 28px
 
 			p
 				font-size: 17px
 
-	.landing-form-wrapper
-		button
-			width: 160px
-
-@media screen and (min-width: 1000px)
-	.landing-newsletter-input
-		width: 65%
-
 
 @media screen and (min-width: 1200px)
+	.landing-about
+		padding-top: 165px
+
 	.landing-about-text
-		width: 50%
+		width: 60%
 
 		blockquote
 			font-size: 18px
-			line-height: 28px
+			line-height: 32px
 
 	.landing-about-quoted
 		width: 55%
+
+		> div
+			cite
+				font-size: 20px
+				line-height: 33px
+
+			p
+				font-size: 18px
 
 		img
-			height: 70px
-			width: 70px
-
-	.landing-newsletter-input
-		width: 55%
+			height: 80px
+			width: 80px
 
 
-@media screen and (min-width: 1400px)
+@media screen and (min-width: 1600px)
 	.landing-about-text
-		width: 45%
+		padding-bottom: 45px
+
+		blockquote
+			font-size: 20px
+			line-height: 38px
 
 	.landing-about-quoted
-		width: 50%
+		> div
+			cite
+				font-size: 22px
+				line-height: 38px
 
-	.landing-newsletter-input
-		width: 50%
+			p
+				font-size: 20px
 
-	.landing-form-wrapper
-
-		button
-			width: 180px
-
-	.landing-business
-		> .business-desktop
-			display: flex
-
-@media screen and (min-width: 1650px)
+@media screen and (min-width: 2560px)
 	.landing-about
-		padding-top: 53px
+		padding-top: 255px
 
-	.landing-form-wrapper
+	.landing-about-text
+		width: 50%
+		padding-bottom: 65px
 
-		button
-			width: 230px
+		blockquote
+			font-size: 24px
+			line-height: 45px
 
-	.landing-newsletter
-		padding-bottom: 160px
-
-		h3
-			padding-bottom: 35px
-
-	.landing-newsletter-input
+	.landing-about-quoted
 		width: 45%
+
+		> div
+			cite
+				font-size: 24px
+				line-height: 48px
+
+			p
+				font-size: 22px
+
+@media screen and (min-width: 3400px)
+	.landing-about-text
+		width: 40%
+		padding-bottom: 90px
+
+		blockquote
+			font-size: 26px
+			line-height: 54px
+
+	.landing-about-quoted
+		width: 35%
+
+		> div
+			cite
+				font-size: 26px
+				line-height: 70px
+
+			p
+				font-size: 24px
+
+		img
+			height: 95px
+			width: 95px

@@ -14,20 +14,47 @@
 		line-height: 52px
 		font-size: 32px
 
+@media screen and (min-width: 800px)
+	.contact-form
+		width: 80%
+		padding-top: 30px
+		margin: 0 auto
 
-.contact-submit
-	display: flex
-	align-items: center
-	justify-content: center
+@media screen and (min-width: 1200px)
+	.landing-contact-container
+		padding: 100px 0
 
-	button
-		height: 45px
-		width: 160px
-		background: none
-		border: 1px solid rgba(0,0,0,0.4)
+	.contact-form
+		width: 70%
 
-		span
-			@include open()
-			font-weight: 400
-			letter-spacing: 2px
-			font-size: 18px
+@media screen and (min-width: 1600px)
+	.landing-contact-header
+		h2
+			font-size: 38px
+
+	.contact-form
+		width: 65%
+
+@media screen and (min-width: 2560px)
+	.landing-contact-container
+		padding-top: 200px
+		padding-bottom: 160px
+
+	.landing-contact-header
+		h2
+			font-size: 45px
+
+	.contact-form
+		width: 55%
+
+@media screen and (min-width: 3400px)
+	.landing-contact-container
+		padding-top: 260px
+		padding-bottom: 200px
+
+	.landing-contact-header
+		h2
+			font-size: 52px
+
+	.contact-form
+		width: 45%

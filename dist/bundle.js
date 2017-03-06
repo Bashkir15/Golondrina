@@ -56,9 +56,9 @@
 
 	var _landing = __webpack_require__(3);
 
-	var _gallery = __webpack_require__(32);
+	var _gallery = __webpack_require__(33);
 
-	var _contact = __webpack_require__(38);
+	var _contact = __webpack_require__(39);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -372,7 +372,7 @@
 	});
 	exports.landing = landing;
 
-	var _contact = __webpack_require__(41);
+	var _contact = __webpack_require__(4);
 
 	function landing() {
 		var carouselElement = document.querySelector('.landing-carousel');
@@ -390,169 +390,120 @@
 
 /***/ },
 /* 4 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.contact = contact;
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	var _axios = __webpack_require__(5);
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _axios2 = _interopRequireDefault(_axios);
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var _notifications = __webpack_require__(31);
 
-	var notifications = function () {
-		function notifications(options) {
-			_classCallCheck(this, notifications);
+	var _notifications2 = _interopRequireDefault(_notifications);
 
-			this.container = null;
-			this.count = 0;
+	var _validator = __webpack_require__(32);
 
-			this.defaults = {
-				notification: null,
-				timeout: 0,
-				type: 'alert',
-				content: "",
-				posX: 'right',
-				posY: 'bottom'
-			};
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-			this.open = this._open.bind(this);
-			this.close = this._close.bind(this);
-			this._applySettings(options);
+	function contact() {
+		var formWrapper = document.querySelectorAll('.form-wrapper');
+		var formInputs = document.querySelectorAll('.form-input');
+		var submitButton = document.querySelector('.form-send');
+		var name = document.getElementById('contact-name');
+		var email = document.getElementById('contact-email');
+		var phone = document.getElementById('contact-phone');
+		var message = document.getElementById('contact-message');
+
+		var successContent = document.getElementById('contact-success');
+		var failureContent = document.getElementById('contact-failure');
+		var errorContent = document.getElementById('contact-error');
+
+		var successNotify = new _notifications2.default({
+			content: successContent,
+			type: 'success',
+			timeout: 2500
+		});
+
+		var failureNotify = new _notifications2.default({
+			content: failureContent,
+			type: 'danger',
+			timeout: 2500
+		});
+
+		var errorNotify = new _notifications2.default({
+			content: errorContent,
+			tyoe: 'warning',
+			timeout: 2500
+		});
+
+		(0, _validator.onBlur)(formInputs);
+
+		function submit() {
+			if (submitButton.classList.contains('form-valid')) {
+				submitButton.classList.add('form-loading');
+
+				_axios2.default.post('/contact', {
+					name: name.value,
+					email: email.value,
+					phone: phone.value,
+					message: message.value,
+
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function (response) {
+					if (response.data.success) {
+						resetForm();
+
+						submitButton.classList.remove('form-loading');
+						submitButton.classList.add('form-success');
+
+						var success = new Event('message-delivered');
+						window.dispatchEvent(success);
+					} else {
+						submitButton.classList.remove('form-loading');
+						submitButton.classList.add('form-failure');
+
+						var failure = new Event('message-failed');
+						window.dispatchEvent(failure);
+					}
+				});
+			} else {
+				var error = new Event('message-error');
+				window.dispatchEvent(error);
+			}
 		}
 
-		_createClass(notifications, [{
-			key: '_applySettings',
-			value: function _applySettings(options) {
-				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-					for (var i in options) {
-						if (options.hasOwnProperty(i)) {
-							this.defaults[i] = options[i];
-						}
-					}
+		function resetForm() {
+			var i = void 0;
+			var len = formInputs.length;
+
+			for (i = 0; i < len; i++) {
+				var input = formInputs[i];
+
+				input.value = "";
+
+				if (input.parentNode.classList.contains('valid')) {
+					input.parentNode.classList.remove('valid');
+				}
+
+				if (input.parentNode.classList.contains('email-valid')) {
+					input.parentNode.classList.remove('email-valid');
 				}
 			}
-		}, {
-			key: '_open',
-			value: function _open() {
-				var _this = this;
+		}
 
-				var notifyId = "notification-" + this.count;
-
-				this._buildOut.call(this);
-
-				setTimeout(function () {
-					_this.container.classList.add('shown');
-					_this.container.setAttribute('id', notifyId);
-				}, 100);
-
-				if (this.defaults.timeout > 0) {
-					setTimeout(function () {
-						_this.close(notifyId);
-					}, this.defaults.timeout);
-				}
-
-				this.count += 1;
-
-				return notifyId;
-			}
-		}, {
-			key: '_close',
-			value: function _close(notificationId) {
-				var notification = document.getElementById(notificationId);
-
-				if (notification) {
-					notification.classList.remove('shown');
-
-					setTimeout(function () {
-						notification.parentNode.removeChild(notification);
-					}, 600);
-
-					return true;
-				} else {
-					return false;
-				}
-			}
-		}, {
-			key: '_buildOut',
-			value: function _buildOut() {
-				var _container = document.createElement('div');
-				var _contentHolder = document.createElement('div');
-				var _content;
-
-				_container.className = 'notification-container';
-				_contentHolder.className = 'notification';
-
-				this.container = _container;
-				this.container.style.position = "fixed";
-
-				if (this.defaults.content === 'string') {
-					_content = this.defaults.content;
-				} else {
-					_content = this.defaults.content.innerHTML;
-				}
-
-				this._checkType(_contentHolder);
-				this._checkPosition();
-
-				_contentHolder.innerHTML = _content;
-				this.container.appendChild(_contentHolder);
-				document.body.appendChild(this.container);
-			}
-		}, {
-			key: '_checkType',
-			value: function _checkType(item) {
-				switch (this.defaults.type) {
-					case "success":
-						item.classList.add('success');
-						break;
-					case "danger":
-						item.classList.add('danger');
-						break;
-					case "warning":
-						item.classList.add('warning');
-						break;
-					case "alert":
-						item.classList.add('alert');
-					default:
-						item.classList.add('alert');
-				}
-			}
-		}, {
-			key: '_checkPosition',
-			value: function _checkPosition() {
-				switch (this.defaults.posX) {
-					case "right":
-						this.container.style.right = 20 + "px";
-						break;
-					case "left":
-						this.container.style.left = 20 + "px";
-						break;
-					default:
-						this.container.style.right = 20 + "px";
-				}
-
-				switch (this.defaults.posY) {
-					case "top":
-						this.container.style.top = 20 + "px";
-						break;
-					case "bottom":
-						this.container.style.bottom = 20 + "px";
-						break;
-					default:
-						this.container.style.bottom = 20 + "px";
-				}
-			}
-		}]);
-
-		return notifications;
-	}();
-
-	exports.default = notifications;
+		submitButton.addEventListener('click', submit);
+		window.addEventListener('message-delivered', successNotify.open);
+		window.addEventListener('message-failed', failureNotify.open);
+		window.addEventListener('message-error', errorNotify.open);
+	}
 
 /***/ },
 /* 5 */
@@ -2238,6 +2189,172 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var notifications = function () {
+		function notifications(options) {
+			_classCallCheck(this, notifications);
+
+			this.container = null;
+			this.count = 0;
+
+			this.defaults = {
+				notification: null,
+				timeout: 0,
+				type: 'alert',
+				content: "",
+				posX: 'right',
+				posY: 'bottom'
+			};
+
+			this.open = this._open.bind(this);
+			this.close = this._close.bind(this);
+			this._applySettings(options);
+		}
+
+		_createClass(notifications, [{
+			key: '_applySettings',
+			value: function _applySettings(options) {
+				if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+					for (var i in options) {
+						if (options.hasOwnProperty(i)) {
+							this.defaults[i] = options[i];
+						}
+					}
+				}
+			}
+		}, {
+			key: '_open',
+			value: function _open() {
+				var _this = this;
+
+				var notifyId = "notification-" + this.count;
+
+				this._buildOut.call(this);
+
+				setTimeout(function () {
+					_this.container.classList.add('shown');
+					_this.container.setAttribute('id', notifyId);
+				}, 100);
+
+				if (this.defaults.timeout > 0) {
+					setTimeout(function () {
+						_this.close(notifyId);
+					}, this.defaults.timeout);
+				}
+
+				this.count += 1;
+
+				return notifyId;
+			}
+		}, {
+			key: '_close',
+			value: function _close(notificationId) {
+				var notification = document.getElementById(notificationId);
+
+				if (notification) {
+					notification.classList.remove('shown');
+
+					setTimeout(function () {
+						notification.parentNode.removeChild(notification);
+					}, 600);
+
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}, {
+			key: '_buildOut',
+			value: function _buildOut() {
+				var _container = document.createElement('div');
+				var _contentHolder = document.createElement('div');
+				var _content;
+
+				_container.className = 'notification-container';
+				_contentHolder.className = 'notification';
+
+				this.container = _container;
+				this.container.style.position = "fixed";
+
+				if (this.defaults.content === 'string') {
+					_content = this.defaults.content;
+				} else {
+					_content = this.defaults.content.innerHTML;
+				}
+
+				this._checkType(_contentHolder);
+				this._checkPosition();
+
+				_contentHolder.innerHTML = _content;
+				this.container.appendChild(_contentHolder);
+				document.body.appendChild(this.container);
+			}
+		}, {
+			key: '_checkType',
+			value: function _checkType(item) {
+				switch (this.defaults.type) {
+					case "success":
+						item.classList.add('success');
+						break;
+					case "danger":
+						item.classList.add('danger');
+						break;
+					case "warning":
+						item.classList.add('warning');
+						break;
+					case "alert":
+						item.classList.add('alert');
+					default:
+						item.classList.add('alert');
+				}
+			}
+		}, {
+			key: '_checkPosition',
+			value: function _checkPosition() {
+				switch (this.defaults.posX) {
+					case "right":
+						this.container.style.right = 20 + "px";
+						break;
+					case "left":
+						this.container.style.left = 20 + "px";
+						break;
+					default:
+						this.container.style.right = 20 + "px";
+				}
+
+				switch (this.defaults.posY) {
+					case "top":
+						this.container.style.top = 20 + "px";
+						break;
+					case "bottom":
+						this.container.style.bottom = 20 + "px";
+						break;
+					default:
+						this.container.style.bottom = 20 + "px";
+				}
+			}
+		}]);
+
+		return notifications;
+	}();
+
+	exports.default = notifications;
+
+/***/ },
+/* 32 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	exports.onBlur = onBlur;
 	exports.removeBlur = removeBlur;
 
@@ -2317,7 +2434,7 @@
 	}
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2327,19 +2444,19 @@
 	});
 	exports.gallery = gallery;
 
-	var _tabs = __webpack_require__(33);
+	var _tabs = __webpack_require__(34);
 
-	var _images = __webpack_require__(34);
+	var _images = __webpack_require__(35);
 
-	var _windows = __webpack_require__(35);
+	var _windows = __webpack_require__(36);
 
 	var _windows2 = _interopRequireDefault(_windows);
 
-	var _residential = __webpack_require__(36);
+	var _residential = __webpack_require__(37);
 
 	var _residential2 = _interopRequireDefault(_residential);
 
-	var _canvas = __webpack_require__(37);
+	var _canvas = __webpack_require__(38);
 
 	var _canvas2 = _interopRequireDefault(_canvas);
 
@@ -2441,7 +2558,7 @@
 	}
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2591,7 +2708,7 @@
 	}
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2689,7 +2806,7 @@
 	exports.restartGallery = restartGallery;
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -3056,7 +3173,7 @@
 	];
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -3127,7 +3244,7 @@
 	];
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -3162,7 +3279,7 @@
 	];
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3176,11 +3293,11 @@
 
 	var _axios2 = _interopRequireDefault(_axios);
 
-	var _notifications = __webpack_require__(4);
+	var _notifications = __webpack_require__(31);
 
 	var _notifications2 = _interopRequireDefault(_notifications);
 
-	var _validator = __webpack_require__(31);
+	var _validator = __webpack_require__(32);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3277,125 +3394,6 @@
 		});
 
 		(0, _validator.onBlur)(formInputs);
-
-		submitButton.addEventListener('click', submit);
-		window.addEventListener('message-delivered', successNotify.open);
-		window.addEventListener('message-failed', failureNotify.open);
-		window.addEventListener('message-error', errorNotify.open);
-	}
-
-/***/ },
-/* 39 */,
-/* 40 */,
-/* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.contact = contact;
-
-	var _axios = __webpack_require__(5);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	var _notifications = __webpack_require__(4);
-
-	var _notifications2 = _interopRequireDefault(_notifications);
-
-	var _validator = __webpack_require__(31);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function contact() {
-		var formWrapper = document.querySelectorAll('.form-wrapper');
-		var formInputs = document.querySelectorAll('.form-input');
-		var submitButton = document.querySelector('.form-send');
-		var name = document.getElementById('contact-name');
-		var email = document.getElementById('contact-email');
-		var phone = document.getElementById('contact-phone');
-		var message = document.getElementById('contact-message');
-
-		var successContent = document.getElementById('contact-success');
-		var failureContent = document.getElementById('contact-failure');
-		var errorContent = document.getElementById('contact-error');
-
-		var successNotify = new _notifications2.default({
-			content: successContent,
-			type: 'success',
-			timeout: 2500
-		});
-
-		var failureNotify = new _notifications2.default({
-			content: failureContent,
-			type: 'danger',
-			timeout: 2500
-		});
-
-		var errorNotify = new _notifications2.default({
-			content: errorContent,
-			tyoe: 'warning',
-			timeout: 2500
-		});
-
-		(0, _validator.onBlur)(formInputs);
-
-		function submit() {
-			if (submitButton.classList.contains('form-valid')) {
-				submitButton.classList.add('form-loading');
-
-				_axios2.default.post('/contact', {
-					name: name.value,
-					email: email.value,
-					phone: phone.value,
-					message: message.value,
-
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				}).then(function (response) {
-					if (response.data.success) {
-						resetForm();
-
-						submitButton.classList.remove('form-loading');
-						submitButton.classList.add('form-success');
-
-						var success = new Event('message-delivered');
-						window.dispatchEvent(success);
-					} else {
-						submitButton.classList.remove('form-loading');
-						submitButton.classList.add('form-failure');
-
-						var failure = new Event('message-failed');
-						window.dispatchEvent(failure);
-					}
-				});
-			} else {
-				var error = new Event('message-error');
-				window.dispatchEvent(error);
-			}
-		}
-
-		function resetForm() {
-			var i = void 0;
-			var len = formInputs.length;
-
-			for (i = 0; i < len; i++) {
-				var input = formInputs[i];
-
-				input.value = "";
-
-				if (input.parentNode.classList.contains('valid')) {
-					input.parentNode.classList.remove('valid');
-				}
-
-				if (input.parentNode.classList.contains('email-valid')) {
-					input.parentNode.classList.remove('email-valid');
-				}
-			}
-		}
 
 		submitButton.addEventListener('click', submit);
 		window.addEventListener('message-delivered', successNotify.open);

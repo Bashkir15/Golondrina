@@ -1,3 +1,21 @@
+@keyframes moveUp 
+	0% 
+		transform: translateY(130%)
+		opacity: 0
+	
+
+	100% 
+		opacity: 1
+		transform: translateY(0)
+
+@keyframes spin
+	0%
+		transform: rotate(0deg)
+
+	100%
+		transform: rotate(360deg)
+	
+
 .form-wrapper
 	position: relative
 	width: 100%
@@ -231,22 +249,46 @@
 	display: none
 
 
+@media screen and (min-width: 800px)
+	.contact-submit
+		button
+			height: 55px
+			width: 180px
+
+			span
+				font-size: 20px
+				letter-spacing: 3px
+
+@media screen and (min-width: 1600px)
+	.form-wrapper
+		margin-bottom: 80px
+
+		input
+			height: 50px
+			font-size: 18px
+
+		textarea
+			font-size: 18px
+
+		label
+			font-size: 18px
+			top: 18px
+
+	.contact-submit
+		button
+			height: 60px
+			width: 230px
+
+@media screen and (min-width: 2560px)
+	.contact-submit
+		button
+			height: 65px
+			width: 265px
+
+			span
+				font-size: 23px
+				letter-spacing: 5px
 
 
-@keyframes moveUp 
-	0% 
-		transform: translateY(130%)
-		opacity: 0
-	
 
-	100% 
-		opacity: 1
-		transform: translateY(0)
 
-@keyframes spin
-	0%
-		transform: rotate(0deg)
-
-	100%
-		transform: rotate(360deg)
-	
