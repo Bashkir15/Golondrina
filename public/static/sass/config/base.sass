@@ -5,11 +5,15 @@ html
 body
 	margin: 0
 	overflow-x: hidden
+	overflow-y: hidden
 	-moz-osx-font-smoothing: grayscale
 	-webkit-font-smoothing: antialiased
 	width: 100%
 	transition: all .6s ease
 
+	&.loaded
+		overflow-y: auto
+		
 	&.dialog-open
 		height: 100%
 		overflow-y: hidden

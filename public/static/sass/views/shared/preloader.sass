@@ -81,3 +81,22 @@
 			transform: rotateZ(60 * $i + deg) rotateY(90deg) rotateX(0)
 			animation: 2s preload-cycle-#{$i} linear infinite both
 
+@media screen and (min-width: 850px)
+	.preloader
+		width: 7.5em
+		height: 8.5em
+		font-size: 28px
+		margin-left: calc(-1.875em * 2)
+		margin-top: calc(-2.125em * 2)
+
+		.slice
+			border-top: calc(1.125em * 2) solid transparent
+			border-bottom: 2em solid transparent
+			border-left: calc(1.875em * 2) solid #f7484e
+			border-radius: 6px 6px 0 0
+
+		@for $i from 1 through 6
+			.slice:nth-child(#{$i})
+				transform: rotateZ(60 * $i + deg) rotateY(90deg) rotateX(0)
+				animation: 2s preload-cycle-#{$i} linear infinite both
+
