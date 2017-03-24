@@ -1,11 +1,9 @@
 import nodemailer from 'nodemailer'
-import mongoose from 'mongoose'
 import fs from 'fs'
 import path from 'path'
 import json from '../helpers/json'
 import ejs from 'ejs'
 
-var Email = mongoose.model('Email')
 
 module.exports = () => {
 	let obj = {};
